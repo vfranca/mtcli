@@ -1,7 +1,7 @@
-import unittest
-from trade.candle import Candle
+from unittest import TestCase
+from trade import Candle
 
-class CandleTestCase(unittest.TestCase):
+class CandleTestCase(TestCase):
 
     def setUp(self):
         self.candle = Candle("Abr72400.00Max72500.00Min72265.00Fch72320.00")
