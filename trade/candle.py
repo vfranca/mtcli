@@ -1,54 +1,75 @@
 class Candle(object):
 
-    __ohlc = []
     open = 0
+    high = 0
+    low = 0
     close = 0
-    max = 0
-    min = 0
     upper_shadow = 0
     lower_shadow = 0
     real_body = 0
     size = 0
     
     def __init__(self, ohlc):
-        self.__set_ohlc(ohlc)
-        self.open = self.__get_open()
-        self.close = self.__get_close()
-        self.max = self.__get_max()
-        self.min = self.__get_min()
+        self.time = ohlc[0]
+        self.open = float(ohlc[1])
+        self.high = float(ohlc[2])
+        self.low = float(ohlc[3])
+        self.close = float(ohlc[4])
+        self.size = self.__get_size()
+        self.real_body = self.__get_real_body()
         self.upper_shadow = self.__get_upper_shadow()
         self.lower_shadow = self.__get_lower_shadow()
+        self.trend = self.__get_trend()
     
-    def __set_ohlc(self, ohlc):
-        for part in ["Abr", "Max", "Min", "Fch"]:
-            ohlc = ohlc.replace(part, "")
-        ohlc = ohlc.replace(".00", ".00 ")
-        ohlc = ohlc.strip()
-        self.__ohlc = ohlc.split()
+    def __get_size(self):
+        h = self.high
+        l = self.low
+        return h - l
     
-    def __get_open(self):
-        return float(self.__ohlc[0])
-    
-    def __get_close(self):
-        return float(self.__ohlc[3])
-    
-    def __get_max(self):
-        return float(self.__ohlc[1])
-    
-    def __get_min(self):
-        return float(self.__ohlc[2])
+    def __get_real_body(self):
+        o = self.open
+        c = self.close
+        return c - o
     
     def __get_upper_shadow(self):
-        """ Se o corpo real for negativo a sombra superior é a diferença do preço máximo e a abertura """
-        if self.open > self.close:
-            upper_shadow = self.max - self.open
-        upper_shadow = self.max - self.close
-        return int(upper_shadow)
+        h = self.high
+        o =self.open
+        c = self.close
+        
+        if c >= o:
+            upper_shadow = h -c
+        else:
+            upper_shadow = h - o
+        
+        return upper_shadow
     
     def __get_lower_shadow(self):
-        """ Se o corpo real for negativo a sombra inferior será a diferença do preço mínimo e o fechamento """
-        if self.open > self.close:
-            lower_shadow = self.min - self.close
-        lower_shadow = self.open - self.min
-        return int(lower_shadow)
-
+        l = self.low
+        o =self.open
+        c = self.close
+        
+        if c >= o:
+            lower_shadow = o - l
+        else:
+            lower_shadow = c - l
+        
+        return lower_shadow
+    
+    def __get_trend(self):
+        rb =self.real_body
+        
+        if rb > 0:
+            trend = "alta"
+        elif rb < 0:
+            trend = "baixa"
+        else:
+            trend = "lateral"
+        
+        return trend
+    
+    def high_trend_low(self):
+        h = str(self.high)
+        l = str(self.low)
+        t = self.trend
+        return t + " " + h + " " + l
+    
