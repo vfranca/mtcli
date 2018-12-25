@@ -1,8 +1,9 @@
-from trade import chart_reader, Candle
+from trade import chart_reader, Bar
 import sys
 
 filename = "var/" + sys.argv[1]
-candles = chart_reader(filename)
-for row in candles:
-    c = Candle(row)
-    print(c.high_trend_low())
+rows = chart_reader(filename)
+c = 0
+for row in rows:
+    bar = Bar(row)
+    print(bar.high_trend_low())

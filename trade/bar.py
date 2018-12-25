@@ -26,6 +26,9 @@ class Bar(Ohlc):
         o = self.open
         c = self.close
         s = self.size
+        if s == 0:
+            return 0
+        
         return round((c - o) / s, 2)
     
     def __get_upper_shadow(self):
@@ -40,6 +43,9 @@ class Bar(Ohlc):
         else:
             upper_shadow = h - o
         
+        if s == 0:
+            return 0
+        
         return round(upper_shadow / s, 2)
     
     def __get_lower_shadow(self):
@@ -53,6 +59,9 @@ class Bar(Ohlc):
             lower_shadow = o - l
         else:
             lower_shadow = c - l
+        
+        if s == 0:
+            return 0
         
         return round(lower_shadow / s, 2)
     
