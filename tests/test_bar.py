@@ -22,7 +22,7 @@ class BarTestCase(TestCase):
         self.assertEqual(self.obj.trend, "alta", "Tendência")
     
     def test_str(self):
-        self.assertEqual(self.obj.__str__(), "alta 56965 51187", "Saída no formato mácima tendência mínima")
+        self.assertEqual(self.obj.__str__(), "alta 56965 51187 56229", "Saída no formato mácima tendência mínima")
 
 if __name__ == '__main__':
     unittest.main()

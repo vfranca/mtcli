@@ -80,6 +80,7 @@ class Bar(Ohlc):
     def __str__(self):
         h = str(round(self.high))
         l = str(round(self.low))
+        c = str(round(self.close))
         t = self.trend
-        return t + " " + h + " " + l
+        return t + " " + h + " " + l + " " + c
     
