@@ -82,5 +82,6 @@ class Bar(Ohlc):
         l = str(round(self.low))
         c = str(round(self.close))
         t = self.trend
-        return t + " " + h + " " + l + " " + c
+        b = str(int(self.body * 100))
+        return b + " " + h + " " + l + " " + c
     
