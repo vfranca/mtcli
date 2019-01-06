@@ -1,5 +1,5 @@
 from unittest import TestCase
-from trade import Bar
+from trade.src.bar import Bar
 
 class BarTestCase(TestCase):
 
@@ -12,11 +12,11 @@ class BarTestCase(TestCase):
     def test_body(self):
         self.assertEqual(self.obj.body, 0.87, "Corpo da barra")
     
-    def test_upper_shadow(self):
-        self.assertEqual(self.obj.upper_shadow, 0.13, "Sombra superior da barra")
+    def test_top_tail(self):
+        self.assertEqual(self.obj.top_tail, 0.13, "Sombra superior da barra")
     
-    def test_lower_shadow(self):
-        self.assertEqual(self.obj.lower_shadow, 0.0, "Sombra inferior da barra")
+    def test_bottom_tail(self):
+        self.assertEqual(self.obj.bottom_tail, 0.0, "Sombra inferior da barra")
     
     def test_trend(self):
         self.assertEqual(self.obj.trend, "alta", "Tendência")

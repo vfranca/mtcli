@@ -2,27 +2,22 @@ from .ohlc import Ohlc
 
 class Bar(Ohlc):
 
-    upper_shadow = 0
-    lower_shadow = 0
-    body = 0
-    size = 0
-    
     def __init__(self, ohlc):
         super().__init__(ohlc)
         self.size = self.__get_size()
         self.body = self.__get_body()
-        self.upper_shadow = self.__get_upper_shadow()
-        self.lower_shadow = self.__get_lower_shadow()
+        self.top_tail = self.__get_top_tail()
+        self.bottom_tail = self.__get_bottom_tail()
         self.trend = self.__get_trend()
     
     def __get_size(self):
-        """ Retorna o tamanho do candle em ticks."""
+        """ Retorna o tamanho da barra."""
         h = self.high
         l = self.low
         return h - l
     
     def __get_body(self):
-        """ Retorna o tamanho  do corpo real proporcionalmente."""
+        """ Retorna o tamanho  proporcional do corpo."""
         o = self.open
         c = self.close
         s = self.size
@@ -31,39 +26,39 @@ class Bar(Ohlc):
         
         return round((c - o) / s, 2)
     
-    def __get_upper_shadow(self):
-        """ Retorna a sombra superior proporcionalmente ao tamanho do candle."""
+    def __get_top_tail(self):
+        """ Retorna a calda superior proporcional ao tamanho da barra."""
         h = self.high
         o =self.open
         c = self.close
         s = self.size
         
         if c >= o:
-            upper_shadow = h -c
+            top_tail = h -c
         else:
-            upper_shadow = h - o
+            top_tail = h - o
         
         if s == 0:
             return 0
         
-        return round(upper_shadow / s, 2)
+        return round(top_tail / s, 2)
     
-    def __get_lower_shadow(self):
-        """ Retorna a sombra inferior proporcionalmente ao tamanho do candle."""
+    def __get_bottom_tail(self):
+        """ Retorna a calda inferior proporcional ao tamanho da barra."""
         l = self.low
         o =self.open
         c = self.close
         s = self.size
         
         if c >= o:
-            lower_shadow = o - l
+            bottom_tail = o - l
         else:
-            lower_shadow = c - l
+            bottom_tail = c - l
         
         if s == 0:
             return 0
         
-        return round(lower_shadow / s, 2)
+        return round(bottom_tail / s, 2)
     
     def __get_trend(self):
         b =self.body

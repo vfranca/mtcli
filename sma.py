@@ -1,4 +1,4 @@
-from trade import chart_reader, Bar, ma
+from trade.sma import ma
 import sys
 
 times = int(sys.argv[1])

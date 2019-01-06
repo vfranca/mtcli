@@ -1,5 +1,5 @@
 from unittest import TestCase
-from trade import Candle
+from trade.src.candle import Candle
 
 class CandleTestCase(TestCase):
 

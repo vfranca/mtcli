@@ -1,5 +1,5 @@
 from unittest import TestCase
-from trade import Ohlc
+from trade.src.ohlc import Ohlc
 
 class OhlcTestCase(TestCase):
 
