@@ -1,5 +1,5 @@
 from unittest import TestCase
-from trade.fibo import Fibo
+from trade.src.fibo import Fibo
 
 class FiboTestCase(TestCase):
 

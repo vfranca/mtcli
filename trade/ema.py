@@ -1,19 +1,31 @@
-from .chart import chart_reader
-from .bar import Bar
+from .src.chart import chart_reader
+from .src.bar import Bar
 
 def get_k(times):
     """ Calcula o coeficiente multiplicador."""
     return round(2 / (times + 1), 3)
 
-def get_close(filename):
+def get_price_close(filename):
     """ Obtem o preço de fechamento atual."""
-    pass
+    rows = chart_reader(filename)
+    for row in rows:
+        bar = Bar(row)
+        price_close = bar.close
+    return price_close
 
 def get_last_ema(times, filename):
     """ Obtem a última EMA. """
-    pass
+    rows = chart_reader(filename)
+    prices = []
+    for row in rows:
+        bar = Bar(row)
+        prices.append(bar.close)
+        if len(prices) > (times + 1):
+            prices.pop(0)
+    prices.pop(len(prices) - 1)
+    return round(sum(prices) / times)
 
-def get_ema(k, last_ema, close):
+def get_ema(times, filename):
     """ Calcula a média móvel exponencial dos preços de fechamento.
     
     Extrai os preços de fechamento de um arquivo CSV exportado do MetaTrater 5
@@ -23,4 +35,7 @@ def get_ema(k, last_ema, close):
     last_ema: última EMA
     close: preço de fechamento.
     """
-    return close * k + last_ema * (1 - k)
+    k = get_k(times)
+    close = get_price_close(filename)
+    last_ema = get_last_ema(times, filename)
+    return round(close * k + last_ema * (1 - k))

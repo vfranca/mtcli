@@ -1,3 +1,5 @@
 @echo off
-py sma.py 8 wing19m2.csv
-py sma.py 17 wing19m2.csv
+set f="wing19m2.csv"
+set mm="ema"
+py %mm%.py 8 %f%
+py %mm%.py 17 %f%
