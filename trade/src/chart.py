@@ -9,5 +9,9 @@ def chart_reader(filename):
     filename: arquivo CSV MT5.
     """
     f = open(filename, encoding = "utf-16", newline = "")
-    r = csv.reader(f, delimiter = ',', quotechar = '\'')
+    lines = csv.reader(f, delimiter = ',', quotechar = '\'')
+    r = []
+    for line in lines:
+        r.append(line)
+    f.close()
     return r
