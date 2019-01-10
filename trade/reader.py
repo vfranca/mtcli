@@ -1,5 +1,6 @@
 from .src.chart import chart_reader
 from .src.bar import Bar
+from .src.fib import Fib
 
 def reader(filename, times):
     """Retorna uma lista de barras.
@@ -14,7 +15,14 @@ def reader(filename, times):
     bars = []
     for row in rows:
         bar = Bar(row)
-        bars.append(bar)
+        if bar.trend == "alta":
+            trend = "h"
+        elif bar.trend == "baixa":
+            trend = "l"
+        else:
+            trend = "h"
+        fib = Fib(bar.high, bar.low, trend)
+        bars.append(str(bar) + " fibo " + str(fib))
         if len(bars) > times:
             bars.pop(0)
     return bars
