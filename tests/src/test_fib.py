@@ -44,5 +44,5 @@ class FibTestCase(TestCase):
         self.assertEqual(self.obj2.e, 86350, "Extensão de 0.50")
     
     def test_saida_texto(self):
-        self.assertEqual(self.obj.__str__(), "88050.0 > 89750.0", "Saída texto do objeto com tendência de alta")
-        self.assertEqual(self.obj2.__str__(), "88050.0 > 86350.0", "Saída texto do objeto com tendência de baixa")
+        self.assertEqual(self.obj.__str__(), '87849.4 88050.0 88250.6 > 89549.4 89750.0 89950.6')
+        self.assertEqual(self.obj2.__str__(), '88250.6 88050.0 87849.4 > 86550.6 86350.0 86149.4')

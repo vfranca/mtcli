@@ -1,7 +1,7 @@
 @echo off
-set f="wing19m5.csv"
-set mm="ema"
-py %mm%.py 8 %f%
+set f="wing19m15.csv"
+set mm="sma"
+rem py %mm%.py 8 %f%
 py %mm%.py 17 %f%
 py %mm%.py 34 %f%
 py %mm%.py 72 %f%

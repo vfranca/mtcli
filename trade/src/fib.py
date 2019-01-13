@@ -27,8 +27,4 @@ class Fib(object):
             return self.l - self.range * ext
 
     def __str__(self):
-        return "%.1f > %.1f" % (self.r, self.e)
-
-
-
-
+        return "%.1f %.1f %.1f > %.1f %.1f %.1f" % (self.r61, self.r, self.r38, self.e38, self.e, self.e61)
