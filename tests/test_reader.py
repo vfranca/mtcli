@@ -36,10 +36,10 @@ class ReaderTestCase(TestCase):
         self.assertEqual(get_pattern(0, 100, 0), "doji lápide")
     
     def test_spinning_top(self):
-        self.assertEqual(get_pattern(40, 30, 30), "peão")
-        self.assertEqual(get_pattern(-40, 30, 30), "peão")
-        self.assertEqual(get_pattern(4, 66, 30), "peão")
-        self.assertEqual(get_pattern(4, 30, 66), "peão")
+        self.assertEqual(get_pattern(20, 40, 40), "peão")
+        self.assertEqual(get_pattern(-20, 40, 40), "peão")
+        self.assertEqual(get_pattern(4, 66, 40), "peão")
+        self.assertEqual(get_pattern(4, 40, 66), "peão")
 
     def test_hammer(self):
         self.assertEqual(get_pattern(10, 15, 75), "martelo")

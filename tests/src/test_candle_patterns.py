@@ -27,7 +27,8 @@ class CandlePatternsTestCase(TestCase):
         self.assertTrue(is_gravestone_doji(3, 97, 0))
     
     def test_is_spinning_top(self):
-        self.assertTrue(is_spinning_top(30,40,30))
+        self.assertTrue(is_spinning_top(20, 40, 40))
+        self.assertTrue(is_spinning_top(-20, 40, 40))
     
     def test_is_hammer(self):
         self.assertTrue(is_hammer(4, 21, 75))

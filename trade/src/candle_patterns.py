@@ -2,6 +2,7 @@
 
 doji_body_max = 3
 doji_shadow_min = 30
+spinning_top_shadow_min = 40
 umbrella_body_max = 25
 
 def is_doji(body, top, bottom):
@@ -68,11 +69,11 @@ def is_spinning_top(body, top, bottom):
     # Se o corpo é de doji retorna False
     if abs(body) <= doji_body_max:
         return False
-    # Se a sombra superior não é de doji retorna False
-    if top < doji_shadow_min:
+    # Se a sombra superior não é de spinning top retorna False
+    if top < spinning_top_shadow_min:
         return False
-    # Se a sombra inferior não é de doji retorna False
-    if bottom < doji_shadow_min:
+    # Se a sombra inferior não é de spinning top retorna False
+    if bottom < spinning_top_shadow_min:
         return False
     return True
 
