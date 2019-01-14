@@ -4,19 +4,6 @@ doji_body_max = 3
 doji_shadow_min = 30
 umbrella_body_max = 25
 
-def is_hammer(body, top, bottom):
-    """ Retorna True se o padrao for martelo."""
-    # Se o corpo é de um doji retorna False
-    if abs(body) <= doji_body_max:
-        return False
-        # Se a sombra superior não for de um guarda-chuva retorna False
-    if top > (umbrella_body_max - doji_body_max):
-        return False
-    # Se o corpo não for de guarda-chuva retorna False
-    if abs(body) > umbrella_body_max:
-        return False
-    return True
-
 def is_doji(body, top, bottom):
     """ Se existe o doji retorna True."""
     # Se o corpo não é de doji retorna False
@@ -38,6 +25,19 @@ def is_bullish_doji(body, top, bottom):
     # Se a sombra superior não for de um doji retorna False
     if top > doji_shadow_min:
         return False
+    # Se a sombra superior for nula retorna False
+    if top == 0:
+        return False
+    return True
+
+def is_dragon_fly_doji(body, top, bottom):
+    """ Se existir doji dragão voador retorna True."""
+    # Se o corpo não for de um doji retorna False
+    if abs(body) > doji_body_max:
+        return False
+    # Se a sombra superior for maior que 0 retorna False
+    if top > 0:
+        return False
     return True
 
 def is_bearish_doji(body, top, bottom):
@@ -47,6 +47,45 @@ def is_bearish_doji(body, top, bottom):
         return False
     # Se a sombra inferior não for de doji retorna False
     if bottom > doji_shadow_min:
+        return False
+    # Se a sombra inferior for de um doji lápide retorna False
+    if bottom == 0:
+        return False
+    return True
+
+def is_gravestone_doji(body, top, bottom):
+    """ Se existir doji lápide retorna True."""
+    # Se o corpo não for de um doji retorna False
+    if abs(body) > doji_body_max:
+        return False
+    # Se a sombra inferior for maior que 0 retorna False
+    if bottom > 0:
+        return False
+    return True
+
+def is_spinning_top(body, top, bottom):
+    """Se existir spinning top retorna True."""
+    # Se o corpo é de doji retorna False
+    if abs(body) <= doji_body_max:
+        return False
+    # Se a sombra superior não é de doji retorna False
+    if top < doji_shadow_min:
+        return False
+    # Se a sombra inferior não é de doji retorna False
+    if bottom < doji_shadow_min:
+        return False
+    return True
+
+def is_hammer(body, top, bottom):
+    """ Retorna True se o padrao for martelo."""
+    # Se o corpo é de um doji retorna False
+    if abs(body) <= doji_body_max:
+        return False
+        # Se a sombra superior não for de um guarda-chuva retorna False
+    if top > (umbrella_body_max - doji_body_max):
+        return False
+    # Se o corpo não for de guarda-chuva retorna False
+    if abs(body) > umbrella_body_max:
         return False
     return True
 

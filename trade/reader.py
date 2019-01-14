@@ -11,10 +11,19 @@ def get_pattern(body, top, bottom):
     # Verifica se é doji de alta
     if is_bullish_doji(body, top, bottom):
         return "doji alta"
+    # Verifica se é doji dragão voador
+    if is_dragon_fly_doji(body, top, bottom):
+        return "doji dragão"
     # Verifica se é doji de baixa
     if is_bearish_doji(body, top, bottom):
         return "doji baixa"
-    # Verifica se é martelo ou enforcado
+    # Verifica se é doji lápide
+    if is_gravestone_doji(body, top, bottom):
+        return "doji lápide"
+    # Verifica se é spinning top
+    if is_spinning_top(body, top, bottom):
+        return "peão"
+    # Verifica se é martelo/enforcado
     if is_hammer(body, top, bottom):
         return "martelo"
     return ""

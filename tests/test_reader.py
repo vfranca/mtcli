@@ -18,12 +18,28 @@ class ReaderTestCase(TestCase):
         self.assertEqual(get_pattern(1, 29, 70), bullish_doji)
         self.assertEqual(get_pattern(-1, 29, 70), bullish_doji)
         self.assertEqual(get_pattern(0, 30, 70), bullish_doji)
+    
+    def test_dragon_fly_doji(self):
+        self.assertEqual(get_pattern(3, 0, 97), "doji dragão")
+        self.assertEqual(get_pattern(-3, 0, 97), "doji dragão")
+        self.assertEqual(get_pattern(0, 0, 100), "doji dragão")
 
     def test_bearish_doji(self):
         bearish_doji = "doji baixa"
         self.assertEqual(get_pattern(1, 70, 29), bearish_doji)
         self.assertEqual(get_pattern(-1, 70, 29), bearish_doji)
         self.assertEqual(get_pattern(0, 70, 30), bearish_doji)
+    
+    def test_is_gravestone_doji(self):
+        self.assertEqual(get_pattern(3, 97, 0), "doji lápide")
+        self.assertEqual(get_pattern(-3, 97, 0), "doji lápide")
+        self.assertEqual(get_pattern(0, 100, 0), "doji lápide")
+    
+    def test_spinning_top(self):
+        self.assertEqual(get_pattern(40, 30, 30), "peão")
+        self.assertEqual(get_pattern(-40, 30, 30), "peão")
+        self.assertEqual(get_pattern(4, 66, 30), "peão")
+        self.assertEqual(get_pattern(4, 30, 66), "peão")
 
     def test_hammer(self):
         self.assertEqual(get_pattern(10, 15, 75), "martelo")
