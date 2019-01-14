@@ -39,6 +39,9 @@ def is_dragon_fly_doji(body, top, bottom):
     # Se a sombra superior for maior que 0 retorna False
     if top > 0:
         return False
+    # Se não existir sombra inferior retorna False
+    if bottom == 0:
+        return False
     return True
 
 def is_bearish_doji(body, top, bottom):
@@ -62,7 +65,30 @@ def is_gravestone_doji(body, top, bottom):
     # Se a sombra inferior for maior que 0 retorna False
     if bottom > 0:
         return False
+    # Se não existir sombra superior retorna False
+    if top == 0:
+        return False
     return True
+
+def is_four_prices_doji(body, top, bottom):
+    """Se existir o doji de quatro preços retorna True."""
+    # Se existir corpo retorna False
+    if abs(body) > 0:
+        return False
+    # Se existir sombra superior retorna zero
+    if top > 0:
+        return False
+    # Se existir sombra inferior retorna False
+    if bottom > 0:
+        return False
+    return True
+
+def is_marubozu(body, top, bottom):
+    """Se existir marubozu retorna True."""
+    # Se o corpo for 100% do candle retorna True
+    if abs(body) == 100:
+        return True
+    return False
 
 def is_spinning_top(body, top, bottom):
     """Se existir spinning top retorna True."""

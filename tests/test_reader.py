@@ -35,7 +35,13 @@ class ReaderTestCase(TestCase):
         self.assertEqual(get_pattern(-3, 97, 0), "doji lápide")
         self.assertEqual(get_pattern(0, 100, 0), "doji lápide")
     
-    def test_spinning_top(self):
+    def test_four_prices_doji(self):
+        self.assertEqual(get_pattern(0, 0, 0), "doji de quatro preços")
+    
+    def test_marubozu(self):
+        self.assertEqual(get_pattern(100, 0, 0), "marubozu")
+    
+    def test_spinning_top(self):    
         self.assertEqual(get_pattern(20, 40, 40), "peão")
         self.assertEqual(get_pattern(-20, 40, 40), "peão")
         self.assertEqual(get_pattern(4, 66, 40), "peão")

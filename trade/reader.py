@@ -20,6 +20,12 @@ def get_pattern(body, top, bottom):
     # Verifica se é doji lápide
     if is_gravestone_doji(body, top, bottom):
         return "doji lápide"
+    # Verifica se é doji de quatro preços
+    if is_four_prices_doji(body, top, bottom):
+        return "doji de quatro preços"
+    # Verifica se é marubozu
+    if is_marubozu(body, top, bottom):
+        return "marubozu"
     # Verifica se é spinning top
     if is_spinning_top(body, top, bottom):
         return "peão"

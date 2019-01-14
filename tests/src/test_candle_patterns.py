@@ -18,6 +18,7 @@ class CandlePatternsTestCase(TestCase):
     
     def test_is_dragon_fly_doji(self):
         self.assertTrue(is_dragon_fly_doji(3, 0, 97))
+        self.assertFalse(is_dragon_fly_doji(0, 0, 0))
     
     def test_is_bearish_doji_test(self):
         self.assertTrue(is_bearish_doji(3, 70, 27))
@@ -25,6 +26,12 @@ class CandlePatternsTestCase(TestCase):
     
     def test_is_gravestone_doji(self):
         self.assertTrue(is_gravestone_doji(3, 97, 0))
+    
+    def test_is_four_prices_doji(self):
+        self.assertTrue(is_four_prices_doji(0, 0, 0))
+    
+    def test_is_marubozu(self):
+        self.assertTrue(is_marubozu(100, 0, 0))
     
     def test_is_spinning_top(self):
         self.assertTrue(is_spinning_top(20, 40, 40))
