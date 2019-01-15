@@ -104,7 +104,7 @@ def is_spinning_top(body, top, bottom):
     return True
 
 def is_hammer(body, top, bottom):
-    """ Retorna True se o padrao for martelo."""
+    """ Se existir martelo retorna True."""
     # Se o corpo é de um doji retorna False
     if abs(body) <= doji_body_max:
         return False
@@ -116,3 +116,15 @@ def is_hammer(body, top, bottom):
         return False
     return True
 
+def is_inverted_hammer(body, top, bottom):
+    """ Se existir martelo invertido retorna True."""
+    # Se o corpo é de um doji retorna False
+    if abs(body) <= doji_body_max:
+        return False
+        # Se a sombra inferior não for de um guarda-chuva retorna False
+    if bottom > (umbrella_body_max - doji_body_max):
+        return False
+    # Se o corpo não for de guarda-chuva retorna False
+    if abs(body) > umbrella_body_max:
+        return False
+    return True

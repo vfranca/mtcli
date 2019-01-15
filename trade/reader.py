@@ -32,6 +32,9 @@ def get_pattern(body, top, bottom):
     # Verifica se é martelo/enforcado
     if is_hammer(body, top, bottom):
         return "martelo"
+    # Verifica se é martelo invertido/estrela cadente
+    if is_inverted_hammer(body, top, bottom):
+        return "martelo invertido"
     return ""
 
 def get_fib(high, low, trend):

@@ -50,4 +50,7 @@ class ReaderTestCase(TestCase):
     def test_hammer(self):
         self.assertEqual(get_pattern(10, 15, 75), "martelo")
 
+    def test_inverted_hammer(self):
+        self.assertEqual(get_pattern(10, 75, 15), "martelo invertido")
+
 

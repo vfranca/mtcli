@@ -41,5 +41,9 @@ class CandlePatternsTestCase(TestCase):
         self.assertTrue(is_hammer(4, 21, 75))
         self.assertTrue(is_hammer(-4, 21, 75))
         self.assertFalse(is_hammer(3, 22, 75))
-    
+
+    def test_is_inverted_hammer(self):
+        self.assertTrue(is_inverted_hammer(4, 75, 21))
+        self.assertTrue(is_inverted_hammer(-4, 75, 21))
+        self.assertFalse(is_inverted_hammer(3, 75, 22))
 
