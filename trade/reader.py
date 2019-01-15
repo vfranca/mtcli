@@ -22,19 +22,19 @@ def get_pattern(body, top, bottom):
         return "doji lápide"
     # Verifica se é doji de quatro preços
     if is_four_prices_doji(body, top, bottom):
-        return "doji de quatro preços"
+        return "doji quat pre"
     # Verifica se é marubozu
     if is_marubozu(body, top, bottom):
         return "marubozu"
     # Verifica se é spinning top
     if is_spinning_top(body, top, bottom):
-        return "peão"
+        return "spin top"
     # Verifica se é martelo/enforcado
     if is_hammer(body, top, bottom):
         return "martelo"
     # Verifica se é martelo invertido/estrela cadente
     if is_inverted_hammer(body, top, bottom):
-        return "martelo invertido"
+        return "martinvert"
     return ""
 
 def get_fib(high, low, trend):

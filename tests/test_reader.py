@@ -20,9 +20,10 @@ class ReaderTestCase(TestCase):
         self.assertEqual(get_pattern(0, 30, 70), bullish_doji)
     
     def test_dragon_fly_doji(self):
-        self.assertEqual(get_pattern(3, 0, 97), "doji dragão")
-        self.assertEqual(get_pattern(-3, 0, 97), "doji dragão")
-        self.assertEqual(get_pattern(0, 0, 100), "doji dragão")
+        dragon_fly_doji = "doji dragão"
+        self.assertEqual(get_pattern(3, 0, 97), dragon_fly_doji)
+        self.assertEqual(get_pattern(-3, 0, 97), dragon_fly_doji)
+        self.assertEqual(get_pattern(0, 0, 100), dragon_fly_doji)
 
     def test_bearish_doji(self):
         bearish_doji = "doji baixa"
@@ -31,26 +32,32 @@ class ReaderTestCase(TestCase):
         self.assertEqual(get_pattern(0, 70, 30), bearish_doji)
     
     def test_is_gravestone_doji(self):
-        self.assertEqual(get_pattern(3, 97, 0), "doji lápide")
-        self.assertEqual(get_pattern(-3, 97, 0), "doji lápide")
-        self.assertEqual(get_pattern(0, 100, 0), "doji lápide")
+        gravestone_doji = "doji lápide"
+        self.assertEqual(get_pattern(3, 97, 0), gravestone_doji)
+        self.assertEqual(get_pattern(-3, 97, 0), gravestone_doji)
+        self.assertEqual(get_pattern(0, 100, 0), gravestone_doji)
     
     def test_four_prices_doji(self):
-        self.assertEqual(get_pattern(0, 0, 0), "doji de quatro preços")
+        self.assertEqual(get_pattern(0, 0, 0), "doji quat pre")
     
     def test_marubozu(self):
         self.assertEqual(get_pattern(100, 0, 0), "marubozu")
     
     def test_spinning_top(self):    
-        self.assertEqual(get_pattern(20, 40, 40), "peão")
-        self.assertEqual(get_pattern(-20, 40, 40), "peão")
-        self.assertEqual(get_pattern(4, 66, 40), "peão")
-        self.assertEqual(get_pattern(4, 40, 66), "peão")
+        spinning_top = "spin top"
+        self.assertEqual(get_pattern(20, 40, 40), spinning_top)
+        self.assertEqual(get_pattern(-20, 40, 40), spinning_top)
+        self.assertEqual(get_pattern(4, 66, 40), spinning_top)
+        self.assertEqual(get_pattern(4, 40, 66), spinning_top)
 
     def test_hammer(self):
-        self.assertEqual(get_pattern(10, 15, 75), "martelo")
+        hammer = "martelo"
+        self.assertEqual(get_pattern(10, 15, 75), hammer)
+        self.assertEqual(get_pattern(-10, 15, 75), hammer)
 
     def test_inverted_hammer(self):
-        self.assertEqual(get_pattern(10, 75, 15), "martelo invertido")
+        inverted_hammer = "martinvert"
+        self.assertEqual(get_pattern(10, 75, 15), inverted_hammer)
+        self.assertEqual(get_pattern(-10, 75, 15), inverted_hammer)
 
 
