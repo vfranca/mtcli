@@ -108,12 +108,15 @@ def is_hammer(body, top, bottom):
     # Se o corpo é de um doji retorna False
     if abs(body) <= doji_body_max:
         return False
+    # Se a sombra inferior for menor que 67% retorna False
+    if bottom < 67:
+        return False
         # Se a sombra superior não for de um guarda-chuva retorna False
-    if top > (umbrella_body_max - doji_body_max):
-        return False
+    # if top > (umbrella_body_max - doji_body_max):
+        #return False
     # Se o corpo não for de guarda-chuva retorna False
-    if abs(body) > umbrella_body_max:
-        return False
+    #if abs(body) > umbrella_body_max:
+        #return False
     return True
 
 def is_inverted_hammer(body, top, bottom):
@@ -121,10 +124,13 @@ def is_inverted_hammer(body, top, bottom):
     # Se o corpo é de um doji retorna False
     if abs(body) <= doji_body_max:
         return False
+    # Se a sombra superior for menor que 67% retorna False
+    if top < 67:
+        return False
         # Se a sombra inferior não for de um guarda-chuva retorna False
-    if bottom > (umbrella_body_max - doji_body_max):
-        return False
+    #if bottom > (umbrella_body_max - doji_body_max):
+        #return False
     # Se o corpo não for de guarda-chuva retorna False
-    if abs(body) > umbrella_body_max:
-        return False
+    #if abs(body) > umbrella_body_max:
+        #return False
     return True

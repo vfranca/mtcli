@@ -38,12 +38,14 @@ class CandlePatternsTestCase(TestCase):
         self.assertTrue(is_spinning_top(-20, 40, 40))
     
     def test_is_hammer(self):
-        self.assertTrue(is_hammer(4, 21, 75))
-        self.assertTrue(is_hammer(-4, 21, 75))
-        self.assertFalse(is_hammer(3, 22, 75))
+        self.assertTrue(is_hammer(4, 29, 67))
+        self.assertTrue(is_hammer(-4, 29, 67))
+        self.assertTrue(is_hammer(-33, 0, 67))
+        self.assertFalse(is_hammer(3, 30, 67))
 
     def test_is_inverted_hammer(self):
-        self.assertTrue(is_inverted_hammer(4, 75, 21))
-        self.assertTrue(is_inverted_hammer(-4, 75, 21))
-        self.assertFalse(is_inverted_hammer(3, 75, 22))
+        self.assertTrue(is_inverted_hammer(4, 67, 29))
+        self.assertTrue(is_inverted_hammer(-4, 67, 29))
+        self.assertTrue(is_inverted_hammer(-33, 67, 0))
+        self.assertFalse(is_inverted_hammer(3, 67, 30))
 
