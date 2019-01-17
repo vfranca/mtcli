@@ -1,7 +1,7 @@
 from unittest import TestCase
-from trade.src.candle_patterns import *
+from trade.src.patterns import *
 
-class CandlePatternsTestCase(TestCase):
+class PatternsTestCase(TestCase):
 
     def test_is_doji(self):
         self.assertTrue(is_doji(3, 31, 66))

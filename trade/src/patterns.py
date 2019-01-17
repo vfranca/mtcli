@@ -1,4 +1,3 @@
-#encoding: utf-8
 
 doji_body_max = 3
 doji_shadow_min = 30

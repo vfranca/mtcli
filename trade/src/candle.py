@@ -1,6 +1,6 @@
 from .ohlc import Ohlc
 
-class Bar(Ohlc):
+class Candle(Ohlc):
 
     def __init__(self, ohlc):
         super().__init__(ohlc)

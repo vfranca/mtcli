@@ -1,7 +1,7 @@
 from .src.chart import chart_reader
-from .src.bar import Bar
+from .src.candle import Candle
 from .src.fib import Fib
-from .src.candle_patterns import *
+from .src.patterns import *
 
 def get_pattern(body, top, bottom):
     """Retorna o padrão existente no candle."""
@@ -60,7 +60,7 @@ def reader(filename, **kwargs):
     rows = chart_reader(filename)
     bars = []
     for row in rows:
-        bar = Bar(row)
+        bar = Candle(row)
         if date and bar.date != date:
             continue
         pattern = get_pattern(bar.body * 100, bar.top_tail * 100, bar.bottom_tail * 100)

@@ -1,5 +1,5 @@
 from .src.chart import chart_reader
-from .src.bar import Bar
+from .src.candle import Candle
 
 def get_k(times):
     """ Calcula o coeficiente multiplicador."""
@@ -9,7 +9,7 @@ def get_price_close(filename):
     """ Obtem o preço de fechamento atual."""
     rows = chart_reader(filename)
     for row in rows:
-        bar = Bar(row)
+        bar = Candle(row)
         price_close = bar.close
     return price_close
 
@@ -18,7 +18,7 @@ def get_last_ema(times, filename):
     rows = chart_reader(filename)
     prices = []
     for row in rows:
-        bar = Bar(row)
+        bar = Candle(row)
         prices.append(bar.close)
         if len(prices) > (times + 1):
             prices.pop(0)

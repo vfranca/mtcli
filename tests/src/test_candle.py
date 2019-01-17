@@ -1,10 +1,10 @@
 from unittest import TestCase
-from trade.src.bar import Bar
+from trade.src.candle import Candle
 
-class BarTestCase(TestCase):
+class CandleTestCase(TestCase):
 
     def setUp(self):
-        self.obj = Bar(['2015.04.01', '51187.00000', '56965.00000', '51187.00000', '56229.00000', '14628859', '8158109400'])
+        self.obj = Candle(['2015.04.01', '51187.00000', '56965.00000', '51187.00000', '56229.00000', '14628859', '8158109400'])
 
     def test_size(self):
         self.assertEqual(self.obj.size, 5778, "Tamanho da barra")
