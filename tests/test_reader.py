@@ -7,8 +7,14 @@ class ReaderTestCase(TestCase):
         self.file = "tests/fixtures/var/wing19m5.csv"
     
     def test_output(self):
-        bars = reader(self.file, 2)
+        bars = reader(self.file, times = 2)
         self.assertEqual(bars[0], ' 73 92405.0 92330.0 92400.0 fib 92358.6 92367.5 92376.4 > 92433.6 92442.5 92451.4')
+    
+    def test_date(self):
+        bars = reader(self.file, times = 2, date = "2018.09.13")
+        self.assertEqual(bars[0], " 33 76244.0 76199.0 76229.0 fib 76216.2 76221.5 76226.8 > 76261.2 76266.5 76271.8")
+        bars = reader(self.file, date = "2018.09.13")
+        self.assertEqual(bars[0], " 88 77359.0 77233.0 77344.0 fib 77281.1 77296.0 77310.9 > 77407.1 77422.0 77436.9")
     
     def test_doji(self):
         self.assertEqual(get_pattern(1, 40, 59), "doji")

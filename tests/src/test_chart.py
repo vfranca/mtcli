@@ -1,5 +1,6 @@
 from unittest import TestCase
 from trade.src.chart import *
+from trade.src.bar import Bar
 
 class ChartTestCase(TestCase):
 
@@ -8,3 +9,8 @@ class ChartTestCase(TestCase):
 
     def test_chart_reader(self):
         self.assertTrue(chart_reader(self.file), "Retorno da função chart_reader")
+    
+    def test_date(self):
+        bars = chart_reader(self.file)
+        bar = Bar(bars[0])
+        self.assertEqual(bar.date, "2018.01.04")

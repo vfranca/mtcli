@@ -5,4 +5,10 @@ class Ohlc(object):
         self.high = float(ohlc[2])
         self.low = float(ohlc[3])
         self.close = float(ohlc[4])
+        self.datetime = ohlc[0]
+        self.date = self.__get_date()
+    
+    def __get_date(self):
+        date = self.datetime.split(' ')
+        return date[0]
 

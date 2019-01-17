@@ -46,7 +46,7 @@ def get_fib(high, low, trend):
         trend = "h"
     return Fib(high, low, trend)
 
-def reader(filename, times):
+def reader(filename, **kwargs):
     """Retorna uma lista de barras.
     
     A partir de um arquivo CSV exportado do MetaTrater 5 compõe uma lista de barras
@@ -55,18 +55,20 @@ def reader(filename, times):
     filename: arquivo CSV MT5
     times: quantidade de barras.
     """
+    times = kwargs.get('times')
+    date = kwargs.get('date')
     rows = chart_reader(filename)
     bars = []
     for row in rows:
         bar = Bar(row)
+        if date and bar.date != date:
+            continue
         pattern = get_pattern(bar.body * 100, bar.top_tail * 100, bar.bottom_tail * 100)
         fib = get_fib(bar.high, bar.low, bar.trend)
         bars.append("%s %s fib %s" % (pattern, bar, fib))
         
-        if len(bars) > times:
+        if times and len(bars) > times:
             bars.pop(0)
             
     return bars
-
-
 
