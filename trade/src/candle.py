@@ -1,9 +1,13 @@
-from .ohlc import Ohlc
 
-class Candle(Ohlc):
+class Candle(object):
 
     def __init__(self, ohlc):
-        super().__init__(ohlc)
+        self.open = float(ohlc[1])
+        self.high = float(ohlc[2])
+        self.low = float(ohlc[3])
+        self.close = float(ohlc[4])
+        self.datetime = ohlc[0]
+        self.date = self.__get_date()
         self.size = self.__get_size()
         self.body = self.__get_body()
         self.top_tail = self.__get_top_tail()
@@ -79,4 +83,8 @@ class Candle(Ohlc):
         t = self.trend
         b = str(int(self.body * 100))
         return b + " " + str(h) + " " + str(l) + " " + str(c)
+
+    def __get_date(self):
+        date = self.datetime.split(' ')
+        return date[0]
     
