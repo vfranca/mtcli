@@ -77,12 +77,12 @@ class Candle(object):
         return trend
     
     def __str__(self):
-        h = round(self.high, 2)
-        l = round(self.low, 2)
-        c = round(self.close, 2)
-        t = self.trend
-        b = str(int(self.body * 100))
-        return b + " " + str(h) + " " + str(l) + " " + str(c)
+        high = self.high
+        low = self.low
+        close = self.close
+        trend = self.trend
+        body = str(int(self.body * 100))
+        return "%s %.1f %.1f %.1f" % (body, high, low, close)
 
     def __get_date(self):
         date = self.datetime.split(' ')

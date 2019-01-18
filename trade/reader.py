@@ -46,29 +46,27 @@ def get_fib(high, low, trend):
         trend = "h"
     return Fib(high, low, trend)
 
-def reader(filename, **kwargs):
-    """Retorna uma lista de barras.
+def reader(file, **kwargs):
+    """Retorna uma lista de candles."""
+    qtd_candles = kwargs.get("times")
+    date = kwargs.get("date")
     
-    A partir de um arquivo CSV exportado do MetaTrater 5 compõe uma lista de barras
-    com abertura, máxima, mínima e fechamento
-    Argumentos:
-    filename: arquivo CSV MT5
-    times: quantidade de barras.
-    """
-    times = kwargs.get('times')
-    date = kwargs.get('date')
-    rows = chart_reader(filename)
-    bars = []
-    for row in rows:
-        bar = Candle(row)
-        if date and bar.date != date:
-            continue
-        pattern = get_pattern(bar.body * 100, bar.top_tail * 100, bar.bottom_tail * 100)
-        fib = get_fib(bar.high, bar.low, bar.trend)
-        bars.append("%s %s fib %s" % (pattern, bar, fib))
+    chart_rows = chart_reader(file)
+    candles = []
+    for chart_row in chart_rows:
+        candle = Candle(chart_row)
         
-        if times and len(bars) > times:
-            bars.pop(0)
+        # Filtra a lista de candles a partir de uma data
+        if date and candle.date != date:
+            continue
+
+        pattern = get_pattern(candle.body * 100, candle.top_tail * 100, candle.bottom_tail * 100)
+        fib = get_fib(candle.high, candle.low, candle.trend)
+        candles.append("%s %s * %s" % (pattern, candle, fib))
+
+        # Filtra a quantidade de candles
+        if qtd_candles and len(candles) > qtd_candles:
+            candles.pop(0)
             
-    return bars
+    return candles
 
