@@ -18,9 +18,10 @@ class ReaderTestCase(TestCase):
         self.assertEqual(bar.date, "2018.01.04")
     
     def test_trend(self):
-        high = [2,3]
-        low = [1,2]
-        self.assertEqual(get_trend(high, low), ">")
+        self.assertEqual(get_trend([4,5], [2,3]), "asc")
+        self.assertEqual(get_trend([4,2], [3,1]), "desc")
+        self.assertEqual(get_trend([4,3], [2,3]), "inside")
+        self.assertEqual(get_trend([4,5], [2,1]), "outside")
 
     def test_doji(self):
         self.assertEqual(get_pattern(1, 40, 59), "doji")

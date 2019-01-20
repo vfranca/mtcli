@@ -8,7 +8,7 @@ class ReaderTestCase(TestCase):
     
     def test_show(self):
         candles = reader(self.file, times = 2)
-        self.assertEqual(candles[0], ">  73 92405.0 92330.0 92400.0 * 92358.6 92367.5 92376.4 > 92433.6 92442.5 92451.4")
+        self.assertEqual(candles[0], "asc  73 92405.0 92330.0 92400.0 * 92358.6 92367.5 92376.4 > 92433.6 92442.5 92451.4")
     
     def test_filtro_por_data(self):
         candles = reader(self.file, times = 2, date = "2018.09.13")

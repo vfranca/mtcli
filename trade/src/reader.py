@@ -64,9 +64,13 @@ def get_fib(high, low, trend):
 def get_trend(high, low):
     """ Retorna a tendência da sequência de dois candles."""
     if high[1] > high[0] and low[1] > low[0]:
-        return ">"
+        return "asc"
     if high[1] < high[0] and low[1] < low[0]:
-        return "<"
+        return "desc"
+    if high[1] < high[0] and low[1] > low[0]:
+        return "inside"
+    if high[1] > high[0] and low[1] < low[0]:
+        return "outside"
     return ""
 
 def get_show_default(candle, **kwargs):
