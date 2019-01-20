@@ -8,61 +8,56 @@ class Candle(object):
         self.close = float(ohlc[4])
         self.datetime = ohlc[0]
         self.date = self.__get_date()
-        self.size = self.__get_size()
+        self.range = self.__get_range()
         self.body = self.__get_body()
         self.top_tail = self.__get_top_tail()
         self.bottom_tail = self.__get_bottom_tail()
         self.trend = self.__get_trend()
     
-    def __get_size(self):
-        """ Retorna o tamanho da barra."""
-        h = self.high
-        l = self.low
-        return h - l
+    def __get_range(self):
+        """ Retorna o range do candle."""
+        return self.high - self.low
     
     def __get_body(self):
-        """ Retorna o tamanho  proporcional do corpo."""
-        o = self.open
-        c = self.close
-        s = self.size
-        if s == 0:
+        """ Retorna o tamanho  proporcional do corpo real em porcentagem."""
+        if self.range == 0:
             return 0
         
-        return round((c - o) / s, 2)
+        return round((self.close - self.open) / self.range, 2) * 100
     
     def __get_top_tail(self):
-        """ Retorna a calda superior proporcional ao tamanho da barra."""
-        h = self.high
-        o =self.open
-        c = self.close
-        s = self.size
+        """ Retorna a sombra superior em porcentagem proporcional ao range do candle."""
+        high = self.high
+        open =self.open
+        close = self.close
+        range = self.range
         
-        if c >= o:
-            top_tail = h -c
+        if close >= open:
+            top = high -close
         else:
-            top_tail = h - o
+            top = high - open
         
-        if s == 0:
+        if range == 0:
             return 0
         
-        return round(top_tail / s, 2)
+        return round(top / range, 2) * 100
     
     def __get_bottom_tail(self):
-        """ Retorna a calda inferior proporcional ao tamanho da barra."""
-        l = self.low
-        o =self.open
-        c = self.close
-        s = self.size
+        """ Retorna a sombra inferior em porcentagem proporcional ao range do candle."""
+        low = self.low
+        open =self.open
+        close = self.close
+        range = self.range
         
-        if c >= o:
-            bottom_tail = o - l
+        if close >= open:
+            bottom = open - low
         else:
-            bottom_tail = c - l
+            bottom = close - low
         
-        if s == 0:
+        if range == 0:
             return 0
         
-        return round(bottom_tail / s, 2)
+        return round(bottom / range, 2) * 100
     
     def __get_trend(self):
         b =self.body
@@ -81,7 +76,7 @@ class Candle(object):
         low = self.low
         close = self.close
         trend = self.trend
-        body = str(int(self.body * 100))
+        body = str(int(self.body))
         return "%s %.1f %.1f %.1f" % (body, high, low, close)
 
     def __get_date(self):

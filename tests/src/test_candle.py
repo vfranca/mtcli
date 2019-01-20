@@ -8,29 +8,29 @@ class CandleTestCase(TestCase):
         self.obj1 = Candle(['2015.04.01 09:00', '51187.00000', '56965.00000', '51187.00000', '56229.00000', '14628859', '8158109400'])
 
     def test_open(self):
-        self.assertEqual(self.obj.open, 51187, "Preço de abertura")
+        self.assertEqual(self.obj.open, 51187.0)
     
     def test_close(self):
-        self.assertEqual(self.obj.close, 56229, "Preço de fechamento")
+        self.assertEqual(self.obj.close, 56229.0)
     
     def test_hig(self):
-        self.assertEqual(self.obj.high, 56965, "Preço máximo")
+        self.assertEqual(self.obj.high, 56965.0)
     
     def test_low(self):
-        self.assertEqual(self.obj.low, 51187, "Preço mínimo")
+        self.assertEqual(self.obj.low, 51187.0)
     
     def test_date(self):
         self.assertEqual(self.obj.date, "2015.04.01")
         self.assertEqual(self.obj1.date, "2015.04.01")
     
-    def test_size(self):
-        self.assertEqual(self.obj.size, 5778, "Tamanho da barra")
+    def test_range(self):
+        self.assertEqual(self.obj.range, 5778)
     
     def test_body(self):
-        self.assertEqual(self.obj.body, 0.87, "Corpo da barra")
+        self.assertEqual(self.obj.body, 87)
     
     def test_top_tail(self):
-        self.assertEqual(self.obj.top_tail, 0.13, "Sombra superior da barra")
+        self.assertEqual(self.obj.top_tail, 13, "Sombra superior da barra")
     
     def test_bottom_tail(self):
         self.assertEqual(self.obj.bottom_tail, 0.0, "Sombra inferior da barra")

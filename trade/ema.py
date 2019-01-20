@@ -1,4 +1,4 @@
-from .src.chart import chart_reader
+from .src.reader import chart_reader
 from .src.candle import Candle
 
 def get_k(times):
