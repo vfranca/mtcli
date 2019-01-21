@@ -72,8 +72,14 @@ class ReaderTestCase(TestCase):
         inverted_hammer = "martinvert"
         self.assertEqual(get_pattern(10, 75, 15), inverted_hammer)
         self.assertEqual(get_pattern(-10, 75, 15), inverted_hammer)
+    
+    def test_bullish_engolfing(self):
+        self.assertEqual(get_complex_pattern([-40, 80], [4, 1], [2, 6]), "engolfo alta")
+
+    def test_bearish_engolfing(self):
+        self.assertEqual(get_complex_pattern([40, -80], [2, 7], [6, 1]), "engolfo baixa")
 
     def test_show_default(self):
-        self.assertEqual(get_show_default(self.candle), " spin top 9 83241.0 83081.0 83161.0 * 83142.1 83161.0 83179.9 > 83302.1 83321.0 83339.9")
+        self.assertEqual(get_show_default(self.candle), "  spin top 9 83241.0 83081.0 83161.0 * 83142.1 83161.0 83179.9 > 83302.1 83321.0 83339.9")
 
 

@@ -11,6 +11,10 @@ def reader(file, **kwargs):
     candles = []
     highs = []
     lows = []
+    body = []
+    open = []
+    close = []
+    
     for chart_row in chart_rows:
         candle = Candle(chart_row)
         
@@ -28,7 +32,19 @@ def reader(file, **kwargs):
         else:
             trend = ""
 
-        candles.append(get_show_default(candle, trend = trend))
+        # Verifica padrões complexos
+        body.append(candle.body)
+        open.append(candle.open)
+        close.append(candle.close)
+        if len(body) == 2:
+            complex_pattern = get_complex_pattern(body, open, close)
+            body.pop(0)
+            open.pop(0)
+            close.pop(0)
+        else:
+            complex_pattern = ""
+
+        candles.append(get_show_default(candle, trend = trend, complex_pattern = complex_pattern))
 
         # Filtra a quantidade de candles
         if qtd_candles and len(candles) > qtd_candles:
