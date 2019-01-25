@@ -37,7 +37,7 @@ def reader(file, **kwargs):
         open.append(candle.open)
         close.append(candle.close)
         if len(body) == 2:
-            complex_pattern = get_complex_pattern(body, open, close)
+            complex_pattern = get_two_candles_pattern(body, open, close)
             body.pop(0)
             open.pop(0)
             close.pop(0)

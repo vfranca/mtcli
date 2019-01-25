@@ -1,3 +1,5 @@
 @echo off
-py reader.py WING19M1.csv 30
+set file=%WIN%m1.csv
+py reader.py %file% 109
+del var\%file%
 time /t

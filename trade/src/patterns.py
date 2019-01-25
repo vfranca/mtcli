@@ -1,4 +1,6 @@
 
+# Padrões simples
+
 doji_body_max = 3
 doji_shadow_min = 30
 spinning_top_shadow_min = 40
@@ -133,3 +135,74 @@ def is_inverted_hammer(body, top, bottom):
     #if abs(body) > umbrella_body_max:
         #return False
     return True
+
+
+def get_pattern(body, top, bottom):
+    """Retorna o padrão existente no candle."""
+    # Verifica se é doji
+    if is_doji(body, top, bottom):
+        return "doji"
+    # Verifica se é doji de alta
+    if is_bullish_doji(body, top, bottom):
+        return "doji alta"
+    # Verifica se é doji dragão voador
+    if is_dragon_fly_doji(body, top, bottom):
+        return "doji dragão"
+    # Verifica se é doji de baixa
+    if is_bearish_doji(body, top, bottom):
+        return "doji baixa"
+    # Verifica se é doji lápide
+    if is_gravestone_doji(body, top, bottom):
+        return "doji lápide"
+    # Verifica se é doji de quatro preços
+    if is_four_prices_doji(body, top, bottom):
+        return "doji quat pre"
+    # Verifica se é marubozu
+    if is_marubozu(body, top, bottom):
+        return "marubozu"
+    # Verifica se é spinning top
+    if is_spinning_top(body, top, bottom):
+        return "spin top"
+    # Verifica se é martelo/enforcado
+    if is_hammer(body, top, bottom):
+        return "martelo"
+    # Verifica se é martelo invertido/estrela cadente
+    if is_inverted_hammer(body, top, bottom):
+        return "martinvert"
+    return ""
+
+# Padrões de dois candles
+
+def is_star(body, open, close):
+    pass
+
+def is_doji_star(body, open, close):
+    pass
+
+def is_bullish_engolfing(body, open, close):
+    """ Se existir engolfo de alta retorna True."""
+    if body[1] > 0 and body[0] < 0:
+        if open[1] <= close[0] and close[1] >= open[0]:
+            return True
+    return False
+
+def is_bearish_engolfing(body, open, close):
+    """ Se existir engolfo de baixa retorna True."""
+    if body[1] < 0 and body[0] > 0:
+        if open[1] >= close[0] and close[1] <= open[0]:
+            return True
+    return False
+
+def is_black_cloud_cover(body, open, close):
+    pass
+
+def is_piersing_line(body, open, close):
+    pass
+    
+def get_two_candles_pattern(body, open, close):
+    """Verifica padrões de dois candles."""
+    if is_bullish_engolfing(body, open, close):
+        return "engolfo alta"
+    if is_bearish_engolfing(body, open, close):
+        return "engolfo baixa"
+    return ""
