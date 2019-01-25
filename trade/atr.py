@@ -9,6 +9,6 @@ def atr(file, candles):
         candle = Candle(row)
         ranges.append(candle.high - candle.low)
     ranges = ranges[-candles:]
-    return sum(ranges) / len(ranges)
+    return round(sum(ranges) / len(ranges), 2)
 
     
