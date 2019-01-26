@@ -12,7 +12,7 @@ class ReaderTestCase(TestCase):
     
     def test_show_channel(self):
         candles = reader(self.file, show = "channel")
-        self.assertEqual(candles[1], "asc 83196.0 83096.0")
+        self.assertEqual(candles[1], "asc 83196.0 83096.0 > 83326.0 83226.0")
     
     def test_filtro_por_data(self):
         candles = reader(self.file, times = 2, date = "2018.09.13")

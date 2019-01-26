@@ -25,10 +25,12 @@ def reader(file, **kwargs):
         low.append(candle.low)
         if len(high) == 2:
             trend = get_trend(high, low)
+            lt_diff = get_lt_diff(high, low, trend)
             high.pop(0)
             low.pop(0)
         else:
             trend = ""
+            lt_diff = 0
         # Verifica a ocorrência de padr?es de dois candles
         body.append(candle.body)
         open.append(candle.open)
@@ -45,7 +47,7 @@ def reader(file, **kwargs):
         if show == "full":
             candles.append(get_show_full(candle, trend = trend, complex_pattern = complex_pattern))
         elif show == "channel":
-            candles.append(get_show_channel(candle, trend))
+            candles.append(get_show_channel(candle, trend, lt_diff))
         else:
             candles.append(get_show_default(candle, trend = trend, complex_pattern = complex_pattern))
 
