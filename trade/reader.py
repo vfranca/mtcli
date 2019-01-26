@@ -4,35 +4,32 @@ from .src.fib import Fib
 
 def reader(file, **kwargs):
     """Retorna uma lista de candles."""
-    qtd_candles = kwargs.get("times")
+    times = kwargs.get("times")
     date = kwargs.get("date")
-    
-    chart_rows = chart_reader(file)
+    show = kwargs.get("show")
     candles = []
-    highs = []
-    lows = []
+    high = []
+    low = []
     body = []
     open = []
     close = []
     
-    for chart_row in chart_rows:
-        candle = Candle(chart_row)
-        
+    rows = chart_reader(file)
+    for row in rows:
+        candle = Candle(row)
         # Filtra a lista de candles a partir de uma data
         if date and candle.date != date:
             continue
-        
         # Obtem a tendencia de topos e fundos
-        highs.append(candle.high)
-        lows.append(candle.low)
-        if len(highs) == 2:
-            trend = get_trend(highs, lows)
-            highs.pop(0)
-            lows.pop(0)
+        high.append(candle.high)
+        low.append(candle.low)
+        if len(high) == 2:
+            trend = get_trend(high, low)
+            high.pop(0)
+            low.pop(0)
         else:
             trend = ""
-
-        # Verifica padrÃµes complexos
+        # Verifica a ocorrência de padr?es de dois candles
         body.append(candle.body)
         open.append(candle.open)
         close.append(candle.close)
@@ -44,10 +41,14 @@ def reader(file, **kwargs):
         else:
             complex_pattern = ""
 
-        candles.append(get_show_default(candle, trend = trend, complex_pattern = complex_pattern))
+        # Verifica o formato de exibiç?o
+        if show == "full":
+            candles.append(get_show_full(candle, trend = trend, complex_pattern = complex_pattern))
+        else:
+            candles.append(get_show_default(candle, trend = trend, complex_pattern = complex_pattern))
 
         # Filtra a quantidade de candles
-        if qtd_candles and len(candles) > qtd_candles:
+        if times and len(candles) > times:
             candles.pop(0)
             
     return candles
