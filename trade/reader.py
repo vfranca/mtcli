@@ -44,6 +44,8 @@ def reader(file, **kwargs):
         # Verifica o formato de exibiç?o
         if show == "full":
             candles.append(get_show_full(candle, trend = trend, complex_pattern = complex_pattern))
+        elif show == "channel":
+            candles.append(get_show_channel(candle, trend))
         else:
             candles.append(get_show_default(candle, trend = trend, complex_pattern = complex_pattern))
 

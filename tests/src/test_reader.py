@@ -33,4 +33,6 @@ class ReaderTestCase(TestCase):
     def test_show_full(self):
         self.assertEqual(get_show_full(self.candle), "  spin top 50 9 41 83146.0 83241.0 83081.0 83161.0 * 83142.1 83161.0 83179.9 > 83302.1 83321.0 83339.9")
 
+    def test_show_channel(self):
+        self.assertEqual(get_show_channel(self.candle, "asc"), "asc 83241.0 83081.0")
 

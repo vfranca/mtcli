@@ -62,3 +62,7 @@ def get_show_full(candle, **kwargs):
     return "%s %s %s %i %i %i %.1f %.1f %.1f %.1f * %.1f %.1f %.1f > %.1f %.1f %.1f" % (trend, complex_pattern, pattern, candle.top_tail, candle.body, candle.bottom_tail, candle.open, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
 
 
+def get_show_channel(candle, trend):
+    """Retorna a exibição no formato de canal."""
+    return "%s %.1f %.1f" % (trend, candle.high, candle.low)
+
