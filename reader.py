@@ -2,31 +2,38 @@ from trade.reader import reader
 import sys, re
 
 file = "var/"
+p_times = re.compile(r'^[0-9]*$')
+p_date = re.compile(r'^[0-9]{4}.[0-9]{2}.[0-9]{2}$')
+p_show = re.compile('^[a-z]*$')
 
-# 1 argumento
+# chamada com 1 argumento
 if len(sys.argv) == 2:
     file += sys.argv[1]
     bars = reader(file)
-# 2 argumentos
+
+# chamada com 2 argumentos
 elif len(sys.argv) == 3:
     file += sys.argv[1]
     arg2 = sys.argv[2]
-    if re.match('^[0-9]*$', arg2):
+    if p_times.match(arg2):
         bars = reader(file, times = int(arg2))
-    elif re.match(r'^[0-9]{4}.[0-9]{2}.[0-9]{2}$', arg2):
+    elif p_date.match(arg2):
         bars = reader(file, date = arg2)
-    elif re.match(r'^[a-z]*$', arg2):
+    elif p_show.match(arg2):
         bars = reader(file, show = arg2)
 
-# 3 argumentos
+# chamada com 3 argumentos
 elif len(sys.argv) == 4:
     file += sys.argv[1]
     arg2 = sys.argv[2]
-    arg3 = int(sys.argv[3])
+    arg3 = sys.argv[3]
     
-    if re.match('^[0-9]{4}.[0-9]{2}.[0-9]{2}$', arg2):
-        bars = reader(file, date = arg2, times = arg3)
-    elif re.match('^[a-z]*$', arg2):
+    if p_date.match(arg2):
+        if p_times.match(arg3):
+            bars = reader(file, date = arg2, times = int(arg3))
+        if p_show.match(arg3):
+            bars = reader(file, date = arg2, show = arg3)
+    elif p_show.match(arg2):
         bars = reader(file, show = arg2, times = arg3)
 
 for bar in bars:
