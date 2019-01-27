@@ -75,3 +75,7 @@ def get_lt_diff(high, low, trend):
         return high[1] - high[0]
     else:
         return 0
+
+def get_show_close(candle):
+    """Retorna a exibição com os fechamentos."""
+    return "%.2f" % candle.close

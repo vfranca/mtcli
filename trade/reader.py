@@ -48,6 +48,8 @@ def reader(file, **kwargs):
             candles.append(get_show_full(candle, trend = trend, complex_pattern = complex_pattern))
         elif show == "channel":
             candles.append(get_show_channel(candle, trend, lt_diff))
+        elif show == "close":
+            candles.append(get_show_close(candle))
         else:
             candles.append(get_show_default(candle, trend = trend, complex_pattern = complex_pattern))
 

@@ -38,4 +38,8 @@ class ReaderTestCase(TestCase):
     
     def test_lt_diff(self):
         self.assertEqual(get_lt_diff([11,15], [2,8], "asc"), 6)
+    
+    def test_show_close(self):
+        self.assertEqual(get_show_close(self.candle), "83161.00")
+
 
