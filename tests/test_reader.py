@@ -8,11 +8,11 @@ class ReaderTestCase(TestCase):
     
     def test_show_default(self):
         candles = reader(self.file, times = 2)
-        self.assertEqual(candles[0], "asc   73 92405.0 92330.0 92400.0 * 92358.6 92367.5 92376.4 > 92433.6 92442.5 92451.4")
+        self.assertEqual(candles[0], "asc   73 92405 92330 92400 * 92359 92368 92376 > 92434 92442 92451")
     
     def test_show_channel(self):
         candles = reader(self.file, show = "channel")
-        self.assertEqual(candles[1], "asc 83196.0 83096.0 > 83326.0 83226.0")
+        self.assertEqual(candles[1], "asc 83196.00 83096.00 > 83326.00 83226.00")
     
     def test_show_close(self):
         candles = reader(self.file, show = "close")
@@ -20,9 +20,9 @@ class ReaderTestCase(TestCase):
     
     def test_filtro_por_data(self):
         candles = reader(self.file, times = 2, date = "2018.09.13")
-        self.assertEqual(candles[0], " engolfo alta  33 76244.0 76199.0 76229.0 * 76216.2 76221.5 76226.8 > 76261.2 76266.5 76271.8")
+        self.assertEqual(candles[0], " engolfo alta  33 76244 76199 76229 * 76216 76222 76227 > 76261 76266 76272")
         candles = reader(self.file, date = "2018.09.13")
-        self.assertEqual(candles[0], "   88 77359.0 77233.0 77344.0 * 77281.1 77296.0 77310.9 > 77407.1 77422.0 77436.9")
+        self.assertEqual(candles[0], "   88 77359 77233 77344 * 77281 77296 77311 > 77407 77422 77437")
     
 
 

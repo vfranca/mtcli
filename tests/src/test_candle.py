@@ -39,7 +39,7 @@ class CandleTestCase(TestCase):
         self.assertEqual(self.obj.trend, "alta", "Tendência")
     
     def test_str(self):
-        self.assertEqual(self.obj.__str__(), "87 56965.0 51187.0 56229.0", "Saída no formato mácima tendência mínima")
+        self.assertEqual(self.obj.__str__(), "87 56965.00 51187.00 56229.00")
 
 if __name__ == '__main__':
     unittest.main()

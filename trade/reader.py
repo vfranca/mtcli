@@ -36,22 +36,26 @@ def reader(file, **kwargs):
         open.append(candle.open)
         close.append(candle.close)
         if len(body) == 2:
-            complex_pattern = get_two_candles_pattern(body, open, close)
+            pattern2 = get_two_candles_pattern(body, open, close)
             body.pop(0)
             open.pop(0)
             close.pop(0)
         else:
-            complex_pattern = ""
+            pattern2 = ""
 
-        # Verifica o formato de exibiç?o
+        # Seleciona a exibição
         if show == "full":
-            candles.append(get_show_full(candle, trend = trend, complex_pattern = complex_pattern))
+            candles.append(get_show_full(candle, trend, pattern2))
         elif show == "channel":
             candles.append(get_show_channel(candle, trend, lt_diff))
         elif show == "close":
             candles.append(get_show_close(candle))
+        elif show == "wdo":
+            candles.append(get_show_wdo(candle, trend, pattern2))
+        elif show == "stock":
+            candles.append(get_show_stock(candle, trend, pattern2))
         else:
-            candles.append(get_show_default(candle, trend = trend, complex_pattern = complex_pattern))
+            candles.append(get_show_default(candle, trend, pattern2))
 
         # Filtra a quantidade de candles
         if times and len(candles) > times:

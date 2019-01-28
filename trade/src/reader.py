@@ -33,40 +33,36 @@ def get_trend(high, low):
         return "outside"
     return ""
 
-def get_show_default(candle, **kwargs):
+def get_show_default(candle, trend, pattern2):
     """Retorna a exibição no formato padrão."""
-    pattern = get_pattern(candle.body, candle.top_tail, candle.bottom_tail)
     fib = get_fib(candle.high, candle.low, candle.trend)
-    if kwargs.get("trend"):
-        trend = kwargs.get("trend")
-    else:
-        trend = ""
-    if kwargs.get("complex_pattern"):
-        complex_pattern = kwargs.get("complex_pattern")
-    else:
-        complex_pattern = ""
-    return "%s %s %s %i %.1f %.1f %.1f * %.1f %.1f %.1f > %.1f %.1f %.1f" % (trend, complex_pattern, pattern, candle.body, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
+    pattern = get_pattern(candle.body, candle.top_tail, candle.bottom_tail)
+    return "%s %s %s %i %.0f %.0f %.0f * %.0f %.0f %.0f > %.0f %.0f %.0f" % (trend, pattern2, pattern, candle.body, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
 
-def get_show_full(candle, **kwargs):
+def get_show_wdo(candle, trend, pattern2):
+    """Retorna a exibição padrão para dólar."""
+    fib = get_fib(candle.high, candle.low, candle.trend)
+    pattern = get_pattern(candle.body, candle.top_tail, candle.bottom_tail)
+    return "%s %s %s %i %.1f %.1f %.1f * %.1f %.1f %.1f > %.1f %.1f %.1f" % (trend, pattern2, pattern, candle.body, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
+
+def get_show_stock(candle, trend, pattern2):
+    """Retorna a exibição padrão para ações."""
+    fib = get_fib(candle.high, candle.low, candle.trend)
+    pattern = get_pattern(candle.body, candle.top_tail, candle.bottom_tail)
+    return "%s %s %s %i %.2f %.2f %.2f * %.2f %.2f %.2f > %.2f %.2f %.2f" % (trend, pattern2, pattern, candle.body, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
+
+def get_show_full(candle, trend, pattern2):
     """Retorna a exibição no formato completo."""
     pattern = get_pattern(candle.body, candle.top_tail, candle.bottom_tail)
     fib = get_fib(candle.high, candle.low, candle.trend)
-    if kwargs.get("trend"):
-        trend = kwargs.get("trend")
-    else:
-        trend = ""
-    if kwargs.get("complex_pattern"):
-        complex_pattern = kwargs.get("complex_pattern")
-    else:
-        complex_pattern = ""
-    return "%s %s %s %i %i %i %.1f %.1f %.1f %.1f * %.1f %.1f %.1f > %.1f %.1f %.1f" % (trend, complex_pattern, pattern, candle.top_tail, candle.body, candle.bottom_tail, candle.open, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
+    return "%s %s %s %i %i %i %.2f %.2f %.2f %.2f * %.2f %.2f %.2f > %.2f %.2f %.2f" % (trend, pattern2, pattern, candle.top_tail, candle.body, candle.bottom_tail, candle.open, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
 
 
 def get_show_channel(candle, trend, lt_diff):
     """Retorna a exibição no formato de canal."""
     lt_high = candle.high + lt_diff
     lt_low = candle.low + lt_diff
-    return "%s %.1f %.1f > %.1f %.1f" % (trend, candle.high, candle.low, lt_high, lt_low)
+    return "%s %.2f %.2f > %.2f %.2f" % (trend, candle.high, candle.low, lt_high, lt_low)
 
 def get_lt_diff(high, low, trend):
     if trend == "asc":
