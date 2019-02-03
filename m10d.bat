@@ -1,3 +1,3 @@
 @echo off
-py reader.py wdog19M10.csv 90
+py reader.py %wdo%M10.csv %*
 time /t

@@ -1,2 +1,2 @@
 @echo off
-py reader.py wdo@Weekly.csv 30
+py reader.py wdo@Weekly.csv %*
