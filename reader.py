@@ -28,13 +28,19 @@ elif len(sys.argv) == 4:
     arg2 = sys.argv[2]
     arg3 = sys.argv[3]
     
+    # Quando o 2o argumento é uma data
     if p_date.match(arg2):
         if p_times.match(arg3):
             bars = reader(file, date = arg2, times = int(arg3))
         if p_show.match(arg3):
             bars = reader(file, date = arg2, show = arg3)
+
+    # Quando o 2o argumento é um modo de exibição
     elif p_show.match(arg2):
-        bars = reader(file, show = arg2, times = arg3)
+        if p_times.match(arg3):
+            bars = reader(file, show = arg2, times = int(arg3))
+        elif p_date.match(arg3):
+            bars = reader(file, show = arg2, date = arg3)
 
 for bar in bars:
     print(bar)
