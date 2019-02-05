@@ -50,6 +50,8 @@ def reader(file, **kwargs):
             candles.append(get_show_channel(candle, trend, lt_diff))
         elif show == "close":
             candles.append(get_show_close(candle))
+        elif show == "vol":
+            candles.append(get_show_volume(candle, trend))
         elif show == "wdo":
             candles.append(get_show_wdo(candle, trend, pattern2))
         elif show == "stock":

@@ -38,6 +38,9 @@ class CandleTestCase(TestCase):
     def test_trend(self):
         self.assertEqual(self.obj.trend, "alta", "Tendência")
     
+    def test_volume(self):
+        self.assertEqual(self.obj.volume, 14628859)
+    
     def test_str(self):
         self.assertEqual(self.obj.__str__(), "87 56965.00 51187.00 56229.00")
 
