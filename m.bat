@@ -1,2 +1,3 @@
 @echo off
-py reader.py WIN@Monthly.csv %*
+py reader.py %t%Monthly.csv %*
+time /t

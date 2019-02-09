@@ -1,5 +1,5 @@
 @echo off
-set file=win@daily.csv
+set file=%t%daily.csv
 py reader.py %file% %*
 rem del var\%file%
 time /t

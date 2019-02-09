@@ -1,5 +1,4 @@
 @echo off
-set f="%win%%1.csv"
-set mm="ema"
+set f=%t%%1.csv"
 py %mm%.py 8 %f%
 py %mm%.py 17 %f%
