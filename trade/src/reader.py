@@ -1,5 +1,6 @@
 import csv
 from .patterns import *
+from .brooks_patterns import BrooksPatterns
 from .fib import Fib
 
 def chart_reader(file):
@@ -80,3 +81,8 @@ def get_show_volume(candle, trend):
     """Retorna a exibição com os volumes."""
     return "%s %i" % (trend, candle.volume)
 
+def get_show_brooks(candle, trend):
+    """Retorna a exibição com os padrões do Brooks."""
+    brooks = BrooksPatterns(candle.body)
+    pattern = brooks.trend
+    return "%s %s %i %.2f %.2f %.2f" % (trend, pattern, candle.body, candle.high, candle.low, candle.close)
