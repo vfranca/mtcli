@@ -52,6 +52,8 @@ def reader(file, **kwargs):
             candles.append(get_show_close(candle))
         elif show == "vol":
             candles.append(get_show_volume(candle, trend))
+        elif show == "fib":
+            candles.append(get_show_fib(candle, trend))
         elif show == "brooks":
             candles.append(get_show_brooks(candle, trend))
         elif show == "wdo":
