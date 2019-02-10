@@ -11,12 +11,12 @@ class BrooksPatternsTestCase(TestCase):
     def test_body(self):
         self.assertEqual(self.obj.body, 70)
     
-    def test_trend_bar_alta(self):
-        self.assertEqual(self.obj.trend, "alta")
+    def test_alta(self):
+        self.assertEqual(self.obj.pattern, "alta")
     
-    def test_trend_bar_baixa(self):
-        self.assertEqual(self.obj1.trend, "baixa")
+    def test_baixa(self):
+        self.assertEqual(self.obj1.pattern, "baixa")
 
-    def test_trend_range_bar(self):
-        self.assertEqual(self.obj2.trend, "lateral")
+    def test_doji(self):
+        self.assertEqual(self.obj2.pattern, "doji")
     

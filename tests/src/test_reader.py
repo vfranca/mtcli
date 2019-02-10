@@ -52,6 +52,6 @@ class ReaderTestCase(TestCase):
         self.assertEqual(get_show_volume(self.candle, "asc"), "asc 6794")
 
     def test_show_brooks(self):
-        self.assertEqual(get_show_brooks(self.candle, "asc"), "asc lateral 9 83241.00 83081.00 83161.00")
+        self.assertEqual(get_show_brooks(self.candle, "asc"), "asc doji 50 9 41 83241.00 83081.00 83161.00")
 
 
