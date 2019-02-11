@@ -84,7 +84,7 @@ def get_show_volume(candle, trend):
 def get_show_brooks(candle, trend):
     """Retorna a exibição com os padrões do Brooks."""
     brooks = BrooksPatterns(candle.body)
-    return "%s %s %i %i %i %.2f %.2f %.2f" % (trend, brooks.pattern, candle.top_tail, candle.body, candle.bottom_tail, candle.high, candle.low, candle.close)
+    return "%s %s %i %i %i %.2f %.2f %.2f" % (trend, brooks.pattern, candle.body, candle.top_tail, candle.bottom_tail, candle.high, candle.low, candle.close)
 
 def get_show_fib(candle, trend):
     """Retorna a exibição de Fibonacci."""
