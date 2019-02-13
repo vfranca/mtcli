@@ -48,6 +48,12 @@ class ReaderTestCase(TestCase):
     def test_show_close(self):
         self.assertEqual(get_show_close(self.candle), "83161.00")
 
+    def test_show_high(self):
+        self.assertEqual(get_show_high(self.candle), "83241.00")
+
+    def test_show_low(self):
+        self.assertEqual(get_show_low(self.candle), "83081.00")
+
     def test_show_volume(self):
         self.assertEqual(get_show_volume(self.candle, "asc"), "asc 6794")
 

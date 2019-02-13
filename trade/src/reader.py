@@ -77,6 +77,14 @@ def get_show_close(candle):
     """Retorna a exibição com os fechamentos."""
     return "%.2f" % candle.close
 
+def get_show_high(candle):
+    """Retorna a exibição com as máximas."""
+    return "%.2f" % candle.high
+
+def get_show_low(candle):
+    """Retorna a exibição com as mínimas."""
+    return "%.2f" % candle.low
+
 def get_show_volume(candle, trend):
     """Retorna a exibição com os volumes."""
     return "%s %i" % (trend, candle.volume)
