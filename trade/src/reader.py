@@ -54,9 +54,10 @@ def get_show_stock(candle, trend, pattern2):
 
 def get_show_full(candle, trend, pattern2):
     """Retorna a exibição no formato completo."""
-    pattern = get_pattern(candle.body, candle.top_tail, candle.bottom_tail)
-    fib = get_fib(candle.high, candle.low, candle.trend)
-    return "%s %s %s %i %i %i %.2f %.2f %.2f %.2f * %.2f %.2f %.2f > %.2f %.2f %.2f" % (trend, pattern2, pattern, candle.top_tail, candle.body, candle.bottom_tail, candle.open, candle.high, candle.low, candle.close, fib.r61, fib.r, fib.r38, fib.e38, fib.e, fib.e61)
+    c = candle
+    pattern = get_pattern(c.body, c.top_tail, c.bottom_tail)
+    f = get_fib(c.high, c.low, c.trend)
+    return "%s %s %s %i %.2f %.2f %.2f %.2f * %.2f > %.2f" % (trend, pattern2, pattern, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
 
 
 def get_show_channel(candle, trend, lt_diff):
