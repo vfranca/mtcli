@@ -1,7 +1,7 @@
 
 class BrooksPatterns(object):
 
-    body_doji_bar = 40
+    body_doji_bar = 50
     
 
     def __init__(self, body):
