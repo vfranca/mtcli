@@ -4,20 +4,37 @@ class BrooksPatterns(object):
     body_doji_bar = 50
     
 
-    def __init__(self, body):
+    def __init__(self, body, top, bottom):
         self.body = body
+        self.top = top
+        self.bottom = bottom
         self.pattern = self.__get_pattern()
+        self.color = self.__get_color()
+        self.tail = self.__get_tail()
     
     def __str__(self):
         pass
     
     def __get_pattern(self):
-        #btrb = self.body_trend_range_bar
-        #body = self.body
         if abs(self.body) > self.body_doji_bar:
             if self.body > 0:
                 return "alta"
             elif self.body < 0:
                 return "baixa"
         return "doji"
+    
+    def __get_color(self):
+        if self.body > 0:
+            return "verde"
+        elif self.body < 0:
+            return "vermelho"
+        return ""
+    
+    def __get_tail(self):
+        if self.top > self.bottom:
+            return "bottom"
+        if self.bottom > self.top:
+            return "top"
+        return ""
+    
         
