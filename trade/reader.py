@@ -13,6 +13,7 @@ def reader(file, **kwargs):
     body = []
     open = []
     close = []
+    candle_num = 0
     
     rows = chart_reader(file)
     for row in rows:
@@ -20,6 +21,9 @@ def reader(file, **kwargs):
         # Filtra a lista de candles a partir de uma data
         if date and candle.date != date:
             continue
+        # Numeração dos candles
+        if date:
+            candle_num += 1
         # Obtem a tendencia de topos e fundos
         high.append(candle.high)
         low.append(candle.low)
@@ -59,7 +63,7 @@ def reader(file, **kwargs):
         elif show == "fib":
             candles.append(get_show_fib(candle, trend))
         elif show == "brooks":
-            candles.append(get_show_brooks(candle, trend))
+            candles.append(get_show_brooks(candle, trend, candle_num))
         elif show == "wdo":
             candles.append(get_show_wdo(candle, trend, pattern2))
         elif show == "stock":
