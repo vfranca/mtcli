@@ -10,8 +10,16 @@ if "%2" == "" (
     py %mm%.py 17 %t%%1.csv
     py %mm%.py 34 %t%%1.csv
     py %mm%.py 72 %t%%1.csv
+    py %mm%.py 144 %t%%1.csv
+    py %mm%.py 305 %t%%1.csv
+    py %mm%.py 610 %t%%1.csv
+    rem py %mm%.py 1292 %t%%1.csv
+    rem py %mm%.py 20 %t%%1.csv
+    rem py %mm%.py 60 %t%%1.csv
+    rem py %mm%.py 240 %t%%1.csv
     goto :EOF
 ) else (
     py %mm%.py %2 %t%%1.csv
     goto :EOF
 )
+

@@ -1,4 +1,6 @@
 from .src.reader import *
+from .src.view import *
+from .src import reader, view
 from .src.candle import Candle
 from .src.fib import Fib
 
@@ -35,6 +37,7 @@ def reader(file, **kwargs):
         else:
             trend = ""
             lt_diff = 0
+
         # Verifica a ocorrência de padr?es de dois candles
         body.append(candle.body)
         open.append(candle.open)
@@ -49,27 +52,23 @@ def reader(file, **kwargs):
 
         # Seleciona a exibição
         if show == "full":
-            candles.append(get_show_full(candle, trend, pattern2))
+            candles.append(view.get_full(candle, trend, pattern2))
         elif show == "channel":
-            candles.append(get_show_channel(candle, trend, lt_diff))
+            candles.append(view.get_channel(candle, trend, lt_diff))
         elif show == "close":
-            candles.append(get_show_close(candle))
+            candles.append(view.get_close(candle))
         elif show == "high":
-            candles.append(get_show_high(candle))
+            candles.append(view.get_high(candle))
         elif show == "low":
-            candles.append(get_show_low(candle))
+            candles.append(view.get_low(candle))
         elif show == "vol":
-            candles.append(get_show_volume(candle, trend))
+            candles.append(view.get_volume(candle, trend))
         elif show == "fib":
-            candles.append(get_show_fib(candle, trend))
+            candles.append(view.get_fib(candle, trend))
         elif show == "brooks":
-            candles.append(get_show_brooks(candle, trend, candle_num))
-        elif show == "wdo":
-            candles.append(get_show_wdo(candle, trend, pattern2))
-        elif show == "stock":
-            candles.append(get_show_stock(candle, trend, pattern2))
+            candles.append(view.get_brooks(candle, trend, candle_num))
         else:
-            candles.append(get_show_default(candle, trend, pattern2))
+            candles.append(view.get_default(candle, trend, pattern2))
 
         # Filtra a quantidade de candles
         if times and len(candles) > times:

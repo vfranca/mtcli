@@ -1,3 +1,4 @@
 @echo off
-py reader.py %t%Monthly.csv %*
+rem py reader.py %t%Monthly.csv %*
+b monthly %*
 time /t

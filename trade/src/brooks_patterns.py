@@ -1,7 +1,7 @@
 
 class BrooksPatterns(object):
 
-    body_doji_bar = 50
+    body_doji_bar = 10
     
 
     def __init__(self, body, top, bottom):
@@ -18,9 +18,9 @@ class BrooksPatterns(object):
     def __get_pattern(self):
         if abs(self.body) > self.body_doji_bar:
             if self.body > 0:
-                return "alta"
+                return "branco"
             elif self.body < 0:
-                return "baixa"
+                return "preto"
         return "doji"
     
     def __get_color(self):
