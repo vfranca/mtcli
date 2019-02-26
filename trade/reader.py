@@ -20,13 +20,16 @@ def reader(file, **kwargs):
     rows = chart_reader(file)
     for row in rows:
         candle = Candle(row)
+
         # Filtra a lista de candles a partir de uma data
         if date and candle.date != date:
             continue
+
         # Numeração dos candles
         if date:
             candle_num += 1
-        # Obtem a tendencia de topos e fundos
+
+        # Obtem a tendencia de canal
         high.append(candle.high)
         low.append(candle.low)
         if len(high) == 2:
@@ -38,7 +41,7 @@ def reader(file, **kwargs):
             trend = ""
             lt_diff = 0
 
-        # Verifica a ocorrência de padr?es de dois candles
+        # Verifica a ocorrência de padrões de dois candles
         body.append(candle.body)
         open.append(candle.open)
         close.append(candle.close)
@@ -50,7 +53,7 @@ def reader(file, **kwargs):
         else:
             pattern2 = ""
 
-        # Seleciona a exibição
+        # Seleciona a view
         if show == "full":
             candles.append(view.get_full(candle, trend, pattern2))
         elif show == "channel":
@@ -61,14 +64,18 @@ def reader(file, **kwargs):
             candles.append(view.get_high(candle))
         elif show == "low":
             candles.append(view.get_low(candle))
+        elif show == "range":
+            candles.append(view.get_range(candle))
         elif show == "vol":
             candles.append(view.get_volume(candle, trend))
         elif show == "fib":
             candles.append(view.get_fib(candle, trend))
         elif show == "brooks":
             candles.append(view.get_brooks(candle, trend, candle_num))
-        else:
+        elif show == "candles":
             candles.append(view.get_default(candle, trend, pattern2))
+        else:
+            candles.append(view.get_brooks(candle, trend, candle_num))
 
         # Filtra a quantidade de candles
         if times and len(candles) > times:
