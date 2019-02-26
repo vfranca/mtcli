@@ -86,7 +86,7 @@ def get_range(c):
     """Retorna a view com os ranges das barras."""
     return "%i" % c.range
 
-def get_brooks(c, trend, num):
+def get_brooks(c, trend, num, p2):
     """Retorna a exibição com os padrões de Brooks."""
     tail = ""
     f = reader.get_fib(c.high, c.low, c.trend)
@@ -100,12 +100,12 @@ def get_brooks(c, trend, num):
     num =str(num)
     if num == "0":
         num = ""
-    view = "%s %s %s%i %s"
+    view = "%s %s %s %s%i %s"
     if rounded == 0:
         view += " %.0f %.0f %.0f r%i %.0f %.0f"
     else:
         view += " %.2f %.2f %.2f * %.2f %.2f"
-    return view % (num, trend, b.pattern, abs(c.body), tail, c.high, c.low, c.close, c.range, f.r, f.e)
+    return view % (num, trend, p2, b.pattern, abs(c.body), tail, c.high, c.low, c.close, c.range, f.r, f.e)
 
 def get_fib(c, trend):
     """Retorna a exibição de Fibonacci."""

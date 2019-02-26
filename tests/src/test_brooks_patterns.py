@@ -1,5 +1,5 @@
 from unittest import TestCase
-from trade.src.brooks_patterns import BrooksPatterns
+from trade.src.brooks_patterns import *
 
 class BrooksPatternsTestCase(TestCase):
 
@@ -32,3 +32,22 @@ class BrooksPatternsTestCase(TestCase):
     def test_bottom_tail(self):
         self.assertEqual(self.obj1.tail, "top")
     
+    def test_bear_reversal(self):
+        body = [50, -40]
+        open = [3, 10]
+        close = [10, 3]
+        self.assertEqual(bear_reversal(body, open, close), "reversao baixa++")
+
+    def test_bull_reversal(self):
+        body = [-40, 50]
+        open = [10, 3]
+        close = [3, 10]
+        self.assertEqual(bull_reversal(body, open, close), "reversao alta++")
+
+    def test_get_pattern_bars(self):
+        body = [-40, 50]
+        open = [10, 3]
+        close = [3, 10]
+        self.assertEqual(get_pattern_bars(body, open, close), "reversao alta++")
+
+

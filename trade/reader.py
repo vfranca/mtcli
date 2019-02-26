@@ -3,6 +3,7 @@ from .src.view import *
 from .src import reader, view
 from .src.candle import Candle
 from .src.fib import Fib
+from .src.brooks_patterns import *
 
 def reader(file, **kwargs):
     """Retorna uma lista de candles."""
@@ -41,21 +42,34 @@ def reader(file, **kwargs):
             trend = ""
             lt_diff = 0
 
-        # Verifica a ocorrência de padrões de dois candles
+        # Verifica a ocorrência de padrões candlesticks de dois candles
+        if show == "candles":
+            body.append(candle.body)
+            open.append(candle.open)
+            close.append(candle.close)
+            if len(body) == 2:
+                pattern2 = get_two_candles_pattern(body, open, close)
+                body.pop(0)
+                open.pop(0)
+                close.pop(0)
+            else:
+                pattern2 = ""
+
+        # Verifica padrões brooks de 2 barras
         body.append(candle.body)
         open.append(candle.open)
         close.append(candle.close)
         if len(body) == 2:
-            pattern2 = get_two_candles_pattern(body, open, close)
+            pattern_bars = get_pattern_bars(body, open, close)
             body.pop(0)
             open.pop(0)
             close.pop(0)
         else:
-            pattern2 = ""
+            pattern_bars = ""
 
         # Seleciona a view
         if show == "full":
-            candles.append(view.get_full(candle, trend, pattern2))
+            candles.append(view.get_full(candle, trend, pattern_bars))
         elif show == "channel":
             candles.append(view.get_channel(candle, trend, lt_diff))
         elif show == "close":
@@ -71,11 +85,11 @@ def reader(file, **kwargs):
         elif show == "fib":
             candles.append(view.get_fib(candle, trend))
         elif show == "brooks":
-            candles.append(view.get_brooks(candle, trend, candle_num))
+            candles.append(view.get_brooks(candle, trend, candle_num, pattern_bars))
         elif show == "candles":
             candles.append(view.get_default(candle, trend, pattern2))
         else:
-            candles.append(view.get_brooks(candle, trend, candle_num))
+            candles.append(view.get_brooks(candle, trend, candle_num, pattern_bars))
 
         # Filtra a quantidade de candles
         if times and len(candles) > times:
