@@ -1,2 +1,2 @@
 @echo off
-set t=wing19
+set t=winj19

@@ -1,4 +1,5 @@
 @echo off
-rem py reader.py %t%Monthly.csv %*
-b monthly %*
+set file=%t%monthly.csv
+py reader.py %file% %*
+py sma.py 20 %file%
 time /t

@@ -1,5 +1,5 @@
 from .patterns import *
-from .brooks_patterns import BrooksPatterns
+from .brooks_patterns import *
 #from .reader import *
 from . import reader
 
@@ -90,13 +90,15 @@ def get_brooks(c, trend, num, p2):
     """Retorna a exibição com os padrões de Brooks."""
     tail = ""
     f = reader.get_fib(c.high, c.low, c.trend)
-    b = BrooksPatterns(c.body, c.top_tail, c.bottom_tail)
-    if b.tail == "top":
-        tail = "%s%i" %(b.tail, c.top_tail)
-    elif b.tail == "bottom":
-        tail = "%s%i" %(b.tail, c.bottom_tail)
-    else:
-        tail = ""
+    #b = BrooksPatterns(c.body, c.top_tail, c.bottom_tail)
+    body = get_body(c.body)
+    tail = get_tail(c.top_tail, c.bottom_tail)
+    if tail == "topo":
+        tail = "%s%i" %(tail, c.top_tail)
+    if tail == "fundo":
+        tail = "%s%i" %(tail, c.bottom_tail)
+    #else:
+        #tail = ""
     num =str(num)
     if num == "0":
         num = ""
@@ -105,7 +107,7 @@ def get_brooks(c, trend, num, p2):
         view += " %.0f %.0f %.0f r%i %.0f %.0f"
     else:
         view += " %.2f %.2f %.2f * %.2f %.2f"
-    return view % (num, trend, p2, b.pattern, abs(c.body), tail, c.high, c.low, c.close, c.range, f.r, f.e)
+    return view % (num, trend, p2, body, abs(c.body), tail, c.high, c.low, c.close, c.range, f.r, f.e)
 
 def get_fib(c, trend):
     """Retorna a exibição de Fibonacci."""

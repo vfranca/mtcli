@@ -1,2 +1,2 @@
 @echo off
-r m5 close %d%
+r m5 c %d%

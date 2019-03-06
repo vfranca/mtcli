@@ -1,7 +1,7 @@
 from trade.reader import reader
 import sys, re
 
-file = "var/"
+file = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
 p_times = re.compile(r'^[0-9]*$')
 p_date = re.compile(r'^[0-9]{4}.[0-9]{2}.[0-9]{2}$')
 p_show = re.compile('^[a-z]*$')
@@ -44,3 +44,4 @@ elif len(sys.argv) == 4:
 
 for bar in bars:
     print(bar)
+    

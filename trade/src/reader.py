@@ -1,6 +1,6 @@
 import csv
 from .patterns import *
-from .brooks_patterns import BrooksPatterns
+from .brooks_patterns import *
 from .fib import Fib
 
 def chart_reader(file):

@@ -43,24 +43,23 @@ def reader(file, **kwargs):
             lt_diff = 0
 
         # Verifica a ocorrência de padrões candlesticks de dois candles
-        if show == "candles":
-            body.append(candle.body)
-            open.append(candle.open)
-            close.append(candle.close)
-            if len(body) == 2:
-                pattern2 = get_two_candles_pattern(body, open, close)
-                body.pop(0)
-                open.pop(0)
-                close.pop(0)
-            else:
-                pattern2 = ""
+        body.append(candle.body)
+        open.append(candle.open)
+        close.append(candle.close)
+        if len(body) == 2:
+            pattern2 = get_two_candles_pattern(body, open, close)
+            body.pop(0)
+            open.pop(0)
+            close.pop(0)
+        else:
+            pattern2 = ""
 
         # Verifica padrões brooks de 2 barras
         body.append(candle.body)
         open.append(candle.open)
         close.append(candle.close)
         if len(body) == 2:
-            pattern_bars = get_pattern_bars(body, open, close)
+            pattern_bars = get_pattern2(body, open, close)
             body.pop(0)
             open.pop(0)
             close.pop(0)
@@ -69,27 +68,27 @@ def reader(file, **kwargs):
 
         # Seleciona a view
         if show == "full":
-            candles.append(view.get_full(candle, trend, pattern_bars))
-        elif show == "channel":
+            candles.append(view.get_full(candle, trend, pattern2))
+        elif show == "ch":
             candles.append(view.get_channel(candle, trend, lt_diff))
-        elif show == "close":
+        elif show == "c":
             candles.append(view.get_close(candle))
-        elif show == "high":
+        elif show == "h":
             candles.append(view.get_high(candle))
-        elif show == "low":
+        elif show == "l":
             candles.append(view.get_low(candle))
-        elif show == "range":
+        elif show == "r":
             candles.append(view.get_range(candle))
         elif show == "vol":
             candles.append(view.get_volume(candle, trend))
         elif show == "fib":
             candles.append(view.get_fib(candle, trend))
-        elif show == "brooks":
-            candles.append(view.get_brooks(candle, trend, candle_num, pattern_bars))
-        elif show == "candles":
+        elif show == "br":
+            candles.append(view.get_brooks(candle, trend, candle_num, pattern2))
+        elif show == "cs":
             candles.append(view.get_default(candle, trend, pattern2))
         else:
-            candles.append(view.get_brooks(candle, trend, candle_num, pattern_bars))
+            candles.append(view.get_brooks(candle, trend, candle_num, pattern2))
 
         # Filtra a quantidade de candles
         if times and len(candles) > times:
