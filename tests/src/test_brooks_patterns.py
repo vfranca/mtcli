@@ -13,10 +13,10 @@ class BrooksPatternsTestCase(TestCase):
         self.assertEqual(get_body(10), "doji")
 
     def test_tail_top(self):
-        self.assertEqual(get_tail(10, 20), "topo")
+        self.assertEqual(get_tail(10, 20), "top")
     
     def test_tail_bottom(self):
-        self.assertEqual(get_tail(20, 10), "fundo")
+        self.assertEqual(get_tail(20, 10), "bottom")
     
     def test_tail_none(self):
         self.assertEqual(get_tail(10, 10), "neutro")

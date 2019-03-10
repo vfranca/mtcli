@@ -13,9 +13,9 @@ def get_body(body):
 def get_tail(top, bottom):
     """Sombra menor: topo/fundo/neutro."""
     if top < bottom:
-        return "topo"
+        return "top"
     if bottom < top:
-        return "fundo"
+        return "bottom"
     return "neutro"
 
 def get_pattern1(body, top, bottom):

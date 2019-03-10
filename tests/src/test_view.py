@@ -39,7 +39,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(get_range(self.candle), "160")
 
     def test_brooks(self):
-        self.assertEqual(get_brooks(self.candle, "asc", 1, ""), "1 asc  doji9 fundo41 83241 83081 83161 r160 83161 83321")
+        self.assertEqual(get_brooks(self.candle, "asc", 1, ""), "1 asc  doji9r160 bottom41 83241 83081 83161 * 83161 83321")
 
     def test_fib(self):
         self.assertEqual(view.get_fib(self.candle, "asc"), "asc 9 83142 83161 83180 * 83302 83321 83340")

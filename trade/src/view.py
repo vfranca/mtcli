@@ -93,21 +93,21 @@ def get_brooks(c, trend, num, p2):
     #b = BrooksPatterns(c.body, c.top_tail, c.bottom_tail)
     body = get_body(c.body)
     tail = get_tail(c.top_tail, c.bottom_tail)
-    if tail == "topo":
+    if tail == "top":
         tail = "%s%i" %(tail, c.top_tail)
-    if tail == "fundo":
+    if tail == "bottom":
         tail = "%s%i" %(tail, c.bottom_tail)
     #else:
         #tail = ""
     num =str(num)
     if num == "0":
         num = ""
-    view = "%s %s %s %s%i %s"
+    view = "%s %s %s %s%ir%i %s"
     if rounded == 0:
-        view += " %.0f %.0f %.0f r%i %.0f %.0f"
+        view += " %.0f %.0f %.0f * %.0f %.0f"
     else:
         view += " %.2f %.2f %.2f * %.2f %.2f"
-    return view % (num, trend, p2, body, abs(c.body), tail, c.high, c.low, c.close, c.range, f.r, f.e)
+    return view % (num, trend, p2, body, abs(c.body), c.range, tail, c.high, c.low, c.close, f.r, f.e)
 
 def get_fib(c, trend):
     """Retorna a exibição de Fibonacci."""
