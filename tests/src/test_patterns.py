@@ -100,7 +100,7 @@ class PatternsTestCase(TestCase):
         self.assertEqual(get_pattern(-10, 75, 15), inverted_hammer)
     
     def test_bullish_engolfing(self):
-        self.assertEqual(get_two_candles_pattern([-40, 80], [4, 1], [2, 6]), "engolfo alta")
+        self.assertEqual(get_two_candles_pattern([-40, 80], [4, 1], [2, 6]), "engolfo")
 
     def test_bearish_engolfing(self):
-        self.assertEqual(get_two_candles_pattern([40, -80], [2, 7], [6, 1]), "engolfo baixa")
+        self.assertEqual(get_two_candles_pattern([40, -80], [2, 7], [6, 1]), "engolfo")

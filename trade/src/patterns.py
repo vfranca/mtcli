@@ -202,7 +202,7 @@ def is_piersing_line(body, open, close):
 def get_two_candles_pattern(body, open, close):
     """Verifica padrões de dois candles."""
     if is_bullish_engolfing(body, open, close):
-        return "engolfo alta"
+        return "engolfo"
     if is_bearish_engolfing(body, open, close):
-        return "engolfo baixa"
+        return "engolfo"
     return ""
