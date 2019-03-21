@@ -8,7 +8,7 @@ rounded = 0
 def get_default(c, trend, pattern2):
     """Retorna a exibição no formato padrão."""
     f = reader.get_fib(c.high, c.low, c.trend)
-    p = get_pattern(c.body, c.top_tail, c.bottom_tail)
+    p = get_pattern(c.body, c.top, c.bottom)
     view = "%s %s %s %i"
     if rounded == 0:
         view += " %.0f %.0f %.0f * %.0f %.0f"
@@ -18,7 +18,7 @@ def get_default(c, trend, pattern2):
 
 def get_full(c, trend, pattern2):
     """Retorna a exibição no formato completo."""
-    p = get_pattern(c.body, c.top_tail, c.bottom_tail)
+    p = get_pattern(c.body, c.top, c.bottom)
     f = reader.get_fib(c.high, c.low, c.trend)
     view = "%s %s %s %i"
     if rounded == 0:
@@ -89,24 +89,24 @@ def get_range(c):
 def get_brooks(c, trend, num, p2):
     """Retorna a exibição com os padrões de Brooks."""
     f = reader.get_fib(c.high, c.low, c.trend)
-    b = BrooksPatterns1(c.body, c.top_tail, c.bottom_tail)
+    b = BrooksPatterns1(c.body, c.top, c.bottom, c.close, f.r)
     
     tail = b.tail
     if tail == "top":
-        tail = "%s%i" %(tail, c.top_tail)
+        tail = "%s%i" %(tail, c.top)
     if tail == "bottom":
-        tail = "%s%i" %(tail, c.bottom_tail)
+        tail = "%s%i" %(tail, c.bottom)
     
     num =str(num)
     if num == "0":
         num = ""
         
-    view = "%s %s %s %s %s%ir%i %s"
+    view = "%s %s %s %s%ir%i %s"
     if rounded == 0:
         view += " %.0f %.0f %.0f * %.0f %.0f"
     else:
         view += " %.2f %.2f %.2f * %.2f %.2f"
-    return view % (num, trend, p2, b.pattern, b.body_pattern, abs(c.body), c.range, tail, c.high, c.low, c.close, f.r, f.e)
+    return view % (num, trend, b.pattern, b.body_pattern, abs(c.body), c.body_range, tail, c.high, c.low, c.close, f.r, f.e)
 
 def get_fib(c, trend):
     """Retorna a exibição de Fibonacci."""
