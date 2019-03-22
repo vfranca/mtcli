@@ -15,7 +15,11 @@ class BrooksPatterns2(object):
         """ Padrão de duas barras."""
         # Verifica se existe gap
         if self.__is_gap():
-            return lbl_gap
+            if self.body[1] > 0:
+                gap = self.close[1] - self.high[0]
+            if self.body[1] < 0:
+                gap = self.low[0] - self.close[1]
+            return "%s%i" % (lbl_gap, gap)
         return ""
     def __is_gap(self):
         """ Se for gap retorna true."""
