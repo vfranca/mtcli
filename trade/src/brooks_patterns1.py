@@ -1,11 +1,11 @@
-lbl_body_doji = "doji"
-lbl_body_bull = "branco"
-lbl_body_bear = "preto"
-lbl_tail_top = "top"
-lbl_tail_bottom = "bottom"
-lbl_tail_neutral = "neutral"
-lbl_buy_pressure = "compra"
-lbl_sell_pressure = "venda"
+lbl_body_doji = "DOJI"
+lbl_body_bull = "BRANCO"
+lbl_body_bear = "PRETO"
+lbl_toptail = "TOPTAIL"
+lbl_bottomtail = "BOTTOMTAIL"
+lbl_tail_neutral = "NEUTRAL"
+lbl_buy_pressure = "CP"
+lbl_sell_pressure = "VD"
 
 class BrooksPatterns1(object):
 
@@ -32,11 +32,11 @@ class BrooksPatterns1(object):
             return lbl_body_bear
 
     def __get_tail(self):
-        """Sombra menor: top/bottom/neutral."""
-        if self.top < self.bottom:
-            return lbl_tail_top
-        if self.bottom < self.top:
-            return lbl_tail_bottom
+        """Sombra sobressalente: TOPTAIL/BOTTOMTAIL/NEUTRAL."""
+        if self.top > self.bottom:
+            return lbl_toptail
+        if self.bottom > self.top:
+            return lbl_bottomtail
         return lbl_tail_neutral
 
     def __get_pattern(self):

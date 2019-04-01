@@ -56,6 +56,7 @@ def reader(file, **kwargs):
             #close.pop(0)
         #else:
             #pattern2 = ""
+        pattern2 = ""
 
         # Verifica padrões brooks de 2 barras
         body.append(candle.body)

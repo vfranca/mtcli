@@ -1,4 +1,4 @@
-lbl_gap = "gap"
+lbl_gap = "GAP"
 lbl_fbo = "FBO"
 
 class BrooksPatterns2(object):
@@ -20,7 +20,7 @@ class BrooksPatterns2(object):
             if self.body[1] < 0:
                 gap = self.low[0] - self.close[1]
             return "%s%i" % (lbl_gap, gap)
-        return ""
+        return lbl_fbo
     def __is_gap(self):
         """ Se for gap retorna true."""
         # Se não tiver tendência retorna false

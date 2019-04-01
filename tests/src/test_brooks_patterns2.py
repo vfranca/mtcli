@@ -17,5 +17,5 @@ class BrooksPatterns2TestCase(TestCase):
     
     def test_pattern_bear_gap(self):
         o = BrooksPatterns2([-50, -60], [90, 40], [20, 10], [80, 60], [15, 5])
-        self.assertEqual(o.pattern, "gap5")
+        self.assertEqual(o.pattern, "GAP5")
     
