@@ -29,14 +29,17 @@ class CandleTestCase(TestCase):
     def test_body(self):
         self.assertEqual(self.obj.body, 87)
     
-    def test_top_tail(self):
-        self.assertEqual(self.obj.top_tail, 13, "Sombra superior da barra")
+    def test_top(self):
+        self.assertEqual(self.obj.top, 13, "Sombra superior da barra")
     
-    def test_bottom_tail(self):
-        self.assertEqual(self.obj.bottom_tail, 0.0, "Sombra inferior da barra")
+    def test_bottom(self):
+        self.assertEqual(self.obj.bottom, 0.0, "Sombra inferior da barra")
+    
+    def test_body_range(self):
+        self.assertEqual(self.obj.body_range, 5042)
     
     def test_trend(self):
-        self.assertEqual(self.obj.trend, "alta", "Tendência")
+        self.assertEqual(self.obj.trend, "alta")
     
     def test_volume(self):
         self.assertEqual(self.obj.volume, 14628859)

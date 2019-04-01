@@ -1,6 +1,6 @@
 from .patterns import *
 from .brooks_patterns import *
-#from .reader import *
+from .brooks_patterns1 import BrooksPatterns1
 from . import reader
 
 rounded = 0
@@ -8,7 +8,7 @@ rounded = 0
 def get_default(c, trend, pattern2):
     """Retorna a exibição no formato padrão."""
     f = reader.get_fib(c.high, c.low, c.trend)
-    p = get_pattern(c.body, c.top_tail, c.bottom_tail)
+    p = get_pattern(c.body, c.top, c.bottom)
     view = "%s %s %s %i"
     if rounded == 0:
         view += " %.0f %.0f %.0f * %.0f %.0f"
@@ -18,7 +18,7 @@ def get_default(c, trend, pattern2):
 
 def get_full(c, trend, pattern2):
     """Retorna a exibição no formato completo."""
-    p = get_pattern(c.body, c.top_tail, c.bottom_tail)
+    p = get_pattern(c.body, c.top, c.bottom)
     f = reader.get_fib(c.high, c.low, c.trend)
     view = "%s %s %s %i"
     if rounded == 0:
@@ -86,28 +86,27 @@ def get_range(c):
     """Retorna a view com os ranges das barras."""
     return "%i" % c.range
 
-def get_brooks(c, trend, num, p2):
+def get_brooks(c, trend, num, pattern2):
     """Retorna a exibição com os padrões de Brooks."""
-    tail = ""
     f = reader.get_fib(c.high, c.low, c.trend)
-    #b = BrooksPatterns(c.body, c.top_tail, c.bottom_tail)
-    body = get_body(c.body)
-    tail = get_tail(c.top_tail, c.bottom_tail)
-    if tail == "top":
-        tail = "%s%i" %(tail, c.top_tail)
-    if tail == "bottom":
-        tail = "%s%i" %(tail, c.bottom_tail)
-    #else:
-        #tail = ""
+    b = BrooksPatterns1(c.body, c.top, c.bottom, c.close, f.r)
+    
+    tail = b.tail
+    if tail == "TOPTAIL":
+        tail = "%s%i" %(tail, c.top)
+    if tail == "BOTTOMTAIL":
+        tail = "%s%i" %(tail, c.bottom)
+    
     num =str(num)
     if num == "0":
         num = ""
-    view = "%s %s %s %s%ir%i %s"
+        
+    view = "%s %s %s %s%iR%i %s %s"
     if rounded == 0:
         view += " %.0f %.0f %.0f * %.0f %.0f"
     else:
         view += " %.2f %.2f %.2f * %.2f %.2f"
-    return view % (num, trend, p2, body, abs(c.body), c.range, tail, c.high, c.low, c.close, f.r, f.e)
+    return view % (num, trend, b.pattern, b.body_pattern, abs(c.body), c.body_range, pattern2, tail, c.high, c.low, c.close, f.r, f.e)
 
 def get_fib(c, trend):
     """Retorna a exibição de Fibonacci."""

@@ -18,12 +18,12 @@ class ReaderTestCase(TestCase):
         self.assertEqual(bar.date, "2018.01.04")
     
     def test_asc(self):
-        self.assertEqual(get_trend([4,5], [2,3]), "asc")
+        self.assertEqual(get_trend([4,5], [2,3]), "ASC")
     def test_desc(self):
-        self.assertEqual(get_trend([4,2], [3,1]), "desc")
+        self.assertEqual(get_trend([4,2], [3,1]), "DESC")
     def test_inside(self):
-        self.assertEqual(get_trend([4,3], [2,3]), "inside")
+        self.assertEqual(get_trend([4,3], [2,3]), "IB")
 
     def test_outside(self):
-        self.assertEqual(get_trend([4,5], [2,1]), "outside")
+        self.assertEqual(get_trend([4,5], [2,1]), "OB")
 
