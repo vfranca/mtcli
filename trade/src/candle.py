@@ -1,3 +1,4 @@
+from trade.settings import *
 
 class Candle(object):
 
@@ -25,7 +26,7 @@ class Candle(object):
         if self.range == 0:
             return 0
         
-        return round((self.close - self.open) / self.range, 2) * 100
+        return round((self.close - self.open) / self.range, 5) * 100
     
     def __get_top(self):
         """ Retorna o tamanho relativo da sombra superior em porcentagem."""
@@ -42,7 +43,7 @@ class Candle(object):
         if range == 0:
             return 0
         
-        return round(top / range, 2) * 100
+        return round(top / range, 5) * 100
     
     def __get_bottom(self):
         """ Retorna o tamanho relativo da sombra inferior em porcentagem."""
@@ -59,7 +60,7 @@ class Candle(object):
         if range == 0:
             return 0
         
-        return round(bottom / range, 2) * 100
+        return round(bottom / range, 5) * 100
     
     def __get_body_range(self):
         "Retorna o tamanho absoluto do corpo."""
@@ -78,7 +79,9 @@ class Candle(object):
         return trend
     
     def __str__(self):
-        return "%i %.2f %.2f %.2f" % (self.body, self.high, self.low, self.close)
+        bar = "%i"
+        bar += " %s %s %s" % (r, r, r)
+        return bar % (self.body, self.high, self.low, self.close)
 
     def __get_date(self):
         date = self.datetime.split(' ')

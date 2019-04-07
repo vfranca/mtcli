@@ -27,10 +27,10 @@ class CandleTestCase(TestCase):
         self.assertEqual(self.obj.range, 5778)
     
     def test_body(self):
-        self.assertEqual(self.obj.body, 87)
+        self.assertEqual(self.obj.body, 87.262)
     
     def test_top(self):
-        self.assertEqual(self.obj.top, 13, "Sombra superior da barra")
+        self.assertEqual(self.obj.top, 12.738, "Sombra superior da barra")
     
     def test_bottom(self):
         self.assertEqual(self.obj.bottom, 0.0, "Sombra inferior da barra")
@@ -45,7 +45,7 @@ class CandleTestCase(TestCase):
         self.assertEqual(self.obj.volume, 14628859)
     
     def test_str(self):
-        self.assertEqual(self.obj.__str__(), "87 56965.00 51187.00 56229.00")
+        self.assertEqual(self.obj.__str__(), "87 56965 51187 56229")
 
 if __name__ == '__main__':
     unittest.main()

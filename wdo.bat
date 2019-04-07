@@ -1,2 +1,3 @@
 @echo off
-set t=wdoh19
+set t=wdok19
+title wdo
