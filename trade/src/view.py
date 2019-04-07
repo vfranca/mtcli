@@ -1,5 +1,4 @@
 from .patterns import *
-from .brooks_patterns import *
 from .brooks_patterns1 import BrooksPatterns1
 from . import reader
 from trade.settings import *

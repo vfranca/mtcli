@@ -1,6 +1,5 @@
 import csv
 from .patterns import *
-from .brooks_patterns import *
 from .fib import Fib
 
 lbl_asc = "ASC"

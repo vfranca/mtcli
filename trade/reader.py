@@ -3,7 +3,6 @@ from .src.view import *
 from .src import reader, view
 from .src.candle import Candle
 from .src.fib import Fib
-#from .src.brooks_patterns import *
 from .src.brooks_patterns2 import BrooksPatterns2
 
 def reader(file, **kwargs):
