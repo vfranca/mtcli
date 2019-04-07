@@ -1,0 +1,27 @@
+....................................................................F...F..
+======================================================================
+FAIL: test_filtro_por_data (tests.test_reader.ReaderTestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrador\trade-py\tests\test_reader.py", line 31, in test_filtro_por_data
+    self.assertEqual(candles[0], " engolfo alta  33 76244 76199 76229 * 76216 76222 76227 > 76261 76266 76272")
+AssertionError: 'asc   -9 76254 76199 76214 * 76233 76226 76220 > 76178 76172 76165' != ' engolfo alta  33 76244 76199 76229 * 76216 76222 76227 > 76261 76266 76272'
+- asc   -9 76254 76199 76214 * 76233 76226 76220 > 76178 76172 76165
++  engolfo alta  33 76244 76199 76229 * 76216 76222 76227 > 76261 76266 76272
+
+
+======================================================================
+FAIL: test_show_default (tests.test_reader.ReaderTestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrador\trade-py\tests\test_reader.py", line 11, in test_show_default
+    self.assertEqual(candles[0], "asc   73 92405 92330 92400 * 92359 92368 92376 > 92434 92442 92451")
+AssertionError: 'asc  martinvert 17 92395 92305 92330 * 92339 92350 92361 > 92429 92440 92451' != 'asc   73 92405 92330 92400 * 92359 92368 92376 > 92434 92442 92451'
+- asc  martinvert 17 92395 92305 92330 * 92339 92350 92361 > 92429 92440 92451
++ asc   73 92405 92330 92400 * 92359 92368 92376 > 92434 92442 92451
+
+
+----------------------------------------------------------------------
+Ran 75 tests in 5.893s
+
+FAILED (failures=2)

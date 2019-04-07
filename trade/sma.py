@@ -1,13 +1,13 @@
-from .chart import chart_reader
-from .bar import Bar
+from.src.reader import chart_reader
+from .src.candle import Candle
 
-def ma(times, filename):
-    rows = chart_reader(filename)
+
+def ma(candles, file):
+    """ Calcula a média móvel simples dos preços de fechamento."""
     prices = []
-
+    rows = chart_reader(file)
     for row in rows:
-        bar = Bar(row)
-        prices.append(bar.close)
-        if len(prices) > times:
-            prices.pop(0)
-    return round(sum(prices) / times)
+        candle = Candle(row)
+        prices.append(candle.close)
+    prices = prices[-candles:]
+    return round(sum(prices) / len(prices), 2)
