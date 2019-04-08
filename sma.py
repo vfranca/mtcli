@@ -1,4 +1,4 @@
-from trade.sma import ma
+from cli_trade.sma import ma
 import sys
 
 times = int(sys.argv[1])

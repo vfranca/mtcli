@@ -43,8 +43,9 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
-*,cover
+*.cover
 .hypothesis/
+.pytest_cache/
 
 # Translations
 *.mo
@@ -89,6 +90,13 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+.spyproject
 
 # Rope project settings
 .ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/

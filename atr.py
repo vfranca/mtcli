@@ -1,4 +1,4 @@
-from trade.atr import atr
+from cli_trade.atr import atr
 import sys
 
 file = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/%s.csv" % sys.argv[1]

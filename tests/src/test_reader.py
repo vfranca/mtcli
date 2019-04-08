@@ -1,6 +1,6 @@
 from unittest import TestCase
-from trade.src.reader import *
-from trade.src.candle import Candle
+from cli_trade.src.reader import *
+from cli_trade.src.candle import Candle
 
 class ReaderTestCase(TestCase):
 
@@ -11,12 +11,12 @@ class ReaderTestCase(TestCase):
 
     def test_file_exists(self):
         self.assertTrue(chart_reader(self.file))
-    
+
     def test_date_filter(self):
         bars = chart_reader(self.file)
         bar = Candle(bars[0])
         self.assertEqual(bar.date, "2018.01.04")
-    
+
     def test_asc(self):
         self.assertEqual(get_trend([4,5], [2,3]), "ASC")
     def test_desc(self):

@@ -1,7 +1,7 @@
 from .patterns import *
 from .brooks_patterns1 import BrooksPatterns1
 from . import reader
-from trade.settings import *
+from cli_trade.settings import *
 
 def get_default(c, trend, pattern2):
     """Retorna a exibição no formato padrão."""
@@ -67,17 +67,17 @@ def get_brooks(c, trend, num, pattern2):
     """Retorna a exibição com os padrões de Brooks."""
     f = reader.get_fib(c.high, c.low, c.trend) # Números de Fibonacci
     b = BrooksPatterns1(c.body, c.top, c.bottom, c.close, f.r) # padrões de 1 barra
-    
+
     tail = b.tail
     if tail == "TOPTAIL":
         tail = "%s%i" %(tail, c.top)
     if tail == "BOTTOMTAIL":
         tail = "%s%i" %(tail, c.bottom)
-    
+
     num =str(num)
     if num == "0":
         num = ""
-        
+
     view = "%s %s %s %s%iR%i %s %s"
     view += " %s %s %s * %s %s" % (r, r, r, r, r)
     return view % (num, trend, b.pattern, b.body_pattern, abs(c.body), c.body_range, pattern2, tail, c.high, c.low, c.close, f.r, f.e)

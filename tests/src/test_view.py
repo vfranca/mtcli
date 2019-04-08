@@ -1,7 +1,7 @@
 from unittest import TestCase
-from trade.src.view import *
-from trade.src import view, reader
-from trade.src.candle import Candle
+from cli_trade.src.view import *
+from cli_trade.src import view, reader
+from cli_trade.src.candle import Candle
 
 class ViewTestCase(TestCase):
 
@@ -18,10 +18,10 @@ class ViewTestCase(TestCase):
 
     def test_channel(self):
         self.assertEqual(get_channel(self.candle, "asc", 100), "asc 83241 83081 * 83341 83181")
-    
+
     def test_lt_diff(self):
         self.assertEqual(get_lt_diff([11,15], [2,8], "asc"), 6)
-    
+
     def test_close(self):
         self.assertEqual(get_close(self.candle), "83161")
 

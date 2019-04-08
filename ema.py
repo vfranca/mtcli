@@ -1,4 +1,4 @@
-from trade.ema import get_ema
+from cli_trade.ema import get_ema
 import sys
 
 times = int(sys.argv[1])
