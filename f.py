@@ -1,4 +1,4 @@
-from trade.src.fib import Fib
+from cli_trade.src.fib import Fib
 import sys
 
 high = float(sys.argv[1])

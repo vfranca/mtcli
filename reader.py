@@ -1,4 +1,4 @@
-from trade.reader import reader
+from cli_trade.cli_trade import reader
 import sys, re
 
 file = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
@@ -27,7 +27,7 @@ elif len(sys.argv) == 4:
     file += sys.argv[1]
     arg2 = sys.argv[2]
     arg3 = sys.argv[3]
-    
+
     # Quando o 2o argumento é uma data
     if p_date.match(arg2):
         if p_times.match(arg3):
@@ -44,4 +44,3 @@ elif len(sys.argv) == 4:
 
 for bar in bars:
     print(bar)
-    

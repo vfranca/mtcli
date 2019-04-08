@@ -1,4 +1,4 @@
-from trade.settings import *
+from cli_trade.settings import *
 
 class Candle(object):
 
@@ -16,68 +16,68 @@ class Candle(object):
         self.bottom = self.__get_bottom()
         self.body_range = self.__get_body_range()
         self.trend = self.__get_trend()
-    
+
     def __get_range(self):
         """ Retorna o range do candle."""
         return self.high - self.low
-    
+
     def __get_body(self):
         """ Retorna o tamanho  relativo do corpo real em porcentagem."""
         if self.range == 0:
             return 0
-        
+
         return round((self.close - self.open) / self.range, 5) * 100
-    
+
     def __get_top(self):
         """ Retorna o tamanho relativo da sombra superior em porcentagem."""
         high = self.high
         open =self.open
         close = self.close
         range = self.range
-        
+
         if close >= open:
             top = high -close
         else:
             top = high - open
-        
+
         if range == 0:
             return 0
-        
+
         return round(top / range, 5) * 100
-    
+
     def __get_bottom(self):
         """ Retorna o tamanho relativo da sombra inferior em porcentagem."""
         low = self.low
         open =self.open
         close = self.close
         range = self.range
-        
+
         if close >= open:
             bottom = open - low
         else:
             bottom = close - low
-        
+
         if range == 0:
             return 0
-        
+
         return round(bottom / range, 5) * 100
-    
+
     def __get_body_range(self):
         "Retorna o tamanho absoluto do corpo."""
         return abs(self.close - self.open)
-    
+
     def __get_trend(self):
         b =self.body
-        
+
         if b > 0:
             trend = "alta"
         elif b < 0:
             trend = "baixa"
         else:
             trend = "lateral"
-        
+
         return trend
-    
+
     def __str__(self):
         bar = "%i"
         bar += " %s %s %s" % (r, r, r)
@@ -86,4 +86,4 @@ class Candle(object):
     def __get_date(self):
         date = self.datetime.split(' ')
         return date[0]
-    
+

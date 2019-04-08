@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .src.reader import *
 from .src.view import *
 from .src import reader, view
@@ -19,7 +20,7 @@ def reader(file, **kwargs):
     open = []
     close = []
     candle_num = 0
-    
+
     rows = chart_reader(file)
     for row in rows:
         candle = Candle(row)
@@ -28,11 +29,11 @@ def reader(file, **kwargs):
         if date and candle.date != date:
             continue
 
-        # Numeração dos candles
+        # NumeraÃ§Ã£o dos candles
         if date:
             candle_num += 1
 
-        # Obtem a tendência das barras
+        # Obtem a tendÃªncia das barras
         high.append(candle.high)
         low.append(candle.low)
         if len(high) == 2:
@@ -44,7 +45,7 @@ def reader(file, **kwargs):
             trend = ""
             lt_diff = 0
 
-        # Verifica a ocorrência de padrões candlesticks de duas barras
+        # Verifica a ocorrÃªncia de padrÃµes candlesticks de duas barras
         #body.append(candle.body)
         #open.append(candle.open)
         #close.append(candle.close)
@@ -57,7 +58,7 @@ def reader(file, **kwargs):
             #pattern2 = ""
         pattern2 = ""
 
-        # Verifica padrões brooks de 2 barras
+        # Verifica padrÃµes brooks de 2 barras
         body.append(candle.body)
         open.append(candle.open)
         close.append(candle.close)
@@ -101,5 +102,6 @@ def reader(file, **kwargs):
         # Filtra a quantidade de candles
         if times and len(candles) > times:
             candles.pop(0)
-            
+
     return candles
+
