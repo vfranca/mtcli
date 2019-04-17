@@ -1,5 +1,6 @@
 from.src.reader import chart_reader
 from .src.candle import Candle
+from .settings import *
 
 
 def ma(candles, file):
@@ -10,4 +11,4 @@ def ma(candles, file):
         candle = Candle(row)
         prices.append(candle.close)
     prices = prices[-candles:]
-    return round(sum(prices) / len(prices), 2)
+    return round(sum(prices) / len(prices), precision)

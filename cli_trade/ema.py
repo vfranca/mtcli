@@ -1,5 +1,6 @@
 from .src.reader import chart_reader
 from .src.candle import Candle
+from .settings import *
 
 
 def get_k(times):
@@ -37,4 +38,4 @@ def get_ema(times, filename):
     k = get_k(times)
     close = get_price_close(filename)
     last_ema = get_last_ema(times, filename)
-    return round(close * k + last_ema * (1 - k), 2)
+    return round(close * k + last_ema * (1 - k), precision)
