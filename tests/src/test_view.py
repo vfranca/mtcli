@@ -17,10 +17,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(get_full(self.candle, "", ""), "  spin top 9 83146 83241 83081 83161 * 83161 83321")
 
     def test_channel(self):
-        self.assertEqual(get_channel(self.candle, "asc", 100), "asc 83241 83081 * 83341 83181")
-
-    def test_lt_diff(self):
-        self.assertEqual(get_lt_diff([11,15], [2,8], "asc"), 6)
+        self.assertEqual(get_channel(self.candle, "asc"), "asc 83241 83081")
 
     def test_close(self):
         self.assertEqual(get_close(self.candle), "83161")

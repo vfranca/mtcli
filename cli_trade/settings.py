@@ -1,2 +1,2 @@
-precision = 2
+precision = 0
 r = '%.0f'
