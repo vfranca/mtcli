@@ -77,7 +77,7 @@ def reader(file, **kwargs):
         if show == "full":
             candles.append(view.get_full(candle, trend, pattern2))
         elif show == "ch":
-            candles.append(view.get_channel(candle, trend))
+            candles.append(view.get_channel(candle, trend, candle_num))
         elif show == "c":
             candles.append(view.get_close(candle))
         elif show == "h":

@@ -19,11 +19,12 @@ def get_full(c, trend, pattern2):
     view += " %s %s %s %s * %s %s" % (r, r, r, r, r, r)
     return view % (trend, pattern2, p, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
 
-def get_channel(c, trend):
+def get_channel(c, trend, num):
     """Retorna a exibição no formato de canal."""
     view = "%s"
     view += " %s %s" % (r, r)
-    return view % (trend, c.high, c.low)
+    view += " %s"
+    return view % (trend, c.high, c.low, num)
 
 def get_close(c):
     """Retorna a exibição com os fechamentos."""
