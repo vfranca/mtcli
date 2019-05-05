@@ -19,14 +19,14 @@ class Candle(object):
 
     def __get_range(self):
         """ Retorna o range do candle."""
-        return self.high - self.low
+        return round(self.high - self.low, 5)
 
     def __get_body(self):
         """ Retorna o tamanho  relativo do corpo real em porcentagem."""
         if self.range == 0:
             return 0
 
-        return round((self.close - self.open) / self.range, 5) * 100
+        return round((self.close - self.open) / self.range * 100)
 
     def __get_top(self):
         """ Retorna o tamanho relativo da sombra superior em porcentagem."""
@@ -43,7 +43,7 @@ class Candle(object):
         if range == 0:
             return 0
 
-        return round(top / range, 5) * 100
+        return round(top / range * 100)
 
     def __get_bottom(self):
         """ Retorna o tamanho relativo da sombra inferior em porcentagem."""
@@ -60,11 +60,11 @@ class Candle(object):
         if range == 0:
             return 0
 
-        return round(bottom / range, 5) * 100
+        return round(bottom / range* 100)
 
     def __get_body_range(self):
         "Retorna o tamanho absoluto do corpo."""
-        return abs(self.close - self.open)
+        return abs(round(self.close - self.open, 5))
 
     def __get_trend(self):
         b =self.body
@@ -79,9 +79,7 @@ class Candle(object):
         return trend
 
     def __str__(self):
-        bar = "%i"
-        bar += " %s %s %s" % (r, r, r)
-        return bar % (self.body, self.high, self.low, self.close)
+        return "%s %.5f %.5f %.5f" % (self.body, self.high, self.low, self.close)
 
     def __get_date(self):
         date = self.datetime.split(' ')

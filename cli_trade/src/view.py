@@ -19,21 +19,12 @@ def get_full(c, trend, pattern2):
     view += " %s %s %s %s * %s %s" % (r, r, r, r, r, r)
     return view % (trend, pattern2, p, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
 
-def get_channel(c, trend, lt_diff):
+def get_channel(c, trend, num):
     """Retorna a exibição no formato de canal."""
-    lt_high = c.high + lt_diff
-    lt_low = c.low + lt_diff
     view = "%s"
-    view += " %s %s * %s %s" % (r, r, r, r)
-    return view % (trend, c.high, c.low, lt_high, lt_low)
-
-def get_lt_diff(high, low, trend):
-    if trend == "asc":
-        return low[1] - low[0]
-    elif trend == "desc":
-        return high[1] - high[0]
-    else:
-        return 0
+    view += " %s %s" % (r, r)
+    view += " %s"
+    return view % (trend, c.high, c.low, num)
 
 def get_close(c):
     """Retorna a exibição com os fechamentos."""

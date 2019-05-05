@@ -8,4 +8,4 @@ class SmaTestCase(TestCase):
         self.file = "tests/fixtures/var/wing19m5.csv"
 
     def test_sma(self):
-        self.assertEqual(ma(self.times, self.file), 92440.29, "Retorna a média móvel simples de 17 períodos")
+        self.assertEqual(ma(self.times, self.file), 92440.0, "Retorna a média móvel simples de 17 períodos")

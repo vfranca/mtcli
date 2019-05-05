@@ -38,12 +38,10 @@ def reader(file, **kwargs):
         low.append(candle.low)
         if len(high) == 2:
             trend = get_trend(high, low)
-            lt_diff = get_lt_diff(high, low, trend)
             high.pop(0)
             low.pop(0)
         else:
             trend = ""
-            lt_diff = 0
 
         # Verifica a ocorrência de padrões candlesticks de duas barras
         #body.append(candle.body)
@@ -79,7 +77,7 @@ def reader(file, **kwargs):
         if show == "full":
             candles.append(view.get_full(candle, trend, pattern2))
         elif show == "ch":
-            candles.append(view.get_channel(candle, trend, lt_diff))
+            candles.append(view.get_channel(candle, trend, candle_num))
         elif show == "c":
             candles.append(view.get_close(candle))
         elif show == "h":

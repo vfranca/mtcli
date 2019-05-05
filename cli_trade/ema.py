@@ -1,5 +1,6 @@
 from .src.reader import chart_reader
 from .src.candle import Candle
+from .settings import *
 
 
 def get_k(times):
@@ -26,9 +27,9 @@ def get_last_ema(times, filename):
 
 def get_ema(times, filename):
     """ Calcula a média móvel exponencial dos preços de fechamento.
-    
+
     Extrai os preços de fechamento de um arquivo CSV exportado do MetaTrater 5
-    em um dado período 
+    em um dado período
     Argumentos:
     k: coeficiente multiplicador
     last_ema: última EMA
@@ -37,4 +38,4 @@ def get_ema(times, filename):
     k = get_k(times)
     close = get_price_close(filename)
     last_ema = get_last_ema(times, filename)
-    return round(close * k + last_ema * (1 - k))
+    return round(close * k + last_ema * (1 - k), precision)
