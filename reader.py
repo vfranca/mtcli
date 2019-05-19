@@ -2,6 +2,9 @@ from cli_trade.cli_trade import reader
 import sys, re
 
 file = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
+
+#file = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/83D4764E0403A8685E84D6FCAB361879/MQL5/Files/"
+
 p_times = re.compile(r'^[0-9]*$')
 p_date = re.compile(r'^[0-9]{4}.[0-9]{2}.[0-9]{2}$')
 p_show = re.compile('^[a-z]*$')

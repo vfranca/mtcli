@@ -1,17 +1,10 @@
-lbl_body_doji = "DOJI"
-lbl_body_bull = "BRANCO"
-lbl_body_bear = "PRETO"
-lbl_toptail = "TOPTAIL"
-lbl_bottomtail = "BOTTOMTAIL"
-lbl_tail_neutral = "NEUTRAL"
-lbl_buy_pressure = "CP"
-lbl_sell_pressure = "VD"
+from cli_trade.settings import *
 
 class BrooksPatterns1(object):
 
     body_doji_max = 10
     body_trend_min = 50
-    
+
     def __init__(self, body, top, bottom, close, retracement):
         self.body = body
         self.top = top
@@ -46,19 +39,19 @@ class BrooksPatterns1(object):
         if self.__is_sell_pressure():
             return lbl_sell_pressure
         return ""
-    
+
     def __is_topo_careca(self):
         """ Se for topo careca retorna true."""
         pass
-    
+
     def __is_fundo_careca(self):
         """ Se for fundo careca retorna true."""
         pass
-    
+
     def __is_careca(self):
         """ Se for careca retorna true."""
         pass
-    
+
     def __is_buy_pressure(self):
         """ Se tiver pressão compradora retorna true."""
         if self.body < 0:
@@ -72,7 +65,7 @@ class BrooksPatterns1(object):
         #if self.bottom < self.top:
             #return False
         return True
-    
+
     def __is_sell_pressure(self):
         """ Se tiver pressão vendedora retorna true."""
         if self.body > 0:
@@ -86,6 +79,6 @@ class BrooksPatterns1(object):
         #if self.top < self.bottom:
             #return False
         return True
-        
+
 
 

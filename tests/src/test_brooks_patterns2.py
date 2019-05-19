@@ -1,5 +1,6 @@
 from unittest import TestCase
 from cli_trade.src.brooks_patterns2 import BrooksPatterns2
+from tests.fixtures.settings import *
 
 class BrooksPatterns2TestCase(TestCase):
 
@@ -17,5 +18,5 @@ class BrooksPatterns2TestCase(TestCase):
 
     def test_pattern_bear_gap(self):
         o = BrooksPatterns2([-50, -60], [90, 40], [20, 10], [80, 60], [15, 5])
-        self.assertEqual(o.pattern, "GAP5")
+        self.assertEqual(o.pattern, "%s5" % lbl_gap)
 
