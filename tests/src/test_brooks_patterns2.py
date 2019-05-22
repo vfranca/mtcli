@@ -1,6 +1,6 @@
 from unittest import TestCase
 from cli_trade.src.brooks_patterns2 import BrooksPatterns2
-from tests.fixtures.settings import *
+from cli_trade.settings import *
 
 class BrooksPatterns2TestCase(TestCase):
 

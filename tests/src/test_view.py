@@ -2,7 +2,7 @@ from unittest import TestCase
 from cli_trade.src.view import *
 from cli_trade.src import view, reader
 from cli_trade.src.candle import Candle
-#from tests.fixtures.settings import *
+from cli_trade.settings import *
 
 
 class ViewTestCase(TestCase):

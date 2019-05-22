@@ -2,14 +2,13 @@ precision = 0
 r = '%.0f'
 
 lbl_body_doji = "DOJI"
-lbl_body_bull = "BRANCO"
-lbl_body_bear = "PRETO"
-lbl_toptail = "ACIMA"
-lbl_bottomtail = "ABAIXO"
-lbl_tail_neutral = "NEUTRO"
-lbl_buy_pressure = "CP"
-lbl_sell_pressure = "VD"
+lbl_body_bull = "GREEN"
+lbl_body_bear = "RED"
+lbl_toptail = "TOP"
+lbl_bottomtail = "BOTTOM"
+lbl_tail_neutral = "NONE"
+lbl_buy_pressure = "BUY"
+lbl_sell_pressure = "SELL"
 
 lbl_gap = "G"
 lbl_fbo = ""
-
