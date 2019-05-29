@@ -1,5 +1,4 @@
-lbl_gap = "GAP"
-lbl_fbo = "FBO"
+from cli_trade.settings import *
 
 class BrooksPatterns2(object):
 
@@ -34,11 +33,11 @@ class BrooksPatterns2(object):
         if self.body[1] < 0 and self.close[1] >= self.low[0]:
             return False
         return True
-    
+
     def __is_bull_reversal(self):
         """ Se for reversão de alta de duas barras retorna true."""
         pass
-    
+
     def __is_bear_reversal(self):
         """ Se for reversão de baixa de duas barras retorna true."""
         pass

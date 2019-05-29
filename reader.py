@@ -1,7 +1,9 @@
 from cli_trade.cli_trade import reader
+from cli_trade.settings import *
 import sys, re
 
-file = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
+file = csv_path
+
 p_times = re.compile(r'^[0-9]*$')
 p_date = re.compile(r'^[0-9]{4}.[0-9]{2}.[0-9]{2}$')
 p_show = re.compile('^[a-z]*$')

@@ -60,9 +60,9 @@ def get_brooks(c, trend, num, pattern2):
     b = BrooksPatterns1(c.body, c.top, c.bottom, c.close, f.r) # padrões de 1 barra
 
     tail = b.tail
-    if tail == "TOPTAIL":
+    if tail == lbl_toptail:
         tail = "%s%i" %(tail, c.top)
-    if tail == "BOTTOMTAIL":
+    if tail == lbl_bottomtail:
         tail = "%s%i" %(tail, c.bottom)
 
     num =str(num)
