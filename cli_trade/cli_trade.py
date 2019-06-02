@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 from .src.model import bar_model
-from .src import view as bar_view
-from .src.helper import get_trend
+from .src.view import *
+from .src.helper import get_trend, get_fib
 from .src.candle import Candle
 from .src.fib import Fib
+from .src.brooks_patterns1 import BrooksPatterns1
 from .src.brooks_patterns2 import BrooksPatterns2
+from .settings import *
+
 
 def controller(file, **kwargs):
     """Retorna uma view."""
@@ -20,10 +23,12 @@ def controller(file, **kwargs):
     open = []
     close = []
     num_bar = 0
+    count = bull = bear = doji =0
 
-    rows = bar_model(file)
-    for row in rows:
-        bar = Candle(row)
+    bars = bar_model(file)
+    for item in bars:
+        bar = Candle(item)
+        count += 1
 
         # Filtra a lista de views a partir de uma data
         if date and bar.date != date:
@@ -60,27 +65,42 @@ def controller(file, **kwargs):
         else:
             bpattern2 = ""
 
+        # Estatística de barras de tendência e barras doji
+        if qtt_bars:
+            start = len(bars) - qtt_bars
+            if count > start:
+                fib = get_fib(bar.high, bar.low, bar.trend)
+                pattern1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, fib.r)
+                if pattern1.pattern == lbl_buy_pressure:
+                    bull += 1
+                elif pattern1.pattern == lbl_sell_pressure:
+                    bear += 1
+                else:
+                    doji += 1
+
         # Seleção da view
         if view == "full":
-            views.append(bar_view.get_full(bar, trend, pattern2))
+            views.append(full_view(bar, trend, pattern2))
         elif view == "ch":
-            views.append(bar_view.get_channel(bar, trend, num_bar))
+            views.append(channel_view(bar, trend, num_bar))
         elif view == "c":
-            views.append(bar_view.get_close(bar))
+            views.append(close_view(bar))
         elif view == "h":
-            views.append(bar_view.get_high(bar))
+            views.append(high_view(bar))
         elif view == "l":
-            views.append(bar_view.get_low(bar))
+            views.append(low_view(bar))
         elif view == "r":
-            views.append(bar_view.get_range(bar))
+            views.append(range_view(bar))
         elif view == "vol":
-            views.append(bar_view.get_volume(bar, trend))
+            views.append(volume_view(bar, trend))
         elif view == "fib":
-            views.append(bar_view.get_fib(bar, trend))
+            views.append(fib_view(bar, trend))
+        elif view == "stat":
+            views = [stat_view(bull, bear, doji)]
         else:
-            views.append(bar_view.get_brooks(bar, trend, num_bar, bpattern2))
+            views.append(brooks_view(bar, trend, num_bar, bpattern2))
 
-        # Filtra a quantidade de views
+        # Limita a quantidade de views
         if qtt_bars and len(views) > qtt_bars:
             views.pop(0)
 
