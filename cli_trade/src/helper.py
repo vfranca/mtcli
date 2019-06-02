@@ -1,11 +1,5 @@
-#import csv
-#from .patterns import *
 from .fib import Fib
-
-lbl_asc = "ASC"
-lbl_desc = "DESC"
-lbl_ob = "OB"
-lbl_ib = "IB"
+from cli_trade.settings import *
 
 def get_fib(high, low, trend):
     if trend == "alta":

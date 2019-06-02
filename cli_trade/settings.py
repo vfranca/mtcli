@@ -16,3 +16,10 @@ lbl_sell_pressure = "VD"
 
 lbl_gap = "G"
 lbl_fbo = ""
+
+lbl_asc = "ASC"
+lbl_desc = "DESC"
+lbl_ob = "OB"
+lbl_ib = "IB"
+
+

@@ -7,11 +7,11 @@ from .src.fib import Fib
 from .src.brooks_patterns2 import BrooksPatterns2
 
 def controller(file, **kwargs):
-    """Retorna uma lista de candles."""
-    times = kwargs.get("times")
+    """Retorna uma view."""
+    qtt_bars = kwargs.get("qtt_bars")
     date = kwargs.get("date")
     view = kwargs.get("view")
-    bars = []
+    views = []
     high = []
     high1 = []
     low = []
@@ -25,7 +25,7 @@ def controller(file, **kwargs):
     for row in rows:
         bar = Candle(row)
 
-        # Filtra a lista de barras a partir de uma data
+        # Filtra a lista de views a partir de uma data
         if date and bar.date != date:
             continue
 
@@ -60,33 +60,29 @@ def controller(file, **kwargs):
         else:
             bpattern2 = ""
 
-        # Seleciona a view
+        # Seleção da view
         if view == "full":
-            bars.append(bar_view.get_full(bar, trend, pattern2))
+            views.append(bar_view.get_full(bar, trend, pattern2))
         elif view == "ch":
-            bars.append(bar_view.get_channel(bar, trend, num_bar))
+            views.append(bar_view.get_channel(bar, trend, num_bar))
         elif view == "c":
-            bars.append(bar_view.get_close(bar))
+            views.append(bar_view.get_close(bar))
         elif view == "h":
-            bars.append(bar_view.get_high(bar))
+            views.append(bar_view.get_high(bar))
         elif view == "l":
-            view.append(bar_view.get_low(bar))
+            views.append(bar_view.get_low(bar))
         elif view == "r":
-            bars.append(bar_view.get_range(bar))
+            views.append(bar_view.get_range(bar))
         elif view == "vol":
-            bars.append(bar_view.get_volume(bar, trend))
+            views.append(bar_view.get_volume(bar, trend))
         elif view == "fib":
-            bars.append(bar_view.get_fib(bar, trend))
-        #elif show == "br":
-            #candles.append(view.get_brooks(candle, trend, num_bar, bpattern2))
-        #elif show == "cs":
-            #candles.append(view.get_default(candle, trend, pattern2))
+            views.append(bar_view.get_fib(bar, trend))
         else:
-            bars.append(bar_view.get_brooks(bar, trend, num_bar, bpattern2))
+            views.append(bar_view.get_brooks(bar, trend, num_bar, bpattern2))
 
-        # Filtra a quantidade de baras
-        if times and len(bars) > times:
-            bars.pop(0)
+        # Filtra a quantidade de views
+        if qtt_bars and len(views) > qtt_bars:
+            views.pop(0)
 
-    return bars
+    return views
 
