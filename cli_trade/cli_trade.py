@@ -2,7 +2,6 @@
 from .src.model import bar_model
 from .src import view as bar_view
 from .src.helper import get_trend
-#from .src import reader, view as bar_view
 from .src.candle import Candle
 from .src.fib import Fib
 from .src.brooks_patterns2 import BrooksPatterns2
