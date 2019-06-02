@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
-from .src.reader import *
-from .src.view import *
-from .src import reader, view
+from .src.model import bar_model
+from .src import view as bar_view
+from .src.helper import get_trend
+#from .src import reader, view as bar_view
 from .src.candle import Candle
 from .src.fib import Fib
 from .src.brooks_patterns2 import BrooksPatterns2
 
-def reader(file, **kwargs):
+def controller(file, **kwargs):
     """Retorna uma lista de candles."""
     times = kwargs.get("times")
     date = kwargs.get("date")
-    show = kwargs.get("show")
-    candles = []
+    view = kwargs.get("view")
+    bars = []
     high = []
     high1 = []
     low = []
@@ -19,23 +20,23 @@ def reader(file, **kwargs):
     body = []
     open = []
     close = []
-    candle_num = 0
+    num_bar = 0
 
-    rows = chart_reader(file)
+    rows = bar_model(file)
     for row in rows:
-        candle = Candle(row)
+        bar = Candle(row)
 
-        # Filtra a lista de candles a partir de uma data
-        if date and candle.date != date:
+        # Filtra a lista de barras a partir de uma data
+        if date and bar.date != date:
             continue
 
-        # Numeração dos candles
+        # Numeração das barras
         if date:
-            candle_num += 1
+            num_bar += 1
 
         # Obtem a tendência das barras
-        high.append(candle.high)
-        low.append(candle.low)
+        high.append(bar.high)
+        low.append(bar.low)
         if len(high) == 2:
             trend = get_trend(high, low)
             high.pop(0)
@@ -43,25 +44,12 @@ def reader(file, **kwargs):
         else:
             trend = ""
 
-        # Verifica a ocorrência de padrões candlesticks de duas barras
-        #body.append(candle.body)
-        #open.append(candle.open)
-        #close.append(candle.close)
-        #if len(body) == 2:
-            #pattern2 = get_two_candles_pattern(body, open, close)
-            #body.pop(0)
-            #open.pop(0)
-            #close.pop(0)
-        #else:
-            #pattern2 = ""
-        pattern2 = ""
-
         # Verifica padrões brooks de 2 barras
-        body.append(candle.body)
-        open.append(candle.open)
-        close.append(candle.close)
-        high1.append(candle.high)
-        low1.append(candle.low)
+        body.append(bar.body)
+        open.append(bar.open)
+        close.append(bar.close)
+        high1.append(bar.high)
+        low1.append(bar.low)
         if len(body) == 2:
             brooks = BrooksPatterns2(body, open, close, high1, low1)
             bpattern2 = brooks.pattern
@@ -74,32 +62,32 @@ def reader(file, **kwargs):
             bpattern2 = ""
 
         # Seleciona a view
-        if show == "full":
-            candles.append(view.get_full(candle, trend, pattern2))
-        elif show == "ch":
-            candles.append(view.get_channel(candle, trend, candle_num))
-        elif show == "c":
-            candles.append(view.get_close(candle))
-        elif show == "h":
-            candles.append(view.get_high(candle))
-        elif show == "l":
-            candles.append(view.get_low(candle))
-        elif show == "r":
-            candles.append(view.get_range(candle))
-        elif show == "vol":
-            candles.append(view.get_volume(candle, trend))
-        elif show == "fib":
-            candles.append(view.get_fib(candle, trend))
-        elif show == "br":
-            candles.append(view.get_brooks(candle, trend, candle_num, bpattern2))
-        elif show == "cs":
-            candles.append(view.get_default(candle, trend, pattern2))
+        if view == "full":
+            bars.append(bar_view.get_full(bar, trend, pattern2))
+        elif view == "ch":
+            bars.append(bar_view.get_channel(bar, trend, num_bar))
+        elif view == "c":
+            bars.append(bar_view.get_close(bar))
+        elif view == "h":
+            bars.append(bar_view.get_high(bar))
+        elif view == "l":
+            view.append(bar_view.get_low(bar))
+        elif view == "r":
+            bars.append(bar_view.get_range(bar))
+        elif view == "vol":
+            bars.append(bar_view.get_volume(bar, trend))
+        elif view == "fib":
+            bars.append(bar_view.get_fib(bar, trend))
+        #elif show == "br":
+            #candles.append(view.get_brooks(candle, trend, num_bar, bpattern2))
+        #elif show == "cs":
+            #candles.append(view.get_default(candle, trend, pattern2))
         else:
-            candles.append(view.get_brooks(candle, trend, candle_num, bpattern2))
+            bars.append(bar_view.get_brooks(bar, trend, num_bar, bpattern2))
 
-        # Filtra a quantidade de candles
-        if times and len(candles) > times:
-            candles.pop(0)
+        # Filtra a quantidade de baras
+        if times and len(bars) > times:
+            bars.pop(0)
 
-    return candles
+    return bars
 

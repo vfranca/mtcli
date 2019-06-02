@@ -1,6 +1,6 @@
 from unittest import TestCase
 from cli_trade.src.view import *
-from cli_trade.src import view, reader
+from cli_trade.src import view, model
 from cli_trade.src.candle import Candle
 from cli_trade.settings import *
 
@@ -9,11 +9,8 @@ class ViewTestCase(TestCase):
 
     def setUp(self):
         self.file = "tests/fixtures/var/wing19m5.csv"
-        self.candles = reader.chart_reader(self.file)
+        self.candles = model.bar_model(self.file)
         self.candle = Candle(self.candles[4])
-
-    def test_default(self):
-        self.assertEqual(get_default(self.candle, "", ""), "  spin top 9 83241 83081 83161 * 83161 83321")
 
     def test_full(self):
         self.assertEqual(get_full(self.candle, "", ""), "  spin top 9 83146 83241 83081 83161 * 83161 83321")

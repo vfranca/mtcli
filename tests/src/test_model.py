@@ -1,19 +1,20 @@
 from unittest import TestCase
-from cli_trade.src.reader import *
+from cli_trade.src.model import *
+from cli_trade.src.helper import *
 from cli_trade.src.candle import Candle
 
 class ReaderTestCase(TestCase):
 
     def setUp(self):
         self.file = "tests/fixtures/var/wing19m5.csv"
-        self.candles = chart_reader(self.file)
+        self.candles = bar_model(self.file)
         self.candle = Candle(self.candles[4])
 
     def test_file_exists(self):
-        self.assertTrue(chart_reader(self.file))
+        self.assertTrue(bar_model(self.file))
 
     def test_date_filter(self):
-        bars = chart_reader(self.file)
+        bars = bar_model(self.file)
         bar = Candle(bars[0])
         self.assertEqual(bar.date, "2018.01.04")
 

@@ -1,10 +1,10 @@
-from.src.reader import chart_reader
+from.src.model import bar_model
 from .src.candle import Candle
 
 def atr(file, candles):
     """Calcula o ATR."""
     ranges = []
-    rows = chart_reader(file)
+    rows = bar_model(file)
     for row in rows:
         candle = Candle(row)
         # Elimina doji de 4 precos
@@ -14,4 +14,3 @@ def atr(file, candles):
     ranges = ranges[-candles:]
     return round(sum(ranges) / len(ranges), 2)
 
-    
