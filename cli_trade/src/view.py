@@ -5,11 +5,10 @@ from cli_trade.settings import *
 
 def full_view(c, trend, pattern2):
     """Retorna a exibição no formato completo."""
-    p = get_pattern(c.body, c.top, c.bottom)
     f = helper.get_fib(c.high, c.low, c.trend)
-    view = "%s %s %s %i"
+    view = "%s %s %i"
     view += " %s %s %s %s * %s %s" % (r, r, r, r, r, r)
-    return view % (trend, pattern2, p, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
+    return view % (trend, pattern2, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
 
 def channel_view(c, trend, num):
     """Retorna a exibição no formato de canal."""

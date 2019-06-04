@@ -56,16 +56,16 @@ def controller(file, **kwargs):
         low1.append(bar.low)
         if len(body) == 2:
             brooks = BrooksPatterns2(body, open, close, high1, low1)
-            bpattern2 = brooks.pattern
+            pattern2 = brooks.pattern
             body.pop(0)
             open.pop(0)
             close.pop(0)
             high1.pop(0)
             low1.pop(0)
         else:
-            bpattern2 = ""
+            pattern2 = ""
 
-        # Estatística de barras de tendência e barras doji
+        # Contagem de barras de tendência e barras doji
         if qtt_bars:
             start = len(bars) - qtt_bars
             if count > start:
@@ -98,7 +98,7 @@ def controller(file, **kwargs):
         elif view == "stat":
             views = [stat_view(bull, bear, doji)]
         else:
-            views.append(brooks_view(bar, trend, num_bar, bpattern2))
+            views.append(brooks_view(bar, trend, num_bar, pattern2))
 
         # Limita a quantidade de views
         if qtt_bars and len(views) > qtt_bars:
