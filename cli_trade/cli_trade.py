@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from .src.model import bar_model
 from .src.view import *
-from .src.helper import get_trend, get_fib
+from .src.helper import get_fib
 from .src.candle import Candle
 from .src.fib import Fib
 from .src.brooks_patterns1 import BrooksPatterns1
@@ -38,16 +38,6 @@ def controller(file, **kwargs):
         if date:
             num_bar += 1
 
-        # Obtem a tendência das barras
-        high.append(bar.high)
-        low.append(bar.low)
-        if len(high) == 2:
-            trend = get_trend(high, low)
-            high.pop(0)
-            low.pop(0)
-        else:
-            trend = ""
-
         # Verifica padrões brooks de 2 barras
         body.append(bar.body)
         open.append(bar.open)
@@ -57,6 +47,7 @@ def controller(file, **kwargs):
         if len(body) == 2:
             brooks = BrooksPatterns2(body, open, close, high1, low1)
             pattern2 = brooks.pattern
+            trend = brooks.trend
             body.pop(0)
             open.pop(0)
             close.pop(0)
@@ -64,6 +55,7 @@ def controller(file, **kwargs):
             low1.pop(0)
         else:
             pattern2 = ""
+            trend = ""
 
         # Contagem de barras de tendência e barras doji
         if qtt_bars:

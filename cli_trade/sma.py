@@ -11,4 +11,4 @@ def ma(candles, file):
         candle = Candle(row)
         prices.append(candle.close)
     prices = prices[-candles:]
-    return round(sum(prices) / len(prices), precision)
+    return round(sum(prices) / len(prices), digits)

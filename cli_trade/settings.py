@@ -1,5 +1,6 @@
-precision = 0
+digits = 0
 r = '%.0f'
+
 # Metatrader Clear
 csv_path = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
 # Metatrader Modalmais

@@ -8,6 +8,7 @@ class BrooksPatterns2(object):
         self.close = close
         self.high = high
         self.low = low
+        self.trend = self.__get_trend()
         self.pattern = self.__get_pattern()
 
     def __get_pattern(self):
@@ -48,4 +49,18 @@ class BrooksPatterns2(object):
     def __is_microdoublebottom(self):
         """Se for micro fundo duplo retorna true."""
         pass
+
+    def __get_trend(self):
+        """ Retorna a tendência da sequência de dois candles."""
+        if self.high[1] > self.high[0] and self.low[1] > self.low[0]:
+            return lbl_asc
+        if self.high[1] < self.high[0] and self.low[1] < self.low[0]:
+            return lbl_desc
+        if self.high[1] <= self.high[0] and self.low[1] >= self.low[0]:
+            return lbl_ib
+        if self.high[1] > self.high[0] and self.low[1] < self.low[0]:
+            return lbl_ob
+        return ""
+
+
 

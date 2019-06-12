@@ -38,4 +38,4 @@ def get_ema(times, filename):
     k = get_k(times)
     close = get_price_close(filename)
     last_ema = get_last_ema(times, filename)
-    return round(close * k + last_ema * (1 - k), precision)
+    return round(close * k + last_ema * (1 - k), digits)

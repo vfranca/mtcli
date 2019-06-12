@@ -13,7 +13,7 @@ class ViewTestCase(TestCase):
         self.candle = Candle(self.candles[4])
 
     def test_full(self):
-        self.assertEqual(full_view(self.candle, "", ""), "  spin top 9 83146 83241 83081 83161 * 83161 83321")
+        self.assertEqual(full_view(self.candle, "", ""), "  9 83146 83241 83081 83161 * 83161 83321")
 
     def test_channel(self):
         self.assertEqual(channel_view(self.candle, "asc", 1), "asc 83241 83081 1")
