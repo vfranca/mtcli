@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from cli_trade.settings import *
+
 
 class Candle(object):
 

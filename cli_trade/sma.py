@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from.src.model import bar_model
 from .src.candle import Candle
 from .settings import *

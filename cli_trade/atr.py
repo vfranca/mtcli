@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from.src.model import bar_model
 from .src.candle import Candle
+
 
 def atr(file, candles):
     """Calcula o ATR."""

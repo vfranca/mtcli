@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 from .patterns import *
 from .brooks_patterns1 import BrooksPatterns1
 from . import helper
 from cli_trade.settings import *
+
 
 def full_view(c, trend, pattern2):
     """Retorna a exibição no formato completo."""

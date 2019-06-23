@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import sys
+
 
 # bankrooll capital de trade
 br=353.00

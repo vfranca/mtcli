@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 
 # Padrões simples
 
@@ -198,7 +200,7 @@ def is_black_cloud_cover(body, open, close):
 
 def is_piersing_line(body, open, close):
     pass
-    
+
 def get_two_candles_pattern(body, open, close):
     """Verifica padrões de dois candles."""
     if is_bullish_engolfing(body, open, close):

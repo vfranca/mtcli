@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from cli_trade.cli_trade import controller
 from cli_trade.settings import *
 import sys, re
+
 
 file = csv_path
 

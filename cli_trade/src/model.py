@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import csv
+
 
 def bar_model(file):
     """ Lê um gráfico de barras/candlestick para uma lista."""

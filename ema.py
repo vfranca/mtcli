@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from cli_trade.ema import get_ema
 from cli_trade.settings import *
 import sys
+
 
 times = int(sys.argv[1])
 filename = csv_path + sys.argv[2]

@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from unittest import TestCase
 from cli_trade.src.patterns import *
+
 
 class PatternsTestCase(TestCase):
 

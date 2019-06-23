@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from unittest import TestCase
 from cli_trade.src.view import *
 from cli_trade.src.model import *
