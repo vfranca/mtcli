@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
 digits = 0
 r = '%.0f'
 
