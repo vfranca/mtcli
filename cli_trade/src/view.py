@@ -45,7 +45,8 @@ def volume_view(c, trend):
 
 def range_view(c):
     """Retorna a view com os ranges das barras."""
-    return "%.2f" % c.range
+    view ="%s" % r
+    return view % c.range
 
 def brooks_view(c, trend, num, pattern2):
     """Retorna a exibição com os padrões de Brooks."""
