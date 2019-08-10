@@ -26,66 +26,67 @@ Pré-requisitos
 Exemplos de Comandos
 --------
 
-> py reader.py winq19daily.csv 20
+> py reader.py winq19daily.csv 20  
 Exibe as últimas 20 barras do diário do winq19.
 
-> py reader.py winq19daily.csv ch 20
+> py reader.py winq19daily.csv ch 20  
 Exibe o canal das últimas 20 barras do diário do winq19.
 
-> py reader.py winq19daily.csv o 20
+> py reader.py winq19daily.csv o 20  
 Exibe o preço de abertura das últimas 20 barras do diário do winq19.
 
-> py reader.py winq19daily.csv c 20
+> py reader.py winq19daily.csv c 20  
 Exibe o preço de fechamento das últimas 20 barras do diário do winq19.
 
-> py reader.py winq19daily.csv h 20
+> py reader.py winq19daily.csv h 20  
 Exibe o preço máximo das últimas 20 barras do diário do winq19.
 
-> py reader.py winq19daily.csv l 20
+> py reader.py winq19daily.csv l 20  
 Exibe o preço mínimo das últimas 20 barras do diário do winq19.
 
-> py reader.py winq19daily.csv r 20
+> py reader.py winq19daily.csv r 20  
 Exibe o range das últimas 20 barras do diário do winq19.
 
-> py reader.py winq19daily.csv vol 20
+> py reader.py winq19daily.csv vol 20  
 Exibe o volume das últimas 20 barras do diário do winq19.
 
-> py atr.py winq19daily
+> py atr.py winq19daily  
 Exibe o ATR(14) do diário do winq19.
 
-> py atr.py winq19 20
+> py atr.py winq19 20  
 Exibe o ATR(20) do diário do winq19.
 
-> py sma.py 20 winq19daily.csv
+> py sma.py 20 winq19daily.csv  
 Exibe a média móvel aritmética de 20 períodos do diário do winq19.
 
-> py ema.py 20 winq19daily.csv
+> py ema.py 20 winq19daily.csv  
 Exibe a média móvel exponencial de 20 períodos do diário do winq19.
 
-> py fibo.py 103900 102100 h
+> py fibo.py 103900 102100 h  
 Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de alta.
 
-> py fibo.py 103900 102100 l
+> py fibo.py 103900 102100 l  
 Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de baixa.
 
 Variáveis de ambiente
 --------
 
-Para abreviar os comandos e evitar repetições são definidas variáveis de ambiente no Windows:
-%t% - Ticker do ativo
-%d% - Data do gráfico
+Para abreviar os comandos e evitar repetições são definidas variáveis de ambiente no Windows:  
+%t% - Ticker do ativo  
+%d% - Data do gráfico  
 
-Essas variáveis podem ser definidas executando o arquivo setenv.bat
+Essas variáveis também podem ser definidas executando o arquivo setenv.bat
 
 Aliases
 --------
 
-Os aliases de comandos são arquivos em lote como forma de viabilizar uma digitação mais rápida para execução dos comandos.
+Os aliases de comandos são arquivos em lote como forma de viabilizar uma digitação mais rápida para execução dos comandos.  
 
-Exemplos:
-h1 - py reader.py winq19h1.csv
-h1 ch - py reader.py winq19h1.csv   ch
-h1 vol 20 - py reader.py winq19h1.csv   vol 20
+Exemplos:  
+
+h1 - py reader.py winq19h1.csv  
+h1 ch - py reader.py winq19h1.csv   ch  
+h1 vol 20 - py reader.py winq19h1.csv   vol 20  
 
 Credits
 -------
