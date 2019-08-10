@@ -1,4 +1,5 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
+
 
 def get_expec(taxa_acerto, ganho_medio, prejuizo_medio):
     """Calcula a expectativa matemática."""

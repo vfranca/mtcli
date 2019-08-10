@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from cli_trade.atr import atr
 from cli_trade.settings import *
 import sys
+
 
 file = "%s%s.csv" % (csv_path, sys.argv[1])
 

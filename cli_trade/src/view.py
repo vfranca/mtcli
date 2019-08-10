@@ -1,62 +1,56 @@
+# -*- coding: utf-8 -*-
 from .patterns import *
 from .brooks_patterns1 import BrooksPatterns1
-from . import reader
+from . import helper
 from cli_trade.settings import *
 
-def get_default(c, trend, pattern2):
-    """Retorna a exibição no formato padrão."""
-    f = reader.get_fib(c.high, c.low, c.trend)
-    p = get_pattern(c.body, c.top, c.bottom)
-    view = "%s %s %s %i"
-    view += " %s %s %s * %s %s" % (r, r, r, r, r)
-    return view % (trend, pattern2, p, c.body, c.high, c.low, c.close, f.r, f.e)
 
-def get_full(c, trend, pattern2):
+def full_view(c, trend, pattern2):
     """Retorna a exibição no formato completo."""
-    p = get_pattern(c.body, c.top, c.bottom)
-    f = reader.get_fib(c.high, c.low, c.trend)
-    view = "%s %s %s %i"
+    f = helper.get_fib(c.high, c.low, c.trend)
+    view = "%s %s %i"
     view += " %s %s %s %s * %s %s" % (r, r, r, r, r, r)
-    return view % (trend, pattern2, p, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
+    return view % (trend, pattern2, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
 
-def get_channel(c, trend, num):
+def channel_view(c, trend, num):
     """Retorna a exibição no formato de canal."""
     view = "%s"
     view += " %s %s" % (r, r)
     view += " %s"
     return view % (trend, c.high, c.low, num)
 
-def get_close(c):
+def close_view(c):
     """Retorna a exibição com os fechamentos."""
     view = ""
     view += "%s" % r
     return view % c.close
 
-def get_high(c):
+def high_view(c):
     """Retorna a exibição com as máximas."""
     view = ""
     view += "%s" % r
     return view % c.high
 
-def get_low(c):
+def low_view(c):
     """Retorna a exibição com as mínimas."""
     view = ""
     view += "%s" % r
     return view % c.low
 
-def get_volume(c, trend):
+def volume_view(c, trend):
     """Retorna a exibição com os volumes."""
     view = "%s"
     view += " %s" % r
     return view % (trend, c.volume)
 
-def get_range(c):
+def range_view(c):
     """Retorna a view com os ranges das barras."""
-    return "%i" % c.range
+    view ="%s" % r
+    return view % c.range
 
-def get_brooks(c, trend, num, pattern2):
+def brooks_view(c, trend, num, pattern2):
     """Retorna a exibição com os padrões de Brooks."""
-    f = reader.get_fib(c.high, c.low, c.trend) # Números de Fibonacci
+    f = helper.get_fib(c.high, c.low, c.trend) # Números de Fibonacci
     b = BrooksPatterns1(c.body, c.top, c.bottom, c.close, f.r) # padrões de 1 barra
 
     tail = b.tail
@@ -73,9 +67,13 @@ def get_brooks(c, trend, num, pattern2):
     view += " %s %s %s * %s %s" % (r, r, r, r, r)
     return view % (num, trend, b.pattern, b.body_pattern, abs(c.body), c.body_range, pattern2, tail, c.high, c.low, c.close, f.r, f.e)
 
-def get_fib(c, trend):
+def fib_view(c, trend):
     """Retorna a exibição de Fibonacci."""
-    f = reader.get_fib(c.high, c.low, c.trend)
+    f = helper.get_fib(c.high, c.low, c.trend)
     view = "%s %i"
     view += " %s %s %s * %s %s %s" % (r, r, r, r, r, r)
     return view % (trend, c.body, f.r61, f.r, f.r38, f.e38, f.e, f.e61)
+
+def stat_view(bull, bear, doji):
+    """ Retorna a view stat."""
+    return "verde %i vermelho %i doji %i" % (bull, bear, doji)

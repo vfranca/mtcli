@@ -1,5 +1,7 @@
-precision = 0
+# -*- coding: utf-8 -*-
+digits = 0
 r = '%.0f'
+
 # Metatrader Clear
 csv_path = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
 # Metatrader Modalmais
@@ -16,3 +18,10 @@ lbl_sell_pressure = "VD"
 
 lbl_gap = "G"
 lbl_fbo = ""
+
+lbl_asc = "ASC"
+lbl_desc = "DESC"
+lbl_ob = "OB"
+lbl_ib = "IB"
+
+

@@ -1,4 +1,5 @@
-from .src.reader import chart_reader
+# -*- coding: utf-8 -*-
+from .src.model import bar_model
 from .src.candle import Candle
 from .settings import *
 
@@ -9,7 +10,7 @@ def get_k(times):
 
 def get_price_close(filename):
     """ Obtem o preço de fechamento atual."""
-    rows = chart_reader(filename)
+    rows = bar_model(filename)
     for row in rows:
         candle = Candle(row)
         price_close = candle.close
@@ -18,7 +19,7 @@ def get_price_close(filename):
 def get_last_ema(times, filename):
     """ Obtem a última EMA. """
     prices = []
-    rows = chart_reader(filename)
+    rows = bar_model(filename)
     for row in rows:
         candle = Candle(row)
         prices.append(candle.close)
@@ -38,4 +39,4 @@ def get_ema(times, filename):
     k = get_k(times)
     close = get_price_close(filename)
     last_ema = get_last_ema(times, filename)
-    return round(close * k + last_ema * (1 - k), precision)
+    return round(close * k + last_ema * (1 - k), digits)

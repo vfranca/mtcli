@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from unittest import TestCase
 from cli_trade.src.brooks_patterns1 import BrooksPatterns1
 from cli_trade.settings import *
