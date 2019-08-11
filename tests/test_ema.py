@@ -20,7 +20,7 @@ class EmaTestCase(TestCase):
         self.assertEqual(get_last_ema(self.times, self.file), 92441.18, "EMA anterior errada")
 
     def test_ema(self):
-        self.assertEqual(get_ema(self.times, self.file), 92441, "EMA errada")
+        self.assertEqual(get_ema(self.times, self.file), 92441.05, "EMA errada")
 
     def test_limit(self):
         self.assertEqual([1,2,3,4,5,6,7,8,9,10][-(3+1):-1], [7,8,9])

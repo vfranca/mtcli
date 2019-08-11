@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from.src.model import bar_model
-from .src.candle import Candle
+from cli_trade.model import bar_model
+from cli_trade.candle import Candle
 
 
 def atr(file, candles):
