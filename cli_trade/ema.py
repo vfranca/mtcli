@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from .src.model import bar_model
-from .src.candle import Candle
-from .settings import *
+from cli_trade.src.model import bar_model
+from cli_trade.src.candle import Candle
+from cli_trade.settings import *
 
 
 def get_k(times):

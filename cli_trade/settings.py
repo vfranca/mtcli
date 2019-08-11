@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-digits = 0
+digits = 2
 r = '%.0f'
 
 # Metatrader Clear

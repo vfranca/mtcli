@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from .src.model import bar_model
-from .src.view import *
-from .src.helper import get_fib
-from .src.candle import Candle
-from .src.fib import Fib
-from .src.brooks_patterns1 import BrooksPatterns1
-from .src.brooks_patterns2 import BrooksPatterns2
-from .settings import *
+from cli_trade.src.model import bar_model
+from cli_trade.src.view import *
+from cli_trade.src.helper import get_fib
+from cli_trade.src.candle import Candle
+from cli_trade.src.fib import Fib
+from cli_trade.src.brooks_patterns1 import BrooksPatterns1
+from cli_trade.src.brooks_patterns2 import BrooksPatterns2
+from cli_trade.settings import *
 
 
 def controller(file, **kwargs):
