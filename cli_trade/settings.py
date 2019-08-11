@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 digits = 2
-r = '%.0f'
+r = '%.2f'
 
 # Metatrader Clear
 csv_path = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
