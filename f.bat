@@ -1,2 +1,2 @@
 @echo off
-py fibo.py %*
+py manage.py fibo %*

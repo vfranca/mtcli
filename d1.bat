@@ -1,5 +1,5 @@
 @echo off
 set file=%t%daily.csv
-py reader.py %file% %*
-py ema.py 20 %file%
+py manage.py bars %file% %*
+py manage.py ema 20 %file%
 time /t
