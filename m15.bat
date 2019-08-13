@@ -1,9 +1,8 @@
 @echo off
 set tf=m15
 if %d% == "" (
-	py reader.py %t%%tf%.csv %*
+	py manage.py bars %t%%tf%.csv %*
 ) else (
-	py reader.py %t%%tf%.csv %d% %*
+	py manage.py bars %t%%tf%.csv %d% %*
 	)
-py ema.py 20 %t%%tf%.csv
-time /t
+py manage.py ema 20 %t%%tf%.csv
