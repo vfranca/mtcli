@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from unittest import TestCase
-from cli_trade.model import *
-from cli_trade.helper import *
-from cli_trade.candle import Candle
+from cli_trade._model import *
+from cli_trade._helper import *
+from cli_trade._candle import Candle
 
 
 class ReaderTestCase(TestCase):

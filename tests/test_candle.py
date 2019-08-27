@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from unittest import TestCase
-from cli_trade.candle import Candle
+from cli_trade._candle import Candle
 
 
 class CandleTestCase(TestCase):
