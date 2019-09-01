@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-digits = 2
-r = '%.2f'
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+digits = int(os.getenv("DIGITS"))
+r = '%.' + str(digits) + 'f'
 
 # Metatrader Clear
 csv_path = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
