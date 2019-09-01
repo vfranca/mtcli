@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from .fib import Fib
-from cli_trade.settings import *
+from cli_trade._fib import Fib
+from cli_trade.conf import *
 
 
 def get_fib(high, low, trend):

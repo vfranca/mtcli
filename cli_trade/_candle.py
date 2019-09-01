@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cli_trade.settings import *
+from cli_trade.conf import *
 
 
 class Candle(object):

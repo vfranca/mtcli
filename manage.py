@@ -3,9 +3,9 @@
 from cli_trade.cli_trade import controller
 from cli_trade.sma import ma
 from cli_trade.ema import get_ema
-from cli_trade.fib import Fib
+from cli_trade._fib import Fib
 from cli_trade.atr import atr
-from cli_trade.settings import *
+from cli_trade.conf import *
 import sys
 import re
 

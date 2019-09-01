@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from cli_trade.model import bar_model
-from cli_trade.candle import Candle
-from cli_trade.settings import *
+from cli_trade._model import bar_model
+from cli_trade._candle import Candle
+from cli_trade.conf import *
 
 
 def ma(candles, file):

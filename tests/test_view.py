@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from unittest import TestCase
-from cli_trade.view import *
-from cli_trade.model import *
-from cli_trade.candle import Candle
-from cli_trade.settings import *
+from cli_trade._view import *
+from cli_trade._model import *
+from cli_trade._candle import Candle
+from cli_trade.conf import *
 
 
 class ViewTestCase(TestCase):

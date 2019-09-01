@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from .patterns import *
-from .brooks_patterns1 import BrooksPatterns1
-from . import helper
-from cli_trade.settings import *
+from cli_trade._patterns import *
+from cli_trade._brooks_patterns1 import BrooksPatterns1
+from cli_trade import _helper
+from cli_trade.conf import *
 
 
 def full_view(c, trend, pattern2):
     """Retorna a exibição no formato completo."""
-    f = helper.get_fib(c.high, c.low, c.trend)
+    f = _helper.get_fib(c.high, c.low, c.trend)
     view = "%s %s %i"
     view += " %s %s %s %s * %s %s" % (r, r, r, r, r, r)
     return view % (trend, pattern2, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
@@ -50,7 +50,7 @@ def range_view(c):
 
 def brooks_view(c, trend, num, pattern2):
     """Retorna a exibição com os padrões de Brooks."""
-    f = helper.get_fib(c.high, c.low, c.trend) # Números de Fibonacci
+    f = _helper.get_fib(c.high, c.low, c.trend) # Números de Fibonacci
     b = BrooksPatterns1(c.body, c.top, c.bottom, c.close, f.r) # padrões de 1 barra
 
     tail = b.tail
@@ -69,7 +69,7 @@ def brooks_view(c, trend, num, pattern2):
 
 def fib_view(c, trend):
     """Retorna a exibição de Fibonacci."""
-    f = helper.get_fib(c.high, c.low, c.trend)
+    f = _helper.get_fib(c.high, c.low, c.trend)
     view = "%s %i"
     view += " %s %s %s * %s %s %s" % (r, r, r, r, r, r)
     return view % (trend, c.body, f.r61, f.r, f.r38, f.e38, f.e, f.e61)
