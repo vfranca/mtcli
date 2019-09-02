@@ -21,7 +21,8 @@ class BrooksPatterns2(object):
                 gap = self.close[1] - self.high[0]
             if self.body[1] < 0:
                 gap = self.low[0] - self.close[1]
-            return "%s%i" % (lbl_gap, gap)
+            view = "%s%." + str(digits) + "f"
+            return view % (lbl_gap, gap)
         return lbl_fbo
 
     def __is_gap(self):
