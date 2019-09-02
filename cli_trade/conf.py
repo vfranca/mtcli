@@ -5,11 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 digits = int(os.getenv("DIGITS"))
 r = '%.' + str(digits) + 'f'
-
-# Metatrader Clear
-csv_path = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/FB9A56D617EDDDFE29EE54EBEFFE96C1/MQL5/Files/"
-# Metatrader Modalmais
-#csv_path = "C:/Users/Administrador/AppData/Roaming/MetaQuotes/Terminal/83D4764E0403A8685E84D6FCAB361879/MQL5/Files/"
+csv_path = os.getenv("CSV_PATH")
 
 lbl_body_doji = "DOJI"
 lbl_body_bull = "verde"
