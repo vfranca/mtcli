@@ -63,7 +63,7 @@ def brooks_view(c, trend, num, pattern2):
     if num == "0":
         num = ""
 
-    view = "%s %s %s %s%iR%i %s %s"
+    view = "%s %s %s %s%iR%." + str(digits) + "f %s %s"
     view += " %s %s %s * %s %s" % (r, r, r, r, r)
     return view % (num, trend, b.pattern, b.body_pattern, abs(c.body), c.body_range, pattern2, tail, c.high, c.low, c.close, f.r, f.e)
 

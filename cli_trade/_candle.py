@@ -21,7 +21,7 @@ class Candle(object):
 
     def __get_range(self):
         """ Retorna o range do candle."""
-        return round(self.high - self.low, 5)
+        return self.high - self.low
 
     def __get_body(self):
         """ Retorna o tamanho  relativo do corpo real em porcentagem."""
@@ -66,7 +66,7 @@ class Candle(object):
 
     def __get_body_range(self):
         "Retorna o tamanho absoluto do corpo."""
-        return abs(round(self.close - self.open, 5))
+        return abs(self.close - self.open)
 
     def __get_trend(self):
         b =self.body
