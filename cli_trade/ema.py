@@ -1,32 +1,32 @@
 # -*- coding: utf-8 -*-
 from cli_trade._model import bar_model
-from cli_trade._candle import Candle
+from cli_trade._bar import Bar
 from cli_trade.conf import *
 
 
-def get_k(times):
+def get_k(bars_qtt):
     """ Calcula o coeficiente multiplicador."""
-    return round(2 / (times + 1), 3)
+    return round(2 / (bars_qtt + 1), 3)
 
 def get_price_close(filename):
     """ Obtem o preço de fechamento atual."""
     rows = bar_model(filename)
     for row in rows:
-        candle = Candle(row)
-        price_close = candle.close
+        bar = Bar(row)
+        price_close = bar.close
     return price_close
 
-def get_last_ema(times, filename):
+def get_last_ema(bars_qtt, filename):
     """ Obtem a última EMA. """
     prices = []
     rows = bar_model(filename)
     for row in rows:
-        candle = Candle(row)
-        prices.append(candle.close)
-    prices = prices[-(times+1):-1]
+        bar = Bar(row)
+        prices.append(bar.close)
+    prices = prices[-(bars_qtt+1):-1]
     return round(sum(prices) / len(prices), 2)
 
-def get_ema(times, filename):
+def get_ema(bars_qtt, filename):
     """ Calcula a média móvel exponencial dos preços de fechamento.
 
     Extrai os preços de fechamento de um arquivo CSV exportado do MetaTrater 5
@@ -36,7 +36,7 @@ def get_ema(times, filename):
     last_ema: última EMA
     close: preço de fechamento.
     """
-    k = get_k(times)
+    k = get_k(bars_qtt)
     close = get_price_close(filename)
-    last_ema = get_last_ema(times, filename)
+    last_ema = get_last_ema(bars_qtt, filename)
     return round(close * k + last_ema * (1 - k), digits)

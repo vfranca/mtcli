@@ -2,7 +2,7 @@
 from cli_trade._model import bar_model
 from cli_trade._view import *
 from cli_trade._helper import get_fib
-from cli_trade._candle import Candle
+from cli_trade._bar import Bar
 from cli_trade._fib import Fib
 from cli_trade._brooks_patterns1 import BrooksPatterns1
 from cli_trade._brooks_patterns2 import BrooksPatterns2
@@ -27,7 +27,7 @@ def controller(file, **kwargs):
 
     bars = bar_model(file)
     for item in bars:
-        bar = Candle(item)
+        bar = Bar(item)
         count += 1
 
         # Filtra a lista de views a partir de uma data
