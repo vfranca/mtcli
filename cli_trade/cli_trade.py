@@ -82,7 +82,7 @@ def controller(file, **kwargs):
         elif view == "h":
             views.append(high_view(bar, num_bar))
         elif view == "l":
-            views.append(low_view(bar))
+            views.append(low_view(bar, num_bar))
         elif view == "r":
             views.append(range_view(bar))
         elif view == "vol":
