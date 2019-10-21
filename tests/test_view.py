@@ -36,7 +36,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(volume_view(self.bar, "ASC", 1), "1 ASC alta 6794.00")
 
     def test_obtem_view_com_ranges(self):
-        self.assertEqual(range_view(self.bar), "160.00")
+        self.assertEqual(range_view(self.bar, "ASC", 1), "1 ASC alta 160.00")
 
     def test_obtem_view_com_numeros_de_fibonacci(self):
         self.assertEqual(fib_view(self.bar, "asc"), "asc 9 83142.12 83161.00 83179.88 * 83302.12 83321.00 83339.88")
