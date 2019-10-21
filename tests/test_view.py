@@ -27,7 +27,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(close_view(self.bar, 1), "1 83161.00")
 
     def test_obtem_view_com_maximas(self):
-        self.assertEqual(high_view(self.bar), "83241.00")
+        self.assertEqual(high_view(self.bar, 1), "1 83241.00")
 
     def test_obtem_view_com_minimas(self):
         self.assertEqual(low_view(self.bar), "83081.00")

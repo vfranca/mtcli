@@ -16,10 +16,6 @@ def brooks_view(bar, ch_trend, num_bar, brooks_pattern2):
     if tail == lbl_bottomtail:
         tail = "%s%i" %(tail, bar.bottom)
 
-    num_bar =str(num_bar)
-    if num_bar == "0":
-        num_bar = ""
-
     view = "%s %s %s %s%iR%." + str(digits) + "f %s %s"
     view += " %s %s %s" % (r, r, r)
     view += " R%.2f"
@@ -35,9 +31,6 @@ def full_view(c, trend, pattern2):
 
 def channel_view(bar, ch_trend, num_bar):
     """Retorna a exibição no formato de canal."""
-    if not int(num_bar):
-        num_bar = ""
-
     view = "%s %s"
     view += " %s %s" % (r, r)
 
@@ -50,11 +43,12 @@ def close_view(bar, num_bar):
 
     return view % (num_bar, bar.close)
 
-def high_view(c):
+def high_view(bar, num_bar):
     """Retorna a exibição com as máximas."""
-    view = ""
+    view = "%s "
     view += "%s" % r
-    return view % c.high
+
+    return view % (num_bar, bar.high)
 
 def low_view(c):
     """Retorna a exibição com as mínimas."""
