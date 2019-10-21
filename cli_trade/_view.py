@@ -43,11 +43,12 @@ def channel_view(bar, ch_trend, num_bar):
 
     return view % (num_bar, ch_trend, bar.high, bar.low)
 
-def close_view(c):
+def close_view(bar, num_bar):
     """Retorna a exibição com os fechamentos."""
-    view = ""
+    view = "%s "
     view += "%s" % r
-    return view % c.close
+
+    return view % (num_bar, bar.close)
 
 def high_view(c):
     """Retorna a exibição com as máximas."""

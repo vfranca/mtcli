@@ -34,9 +34,11 @@ def controller(file, **kwargs):
         if date and bar.date != date:
             continue
 
-        # Numeração das barras
+        # Obtem o número da barra
         if date:
             num_bar += 1
+        else:
+            num_bar = ""
 
         # Verifica padrões brooks de 2 barras
         body.append(bar.body)
@@ -76,7 +78,7 @@ def controller(file, **kwargs):
         elif view == "ch":
             views.append(channel_view(bar, trend, num_bar))
         elif view == "c":
-            views.append(close_view(bar))
+            views.append(close_view(bar, num_bar))
         elif view == "h":
             views.append(high_view(bar))
         elif view == "l":

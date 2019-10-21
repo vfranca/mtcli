@@ -24,7 +24,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(channel_view(self.bar, "ASC", 1), "1 ASC 83241.00 83081.00")
 
     def test_obtem_view_com_precos_de_fechamento(self):
-        self.assertEqual(close_view(self.bar), "83161.00")
+        self.assertEqual(close_view(self.bar, 1), "1 83161.00")
 
     def test_obtem_view_com_maximas(self):
         self.assertEqual(high_view(self.bar), "83241.00")
