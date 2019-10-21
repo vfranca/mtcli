@@ -5,6 +5,27 @@ from cli_trade import _helper
 from cli_trade.conf import *
 
 
+def brooks_view(bar, ch_trend, num_bar, brooks_pattern2):
+    """Retorna a exibição com os padrões Brooks."""
+    medium_point = bar.range / 2
+    brooks1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, medium_point) # padrões de 1 barra
+
+    tail = brooks1.tail
+    if tail == lbl_toptail:
+        tail = "%s%i" %(tail, bar.top)
+    if tail == lbl_bottomtail:
+        tail = "%s%i" %(tail, bar.bottom)
+
+    num_bar =str(num_bar)
+    if num_bar == "0":
+        num_bar = ""
+
+    view = "%s %s %s %s%iR%." + str(digits) + "f %s %s"
+    view += " %s %s %s" % (r, r, r)
+    view += " R%.2f"
+
+    return view % (num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern, abs(bar.body), bar.body_range, brooks_pattern2, tail, bar.high, bar.low, bar.close, bar.range)
+
 def full_view(c, trend, pattern2):
     """Retorna a exibição no formato completo."""
     f = _helper.get_fib(c.high, c.low, c.trend)
@@ -47,25 +68,6 @@ def range_view(c):
     """Retorna a view com os ranges das barras."""
     view ="%s" % r
     return view % c.range
-
-def brooks_view(c, trend, num, pattern2):
-    """Retorna a exibição com os padrões de Brooks."""
-    f = _helper.get_fib(c.high, c.low, c.trend) # Números de Fibonacci
-    b = BrooksPatterns1(c.body, c.top, c.bottom, c.close, f.r) # padrões de 1 barra
-
-    tail = b.tail
-    if tail == lbl_toptail:
-        tail = "%s%i" %(tail, c.top)
-    if tail == lbl_bottomtail:
-        tail = "%s%i" %(tail, c.bottom)
-
-    num =str(num)
-    if num == "0":
-        num = ""
-
-    view = "%s %s %s %s%iR%." + str(digits) + "f %s %s"
-    view += " %s %s %s * %s %s" % (r, r, r, r, r)
-    return view % (num, trend, b.pattern, b.body_pattern, abs(c.body), c.body_range, pattern2, tail, c.high, c.low, c.close, f.r, f.e)
 
 def fib_view(c, trend):
     """Retorna a exibição de Fibonacci."""
