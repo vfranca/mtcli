@@ -21,7 +21,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(full_view(self.bar, "", ""), "  9 83146.00 83241.00 83081.00 83161.00 * 83161.00 83321.00")
 
     def test_obtem_view_de_canal(self):
-        self.assertEqual(channel_view(self.bar, "asc", 1), "asc 83241.00 83081.00 1")
+        self.assertEqual(channel_view(self.bar, "ASC", 1), "1 ASC 83241.00 83081.00")
 
     def test_obtem_view_com_precos_de_fechamento(self):
         self.assertEqual(close_view(self.bar), "83161.00")

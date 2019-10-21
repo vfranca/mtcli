@@ -33,12 +33,15 @@ def full_view(c, trend, pattern2):
     view += " %s %s %s %s * %s %s" % (r, r, r, r, r, r)
     return view % (trend, pattern2, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
 
-def channel_view(c, trend, num):
+def channel_view(bar, ch_trend, num_bar):
     """Retorna a exibição no formato de canal."""
-    view = "%s"
+    if not int(num_bar):
+        num_bar = ""
+
+    view = "%s %s"
     view += " %s %s" % (r, r)
-    view += " %s"
-    return view % (trend, c.high, c.low, num)
+
+    return view % (num_bar, ch_trend, bar.high, bar.low)
 
 def close_view(c):
     """Retorna a exibição com os fechamentos."""
