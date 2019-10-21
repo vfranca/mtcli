@@ -86,7 +86,7 @@ def controller(file, **kwargs):
         elif view == "r":
             views.append(range_view(bar))
         elif view == "vol":
-            views.append(volume_view(bar, trend))
+            views.append(volume_view(bar, trend, num_bar))
         elif view == "fib":
             views.append(fib_view(bar, trend))
         elif view == "stat":

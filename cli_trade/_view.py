@@ -57,11 +57,12 @@ def low_view(bar, num_bar):
 
     return view % (num_bar, bar.low)
 
-def volume_view(c, trend):
+def volume_view(bar, ch_trend, num_bar):
     """Retorna a exibição com os volumes."""
-    view = "%s"
+    view = "%s %s %s"
     view += " %s" % r
-    return view % (trend, c.volume)
+
+    return view % (num_bar, ch_trend, bar.trend, bar.volume)
 
 def range_view(c):
     """Retorna a view com os ranges das barras."""

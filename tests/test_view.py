@@ -33,7 +33,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(low_view(self.bar, 1), "1 83081.00")
 
     def test_obtem_view_com_volumes(self):
-        self.assertEqual(volume_view(self.bar, "asc"), "asc 6794.00")
+        self.assertEqual(volume_view(self.bar, "ASC", 1), "1 ASC alta 6794.00")
 
     def test_obtem_view_com_ranges(self):
         self.assertEqual(range_view(self.bar), "160.00")
