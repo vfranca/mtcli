@@ -2,7 +2,7 @@
 from cli_trade._model import bar_model
 from cli_trade._view import *
 from cli_trade._helper import get_fib
-from cli_trade._candle import Candle
+from cli_trade._bar import Bar
 from cli_trade._fib import Fib
 from cli_trade._brooks_patterns1 import BrooksPatterns1
 from cli_trade._brooks_patterns2 import BrooksPatterns2
@@ -27,16 +27,18 @@ def controller(file, **kwargs):
 
     bars = bar_model(file)
     for item in bars:
-        bar = Candle(item)
+        bar = Bar(item)
         count += 1
 
         # Filtra a lista de views a partir de uma data
         if date and bar.date != date:
             continue
 
-        # Numeração das barras
+        # Obtem o número da barra
         if date:
             num_bar += 1
+        else:
+            num_bar = ""
 
         # Verifica padrões brooks de 2 barras
         body.append(bar.body)
@@ -76,15 +78,15 @@ def controller(file, **kwargs):
         elif view == "ch":
             views.append(channel_view(bar, trend, num_bar))
         elif view == "c":
-            views.append(close_view(bar))
+            views.append(close_view(bar, num_bar))
         elif view == "h":
-            views.append(high_view(bar))
+            views.append(high_view(bar, num_bar))
         elif view == "l":
-            views.append(low_view(bar))
+            views.append(low_view(bar, num_bar))
         elif view == "r":
-            views.append(range_view(bar))
+            views.append(range_view(bar, trend, num_bar))
         elif view == "vol":
-            views.append(volume_view(bar, trend))
+            views.append(volume_view(bar, trend, num_bar))
         elif view == "fib":
             views.append(fib_view(bar, trend))
         elif view == "stat":

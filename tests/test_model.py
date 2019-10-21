@@ -3,31 +3,21 @@
 from unittest import TestCase
 from cli_trade._model import *
 from cli_trade._helper import *
-from cli_trade._candle import Candle
+from cli_trade._bar import Bar
 
 
-class ReaderTestCase(TestCase):
+class ModelTestCase(TestCase):
 
     def setUp(self):
         self.file = "tests/fixtures/var/wing19m5.csv"
-        self.candles = bar_model(self.file)
-        self.candle = Candle(self.candles[4])
+        self.bars = bar_model(self.file)
+        self.bar = Bar(self.bars[4])
 
-    def test_file_exists(self):
+    def test_se_arquivo_csv_existe(self):
         self.assertTrue(bar_model(self.file))
 
-    def test_date_filter(self):
+    def test_filtro_por_data(self):
         bars = bar_model(self.file)
-        bar = Candle(bars[0])
+        bar = Bar(bars[0])
         self.assertEqual(bar.date, "2018.01.04")
-
-    #def test_asc(self):
-        #self.assertEqual(get_trend([4,5], [2,3]), "ASC")
-    #def test_desc(self):
-        #self.assertEqual(get_trend([4,2], [3,1]), "DESC")
-    #def test_inside(self):
-        #self.assertEqual(get_trend([4,3], [2,3]), "IB")
-
-    #def test_outside(self):
-        #self.assertEqual(get_trend([4,5], [2,1]), "OB")
 

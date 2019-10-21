@@ -2,7 +2,7 @@
 from cli_trade.conf import *
 
 
-class Candle(object):
+class Bar(object):
 
     def __init__(self, ohlc):
         self.open = float(ohlc[1])

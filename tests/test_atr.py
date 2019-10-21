@@ -9,7 +9,7 @@ class AtrTestCase(TestCase):
     def setUp(self):
         self.file = "tests/fixtures/var/wing19m5.csv"
 
-    def test_atr(self):
+    def test_obtem_o_atr_de_14_periodos(self):
         self.assertEqual(atr(self.file, 14), 237.14)
 
     def test_limit(self):
