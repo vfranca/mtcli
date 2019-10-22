@@ -74,7 +74,7 @@ def controller(file, **kwargs):
 
         # Seleção da view
         if view == "full":
-            views.append(full_view(bar, trend, pattern2))
+            views.append(ohlc_view(bar))
         elif view == "ch":
             views.append(channel_view(bar, trend, num_bar))
         elif view == "c":
