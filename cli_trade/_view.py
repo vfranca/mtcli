@@ -7,8 +7,8 @@ from cli_trade.conf import *
 
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2):
     """Retorna a exibição com os padrões Brooks."""
-    medium_point = bar.range / 2
-    brooks1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, medium_point) # padrões de 1 barra
+    mp = _helper.get_medium_point(bar)
+    brooks1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, mp) # padrões de 1 barra
 
     tail = brooks1.tail
     if tail == lbl_toptail:
@@ -17,10 +17,13 @@ def brooks_view(bar, ch_trend, num_bar, brooks_pattern2):
         tail = "%s%i" %(tail, bar.bottom)
 
     view = "%s %s %s %s%iR%." + str(digits) + "f %s %s"
-    view += " %s %s %s" % (r, r, r)
-    view += " R%.2f"
+    view += " %." + str(digits) + "f"
+    view += " %." + str(digits) + "f"
+    view += " %." + str(digits) + "f"
+    view += "MP%." + str(digits) + "f"
+    view += " R%." + str(digits) + "f"
 
-    return view % (num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern, abs(bar.body), bar.body_range, brooks_pattern2, tail, bar.high, bar.low, bar.close, bar.range)
+    return view % (num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern, abs(bar.body), bar.body_range, brooks_pattern2, tail, bar.high, bar.low, bar.close, mp, bar.range)
 
 def full_view(c, trend, pattern2):
     """Retorna a exibição no formato completo."""
