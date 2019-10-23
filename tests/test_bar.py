@@ -4,7 +4,7 @@ from unittest import TestCase
 from cli_trade._bar import Bar
 
 
-class BarTestCase(TestCase):
+class TestBar(TestCase):
 
     def setUp(self):
         self.obj = Bar([

@@ -2,81 +2,79 @@
 from cli_trade._patterns import *
 from cli_trade._brooks_patterns1 import BrooksPatterns1
 from cli_trade import _helper
-from cli_trade.conf import *
+from cli_trade import conf
 
 
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2):
     """Retorna a exibição com os padrões Brooks."""
-    medium_point = bar.range / 2
-    brooks1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, medium_point) # padrões de 1 barra
+    mp = _helper.get_medium_point(bar)
+    brooks1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, mp) # padrões de 1 barra
 
     tail = brooks1.tail
-    if tail == lbl_toptail:
+    if tail == conf.lbl_toptail:
         tail = "%s%i" %(tail, bar.top)
-    if tail == lbl_bottomtail:
+    if tail == conf.lbl_bottomtail:
         tail = "%s%i" %(tail, bar.bottom)
 
-    view = "%s %s %s %s%iR%." + str(digits) + "f %s %s"
-    view += " %s %s %s" % (r, r, r)
-    view += " R%.2f"
+    view = "%s %s %s %s%iR%." + str(conf.digits) + "f %s %s"
+    view += " %." + str(conf.digits) + "f" # máxima
+    view += " %." + str(conf.digits) + "f" # mínima
+    view += " %." + str(conf.digits) + "f" # fechamento
+    view += "MP%." + str(conf.digits) + "f" # ponto médio
+    view += " R%." + str(conf.digits) + "f" # range
 
-    return view % (num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern, abs(bar.body), bar.body_range, brooks_pattern2, tail, bar.high, bar.low, bar.close, bar.range)
+    return view % (num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern, abs(bar.body), bar.body_range, brooks_pattern2, tail, bar.high, bar.low, bar.close, mp, bar.range)
 
-def full_view(c, trend, pattern2):
-    """Retorna a exibição no formato completo."""
-    f = _helper.get_fib(c.high, c.low, c.trend)
-    view = "%s %s %i"
-    view += " %s %s %s %s * %s %s" % (r, r, r, r, r, r)
-    return view % (trend, pattern2, c.body, c.open, c.high, c.low, c.close, f.r, f.e)
+def ohlc_view(bar):
+    """Retorna a view com o OHLC."""
+    view = "%s" # data
+    view += " %." + str(conf.digits) + "f" # abertura
+    view += " %." + str(conf.digits) + "f" # máxima
+    view += " %." + str(conf.digits) + "f" # mínima
+    view += " %." + str(conf.digits) + "f" # fechamento
+    view += " %i" # volume
+
+    return view % (bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
 
 def channel_view(bar, ch_trend, num_bar):
     """Retorna a exibição no formato de canal."""
-    view = "%s %s"
-    view += " %s %s" % (r, r)
+    view = "%s %s" # num da barra e tendencia do canal
+    view += " %." + str(conf.digits) + "f" # máxima
+    view += " %." + str(conf.digits) + "f" # mínima
 
     return view % (num_bar, ch_trend, bar.high, bar.low)
 
 def close_view(bar, num_bar):
-    """Retorna a exibição com os fechamentos."""
-    view = "%s "
-    view += "%s" % r
+    """Retorna a view com os preços de fechamento."""
+    view = "%s" # tendência do canal
+    view += " %." + str(conf.digits) + "f" # fechamento
 
     return view % (num_bar, bar.close)
 
 def high_view(bar, num_bar):
-    """Retorna a exibição com as máximas."""
-    view = "%s "
-    view += "%s" % r
+    """Retorna a view com as máximas."""
+    view = "%s" # tendência do canal
+    view += " %." + str(conf.digits) + "f" # máxima
 
     return view % (num_bar, bar.high)
 
 def low_view(bar, num_bar):
-    """Retorna a exibição com as mínimas."""
-    view = "%s "
-    view += "%s" % r
+    """Retorna a view com as mínimas."""
+    view = "%s" # tendência do canal
+    view += " %." + str(conf.digits) + "f" # mínima
 
     return view % (num_bar, bar.low)
 
 def volume_view(bar, ch_trend, num_bar):
-    """Retorna a exibição com os volumes."""
-    view = "%s %s %s"
-    view += " %s" % r
-
-    return view % (num_bar, ch_trend, bar.trend, bar.volume)
+    """Retorna a view com os volumes."""
+    return "%s %s %s %i" % (num_bar, ch_trend, bar.trend, bar.volume)
 
 def range_view(bar, ch_trend, num_bar):
     """Retorna a view com os ranges das barras."""
-    view = "%s %s %s"
-    view += " %s" % r
+    view = "%s %s %s" # num da barra, tendencia do canal, tendencia da barra
+    view += " %." + str(conf.digits) + "f" # range
 
     return view % (num_bar, ch_trend, bar.trend, bar.range)
-
-def fib_view(c, trend):
-    """Retorna a exibição de Fibonacci."""
-    f = _helper.get_fib(c.high, c.low, c.trend)
-    view = "%s %i"
-    view += " %s %s %s * %s %s %s" % (r, r, r, r, r, r)
-    return view % (trend, c.body, f.r61, f.r, f.r38, f.e38, f.e, f.e61)
 
 def stat_view(bull, bear, doji):
     """ Retorna a view stat."""
