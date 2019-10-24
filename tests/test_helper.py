@@ -3,7 +3,7 @@
 import unittest
 from click.testing import CliRunner
 from cli_trade import _helper
-from cli_trade._bar import Bar
+from cli_trade.lib.bar import Bar
 from cli_trade import cli
 
 

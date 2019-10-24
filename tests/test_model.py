@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 from cli_trade._model import *
-from cli_trade._helper import *
-from cli_trade._bar import Bar
+from cli_trade import _helper
+from cli_trade.lib.bar import Bar
 
 
 class ModelTestCase(TestCase):

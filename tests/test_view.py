@@ -3,7 +3,7 @@
 from unittest import TestCase
 from cli_trade._view import *
 from cli_trade._model import *
-from cli_trade._bar import Bar
+from cli_trade.lib.bar import Bar
 from cli_trade.conf import *
 
 

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from cli_trade._patterns import *
-from cli_trade._brooks_patterns1 import BrooksPatterns1
+from cli_trade.lib.brooks_patterns1 import BrooksPatterns1
 from cli_trade import _helper
 from cli_trade import conf
 
