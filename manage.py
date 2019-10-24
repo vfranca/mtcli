@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from cli_trade.cli_trade import controller
-from cli_trade.sma import ma
-from cli_trade.ema import get_ema
-from cli_trade._fib import Fib
-from cli_trade.atr import atr
+from cli_trade import sma
+from cli_trade import ema
+from cli_trade.lib.fib import Fib
+from cli_trade import atr
 from cli_trade import conf
 import sys
 import re
@@ -15,10 +15,12 @@ if sys.argv[1] == "bars":
     pattern_qtt = re.compile(r'^[0-9]*$')
     pattern_date = re.compile(r'^[0-9]{4}.[0-9]{2}.[0-9]{2}$')
     pattern_view = re.compile('^[a-z]*$')
+
     # chamada com 1 argumento
     if len(sys.argv) == 3:
         file += sys.argv[2]
         views = controller(file)
+
     # chamada com 2 argumentos
     elif len(sys.argv) == 4:
         file += sys.argv[2]
@@ -50,25 +52,25 @@ if sys.argv[1] == "bars":
         print(view)
 
 if sys.argv[1] == "sma":
-    times = int(sys.argv[2])
-    filename = conf.csv_path + sys.argv[3]
-    mms = ma(times, filename)
-    print(mms)
+    bars_qtt = int(sys.argv[2])
+    file = conf.csv_path + sys.argv[3]
+    mm = sma.ma(bars_qtt, file)
+    print(mm)
 
 if sys.argv[1] == "ema":
-    times = int(sys.argv[2])
-    filename = conf.csv_path + sys.argv[3]
-    mm = get_ema(times, filename)
+    bars_qtt = int(sys.argv[2])
+    file = conf.csv_path + sys.argv[3]
+    mm = ema.get_ema(bars_qtt, file)
     print(mm)
 
 if sys.argv[1] == "atr":
     file = "%s%s.csv" % (conf.csv_path, sys.argv[2])
     if len(sys.argv) == 4:
-        candles = int(sys.argv[3])
+        bars_qtt = int(sys.argv[3])
     else:
-        candles = 14
-    atr = atr(file, candles)
-    print(atr)
+        bars_qtt = 14
+    range = atr.atr(file, bars_qtt)
+    print(range)
 
 if sys.argv[1] == "fibo":
     high = float(sys.argv[2])

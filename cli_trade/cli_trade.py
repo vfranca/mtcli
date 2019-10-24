@@ -5,7 +5,7 @@ from cli_trade import _helper
 from cli_trade.lib.bar import Bar
 from cli_trade.lib.brooks_patterns1 import BrooksPatterns1
 from cli_trade.lib.brooks_patterns2 import BrooksPatterns2
-from cli_trade.conf import *
+from cli_trade import conf
 
 
 def controller(file, **kwargs):
@@ -13,8 +13,16 @@ def controller(file, **kwargs):
     qtt_bars = kwargs.get("qtt_bars")
     date = kwargs.get("date")
     view = kwargs.get("view")
-    views = close = open = high = low = high1 = low1 = body = []
-    num_bar = count = bull = bear = doji = 0
+    views = []
+    close = []
+    open = []
+    high = []
+    low = []
+    high1 = []
+    low1 = []
+    body = []
+    num_bar = 0
+    count = bull = bear = doji = 0
 
     bars = bar_model(file)
     for item in bars:
