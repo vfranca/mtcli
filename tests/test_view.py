@@ -15,7 +15,7 @@ class ViewTestCase(TestCase):
         self.bar = Bar(self.bars[4])
 
     def test_obtem_view_com_padroes_brooks(self):
-        self.assertEqual(brooks_view(self.bar, "ASC", 1, ""), "1 ASC  DOJI9R15.00  " + lbl_toptail + "50 83241.00 83081.00 83161.00MP83161.00 R160.00")
+        self.assertEqual(brooks_view(self.bar, "ASC", 1, "", 1.87), "1 ASC  DOJI9R15.00  " + conf.lbl_toptail + "50 83241.00 83081.00 83161.00MP83161.00 R160.00 1.87")
 
     def test_obtem_view_com_o_padrao_ohlc(self):
         self.assertEqual(ohlc_view(self.bar), "2018.01.04 83146.00 83241.00 83081.00 83161.00 6794")

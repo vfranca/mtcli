@@ -4,7 +4,7 @@ from cli_trade import _helper
 from cli_trade import conf
 
 
-def brooks_view(bar, ch_trend, num_bar, brooks_pattern2):
+def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
     """Retorna a exibição com os padrões Brooks."""
     mp = _helper.get_medium_point(bar)
     brooks1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, mp) # padrões de 1 barra
@@ -20,9 +20,9 @@ def brooks_view(bar, ch_trend, num_bar, brooks_pattern2):
     view += " %." + str(conf.digits) + "f" # mínima
     view += " %." + str(conf.digits) + "f" # fechamento
     view += "MP%." + str(conf.digits) + "f" # ponto médio
-    view += " R%." + str(conf.digits) + "f" # range
+    view += " R%." + str(conf.digits) + "f %s" # range, variação percentual
 
-    return view % (num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern, abs(bar.body), bar.body_range, brooks_pattern2, tail, bar.high, bar.low, bar.close, mp, bar.range)
+    return view % (num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern, abs(bar.body), bar.body_range, brooks_pattern2, tail, bar.high, bar.low, bar.close, mp, bar.range, var_close)
 
 def ohlc_view(bar):
     """Retorna a view com o OHLC."""

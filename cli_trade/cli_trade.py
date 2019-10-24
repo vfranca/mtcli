@@ -22,7 +22,10 @@ def controller(file, **kwargs):
     low1 = []
     body = []
     num_bar = 0
-    count = bull = bear = doji = 0
+    count = 0
+    bull = 0
+    bear = 0
+    doji = 0
 
     bars = bar_model(file)
     for item in bars:
@@ -39,7 +42,7 @@ def controller(file, **kwargs):
         else:
             num_bar = ""
 
-        # Verifica padrões brooks de 2 barras
+        # Extrai dados de duas barras consecutivas
         body.append(bar.body)
         open.append(bar.open)
         close.append(bar.close)
@@ -48,7 +51,8 @@ def controller(file, **kwargs):
         if len(body) == 2:
             brooks = BrooksPatterns2(body, open, close, high1, low1)
             pattern2 = brooks.pattern
-            trend = brooks.trend
+            ch_trend = brooks.trend
+            var_close = _helper.get_var(close[0], close[1])
             body.pop(0)
             open.pop(0)
             close.pop(0)
@@ -56,7 +60,8 @@ def controller(file, **kwargs):
             low1.pop(0)
         else:
             pattern2 = ""
-            trend = ""
+            ch_trend = ""
+            var_close = ""
 
         # Contagem de barras de tendência e barras doji
         if qtt_bars:
@@ -75,7 +80,7 @@ def controller(file, **kwargs):
         if view == "ohlc":
             views.append(_view.ohlc_view(bar))
         elif view == "ch":
-            views.append(_view.channel_view(bar, trend, num_bar))
+            views.append(_view.channel_view(bar, ch_trend, num_bar))
         elif view == "c":
             views.append(_view.close_view(bar, num_bar))
         elif view == "h":
@@ -83,13 +88,13 @@ def controller(file, **kwargs):
         elif view == "l":
             views.append(_view.low_view(bar, num_bar))
         elif view == "r":
-            views.append(_view.range_view(bar, trend, num_bar))
+            views.append(_view.range_view(bar, ch_trend, num_bar))
         elif view == "vol":
-            views.append(_view.volume_view(bar, trend, num_bar))
+            views.append(_view.volume_view(bar, ch_trend, num_bar))
         elif view == "stat":
             views = [stat_view(bull, bear, doji)]
         else:
-            views.append(_view.brooks_view(bar, trend, num_bar, pattern2))
+            views.append(_view.brooks_view(bar, ch_trend, num_bar, pattern2, var_close))
 
         # Limita a quantidade de views
         if qtt_bars and len(views) > qtt_bars:

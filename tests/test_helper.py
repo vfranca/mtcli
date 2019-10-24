@@ -27,6 +27,9 @@ class TestHelper(unittest.TestCase):
     def test_calcula_o_ponto_medio_da_barra(self):
         self.assertEqual(_helper.get_medium_point(self.bar), 54076.00)
 
+    def test_calcula_variacao_percentual_de_duas_barras(self):
+        self.assertEqual(_helper.get_var(104300, 106250), 1.87)
+
     def test_command_line_interface(self):
         """Test the CLI."""
         runner = CliRunner()
