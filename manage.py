@@ -52,24 +52,24 @@ if sys.argv[1] == "bars":
         print(view)
 
 if sys.argv[1] == "sma":
-    bars_qtt = int(sys.argv[2])
+    qtt_bars = int(sys.argv[2])
     file = conf.csv_path + sys.argv[3]
-    mm = sma.ma(bars_qtt, file)
+    mm = sma.ma(qtt_bars, file)
     print(mm)
 
 if sys.argv[1] == "ema":
-    bars_qtt = int(sys.argv[2])
+    qtt_bars = int(sys.argv[2])
     file = conf.csv_path + sys.argv[3]
-    mm = ema.get_ema(bars_qtt, file)
+    mm = ema.get_ema(qtt_bars, file)
     print(mm)
 
 if sys.argv[1] == "atr":
     file = "%s%s.csv" % (conf.csv_path, sys.argv[2])
     if len(sys.argv) == 4:
-        bars_qtt = int(sys.argv[3])
+        qtt_bars = int(sys.argv[3])
     else:
-        bars_qtt = 14
-    range = atr.atr(file, bars_qtt)
+        qtt_bars = 14
+    range = atr.atr(file, qtt_bars)
     print(range)
 
 if sys.argv[1] == "fibo":
