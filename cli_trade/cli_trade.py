@@ -14,16 +14,8 @@ def controller(file, **kwargs):
     qtt_bars = kwargs.get("qtt_bars")
     date = kwargs.get("date")
     view = kwargs.get("view")
-    views = []
-    high = []
-    high1 = []
-    low = []
-    low1 = []
-    body = []
-    open = []
-    close = []
-    num_bar = 0
-    count = bull = bear = doji =0
+    views = close = open = high = low = high1 = low1 = body = []
+    num_bar = count = bull = bear = doji = 0
 
     bars = bar_model(file)
     for item in bars:
@@ -73,7 +65,7 @@ def controller(file, **kwargs):
                     doji += 1
 
         # Seleção da view
-        if view == "full":
+        if view == "ohlc":
             views.append(ohlc_view(bar))
         elif view == "ch":
             views.append(channel_view(bar, trend, num_bar))
@@ -87,8 +79,6 @@ def controller(file, **kwargs):
             views.append(range_view(bar, trend, num_bar))
         elif view == "vol":
             views.append(volume_view(bar, trend, num_bar))
-        elif view == "fib":
-            views.append(fib_view(bar, trend))
         elif view == "stat":
             views = [stat_view(bull, bear, doji)]
         else:
@@ -99,4 +89,3 @@ def controller(file, **kwargs):
             views.pop(0)
 
     return views
-

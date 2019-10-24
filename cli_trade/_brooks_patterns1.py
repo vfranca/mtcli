@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cli_trade.conf import *
+from cli_trade import conf
 
 
 class BrooksPatterns1(object):
@@ -20,26 +20,26 @@ class BrooksPatterns1(object):
     def __get_body_pattern(self):
         """ Padrão de corpo: alta/baixa/doji."""
         if abs(self.body) <= self.body_doji_max:
-            return lbl_body_doji
+            return conf.lbl_body_doji
         if self.body > 0:
-            return lbl_body_bull
+            return conf.lbl_body_bull
         if self.body < 0:
-            return lbl_body_bear
+            return conf.lbl_body_bear
 
     def __get_tail(self):
         """Sombra sobressalente: TOPTAIL/BOTTOMTAIL/NEUTRAL."""
         if self.top > self.bottom:
-            return lbl_toptail
+            return conf.lbl_toptail
         if self.bottom > self.top:
-            return lbl_bottomtail
-        return lbl_tail_neutral
+            return conf.lbl_bottomtail
+        return conf.lbl_tail_neutral
 
     def __get_pattern(self):
         """ Padrão de uma barra: careca/topo raspado, fundo raspado."""
         if self.__is_buy_pressure():
-            return lbl_buy_pressure
+            return conf.lbl_buy_pressure
         if self.__is_sell_pressure():
-            return lbl_sell_pressure
+            return conf.lbl_sell_pressure
         return ""
 
     def __is_topo_careca(self):
@@ -64,8 +64,6 @@ class BrooksPatterns1(object):
             return False
         if abs(self.body) >= 80:
             return True
-        #if self.bottom < self.top:
-            #return False
         return True
 
     def __is_sell_pressure(self):
@@ -78,9 +76,4 @@ class BrooksPatterns1(object):
             return False
         if abs(self.body) >= 80:
             return True
-        #if self.top < self.bottom:
-            #return False
         return True
-
-
-
