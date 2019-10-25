@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from cli_trade._model import bar_model
-from cli_trade._bar import Bar
+from cli_trade.lib.bar import Bar
 
 
 def atr(file, bars):

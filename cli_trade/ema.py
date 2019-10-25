@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from cli_trade._model import bar_model
-from cli_trade._bar import Bar
-from cli_trade.conf import *
+from cli_trade.lib.bar import Bar
+from cli_trade import conf
 
 
 def get_k(bars_qtt):
@@ -39,4 +39,4 @@ def get_ema(bars_qtt, filename):
     k = get_k(bars_qtt)
     close = get_price_close(filename)
     last_ema = get_last_ema(bars_qtt, filename)
-    return round(close * k + last_ema * (1 - k), digits)
+    return round(close * k + last_ema * (1 - k), conf.digits)
