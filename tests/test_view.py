@@ -37,3 +37,6 @@ class ViewTestCase(TestCase):
 
     def test_obtem_view_com_ranges(self):
         self.assertEqual(_view.range_view(self.bar, "ASC", 1), "1 ASC alta 160.00")
+
+    def test_obtem_view_com_variacao_percentual(self):
+        self.assertEqual(_view.var_view("ASC", 1.87, 1), "1 ASC 1.87")

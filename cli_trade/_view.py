@@ -78,3 +78,7 @@ def range_view(bar, ch_trend, num_bar):
 def stat_view(bull, bear, doji):
     """ Retorna a view stat."""
     return "verde %i vermelho %i doji %i" % (bull, bear, doji)
+
+def var_view(ch_trend, var, num_bar):
+    """ Retorna view com a variação percentual de duas barras."""
+    return "%s %s %s" % (num_bar, ch_trend, var)

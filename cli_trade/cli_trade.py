@@ -93,6 +93,8 @@ def controller(file, **kwargs):
             views.append(_view.volume_view(bar, ch_trend, num_bar))
         elif view == "stat":
             views = [stat_view(bull, bear, doji)]
+        elif view == "var":
+            views.append(_view.var_view(ch_trend, var_close, num_bar))
         else:
             views.append(_view.brooks_view(bar, ch_trend, num_bar, pattern2, var_close))
 
