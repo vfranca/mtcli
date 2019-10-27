@@ -4,6 +4,7 @@ import click
 from cli_trade import conf
 from cli_trade import indicator
 from cli_trade.cli_trade import controller
+from cli_trade.lib.fib import Fib
 
 
 @click.command()
@@ -40,3 +41,11 @@ def ema(symbol, period, count):
 def atr(symbol, period, count):
     """ Calcula o ATR."""
     click.echo(indicator.atr.get_atr(symbol, period, count))
+
+@click.command()
+@click.argument("high")
+@click.argument("low")
+@click.argument("trend")
+def fib(high, low, trend):
+    """ Calcula retrações e extensões de fibonacci."""
+    click.echo(Fib(float(high), float(low), str(trend)))
