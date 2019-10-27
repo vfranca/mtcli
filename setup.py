@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-"""The setup script."""
-
 from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
@@ -36,7 +33,11 @@ setup(
     description="Ferramenta CLI para trading",
     entry_points={
         'console_scripts': [
-            'cli_trade=cli_trade.cli:main',
+            'cli=cli_trade.cli:main',
+            'bars=cli_trade.cli:bars',
+            'sma=cli_trade.cli:sma',
+            'ema=cli_trade.cli:ema',
+            'atr=cli_trade.cli:atr',
         ],
     },
     install_requires=requirements,
@@ -45,7 +46,7 @@ setup(
     include_package_data=True,
     keywords='cli_trade',
     name='cli_trade',
-    packages=find_packages(include=['cli_trade']),
+    packages=find_packages(include=['cli_trade', 'cli_trade.*']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
