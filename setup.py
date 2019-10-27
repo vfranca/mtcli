@@ -8,7 +8,10 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', ]
+requirements = [
+    'Click>=6.0',
+    'python-dotenv>=0.10.3',
+]
 
 setup_requirements = [ ]
 
@@ -51,6 +54,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/cli-trade',
-    version='0.1a.post1',
+    version='0.1a.post2',
     zip_safe=False,
 )
