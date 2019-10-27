@@ -51,6 +51,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/cli-trade',
-    version='0.1a.post',
+    version='0.1a.post1',
     zip_safe=False,
 )

@@ -1,20 +1,20 @@
 @echo off
 
-if "%1" == "" ( echo build)
-if "%1" == "build" (
+if "%1" == "-h" ( echo "" - Build para wheel)
+if "%1" == "" (
 	py setup.py sdist bdist_wheel
 	goto :EOF
 )
 
-if "%1" == "" ( echo install)
+if "%1" == "-h" ( echo install - Instala)
 if "%1" == "install" (
-	pip install --upgrade dist/cli_trade-0.1.tar.gz
+	pip install .
 	goto :EOF
 )
 
-if "%1" == "" ( echo test)
+if "%1" == "-h" ( echo test - Executa a suíte de testes)
 if "%1" == "test" (
 	py -m unittest %2
-	rem goto :EOF
+	goto :EOF
 )
 
