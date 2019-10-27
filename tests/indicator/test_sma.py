@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from unittest import TestCase
-from cli_trade import sma
+from cli_trade import indicator
 
 
 class SmaTestCase(TestCase):
@@ -11,4 +11,4 @@ class SmaTestCase(TestCase):
         self.file = "tests/fixtures/var/wing19m5.csv"
 
     def test_obtem_media_movel_aritmetica(self):
-        self.assertEqual(sma.ma(self.bars_qtt, self.file), 92440.29, "Retorna a média móvel simples de 17 períodos")
+        self.assertEqual(indicator.sma.get_sma("win$n", "daily"), 104326.75)
