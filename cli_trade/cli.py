@@ -3,15 +3,20 @@ import sys
 import click
 from cli_trade import conf
 from cli_trade import indicator
+from cli_trade.cli_trade import controller
 
 
 @click.command()
-@click.argument("asset")
-@click.option("--view", help="Formato de exibição")
-@click.option("--count", default=40, help="Quantidade de barras")
-def bars(asset, view, count):
-    for i in range(count):
-        click.echo("%i %s %s" % (i+1, asset, view))
+@click.argument("symbol")
+@click.option("--period", "-p", default="daily", help="Timeframe ou tempo gráfico")
+@click.option("--view", "-v", help="Formato de exibição")
+@click.option("--count", "-c", default=40, help="Quantidade de barras")
+@click.option("--date", "-d", help="Data para day trade")
+def bars(symbol, period, view, count, date):
+    """ Exibe as barras do grafico."""
+    views = controller(symbol, period, view, date, count)
+    for view in views:
+        click.echo(view)
 
 @click.command()
 @click.argument("symbol")

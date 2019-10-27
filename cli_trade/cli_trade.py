@@ -8,11 +8,9 @@ from cli_trade.lib.brooks_patterns2 import BrooksPatterns2
 from cli_trade import conf
 
 
-def controller(file, **kwargs):
+def controller(symbol, period, view, date="", count=40):
     """Retorna uma view."""
-    qtt_bars = kwargs.get("qtt_bars")
-    date = kwargs.get("date")
-    view = kwargs.get("view")
+    file = conf.csv_path + symbol + period + ".csv"
     views = []
     close = []
     open = []
@@ -22,7 +20,7 @@ def controller(file, **kwargs):
     low1 = []
     body = []
     num_bar = 0
-    count = 0
+    counter = 0
     bull = 0
     bear = 0
     doji = 0
@@ -30,7 +28,7 @@ def controller(file, **kwargs):
     bars = bar_model(file)
     for item in bars:
         bar = Bar(item)
-        count += 1
+        counter += 1
 
         # Filtra a lista de views a partir de uma data
         if date and bar.date != date:
@@ -64,9 +62,9 @@ def controller(file, **kwargs):
             var_close = ""
 
         # Contagem de barras de tendência e barras doji
-        if qtt_bars:
-            start = len(bars) - qtt_bars
-            if count > start:
+        if count:
+            start = len(bars) - count
+            if counter > start:
                 mp = _helper.get_medium_point(bar)
                 pattern1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, mp)
                 if pattern1.pattern == conf.lbl_buy_pressure:
@@ -99,7 +97,7 @@ def controller(file, **kwargs):
             views.append(_view.brooks_view(bar, ch_trend, num_bar, pattern2, var_close))
 
         # Limita a quantidade de views
-        if qtt_bars and len(views) > qtt_bars:
+        if count and len(views) > count:
             views.pop(0)
 
     return views
