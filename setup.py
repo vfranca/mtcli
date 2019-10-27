@@ -38,6 +38,7 @@ setup(
             'sma=cli_trade.cli:sma',
             'ema=cli_trade.cli:ema',
             'atr=cli_trade.cli:atr',
+            'fib=cli_trade.cli:fib',
         ],
     },
     install_requires=requirements,
