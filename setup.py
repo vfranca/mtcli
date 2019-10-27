@@ -33,7 +33,6 @@ setup(
     description="Ferramenta CLI para trading",
     entry_points={
         'console_scripts': [
-            'cli=cli_trade.cli:main',
             'bars=cli_trade.cli:bars',
             'sma=cli_trade.cli:sma',
             'ema=cli_trade.cli:ema',
@@ -52,6 +51,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/cli-trade',
-    version='0.1',
+    version='0.1a',
     zip_safe=False,
 )
