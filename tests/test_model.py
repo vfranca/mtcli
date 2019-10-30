@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from unittest import TestCase
+import unittest
 from cli_trade._model import *
 from cli_trade import _helper
 from cli_trade.lib.bar import Bar
 
 
-class ModelTestCase(TestCase):
+class ModelTestCase(unittest.TestCase):
 
     def setUp(self):
         self.file = "tests/fixtures/var/wing19m5.csv"
@@ -21,3 +21,5 @@ class ModelTestCase(TestCase):
         bar = Bar(bars[0])
         self.assertEqual(bar.date, "2018.01.04")
 
+if __name__ == '__main__':
+    unittest.main()
