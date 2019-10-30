@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from unittest import TestCase
+import unittest
 from cli_trade import _view
 from cli_trade import _model
 from cli_trade.lib.bar import Bar
 from cli_trade import conf
 
 
-class ViewTestCase(TestCase):
+class ViewTestCase(unittest.TestCase):
 
     def setUp(self):
         self.file = "tests/fixtures/var/wing19m5.csv"
@@ -40,3 +40,6 @@ class ViewTestCase(TestCase):
 
     def test_obtem_view_com_variacao_percentual(self):
         self.assertEqual(_view.var_view("ASC", 1.87, 1), "1 ASC 1.87")
+
+if __name__ == '__main__':
+    unittest.main()

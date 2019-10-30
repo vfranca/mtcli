@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
-from unittest import TestCase
+import unittest
 from cli_trade import indicator, conf
 
 
-class TestEma(TestCase):
+@unittest.skip("É necessário desacoplar constantes de configuração")
+class EmaTest(unittest.TestCase):
 
     symbol = "win$n"
     period = "daily"
@@ -27,3 +28,6 @@ class TestEma(TestCase):
 
     def test_limit(self):
         self.assertEqual([1,2,3,4,5,6,7,8,9,10][-(3+1):-1], [7,8,9])
+
+if __name__ == '__main__':
+    unittest.main()

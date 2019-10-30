@@ -6,15 +6,9 @@ from cli_trade import cli
 
 
 class TestCli(unittest.TestCase):
-    """Tests for `cli_trade` package."""
 
-    def setUp(self):
-        """Configura test fixtures, if any."""
-
-    def tearDown(self):
-        """Tear down test fixtures, if any."""
-
-    def _test_command_line_interface(self):
+    @unittest.skip("")
+    def test_command_line_interface(self):
         """Test the CLI."""
         runner = CliRunner()
         result = runner.invoke(cli.atr, ['win$n'])
@@ -23,3 +17,6 @@ class TestCli(unittest.TestCase):
         help_result = runner.invoke(cli.atr, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
+
+if __name__ == '__main__':
+    unittest.main()

@@ -5,7 +5,7 @@ from cli_trade import _helper
 from cli_trade.lib.bar import Bar
 
 
-class TestHelper(unittest.TestCase):
+class HelperTestCase(unittest.TestCase):
     """Tests for `cli_trade` package."""
 
     def setUp(self):
@@ -27,3 +27,6 @@ class TestHelper(unittest.TestCase):
 
     def test_calcula_variacao_percentual_de_duas_barras(self):
         self.assertEqual(_helper.get_var(104300, 106250), 1.87)
+
+if __name__ == '__main__':
+    unittest.main()
