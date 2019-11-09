@@ -26,31 +26,31 @@ Pré-requisitos
 Exemplos de Comandos
 --------
 
-> bars winq19 -p daily -c 20  
+> cc winq19 -p daily -c 20  
 
 Exibe as últimas 20 barras do diário do winq19.
 
-> bars winq19 -p daily -v ch -c 20  
+> cc winq19 -p daily -v ch -c 20  
 
 Exibe o canal das últimas 20 barras do diário do winq19.
 
-> bars winq19 -p daily -v c -c 20  
+> cc winq19 -p daily -v c -c 20  
 
 Exibe o preço de fechamento das últimas 20 barras do diário do winq19.
 
-> bars winq19 -p daily -v h -c 20  
+> cc winq19 -p daily -v h -c 20  
 
 Exibe o preço máximo das últimas 20 barras do diário do winq19.
 
-> bars winq19 -p daily -v l -c 20  
+> cc winq19 -p daily -v l -c 20  
 
 Exibe o preço mínimo das últimas 20 barras do diário do winq19.
 
-> bars winq19 -p daily -v r -c 20  
+> cc winq19 -p daily -v r -c 20  
 
 Exibe o range das últimas 20 barras do diário do winq19.
 
-> bars winq19 -p daily -v vol -c 20  
+> cc winq19 -p daily -v vol -c 20  
 
 Exibe o volume das últimas 20 barras do diário do winq19.
 
