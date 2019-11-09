@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from cli_trade import _helper
-from cli_trade.lib.bar import Bar
+from chartcli import _helper
+from chartcli.lib.bar import Bar
 
 
 class HelperTestCase(unittest.TestCase):
-    """Tests for `cli_trade` package."""
+    """Tests for `chartcli` package."""
 
     def setUp(self):
         self.bar = Bar([

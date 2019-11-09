@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 import unittest
-from cli_trade import indicator, conf
+from chartcli import indicator, conf
 
 
 @unittest.skip("É necessário desacoplar constantes de configuração")

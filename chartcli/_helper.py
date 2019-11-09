@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cli_trade import conf
+from chartcli import conf
 
 
 def get_medium_point(bar):

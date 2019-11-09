@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from cli_trade._model import *
-from cli_trade import _helper
-from cli_trade.lib.bar import Bar
+from chartcli._model import *
+from chartcli import _helper
+from chartcli.lib.bar import Bar
 
 
 class ModelTestCase(unittest.TestCase):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from cli_trade.lib.brooks_patterns1 import BrooksPatterns1
-from cli_trade import _helper
-from cli_trade import conf
+from chartcli.lib.brooks_patterns1 import BrooksPatterns1
+from chartcli import _helper
+from chartcli import conf
 
 
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
