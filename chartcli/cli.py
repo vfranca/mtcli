@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import sys
 import click
-from cli_trade import conf
-from cli_trade import indicator
-from cli_trade.cli_trade import controller
-from cli_trade.lib.fib import Fib
+from chartcli import conf
+from chartcli import indicator
+from chartcli.chartcli import controller
+from chartcli.lib.fib import Fib
 
 
 @click.command()

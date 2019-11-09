@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from cli_trade._model import bar_model
-from cli_trade import _view
-from cli_trade import _helper
-from cli_trade.lib.bar import Bar
-from cli_trade.lib.brooks_patterns1 import BrooksPatterns1
-from cli_trade.lib.brooks_patterns2 import BrooksPatterns2
-from cli_trade import conf
+from chartcli._model import bar_model
+from chartcli import _view
+from chartcli import _helper
+from chartcli.lib.bar import Bar
+from chartcli.lib.brooks_patterns1 import BrooksPatterns1
+from chartcli.lib.brooks_patterns2 import BrooksPatterns2
+from chartcli import conf
 
 
 def controller(symbol, period, view, date="", count=40):

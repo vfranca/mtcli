@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from cli_trade._model import bar_model
-from cli_trade.lib.bar import Bar
-from cli_trade import conf
+from chartcli._model import bar_model
+from chartcli.lib.bar import Bar
+from chartcli import conf
 
 
 def get_sma(symbol, period, count=20):

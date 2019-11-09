@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from click.testing import CliRunner
-from cli_trade import cli
+from chartcli import cli
 
 
 class TestCli(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestCli(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(cli.atr, ['win$n'])
         assert result.exit_code == 0
-        assert 'cli_trade.cli.atr' in result.output
+        assert 'chartcli.cli.atr' in result.output
         help_result = runner.invoke(cli.atr, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output

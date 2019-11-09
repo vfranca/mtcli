@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from cli_trade import _view
-from cli_trade import _model
-from cli_trade.lib.bar import Bar
-from cli_trade import conf
+from chartcli import _view
+from chartcli import _model
+from chartcli.lib.bar import Bar
+from chartcli import conf
 
 
 class ViewTestCase(unittest.TestCase):
