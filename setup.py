@@ -33,7 +33,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Ferramenta CLI para trading",
+    description="Utilitário de linha de comando para leitura de gráficos do MetaTrader 5",
     entry_points={
         'console_scripts': [
             'cc=chartcli.cli:cli',
@@ -55,6 +55,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/chartcli',
-    version='0.1.3a',
+    version='0.1.4a',
     zip_safe=False,
 )
