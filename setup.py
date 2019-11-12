@@ -36,7 +36,8 @@ setup(
     description="Ferramenta CLI para trading",
     entry_points={
         'console_scripts': [
-            'cc=chartcli.cli:bars',
+            'cc=chartcli.cli:cli',
+            'bars=chartcli.cli:bars',
             'sma=chartcli.cli:sma',
             'ema=chartcli.cli:ema',
             'atr=chartcli.cli:atr',
@@ -54,6 +55,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/chartcli',
-    version='0.1.2a',
+    version='0.1.3a',
     zip_safe=False,
 )
