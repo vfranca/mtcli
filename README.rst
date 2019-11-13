@@ -30,19 +30,38 @@ Instalação
 
 > git clone git@github.com:vfranca/charcli.git
 
+Faz o clone do repositório.
+
 > cd chartcli
 
 > py -m venv venv
 
+Cria um ambiente virtual do Python.
+
 > venv\scripts\activate
+
+Ativa o ambiente virtual do Python.
+
 
 > pip install -r requirements_dev.txt
 
+Instala as dependências de desenvolvimento.
+
 > make test
+
+Executa a suíte de testes.
 
 > make
 
+Monta o pacote para distribuição.
+
+
 > make install
+
+Instala o pacote no ambiente virtual.
+
+
+Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor.
 
 
 Comandos
