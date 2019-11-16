@@ -51,10 +51,9 @@ Instala as dependências de desenvolvimento.
 
 Executa a suíte de testes.
 
-> make
+> make build
 
-Monta o pacote para distribuição.
-
+Gera o build da aplicação.
 
 > make install
 
