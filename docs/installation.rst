@@ -8,13 +8,13 @@ Installation
 Stable release
 --------------
 
-To install cli-trade, run this command in your terminal:
+To install ChartCLI, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install cli_trade
+    $ pip install chartcli
 
-This is the preferred method to install cli-trade, as it will always install the most recent stable release.
+This is the preferred method to install chartcli, as it will always install the most recent stable release.
 
 If you don't have `pip`_ installed, this `Python installation guide`_ can guide
 you through the process.
@@ -26,19 +26,19 @@ you through the process.
 From sources
 ------------
 
-The sources for cli-trade can be downloaded from the `Github repo`_.
+The sources for chartcli can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/vfranca/cli_trade
+    $ git clone git://github.com/vfranca/chartcli
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/vfranca/cli_trade/tarball/master
+    $ curl  -OL https://github.com/vfranca/chartcli/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/vfranca/cli_trade
-.. _tarball: https://github.com/vfranca/cli_trade/tarball/master
+.. _Github repo: https://github.com/vfranca/chartcli
+.. _tarball: https://github.com/vfranca/chartcli/tarball/master

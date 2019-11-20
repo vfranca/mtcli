@@ -1,4 +1,4 @@
-Welcome to cli-trade's documentation!
+Welcome to ChartCLI's documentation!
 ======================================
 
 .. toctree::
