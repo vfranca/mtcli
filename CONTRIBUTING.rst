@@ -1,128 +1,118 @@
 .. highlight:: shell
 
 ============
-Contributing
+Contribuição
 ============
 
-Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given.
+Contribuições são bem-vindas e são muito apreciadas! Cada trecho ajuda e sempre será dado crédito.
 
-You can contribute in many ways:
+Você pode contribuir de várias maneiras:
 
-Types of Contributions
+Formas de Contribuição
 ----------------------
 
-Report Bugs
+Relatar Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/vfranca/chartcli/issues.
+Relate bugs em https://github.com/vfranca/chartcli/issues.
 
-If you are reporting a bug, please include:
+Quando você estiver relatando um bug inclua:
 
-* Your operating system name and version.
-* Any details about your local setup that might be helpful in troubleshooting.
-* Detailed steps to reproduce the bug.
+* O nome e a versão do seu sistema operacional.
+* Quaisquer detalhes sobre a configuração local que possam ser úteis na solução de problemas.
+* Passos detalhados para reproduzir o bug.
 
-Fix Bugs
+Correção de Bugs
 ~~~~~~~~
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
-wanted" is open to whoever wants to implement it.
+Procure nos issues do GitHub por bugs. Qualquer coisa marcada com "bug" e "help wanted"estará aberto a quem quiser implementá-lo.
 
-Implement Features
+Implementar Features
 ~~~~~~~~~~~~~~~~~~
 
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
+Procure nos issues do GitHub para obter features. Qualquer coisa marcada com "enhancement" e "help wanted" está aberta para quem quiser implementá-la.
 
-Write Documentation
+Escrever Documentação
 ~~~~~~~~~~~~~~~~~~~
 
-cli-trade could always use more documentation, whether as part of the
-official cli-trade docs, in docstrings, or even on the web in blog posts,
-articles, and such.
+O chartcli sempre poderá usar mais documentação, seja como parte dos
+documentos oficiais de chartcli, em docstrings ou até na web em postagens de blog,
+artigos e afins.
 
-Submit Feedback
+Enviar Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/vfranca/chartcli/issues.
+A melhor maneira de enviar feedback é registrar um issue em https://github.com/vfranca/chartcli/issues.
 
-If you are proposing a feature:
+Se você estiver propondo uma feature:
 
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
+* Explique em detalhes como funcionaria.
+* Mantenha o escopo o mais estreito possível afim de facilitar a implementação.
+* Lembre-se de que este é um projeto conduzido por voluntários e que as contribuições são bem-vindas.
 
-Get Started!
+Como Começar!
 ------------
 
-Ready to contribute? Here's how to set up `chartcli` for local development.
+Pronto para contribuir? Veja como configurar o `chartcli` para desenvolvimento local.
 
-1. Fork the `chartcli` repo on GitHub.
-2. Clone your fork locally::
+1. Bifurque o repositório `chartcli` no GitHub.
+2. Clone seu fork localmente::
 
-    $ git clone git@github.com:your_name_here/chartcli.git
+    $ git clone git@github.com:seu_usuario/chartcli.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Instale sua cópia local em um virtualenv. Supondo que você tenha o virtualenvwrapper instalado, é assim que você configura seu fork para desenvolvimento local::
 
-    $ mkvirtualenv chartcli
-    $ cd chartcli/
-    $ python setup.py develop
+    $ mkvirtualenv chartcli
+    $ cd chartcli /
+    $ python setup.py develop
 
-4. Create a branch for local development::
+4. Crie um branch para desenvolvimento local::
 
-    $ git checkout -b name-of-your-bugfix-or-feature
+    $ git checkout -b nome-do-seu-bugfix-ou-feature
 
-   Now you can make your changes locally.
+   Agora você pode fazer suas alterações localmente.
 
-5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox::
+5. Quando terminar de fazer as alterações, verifique se as alterações passam no flake8 e nos testes, incluindo o teste de outras versões do Python com o tox::
 
-    $ flake8 chartcli tests
-    $ python setup.py test or py.test
-    $ tox
+    $ flake8 chartcli tests
+    $ python setup.py test ou py.test
+    $ tox
 
-   To get flake8 and tox, just pip install them into your virtualenv.
+   Para obter flake8 e tox, basta instalá-los no seu virtualenv.
 
-6. Commit your changes and push your branch to GitHub::
+6. Comite suas alterações e envie seu branch para o GitHub::
 
     $ git add .
-    $ git commit -m "Your detailed description of your changes."
-    $ git push origin name-of-your-bugfix-or-feature
+    $ git commit -m "Descrição detalhada de suas alterações."
+    $ git push origin nome-do-seu-bugfix-ou-feature
 
-7. Submit a pull request through the GitHub website.
+7. Envie um pull request pelo site do GitHub.
 
-Pull Request Guidelines
+Diretrizes de Pull Request
 -----------------------
 
-Before you submit a pull request, check that it meets these guidelines:
+Antes de enviar um pull request, verifique se ele atende a estas diretrizes::
 
-1. The pull request should include tests.
-2. If the pull request adds functionality, the docs should be updated. Put
-   your new functionality into a function with a docstring, and add the
-   feature to the list in README.rst.
-3. The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and for PyPy. Check
-   https://travis-ci.org/vfranca/chartcli/pull_requests
-   and make sure that the tests pass for all supported Python versions.
+1. O pull request deve incluir testes.
+2. Se o pull request adicionar uma funcionalidade, os documentos deverão ser atualizados. Colocar sua nova funcionalidade em uma função com uma string e adicione-o para a lista em README.rst.
+3. O pull request deve funcionar no Python 2.7, 3.4, 3.5 e 3.6 e no PyPy. Acesse https://travis-ci.org/vfranca/chartcli/pull_requests e verifique se os testes são aprovados para todas as versões suportadas do Python.
 
-Tips
+Dicas
 ----
 
-To run a subset of tests::
+Para executar um subconjunto de testes:
 
 
     $ python -m unittest tests.test_chartcli
 
-Deploying
+Deploy
 ---------
 
-A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
-
-$ bumpversion patch # possible: major / minor / patch
+Um lembrete para os mantenedores sobre como fazer o deploy.
+Verifique se todas as suas alterações foram comitadas (incluindo uma entrada em HISTORY.rst).
+Então execute::
+$ bumpversion patch # provavelmente: major / minor / patch
 $ git push
 $ git push --tags
 
-Travis will then deploy to PyPI if tests pass.
+O Travis fará o deploy no PyPI se os testes passarem.
