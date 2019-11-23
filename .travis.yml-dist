@@ -25,5 +25,5 @@ deploy:
     secure: PLEASE_REPLACE_ME
   on:
     tags: true
-    repo: vfranca/cli_trade
+    repo: vfranca/chartcli
     python: 3.6

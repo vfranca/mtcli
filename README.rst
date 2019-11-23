@@ -1,5 +1,5 @@
 =========
-ChartCLI
+chartcli
 =========
 
 .. image:: https://img.shields.io/pypi/v/chartcli.svg
@@ -10,111 +10,133 @@ ChartCLI
 
 .. image:: https://readthedocs.org/projects/chartcli/badge/?version=latest
         :target: https://chartcli.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+        :alt: Status da Documentação
 
 Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 
 * Free software: MIT license
-* Documentation: https://chartcli.readthedocs.io.
+* Documentação: https://chartcli.readthedocs.io.
 
 Pré-requisitos
---------
+---------------
 
 * MetaTrader 5
 * EA GeraCSV.ex5
 * Python
 
 
-Instalação
---------
+Instalacao
+-----------
 
-> git clone git@github.com:vfranca/charcli.git
-
-Faz o clone do repositório.
-
-> cd chartcli
-
-> py -m venv venv
-
-Cria um ambiente virtual do Python.
-
-> venv\scripts\activate
-
-Ativa o ambiente virtual do Python.
+Seguem abaixo instruções de instalação para desenvolvimento:
 
 
-> pip install -r requirements_dev.txt
+Faça o clone do repositório:  
 
-Instala as dependências de desenvolvimento.
+> git clone git@github.com:vfranca/charcli.git  
 
-> make test
+Altere para o diretório do repositório:  
 
-Executa a suíte de testes.
+> cd chartcli  
 
-> make build
+Crie um ambiente virtual do Python:  
 
-Gera o build da aplicação.
+> python -m venv venv  
 
-> make install
+Ative o ambiente virtual do Python:  
 
-Instala o pacote no ambiente virtual.
+> venv\scripts\activate  
+
+Instale as dependências de desenvolvimento:  
+
+> pip install -r requirements_dev.txt  
 
 
-Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor.
+Uso do make  
+--------------
+
+Remove os artefatos de compilação:  
+
+> make clean  
+
+Executa os testes:  
+
+> make test  
+
+Compila o pacote para distribuição:  
+
+> make build  
+
+Faz o deploy no PyPI:  
+
+> make deploy 
+
+Faz a instalação do pacote:  
+
+> make install  
+
+Executa todas as tasks:  
+
+> make  
 
 
-Comandos
---------
+Procedimento no MetaTrader 5
+-----------------------------
+
+Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor. 
+
+Uso  
+---
+
+Exibe as últimas 20 barras do diário do winq19:  
 
 > cc bars winq19 -p daily -c 20  
 
-Exibe as últimas 20 barras do diário do winq19.
+Exibe o canal das últimas 20 barras do diário do winq19:  
 
 > cc bars winq19 -p daily -v ch -c 20  
 
-Exibe o canal das últimas 20 barras do diário do winq19.
+Exibe o preço de fechamento das últimas 20 barras do diário do winq19:  
 
 > cc bars winq19 -p daily -v c -c 20  
 
-Exibe o preço de fechamento das últimas 20 barras do diário do winq19.
+Exibe o preço máximo das últimas 20 barras do diário do winq19:  
 
 > cc bars winq19 -p daily -v h -c 20  
 
-Exibe o preço máximo das últimas 20 barras do diário do winq19.
+Exibe o preço mínimo das últimas 20 barras do diário do winq19  
 
 > cc bars winq19 -p daily -v l -c 20  
 
-Exibe o preço mínimo das últimas 20 barras do diário do winq19.
+Exibe o range das últimas 20 barras do diário do winq19:
 
 > cc bars winq19 -p daily -v r -c 20  
 
-Exibe o range das últimas 20 barras do diário do winq19.
+Exibe o volume das últimas 20 barras do diário do winq19:  
 
 > cc bars winq19 -p daily -v vol -c 20  
 
-Exibe o volume das últimas 20 barras do diário do winq19.
+Exibe o ATR(14) do diário do winq19:  
 
 > cc atr winq19 -p daily  
 
-Exibe o ATR(14) do diário do winq19.
+Exibe o ATR(20) do diário do winq19:  
 
 > cc atr winq19 -p daily -c 20  
 
-Exibe o ATR(20) do diário do winq19.
+Exibe a média móvel aritmética de 20 períodos do diário do winq19:  
 
 > cc sma winq19 -p daily -c 20  
 
-Exibe a média móvel aritmética de 20 períodos do diário do winq19.
+Exibe a média móvel exponencial de 20 períodos do diário do winq19:  
 
 > cc ema winq19 -p daily -c 20  
 
-Exibe a média móvel exponencial de 20 períodos do diário do winq19.
+Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de alta:  
 
 > cc fib 103900 102100 h  
 
-Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de alta.
+Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de baixa:  
 
 > cc fib 103900 102100 l  
-
-Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de baixa.
 

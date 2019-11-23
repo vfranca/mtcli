@@ -104,3 +104,9 @@ ENV/
 /setenv.bat
 /*.~
 
+
+# twine
+/.pypirc
+
+# travis
+/.travis.yml
