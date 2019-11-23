@@ -104,3 +104,6 @@ ENV/
 /setenv.bat
 /*.~
 
+
+# twine
+/.pypirc

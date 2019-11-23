@@ -55,6 +55,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/chartcli',
-    version='0.2a0',
+    version='0.3a0',
     zip_safe=False,
 )

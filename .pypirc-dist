@@ -1,0 +1,16 @@
+# twine upload --config-file .pypirc --repository testpypi dist/*
+# twine upload --config-file .pypirc --repository pypi dist/*
+[distutils]
+index-servers =
+    pypi
+    testpypi
+
+[pypi]
+repository:https://upload.pypi.org/legacy/
+username:USERNAME
+password:PASSWORD
+
+[testpypi]
+repository:https://test.pypi.org/legacy/
+username:USERNAME
+password:PASSWORD

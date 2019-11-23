@@ -1,20 +1,28 @@
 @echo off
 
-if "%1" == "" ( echo  build - Gera o build da aplicação)
-if "%1" == "build" (
-	py setup.py sdist bdist_wheel
-	goto :EOF
+if "%1" == "" (
+call :task clean
+call :task test
+call :task build
+call :task deploy
+call :task install
 )
 
-if "%1" == "" ( echo install - Instala a aplicação)
-if "%1" == "install" (
-	pip install .
-	goto :EOF
+:task
+if "%1" == "clean" (
+rm -rf build
+rm -rf dist
+rm -rf chartcli.egg-info
 )
-
-if "%1" == "" ( echo test - Executa a suíte de testes)
 if "%1" == "test" (
-	python setup.py test
-	goto :EOF
+python setup.py test
 )
-
+if "%1" == "build" (
+py setup.py sdist bdist_wheel
+)
+if "%1" == "deploy" (
+twine upload dist/* --config-file .pypirc --repository testpypi
+)
+if "%1" == "install" (
+pip install --upgrade -i https://test.pypi.org/simple/ chartcli
+)
