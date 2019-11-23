@@ -22,7 +22,7 @@ deploy:
   distributions: sdist bdist_wheel
   user: vfranca
   password:
-    secure: PLEASE_REPLACE_ME
+    secure: Va108745
   on:
     tags: true
     repo: vfranca/chartcli

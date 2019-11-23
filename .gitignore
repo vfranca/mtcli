@@ -107,6 +107,3 @@ ENV/
 
 # twine
 /.pypirc
-
-# travis
-/.travis.yml
