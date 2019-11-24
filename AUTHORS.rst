@@ -1,13 +1,13 @@
-=======
-Credits
-=======
+=========
+Creditos
+=========
 
 Development Lead
 ----------------
 
 * Valmir França <vfranca3@gmail.com>
 
-Contributors
-------------
+Colaboradores
+--------------
 
 * Maicon Dinkel Baggio <maiconbaggio@outlook.com>

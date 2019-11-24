@@ -1,51 +1,47 @@
-.. highlight:: shell
-
-============
-Installation
-============
+===========
+Instalacao
+===========
 
 
-Stable release
---------------
+Versao estavel
+---------------
 
-To install ChartCLI, run this command in your terminal:
+Para instalar chartcli, execute o seguinte comando em seu terminal:
 
 .. code-block:: console
 
-    $ pip install chartcli
+    > pip install chartcli
 
-This is the preferred method to install chartcli, as it will always install the most recent stable release.
+Este e o metodo preferido para instalar o chartcli, pois sempre instalara a versao estavel mais recente.
 
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
+Se você nao possui o `pip`_ instalado, este `guia de instalacao do Python`_ pode orientar durante o processo.
 
 .. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+.. _guia de instalacao do Python: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-From sources
-------------
+A partir do codigo fonte
+-------------------------
 
-The sources for chartcli can be downloaded from the `Github repo`_.
+O codigo fonte do chartcli pode ser baixado do `repo Github`_.
 
-You can either clone the public repository:
-
-.. code-block:: console
-
-    $ git clone git://github.com/vfranca/chartcli
-
-Or download the `tarball`_:
+Você pode clonar o repositorio publico:
 
 .. code-block:: console
 
-    $ curl  -OL https://github.com/vfranca/chartcli/tarball/master
+    > git clone git://github.com/vfranca/chartcli
 
-Once you have a copy of the source, you can install it with:
+Ou fazer o download do `tarball`_:
 
 .. code-block:: console
 
-    $ python setup.py install
+    > curl  -OL https://github.com/vfranca/chartcli/tarball/master
 
+Depois de ter uma copia do codigo fonte, você pode instalá-lo com:
 
-.. _Github repo: https://github.com/vfranca/chartcli
+.. code-block:: console
+
+    > python setup.py install
+
+.. _repo Github: https://github.com/vfranca/chartcli
 .. _tarball: https://github.com/vfranca/chartcli/tarball/master

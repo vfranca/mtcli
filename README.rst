@@ -31,112 +31,152 @@ Instalacao
 Seguem abaixo instruções de instalação para desenvolvimento:
 
 
-Faça o clone do repositório:  
+Faça o clone do repositório e alterne para seu diretório:
 
-> git clone git@github.com:vfranca/charcli.git  
+.. code-block:: console
 
-Altere para o diretório do repositório:  
+    > git clone git@github.com:vfranca/charcli.git
+    > cd chartcli
 
-> cd chartcli  
+Crie um ambiente virtual do Python e ative-o:
 
-Crie um ambiente virtual do Python:  
+.. code-block:: console
 
-> python -m venv venv  
+    > python -m venv venv
+    > venv\scripts\activate
 
-Ative o ambiente virtual do Python:  
+Instale as dependências de desenvolvimento:
 
-> venv\scripts\activate  
+.. code-block:: console
 
-Instale as dependências de desenvolvimento:  
-
-> pip install -r requirements_dev.txt  
+    > pip install -r requirements_dev.txt
 
 
-Uso do make  
+Uso do make
 --------------
 
-Remove os artefatos de compilação:  
+Remove os artefatos de compilação:
 
-> make clean  
+.. code-block:: console
 
-Executa os testes:  
+    > make clean
 
-> make test  
+Executa a suíte de testes:
 
-Compila o pacote para distribuição:  
+.. code-block:: console
 
-> make build  
+    > make test
 
-Faz o deploy no PyPI:  
+Compila o pacote para distribuição:
 
-> make deploy 
+.. code-block:: console
 
-Faz a instalação do pacote:  
+    > make build
 
-> make install  
+Faz o deploy no PyPI:
 
-Executa todas as tasks:  
+.. code-block:: console
 
-> make  
+    > make deploy
+
+Faz a instalação do pacote:
+
+.. code-block:: console
+
+    > make install
+
+Executa todas as tasks:
+
+.. code-block:: console
+
+    > make
 
 
 Procedimento no MetaTrader 5
 -----------------------------
 
-Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor. 
+Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor.
 
-Uso  
+Uso
 ---
 
-Exibe as últimas 20 barras do diário do winq19:  
+Exibe as últimas 20 barras do diário do winq19:
 
-> cc bars winq19 -p daily -c 20  
+.. code-block:: console
 
-Exibe o canal das últimas 20 barras do diário do winq19:  
+    > chart bars winq19 -p daily -c 20
 
-> cc bars winq19 -p daily -v ch -c 20  
+Exibe o canal das últimas 20 barras do diário do winq19:
 
-Exibe o preço de fechamento das últimas 20 barras do diário do winq19:  
+.. code-block:: console
 
-> cc bars winq19 -p daily -v c -c 20  
+    > chart bars winq19 -p daily -v ch -c 20
 
-Exibe o preço máximo das últimas 20 barras do diário do winq19:  
+Exibe o preço de fechamento das últimas 20 barras do diário do winq19:
 
-> cc bars winq19 -p daily -v h -c 20  
+.. code-block:: console
 
-Exibe o preço mínimo das últimas 20 barras do diário do winq19  
+    > chart bars winq19 -p daily -v c -c 20
 
-> cc bars winq19 -p daily -v l -c 20  
+Exibe o preço máximo das últimas 20 barras do diário do winq19:
+
+.. code-block:: console
+
+    > chart bars winq19 -p daily -v h -c 20
+
+Exibe o preço mínimo das últimas 20 barras do diário do winq19
+
+.. code-block:: console
+
+    > chart bars winq19 -p daily -v l -c 20
 
 Exibe o range das últimas 20 barras do diário do winq19:
 
-> cc bars winq19 -p daily -v r -c 20  
+.. code-block:: console
 
-Exibe o volume das últimas 20 barras do diário do winq19:  
+    > chart bars winq19 -p daily -v r -c 20
 
-> cc bars winq19 -p daily -v vol -c 20  
+Exibe o volume das últimas 20 barras do diário do winq19:
 
-Exibe o ATR(14) do diário do winq19:  
+.. code-block:: console
 
-> cc atr winq19 -p daily  
+    > chart bars winq19 -p daily -v vol -c 20
 
-Exibe o ATR(20) do diário do winq19:  
+Exibe o ATR(14) do diário do winq19:
 
-> cc atr winq19 -p daily -c 20  
+.. code-block:: console
 
-Exibe a média móvel aritmética de 20 períodos do diário do winq19:  
+    > chart atr winq19 -p daily
 
-> cc sma winq19 -p daily -c 20  
+Exibe o ATR(20) do diário do winq19:
 
-Exibe a média móvel exponencial de 20 períodos do diário do winq19:  
+.. code-block:: console
 
-> cc ema winq19 -p daily -c 20  
+    > chart atr winq19 -p daily -c 20
 
-Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de alta:  
+Exibe a média móvel aritmética de 20 períodos do diário do winq19:
 
-> cc fib 103900 102100 h  
+.. code-block:: console
 
-Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de baixa:  
+    > chart sma winq19 -p daily -c 20
 
-> cc fib 103900 102100 l  
+Exibe a média móvel exponencial de 20 períodos do diário do winq19:
 
+.. code-block:: console
+
+    > chart ema winq19 -p daily -c 20
+
+Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de alta:
+
+.. code-block:: console
+
+    > chart fib 103900 102100 h
+
+Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de baixa:
+
+.. code-block:: console
+
+    > chart fib 103900 102100 l
+
+
+.. include:: ./AUTHORS.rst
