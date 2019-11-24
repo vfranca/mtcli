@@ -1,8 +1,8 @@
-=======
-History
-=======
+==========
+Histórico
+==========
 
-1.0.0 (2019-04-08)
+0.1.0 (2019-04-08)
 ------------------
 
-* First release on PyPI.
+* Primeiro release no PyPI.

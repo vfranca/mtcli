@@ -1,4 +1,4 @@
-Welcome to ChartCLI's documentation!
+Bem-vindo a documentacao do chartcli!
 ======================================
 
 .. toctree::

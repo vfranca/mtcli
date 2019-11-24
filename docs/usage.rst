@@ -1,7 +1,7 @@
-=====
-Usage
-=====
+===
+Uso
+===
 
-To use cli-trade in a project::
+Para usar o chartcli em um projeto:
 
-    import cli_trade
+    import chartcli
