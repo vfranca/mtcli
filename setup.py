@@ -36,7 +36,7 @@ setup(
     description="Utilitário de linha de comando para leitura de gráficos do MetaTrader 5",
     entry_points={
         'console_scripts': [
-            'cc=chartcli.cli:cli',
+            'chart=chartcli.cli:cli',
             'bars=chartcli.cli:bars',
             'sma=chartcli.cli:sma',
             'ema=chartcli.cli:ema',
@@ -55,6 +55,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/chartcli',
-    version='0.4a0',
+    version='0.4.1a0',
     zip_safe=False,
 )
