@@ -178,5 +178,3 @@ Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendênc
 
     > chart fib 103900 102100 l
 
-
-.. include:: ./AUTHORS.rst
