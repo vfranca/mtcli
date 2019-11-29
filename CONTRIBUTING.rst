@@ -58,33 +58,43 @@ Pronto para contribuir? Veja como configurar o `chartcli` para desenvolvimento l
 1. Bifurque o repositório `chartcli` no GitHub.
 2. Clone seu fork localmente::
 
-    $ git clone git@github.com:seu_usuario/chartcli.git
+.. code-block:: console
+
+    git clone git@github.com:seu_usuario/chartcli.git
 
 3. Instale sua cópia local em um virtualenv. Supondo que você tenha o virtualenvwrapper instalado, é assim que você configura seu fork para desenvolvimento local::
 
-    > mkvirtualenv chartcli
-    > cd chartcli /
-    > python setup.py develop
+.. code-block:: console
+
+    mkvirtualenv chartcli
+    cd chartcli /
+    python setup.py develop
 
 4. Crie um branch para desenvolvimento local:
 
-    > git checkout -b nome-do-seu-bugfix-ou-feature
+.. code-block:: console
 
-   Agora você pode fazer suas alterações localmente.
+    git checkout -b nome-do-seu-bugfix-ou-feature
+
+Agora você pode fazer suas alterações localmente.
 
 5. Quando terminar de fazer as alterações, verifique se as alterações passam no flake8 e nos testes, incluindo o teste de outras versões do Python com o tox:
 
-    > flake8 chartcli tests
-    > python setup.py test ou py.test
-    > tox
+.. code-block:: console
+
+    flake8 chartcli tests
+    python setup.py test ou py.test
+    tox
 
    Para obter flake8 e tox, basta instalá-los no seu virtualenv.
 
 6. Comite suas alterações e envie seu branch para o GitHub:
 
-    > git add .
-    > git commit -m "Descrição detalhada de suas alterações."
-    > git push origin nome-do-seu-bugfix-ou-feature
+.. code-block:: console
+
+    git add .
+    git commit -m "Descrição detalhada de suas alterações."
+    git push origin nome-do-seu-bugfix-ou-feature
 
 7. Envie um pull request pelo site do GitHub.
 
@@ -97,12 +107,15 @@ Antes de enviar um pull request, verifique se ele atende a estas diretrizes:
 2. Se o pull request adicionar uma funcionalidade, os documentos deverão ser atualizados. Colocar sua nova funcionalidade em uma função com uma string e adicione-o para a lista em README.rst.
 3. O pull request deve funcionar no Python 2.7, 3.4, 3.5 e 3.6 e no PyPy. Acesse https://travis-ci.org/vfranca/chartcli/pull_requests e verifique se os testes são aprovados para todas as versões suportadas do Python.
 
+
 Dicas
 -----
 
 Para executar um subconjunto de testes:
 
-    > python -m unittest tests.test_chartcli
+.. code-block:: console
+
+    python -m unittest tests.test_chartcli
 
 Deploy
 -------
@@ -113,8 +126,50 @@ Verifique se todas as suas alterações foram comitadas (incluindo uma entrada e
 
 Então execute::
 
-> bumpversion patch # provavelmente: major / minor / patch
-> git push
-> git push --tags
+.. code-block:: console
+
+    bumpversion patch # provavelmente: major / minor / patch
+    git push
+    git push --tags
 
 O Travis fará o deploy no PyPI se os testes passarem.
+
+
+Uso do make
+--------------
+
+Remove os artefatos de compilação:
+
+.. code-block:: console
+
+    > make clean
+
+Executa a suíte de testes:
+
+.. code-block:: console
+
+    > make test
+
+Compila o pacote para distribuição:
+
+.. code-block:: console
+
+    > make build
+
+Faz o deploy no PyPI:
+
+.. code-block:: console
+
+    > make deploy
+
+Faz a instalação do pacote:
+
+.. code-block:: console
+
+    > make install
+
+Executa todas as tasks:
+
+.. code-block:: console
+
+    > make

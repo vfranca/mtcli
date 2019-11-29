@@ -28,72 +28,12 @@ Pré-requisitos
 Instalacao
 -----------
 
-Seguem abaixo instruções de instalação para desenvolvimento:
-
-
-Faça o clone do repositório e alterne para seu diretório:
-
 .. code-block:: console
 
-    > git clone git@github.com:vfranca/charcli.git
-    > cd chartcli
-
-Crie um ambiente virtual do Python e ative-o:
-
-.. code-block:: console
-
-    > python -m venv venv
-    > venv\scripts\activate
-
-Instale as dependências de desenvolvimento:
-
-.. code-block:: console
-
-    > pip install -r requirements_dev.txt
-
-
-Uso do make
---------------
-
-Remove os artefatos de compilação:
-
-.. code-block:: console
-
-    > make clean
-
-Executa a suíte de testes:
-
-.. code-block:: console
-
-    > make test
-
-Compila o pacote para distribuição:
-
-.. code-block:: console
-
-    > make build
-
-Faz o deploy no PyPI:
-
-.. code-block:: console
-
-    > make deploy
-
-Faz a instalação do pacote:
-
-.. code-block:: console
-
-    > make install
-
-Executa todas as tasks:
-
-.. code-block:: console
-
-    > make
-
+    pip install https://github.com/vfranca/chartcli/archive/master.tar.gz
 
 Procedimento no MetaTrader 5
------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor.
 
