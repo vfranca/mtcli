@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from chartcli.conf import *
 
 
 class Bar(object):
@@ -33,12 +32,12 @@ class Bar(object):
     def __get_top(self):
         """ Retorna o tamanho relativo da sombra superior em porcentagem."""
         high = self.high
-        open =self.open
+        open = self.open
         close = self.close
         range = self.range
 
         if close >= open:
-            top = high -close
+            top = high - close
         else:
             top = high - open
 
@@ -50,7 +49,7 @@ class Bar(object):
     def __get_bottom(self):
         """ Retorna o tamanho relativo da sombra inferior em porcentagem."""
         low = self.low
-        open =self.open
+        open = self.open
         close = self.close
         range = self.range
 
@@ -62,14 +61,14 @@ class Bar(object):
         if range == 0:
             return 0
 
-        return round(bottom / range* 100)
+        return round(bottom / range * 100)
 
     def __get_body_range(self):
         "Retorna o tamanho absoluto do corpo."""
         return abs(self.close - self.open)
 
     def __get_trend(self):
-        b =self.body
+        b = self.body
 
         if b > 0:
             trend = "alta"
@@ -81,9 +80,9 @@ class Bar(object):
         return trend
 
     def __str__(self):
-        return "%s %.5f %.5f %.5f" % (self.body, self.high, self.low, self.close)
+        return "%s %.5f %.5f %.5f" % (
+            self.body, self.high, self.low, self.close)
 
     def __get_date(self):
         date = self.datetime.split(' ')
         return date[0]
-

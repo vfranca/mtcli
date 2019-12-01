@@ -23,5 +23,3 @@ lbl_asc = "ASC"
 lbl_desc = "DESC"
 lbl_ob = "OB"
 lbl_ib = "IB"
-
-

@@ -14,8 +14,6 @@ def controller(symbol, period, view, date="", count=40):
     views = []
     close = []
     open = []
-    high = []
-    low = []
     high1 = []
     low1 = []
     body = []
@@ -66,7 +64,8 @@ def controller(symbol, period, view, date="", count=40):
             start = len(bars) - count
             if counter > start:
                 mp = _helper.get_medium_point(bar)
-                pattern1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, mp)
+                pattern1 = BrooksPatterns1(
+                    bar.body, bar.top, bar.bottom, bar.close, mp)
                 if pattern1.pattern == conf.lbl_buy_pressure:
                     bull += 1
                 elif pattern1.pattern == conf.lbl_sell_pressure:
@@ -90,11 +89,12 @@ def controller(symbol, period, view, date="", count=40):
         elif view == "vol":
             views.append(_view.volume_view(bar, ch_trend, num_bar))
         elif view == "stat":
-            views = [stat_view(bull, bear, doji)]
+            views = [_view.stat_view(bull, bear, doji)]
         elif view == "var":
             views.append(_view.var_view(ch_trend, var_close, num_bar))
         else:
-            views.append(_view.brooks_view(bar, ch_trend, num_bar, pattern2, var_close))
+            views.append(
+                _view.brooks_view(bar, ch_trend, num_bar, pattern2, var_close))
 
         # Limita a quantidade de views
         if count and len(views) > count:

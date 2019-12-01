@@ -2,7 +2,8 @@
 
 
 class Fib(object):
-    def __init__(self, high, low, trend = "h"):
+
+    def __init__(self, high, low, trend="h"):
         self.h = high
         self.l = low
         self.t = str(trend)
@@ -30,4 +31,5 @@ class Fib(object):
             return self.l - self.range * ext
 
     def __str__(self):
-        return "%.2f %.2f %.2f > %.2f %.2f %.2f" % (self.r61, self.r, self.r38, self.e38, self.e, self.e61)
+        return "%.2f %.2f %.2f > %.2f %.2f %.2f" % (
+            self.r61, self.r, self.r38, self.e38, self.e, self.e61)
