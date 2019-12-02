@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from chartcli.conf import *
+from chartcli import conf
 
 
 class BrooksPatterns2(object):
@@ -21,19 +21,21 @@ class BrooksPatterns2(object):
                 gap = self.close[1] - self.high[0]
             if self.body[1] < 0:
                 gap = self.low[0] - self.close[1]
-            view = "%s%." + str(digits) + "f"
-            return view % (lbl_gap, gap)
-        return lbl_fbo
+            view = "%s%." + str(conf.digits) + "f"
+            return view % (conf.lbl_gap, gap)
+        return conf.lbl_fbo
 
     def __is_gap(self):
         """ Se for gap retorna true."""
-        # Se não tiver tendência retorna false
+        """ Se não tiver tendência retorna false."""
         if self.body[1] == 0:
             return False
-        # Na alta se o fechamento for menor ou igual à máxima anterior retorna false
+        """ Na alta se o fechamento for menor ou igual à máxima anterior
+        retorna false."""
         if self.body[1] > 0 and self.close[1] <= self.high[0]:
             return False
-            # Na baixa se o fechamento for maior ou igual à mínima anterior retorna false
+        """ Na baixa se o fechamento for maior ou igual à mínima anterior
+        retorna false. """
         if self.body[1] < 0 and self.close[1] >= self.low[0]:
             return False
         return True
@@ -45,6 +47,7 @@ class BrooksPatterns2(object):
     def __is_bear_reversal(self):
         """ Se for reversão de baixa de duas barras retorna true."""
         pass
+
     def __is_microdoubletop(self):
         """Se for micro topo duplo retorna true."""
         pass
@@ -56,14 +59,11 @@ class BrooksPatterns2(object):
     def __get_trend(self):
         """ Retorna a tendência da sequência de dois candles."""
         if self.high[1] > self.high[0] and self.low[1] > self.low[0]:
-            return lbl_asc
+            return conf.lbl_asc
         if self.high[1] < self.high[0] and self.low[1] < self.low[0]:
-            return lbl_desc
+            return conf.lbl_desc
         if self.high[1] <= self.high[0] and self.low[1] >= self.low[0]:
-            return lbl_ib
+            return conf.lbl_ib
         if self.high[1] > self.high[0] and self.low[1] < self.low[0]:
-            return lbl_ob
+            return conf.lbl_ob
         return ""
-
-
-

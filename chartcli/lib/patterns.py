@@ -8,6 +8,7 @@ doji_shadow_min = 30
 spinning_top_shadow_min = 40
 umbrella_body_max = 25
 
+
 def is_doji(body, top, bottom):
     """ Se existe o doji retorna True."""
     # Se o corpo não é de doji retorna False
@@ -20,6 +21,7 @@ def is_doji(body, top, bottom):
     if bottom <= doji_shadow_min:
         return False
     return True
+
 
 def is_bullish_doji(body, top, bottom):
     """ Se existir doji de alta retorna True."""
@@ -34,6 +36,7 @@ def is_bullish_doji(body, top, bottom):
         return False
     return True
 
+
 def is_dragon_fly_doji(body, top, bottom):
     """ Se existir doji dragão voador retorna True."""
     # Se o corpo não for de um doji retorna False
@@ -46,6 +49,7 @@ def is_dragon_fly_doji(body, top, bottom):
     if bottom == 0:
         return False
     return True
+
 
 def is_bearish_doji(body, top, bottom):
     """ Se existir doji de baixa retorna False."""
@@ -60,6 +64,7 @@ def is_bearish_doji(body, top, bottom):
         return False
     return True
 
+
 def is_gravestone_doji(body, top, bottom):
     """ Se existir doji lápide retorna True."""
     # Se o corpo não for de um doji retorna False
@@ -72,6 +77,7 @@ def is_gravestone_doji(body, top, bottom):
     if top == 0:
         return False
     return True
+
 
 def is_four_prices_doji(body, top, bottom):
     """Se existir o doji de quatro preços retorna True."""
@@ -86,12 +92,14 @@ def is_four_prices_doji(body, top, bottom):
         return False
     return True
 
+
 def is_marubozu(body, top, bottom):
     """Se existir marubozu retorna True."""
     # Se o corpo for 100% do candle retorna True
     if abs(body) == 100:
         return True
     return False
+
 
 def is_spinning_top(body, top, bottom):
     """Se existir spinning top retorna True."""
@@ -106,6 +114,7 @@ def is_spinning_top(body, top, bottom):
         return False
     return True
 
+
 def is_hammer(body, top, bottom):
     """ Se existir martelo retorna True."""
     # Se o corpo é de um doji retorna False
@@ -114,13 +123,8 @@ def is_hammer(body, top, bottom):
     # Se a sombra inferior for menor que 67% retorna False
     if bottom < 67:
         return False
-        # Se a sombra superior não for de um guarda-chuva retorna False
-    # if top > (umbrella_body_max - doji_body_max):
-        #return False
-    # Se o corpo não for de guarda-chuva retorna False
-    #if abs(body) > umbrella_body_max:
-        #return False
     return True
+
 
 def is_inverted_hammer(body, top, bottom):
     """ Se existir martelo invertido retorna True."""
@@ -130,12 +134,6 @@ def is_inverted_hammer(body, top, bottom):
     # Se a sombra superior for menor que 67% retorna False
     if top < 67:
         return False
-        # Se a sombra inferior não for de um guarda-chuva retorna False
-    #if bottom > (umbrella_body_max - doji_body_max):
-        #return False
-    # Se o corpo não for de guarda-chuva retorna False
-    #if abs(body) > umbrella_body_max:
-        #return False
     return True
 
 
@@ -175,11 +173,14 @@ def get_pattern(body, top, bottom):
 
 # Padrões de dois candles
 
+
 def is_star(body, open, close):
     pass
 
+
 def is_doji_star(body, open, close):
     pass
+
 
 def is_bullish_engolfing(body, open, close):
     """ Se existir engolfo de alta retorna True."""
@@ -188,6 +189,7 @@ def is_bullish_engolfing(body, open, close):
             return True
     return False
 
+
 def is_bearish_engolfing(body, open, close):
     """ Se existir engolfo de baixa retorna True."""
     if body[1] < 0 and body[0] > 0:
@@ -195,11 +197,14 @@ def is_bearish_engolfing(body, open, close):
             return True
     return False
 
+
 def is_black_cloud_cover(body, open, close):
     pass
 
+
 def is_piersing_line(body, open, close):
     pass
+
 
 def get_two_candles_pattern(body, open, close):
     """Verifica padrões de dois candles."""
