@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from chartcli.lib.bar import Bar
+from chartcli.bar import Bar
 
 
 class BarTestCase(unittest.TestCase):
@@ -48,7 +48,7 @@ class BarTestCase(unittest.TestCase):
         self.assertEqual(self.obj.bottom, 0, "Sombra inferior da barra")
 
     def test_obtem_tendencia_da_barra(self):
-        self.assertEqual(self.obj.trend, "alta")
+        self.assertEqual(self.obj.trend, "VERDE")
 
     def test_obtem_volume_da_barra(self):
         self.assertEqual(self.obj.volume, 14628859)

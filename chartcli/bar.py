@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from chartcli import conf
 
 
 class Bar(object):
@@ -71,11 +72,11 @@ class Bar(object):
         b = self.body
 
         if b > 0:
-            trend = "alta"
+            trend = conf.lbl_body_bull
         elif b < 0:
-            trend = "baixa"
+            trend = conf.lbl_body_bear
         else:
-            trend = "lateral"
+            trend = conf.lbl_body_doji
 
         return trend
 

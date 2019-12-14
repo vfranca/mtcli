@@ -1,27 +1,19 @@
 # -*- coding: utf-8 -*-
-from chartcli._model import bar_model
-from chartcli import _view
-from chartcli import _helper
-from chartcli.lib.bar import Bar
-from chartcli.lib.brooks_patterns1 import BrooksPatterns1
-from chartcli.lib.brooks_patterns2 import BrooksPatterns2
+from chartcli.model import bar_model
+from chartcli import view as _view
+from chartcli import helper
+from chartcli.bar import Bar
+from chartcli.brooks_patterns1 import BrooksPatterns1
+from chartcli.brooks_patterns2 import BrooksPatterns2
 from chartcli import conf
 
 
 def controller(symbol, period, view, date="", count=40):
     """Retorna uma view."""
     file = conf.csv_path + symbol + period + ".csv"
-    views = []
-    close = []
-    open = []
-    high1 = []
-    low1 = []
-    body = []
-    num_bar = 0
-    counter = 0
-    bull = 0
-    bear = 0
-    doji = 0
+    views, close, open = [], [], []
+    high1, low1, body = [], [], []
+    num_bar, counter, bull, bear, doji = 0, 0, 0, 0, 0
 
     bars = bar_model(file)
     for item in bars:
@@ -48,7 +40,7 @@ def controller(symbol, period, view, date="", count=40):
             brooks = BrooksPatterns2(body, open, close, high1, low1)
             pattern2 = brooks.pattern
             ch_trend = brooks.trend
-            var_close = _helper.get_var(close[0], close[1])
+            var_close = helper.get_var(close[0], close[1])
             body.pop(0)
             open.pop(0)
             close.pop(0)
@@ -63,7 +55,7 @@ def controller(symbol, period, view, date="", count=40):
         if count:
             start = len(bars) - count
             if counter > start:
-                mp = _helper.get_medium_point(bar)
+                mp = helper.get_medium_point(bar)
                 pattern1 = BrooksPatterns1(
                     bar.body, bar.top, bar.bottom, bar.close, mp)
                 if pattern1.pattern == conf.lbl_buy_pressure:

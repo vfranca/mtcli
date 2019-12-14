@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-from chartcli.lib.brooks_patterns1 import BrooksPatterns1
-from chartcli import _helper
+from chartcli.brooks_patterns1 import BrooksPatterns1
+from chartcli import helper
 from chartcli import conf
+
 
 
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
     """Retorna a exibição com os padrões Brooks."""
-    mp = _helper.get_medium_point(bar)
+    mp = helper.get_medium_point(bar)
     brooks1 = BrooksPatterns1(
         bar.body, bar.top, bar.bottom, bar.close, mp)  # padrões de 1 barra
 

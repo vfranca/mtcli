@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from chartcli._model import bar_model
-from chartcli.lib.bar import Bar
+from chartcli.model import bar_model
+from chartcli.bar import Bar
 from chartcli import conf
 
 
