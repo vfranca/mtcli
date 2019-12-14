@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest, os
-from chartcli._model import *
-from chartcli import _helper
-from chartcli.lib.bar import Bar
+from chartcli.model import *
+from chartcli import helper
+from chartcli.bar import Bar
 
 
 class ModelTestCase(unittest.TestCase):

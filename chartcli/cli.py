@@ -2,7 +2,7 @@
 import click
 from chartcli import indicator
 from chartcli.chartcli import controller
-from chartcli.lib.fib import Fib
+from chartcli.fib import Fib
 
 
 @click.group()

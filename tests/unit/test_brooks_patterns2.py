@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from chartcli.lib.brooks_patterns2 import BrooksPatterns2
+from chartcli.brooks_patterns2 import BrooksPatterns2
 from chartcli.conf import *
 
 
