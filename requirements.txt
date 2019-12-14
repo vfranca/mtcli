@@ -1,8 +1,2 @@
 Click==7.0
 python-dotenv==0.10.3
-bump2version==0.5.11
-flake8==3.7.8
-Sphinx==1.8.5
-tox==3.14.0
-wheel==0.33.6
-twine==3.0.0

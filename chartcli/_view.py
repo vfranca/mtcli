@@ -4,6 +4,7 @@ from chartcli import _helper
 from chartcli import conf
 
 
+
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
     """Retorna a exibição com os padrões Brooks."""
     mp = _helper.get_medium_point(bar)

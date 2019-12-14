@@ -40,81 +40,80 @@ Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse exp
 Uso
 ---
 
-Exibe as últimas 20 barras do diário do winq19:
+Para exibir as últimas 20 barras do diário do winq19:
 
 .. code-block:: console
 
-    > chart bars winq19 -p daily -c 20
+    mt bars winq19 -p daily -c 20
 
-Exibe o canal das últimas 20 barras do diário do winq19:
-
-.. code-block:: console
-
-    > chart bars winq19 -p daily -v ch -c 20
-
-Exibe o preço de fechamento das últimas 20 barras do diário do winq19:
+Para exibir o canal das últimas 20 barras do diário do winq19:
 
 .. code-block:: console
 
-    > chart bars winq19 -p daily -v c -c 20
+    mt bars winq19 -p daily -v ch -c 20
 
-Exibe o preço máximo das últimas 20 barras do diário do winq19:
-
-.. code-block:: console
-
-    > chart bars winq19 -p daily -v h -c 20
-
-Exibe o preço mínimo das últimas 20 barras do diário do winq19
+Para exibir o preço de fechamento das últimas 20 barras do diário do winq19:
 
 .. code-block:: console
 
-    > chart bars winq19 -p daily -v l -c 20
+    mt bars winq19 -p daily -v c -c 20
 
-Exibe o range das últimas 20 barras do diário do winq19:
-
-.. code-block:: console
-
-    > chart bars winq19 -p daily -v r -c 20
-
-Exibe o volume das últimas 20 barras do diário do winq19:
+Para exibir o preço máximo das últimas 20 barras do diário do winq19:
 
 .. code-block:: console
 
-    > chart bars winq19 -p daily -v vol -c 20
+    mt bars winq19 -p daily -v h -c 20
 
-Exibe o ATR(14) do diário do winq19:
-
-.. code-block:: console
-
-    > chart atr winq19 -p daily
-
-Exibe o ATR(20) do diário do winq19:
+Para exibir o preço mínimo das últimas 20 barras do diário do winq19
 
 .. code-block:: console
 
-    > chart atr winq19 -p daily -c 20
+    mt bars winq19 -p daily -v l -c 20
 
-Exibe a média móvel aritmética de 20 períodos do diário do winq19:
-
-.. code-block:: console
-
-    > chart sma winq19 -p daily -c 20
-
-Exibe a média móvel exponencial de 20 períodos do diário do winq19:
+Para exibir o range das últimas 20 barras do diário do winq19:
 
 .. code-block:: console
 
-    > chart ema winq19 -p daily -c 20
+    mt bars winq19 -p daily -v r -c 20
 
-Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de alta:
-
-.. code-block:: console
-
-    > chart fib 103900 102100 h
-
-Exibe as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de baixa:
+Para exibir o volume das últimas 20 barras do diário do winq19:
 
 .. code-block:: console
 
-    > chart fib 103900 102100 l
+    mt bars winq19 -p daily -v vol -c 20
 
+Para exibir o ATR(14) do diário do winq19:
+
+.. code-block:: console
+
+    mt atr winq19 -p daily
+
+Para exibir o ATR(20) do diário do winq19:
+
+.. code-block:: console
+
+    mt atr winq19 -p daily -c 20
+
+Para exibir a média móvel aritmética de 20 períodos do diário do winq19:
+
+.. code-block:: console
+
+    mt sma winq19 -p daily -c 20
+
+Para exibir a média móvel exponencial de 20 períodos do diário do winq19:
+
+.. code-block:: console
+
+    mt ema winq19 -p daily -c 20
+
+Para exibir as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de alta:
+
+.. code-block:: console
+
+    mt fib 103900 102100 h
+
+Para exibir as retrações e extensões de Fibonacci entre 103900 e 102100 na tendência de baixa:
+
+.. code-block:: console
+
+    mt fib 103900 102100 l

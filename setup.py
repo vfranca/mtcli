@@ -18,14 +18,14 @@ setup_requirements = [ ]
 test_requirements = [ ]
 
 setup(
-    author="Valmir França",
+    author='Valmir França',
     author_email='vfranca3@gmail.com',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
@@ -33,10 +33,10 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="Utilitário de linha de comando para leitura de gráficos do MetaTrader 5",
+    description='Utilitário de linha de comando para leitura de gráficos do MetaTrader 5',
     entry_points={
         'console_scripts': [
-            'chart=chartcli.cli:cli',
+            'mt=chartcli.cli:cli',
             'bars=chartcli.cli:bars',
             'sma=chartcli.cli:sma',
             'ema=chartcli.cli:ema',
@@ -45,7 +45,7 @@ setup(
         ],
     },
     install_requires=requirements,
-    license="MIT license",
+    license='MIT license',
     long_description=readme + '\n\n' + history,
     include_package_data=True,
     keywords='chartcli',
@@ -55,6 +55,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/vfranca/chartcli',
-    version='0.4.3.dev0',
+    version='0.4.4.dev0',
     zip_safe=False,
 )

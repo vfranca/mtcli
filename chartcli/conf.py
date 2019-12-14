@@ -8,8 +8,8 @@ r = '%.' + str(digits) + 'f'
 csv_path = os.getenv("CSV_PATH")
 
 lbl_body_doji = "DOJI"
-lbl_body_bull = "verde"
-lbl_body_bear = "vermelho"
+lbl_body_bull = "VERDE"
+lbl_body_bear = "VERMELHO"
 lbl_toptail = "TOP"
 lbl_bottomtail = "BOTTOM"
 lbl_tail_neutral = "NONE"

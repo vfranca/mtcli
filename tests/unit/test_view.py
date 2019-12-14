@@ -33,10 +33,10 @@ class ViewTestCase(unittest.TestCase):
         self.assertEqual(_view.low_view(self.bar, 1), "1 83081.00")
 
     def test_obtem_view_com_volumes(self):
-        self.assertEqual(_view.volume_view(self.bar, "ASC", 1), "1 ASC alta 6794")
+        self.assertEqual(_view.volume_view(self.bar, "ASC", 1), "1 ASC VERDE 6794")
 
     def test_obtem_view_com_ranges(self):
-        self.assertEqual(_view.range_view(self.bar, "ASC", 1), "1 ASC alta 160.00")
+        self.assertEqual(_view.range_view(self.bar, "ASC", 1), "1 ASC VERDE 160.00")
 
     def test_obtem_view_com_variacao_percentual(self):
         self.assertEqual(_view.var_view("ASC", 1.87, 1), "1 ASC 1.87")

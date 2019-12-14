@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import unittest
+import unittest, os
 from chartcli._model import *
 from chartcli import _helper
 from chartcli.lib.bar import Bar
@@ -9,7 +9,8 @@ from chartcli.lib.bar import Bar
 class ModelTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.file = "tests/fixtures/var/wing19m5.csv"
+        fixtures_path = os.path.join(os.path.abspath('.'), 'tests', 'fixtures', 'var')
+        self.file = os.path.join(fixtures_path, 'wing19m5.csv')
         self.bars = bar_model(self.file)
         self.bar = Bar(self.bars[4])
 
