@@ -6,7 +6,6 @@ from chartcli.bar import Bar
 
 
 class HelperTestCase(unittest.TestCase):
-    """Tests for `chartcli` package."""
 
     def setUp(self):
         self.bar = Bar([
@@ -20,7 +19,7 @@ class HelperTestCase(unittest.TestCase):
         ])
 
     def tearDown(self):
-        """Tear down test fixtures, if any."""
+        pass
 
     def test_calcula_o_ponto_medio_da_barra(self):
         self.assertEqual(helper.get_medium_point(self.bar), 54076.00)
