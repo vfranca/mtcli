@@ -5,9 +5,6 @@ chartcli
 .. image:: https://img.shields.io/pypi/v/chartcli.svg
         :target: https://pypi.python.org/pypi/chartcli
 
-.. image:: https://img.shields.io/travis/vfranca/chartcli.svg
-        :target: https://travis-ci.org/vfranca/chartcli
-
 .. image:: https://readthedocs.org/projects/chartcli/badge/?version=latest
         :target: https://chartcli.readthedocs.io/en/latest/?badge=latest
         :alt: Status da Documentação
