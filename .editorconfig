@@ -23,7 +23,7 @@ indent_style = tab
 [{*.md, *.markdown}]
 trim_trailing_whitespace = false
 
-[*.rst]
+[{*.rst, *.toml}]
 indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
