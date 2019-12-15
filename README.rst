@@ -9,6 +9,7 @@ chartcli
         :target: https://chartcli.readthedocs.io/en/latest/?badge=latest
         :alt: Status da Documentação
 
+
 Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 
 * Free software: MIT license
@@ -22,17 +23,28 @@ Pré-requisitos
 * Python
 
 
-Instalacao
+Instalação
 -----------
 
 .. code-block:: console
 
-    pip install https://github.com/vfranca/chartcli/archive/master.tar.gz
+    pip install chartcli
 
 Procedimento no MetaTrader 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor.
+
+Arquivo .env
+~~~~~~~~~~~~~
+
+
+Crie um arquivo .env na pasta raiz do Windows com o conteúdo abaixo:
+
+DIGITS="2"
+
+CSV_PATH=[caminho_dos_arquivos_do_metatrader5]
+
 
 Uso
 ---
