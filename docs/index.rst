@@ -8,9 +8,9 @@ Bem-vindo a documentacao do chartcli!
    readme
    installation
    usage
-   CONTRIBUTING
-   AUTHORS
-   HISTORY
+   contributing
+   authors
+   history
 
 Indices and tables
 ==================

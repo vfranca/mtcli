@@ -10,7 +10,7 @@ Para instalar chartcli, execute o seguinte comando em seu terminal:
 
 .. code-block:: console
 
-    > pip install chartcli
+    pip install chartcli
 
 Este e o metodo preferido para instalar o chartcli, pois sempre instalara a versao estavel mais recente.
 
@@ -41,7 +41,7 @@ Depois de ter uma copia do codigo fonte, você pode instalá-lo com:
 
 .. code-block:: console
 
-    > python setup.py install
+    poetry install
 
 .. _repo Github: https://github.com/vfranca/chartcli
 .. _tarball: https://github.com/vfranca/chartcli/tarball/master
