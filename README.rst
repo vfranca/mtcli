@@ -18,10 +18,11 @@ Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 Pré-requisitos
 ---------------
 
-* MetaTrader 5
-* EA GeraCSV.ex5
-* Python
+* `MetaTrader 5`_ - plataforma de trading.
+* `GeraCSV.ex5`_ - robô executado no MetaTrader 5.
 
+.. _MetaTrader 5: https://www.metatrader5.com/
+.. _GeraCSV.ex5: https://drive.google.com/open?id=1jSSCRJnRg8Ag_sX_ZZAT4YJ2xnncSSAe
 
 Instalação
 -----------
@@ -33,7 +34,14 @@ Instalação
 Procedimento no MetaTrader 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Execute o GeraCSV.ex5 com o MetaTrader 5 aberto com um gráfico e anexe esse expert advisor.
+Faça o download do `GeraCSV.ex5`_.
+
+1. Execute o MetaTrader 5 e abra um gráfico.
+2. Execute o GeraCSV.ex5.
+3. Selecione a opção "anexar ao gráfico" no menu de contexto do GeraCSV.ex5.
+
+.. _GeraCSV.ex5: https://drive.google.com/open?id=1jSSCRJnRg8Ag_sX_ZZAT4YJ2xnncSSAe
+
 
 Arquivo .env
 ~~~~~~~~~~~~~
