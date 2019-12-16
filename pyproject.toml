@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "chartcli"
-version = "0.4.5"
+version = "0.4.6"
 description = "Utilitário de linha de comando para leitura de gráficos do MetaTrader 5"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "MIT"
