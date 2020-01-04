@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 from click.testing import CliRunner
-from chartcli import cli
+from mtcli import cli
 
 
 class TestCli(unittest.TestCase):

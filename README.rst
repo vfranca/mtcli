@@ -1,19 +1,19 @@
 =========
-chartcli
+mtcli
 =========
 
-.. image:: https://img.shields.io/pypi/v/chartcli.svg
-        :target: https://pypi.python.org/pypi/chartcli
+.. image:: https://img.shields.io/pypi/v/mtcli.svg
+        :target: https://pypi.python.org/pypi/mtcli
 
-.. image:: https://readthedocs.org/projects/chartcli/badge/?version=latest
-        :target: https://chartcli.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/mtcli/badge/?version=latest
+        :target: https://mtcli.readthedocs.io/en/latest/?badge=latest
         :alt: Status da Documentação
 
 
 Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 
 * Free software: MIT license
-* Documentação: https://chartcli.readthedocs.io.
+* Documentação: https://mtcli.readthedocs.io.
 
 Pré-requisitos
 ---------------
@@ -29,7 +29,7 @@ Instalação
 
 .. code-block:: console
 
-    pip install chartcli
+    pip install mtcli
 
 Procedimento no MetaTrader 5
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

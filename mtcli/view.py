@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from chartcli.brooks_patterns1 import BrooksPatterns1
-from chartcli import helper
-from chartcli import conf
+from mtcli.brooks_patterns1 import BrooksPatterns1
+from mtcli import helper
+from mtcli import conf
 
 
 

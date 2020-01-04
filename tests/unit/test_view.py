@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest, os
-from chartcli import view, model, conf
-from chartcli.bar import Bar
+from mtcli import view, model, conf
+from mtcli.bar import Bar
 
 
 class ViewTestCase(unittest.TestCase):

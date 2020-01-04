@@ -1,4 +1,4 @@
-Bem-vindo a documentacao do chartcli!
+Bem-vindo a documentacao do mtcli!
 ======================================
 
 .. toctree::

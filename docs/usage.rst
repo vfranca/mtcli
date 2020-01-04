@@ -2,6 +2,6 @@
 Uso
 ===
 
-Para usar o chartcli em um projeto:
+Para usar o mtcli em um projeto:
 
-    import chartcli
+    import mtcli

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import click
-from chartcli import indicator
-from chartcli.chartcli import controller
-from chartcli.fib import Fib
+from mtcli import indicator
+from mtcli.mtcli import controller
+from mtcli.fib import Fib
 
 
 @click.group()
 def cli():
-    """Console de scripts para o pacote ChartCLI."""
+    """Console de scripts para MTCLI."""
     pass
 
 

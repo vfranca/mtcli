@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from chartcli.fib import Fib
+from mtcli.fib import Fib
 
 
 class FibTestCase(unittest.TestCase):

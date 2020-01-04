@@ -1,12 +1,13 @@
 [tool.poetry]
-name = "chartcli"
+name = "mtcli"
 version = "0.4.6"
-description = "Utilitário de linha de comando para leitura de gráficos do MetaTrader 5"
+description = "Utilitario de linha de comando para leitura de graficos do MetaTrader 5"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "MIT"
 readme = "README.rst"
-repository = "https://github.com/vfranca/chartcli"
-documentation = "https://chartcli.readthedocs.io"
+
+repository = "https://github.com/vfranca/mtcli"
+documentation = "https://mtcli.readthedocs.io"
 keywords = ["metatrader5", "trading"]
 classifiers = [
 "Development Status :: 2 - Pre-Alpha",
@@ -27,9 +28,9 @@ requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.poetry.scripts]
-mt = "chartcli.cli:cli"
-bars = "chartcli.cli:bars"
-sma = "chartcli.cli:sma"
-ema = "chartcli.cli:ema"
-atr = "chartcli.cli:atr"
-fib = "chartcli.cli:fib"
+mt = "mtcli.cli:cli"
+bars = "mtcli.cli:bars"
+sma = "mtcli.cli:sma"
+ema = "mtcli.cli:ema"
+atr = "mtcli.cli:atr"
+fib = "mtcli.cli:fib"
