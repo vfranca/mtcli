@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from chartcli.bar import Bar
+from mtcli.bar import Bar
 
 
 class BarTestCase(unittest.TestCase):

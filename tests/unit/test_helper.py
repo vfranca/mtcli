@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from chartcli import helper
-from chartcli.bar import Bar
+from mtcli import helper
+from mtcli.bar import Bar
 
 
 class HelperTestCase(unittest.TestCase):

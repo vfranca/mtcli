@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from chartcli.patterns import *
+from mtcli.patterns import *
 
 
 class PatternsTestCase(unittest.TestCase):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from chartcli import conf
+from mtcli import conf
 
 
 def get_medium_point(bar):

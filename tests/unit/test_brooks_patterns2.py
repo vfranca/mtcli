@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import unittest
-from chartcli.brooks_patterns2 import BrooksPatterns2
-from chartcli.conf import *
+from mtcli.brooks_patterns2 import BrooksPatterns2
+from mtcli.conf import *
 
 
 class BrooksPatterns2TestCase(unittest.TestCase):

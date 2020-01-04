@@ -1,3 +1,4 @@
+
 .. highlight:: shell
 
 =============
@@ -14,7 +15,7 @@ Formas de Contribuição
 Relatar Bugs
 ~~~~~~~~~~~~~
 
-Relate bugs em https://github.com/vfranca/chartcli/issues.
+Relate bugs em https://github.com/vfranca/mtcli/issues.
 
 Quando você estiver relatando um bug inclua:
 
@@ -35,14 +36,14 @@ Procure nos issues do GitHub para obter features. Qualquer coisa marcada com "en
 Escrever Documentação
 ~~~~~~~~~~~~~~~~~~~~~~
 
-O chartcli sempre poderá usar mais documentação, seja como parte dos
-documentos oficiais de chartcli, em docstrings ou até na web em postagens de blog,
+O mtcli sempre poderá usar mais documentação, seja como parte dos
+documentos oficiais de mtcli, em docstrings ou até na web em postagens de blog,
 artigos e afins.
 
 Enviar Feedback
 ~~~~~~~~~~~~~~~~
 
-A melhor maneira de enviar feedback é registrar um issue em https://github.com/vfranca/chartcli/issues.
+A melhor maneira de enviar feedback é registrar um issue em https://github.com/vfranca/mtcli/issues.
 
 Se você estiver propondo uma feature:
 
@@ -53,21 +54,21 @@ Se você estiver propondo uma feature:
 Começando!
 -----------
 
-Pronto para contribuir? Veja como configurar o `chartcli` para desenvolvimento local.
+Pronto para contribuir? Veja como configurar o `mtcli` para desenvolvimento local.
 
-1. Bifurque o repositório `chartcli` no GitHub.
+1. Bifurque o repositório `mtcli` no GitHub.
 2. Clone seu fork localmente::
 
 .. code-block:: console
 
-    git clone git@github.com:seu_usuario/chartcli.git
+    git clone git@github.com:seu_usuario/mtcli.git
 
 3. Instale sua cópia local em um virtualenv. Supondo que você tenha o virtualenvwrapper instalado, é assim que você configura seu fork para desenvolvimento local::
 
 .. code-block:: console
 
-    mkvirtualenv chartcli
-    cd chartcli /
+    mkvirtualenv mtcli
+    cd mtcli /
     poetry install
 
 4. Crie um branch para desenvolvimento local:
@@ -82,7 +83,7 @@ Agora você pode fazer suas alterações localmente.
 
 .. code-block:: console
 
-    flake8 chartcli tests
+    flake8 mtcli tests
     pytest
 
 6. Comite suas alterações e envie seu branch para o GitHub:
