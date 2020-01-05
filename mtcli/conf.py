@@ -23,3 +23,9 @@ lbl_asc = "ASC"
 lbl_desc = "DESC"
 lbl_ob = "OB"
 lbl_ib = "IB"
+
+SYMBOL = "WINV19"
+PERIOD = "H1"
+VOLUME = 1
+STOP_LOSS = 250
+TAKE_PROFIT = 500
