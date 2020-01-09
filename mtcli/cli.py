@@ -130,7 +130,7 @@ def sell(symbol, volume, price, stop_loss, take_profit):
 @click.option("--cancel", "-c", default="n", help="Cancelar? s/n")
 def positions(symbol, order, volume, stop_loss, take_profit, cancel):
     """Gerencia posições."""
-    click.echo(trading.positions())
+    click.echo(trading.get_positions())
     return 0
 
 

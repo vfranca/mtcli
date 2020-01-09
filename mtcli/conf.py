@@ -29,3 +29,6 @@ PERIOD = "H1"
 VOLUME = 1
 STOP_LOSS = 250
 TAKE_PROFIT = 500
+
+ORDER_REFUSED = "Ordem recusada!"
+CONNECTION_MISSING = "Falha na conexao com o MetaTrader"
