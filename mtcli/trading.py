@@ -12,12 +12,12 @@ def get_close(symbol: str) -> float:
     return mql5.iClose(symbol, "daily", 0)
 
 
-def info():
+def info() -> str:
     """Retorna dados da conta."""
     return mql5.AccountInfoAll()
 
 
-def buy(symbol, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
+def buy(symbol: str, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
     """ Executa uma órdem de compra a mercado."""
     price = get_close(symbol)
     sl = price - sl
@@ -28,7 +28,7 @@ def buy(symbol, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
     return res
 
 
-def buy_limit(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
+def buy_limit(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
     """ Executa uma órdem de compra limitada."""
     sl = price - sl
     tp = price + tp
@@ -38,7 +38,7 @@ def buy_limit(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
     return res
 
 
-def buy_stop(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
+def buy_stop(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
     """ Executa uma órdem de compra stop."""
     sl = price - sl
     tp = price + tp
@@ -48,7 +48,7 @@ def buy_stop(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
     return res
 
 
-def sell(symbol, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
+def sell(symbol: str, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
     """ Executa uma órdem de venda a mercado."""
     price = get_close(symbol)
     sl = price + sl
@@ -59,7 +59,7 @@ def sell(symbol, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
     return res
 
 
-def sell_limit(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
+def sell_limit(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
     """ Executa uma órdem de venda limitada."""
     sl = price + sl
     tp = price - tp
@@ -69,7 +69,7 @@ def sell_limit(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
     return res
 
 
-def sell_stop(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
+def sell_stop(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
     """ Executa uma órdem de venda stop."""
     sl = price + sl
     tp = price - tp
@@ -79,12 +79,12 @@ def sell_stop(symbol, price, vol=VOLUME, sl=STOP_LOSS, tp=TAKE_PROFIT):
     return res
 
 
-def get_total_orders():
+def get_total_orders() -> int:
     """Retorna o total de órdens pendentes."""
     return mql5.OrdersTotal()
 
 
-def get_orders():
+def get_orders() -> str:
     """Retorna uma lista com as órdens pendentes."""
     orders = mql5.OrderAll()
     if orders == None:
@@ -139,6 +139,6 @@ def cancel_position_by_ticket(ticket: int) -> bool:
     return mql5.PositionCloseTicket(ticket)
 
 
-def cancel_positions(position=None):
-    """Cancela posições."""
+def cancel_positions() -> bool:
+    """Fecha todas as posições abertas."""
     return mql5.CancelAllPosition()

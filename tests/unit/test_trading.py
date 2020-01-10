@@ -171,3 +171,13 @@ class TestTrading(TestCase):
     def test_falha_o_fechamento_de_uma_posicao_pelo_ticket(self, mql5):
         mql5.PositionCloseTicket.return_value = 0
         self.assertFalse(trading.cancel_position_by_ticket(1234567890))
+
+    @patch("mtcli.trading.mql5")
+    def test_fecha_todas_as_posicoes_abertas(self, mql5):
+        mql5.CancelAllPosition.return_value = 1
+        self.assertTrue(trading.cancel_positions())
+
+    @patch("mtcli.trading.mql5")
+    def test_falha_o_fechamento_de_todas_as_posicoes_abertas(self, mql5):
+        mql5.CancelAllPosition.return_value = 0
+        self.assertFalse(trading.cancel_positions())
