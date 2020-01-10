@@ -152,3 +152,22 @@ class TestTrading(TestCase):
         }]
         self.assertEqual(trading.get_positions(), "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n")
 
+    @patch("mtcli.trading.mql5")
+    def test_fecha_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionCloseSymbol.return_value = 1
+        self.assertTrue(trading.cancel_position_by_symbol("abev3"))
+
+    @patch("mtcli.trading.mql5")
+    def test_falha_o_fechamento_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionCloseSymbol.return_value = 0
+        self.assertFalse(trading.cancel_position_by_symbol("abev3"))
+
+    @patch("mtcli.trading.mql5")
+    def test_fecha_uma_posicao_pelo_ticket(self, mql5):
+        mql5.PositionCloseTicket.return_value = 1
+        self.assertTrue(trading.cancel_position_by_ticket(1234567890))
+
+    @patch("mtcli.trading.mql5")
+    def test_falha_o_fechamento_de_uma_posicao_pelo_ticket(self, mql5):
+        mql5.PositionCloseTicket.return_value = 0
+        self.assertFalse(trading.cancel_position_by_ticket(1234567890))

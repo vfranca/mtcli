@@ -129,8 +129,14 @@ def modify_position_by_ticket(ticket, stop_loss, take_profit):
     return 0
 
 
-def cancel_position(symbol, volume=None):
-    return 0
+def cancel_position_by_symbol(symbol: str) -> bool:
+    """Fecha a posição do ativo passado como argumento."""
+    return mql5.PositionCloseSymbol(symbol)
+
+
+def cancel_position_by_ticket(ticket: int) -> bool:
+    """Fecha a posição do ticket passado como argumento."""
+    return mql5.PositionCloseTicket(ticket)
 
 
 def cancel_positions(position=None):
