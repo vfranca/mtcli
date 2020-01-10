@@ -95,6 +95,16 @@ def get_orders():
     return res
 
 
+def cancel_orders() -> bool:
+    """Cancela todas as órdens pendentes."""
+    return mql5.CancelAllOrder()
+
+
+def cancel_order(ticket: int) -> bool:
+    """Cancela uma ordem pelo ticket."""
+    return mql5.DeleteOrder(ticket)
+
+
 def get_total_positions():
     """Retorna o total de posições."""
     return mql5.PositionsTotal()
@@ -121,11 +131,6 @@ def modify_position_by_ticket(ticket, stop_loss, take_profit):
 
 def cancel_position(symbol, volume=None):
     return 0
-
-
-def cancel_orders(order=None):
-    """Cancela órdens pendentes."""
-    return mql5.CancelAllOrder()
 
 
 def cancel_positions(position=None):

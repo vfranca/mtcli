@@ -113,6 +113,26 @@ class TestTrading(TestCase):
         self.assertEqual(trading.get_orders(), CONNECTION_MISSING)
 
     @patch("mtcli.trading.mql5")
+    def test_cancela_todas_as_ordens_pendentes(self, mql5):
+        mql5.CancelAllOrder.return_value = 1
+        self.assertTrue(trading.cancel_orders())
+
+    @patch("mtcli.trading.mql5")
+    def test_falha_o_cancelamento_de_todas_as_ordens_pendentes(self, mql5):
+        mql5.CancelAllOrder.return_value = 0
+        self.assertFalse(trading.cancel_orders())
+
+    @patch("mtcli.trading.mql5")
+    def test_cancela_uma_ordem_pendente_pelo_ticket(self, mql5):
+        mql5.DeleteOrder.return_value = 1
+        self.assertTrue(trading.cancel_order(1234567890))
+
+    @patch("mtcli.trading.mql5")
+    def test_falha_o_cancelamento_de_uma_ordem_pendente_pelo_ticket(self, mql5):
+        mql5.DeleteOrder.return_value = 0
+        self.assertFalse(trading.cancel_order(1234567890))
+
+    @patch("mtcli.trading.mql5")
     def test_obtem_total_de_posicoes_abertas(self, mql5):
         mql5.PositionsTotal.return_value = 6
         self.assertEqual(trading.get_total_positions(), 6)
@@ -131,3 +151,4 @@ class TestTrading(TestCase):
             "TIME": "2020-01-06 21:45:39"
         }]
         self.assertEqual(trading.get_positions(), "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n")
+
