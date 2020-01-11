@@ -130,7 +130,7 @@ def sell(symbol, volume, price, stop_loss, take_profit):
 @click.option("--symbol", "-s", help="Ativo objeto")
 @click.option("--ticket", "-t", type=int, help="Ticket da órdem")
 @click.option("--cancel", "-c", help="Cancela todas as órdens pendentes")
-def orders(symbol, order, volume, stop_loss, take_profit, cancel):
+def orders(symbol, ticket, cancel):
     """Gerencia as órdens pendentes."""
     click.echo(trading.get_orders())
     return 0

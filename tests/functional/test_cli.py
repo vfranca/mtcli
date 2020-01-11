@@ -92,3 +92,46 @@ class TestCli(TestCase):
             cli.sell, ["abev3", "-v", 100, "-sl", 20.55, "-tp", 13.66]
         )
         self.assertEqual(res.output, "123456\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_falha_uma_venda_a_mercado(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.Sell.return_value = -1
+        res = self.runner.invoke(
+            cli.sell, ["abev3", "-v", 100, "-sl", 20.50, "-tp", 13.50]
+        )
+        self.assertEqual(res.output, ORDER_REFUSED + "\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_lista_ordens_pendentes(self, mql5):
+        mql5.OrderAll.return_value = [
+            {
+                "TICKET": 273443559,
+                "TIME_SETUP": "1578489931",
+                "TYPE": "ORDER_TYPE_BUY_LIMIT",
+                "STATE": "ORDER_STATE_PLACED",
+                "TIME_EXPIRATION": "2020.01.08 00:00:00",
+                "TIME_DONE": "1970.01.01 00:00:00",
+                "TIME_SETUP_MSC": 1578489931129,
+                "TIME_DONE_MSC": 0,
+                "TYPE_FILLING": "TYPE_FILLING_RETURN",
+                "TYPE_TIME": "TYPE_TIME_DAY",
+                "MAGIC": 0,
+                "POSITION_ID": 0,
+                "POSITION_BY_ID": 0,
+                "VOLUME_INITIAL": 1.0,
+                "VOLUME_CURRENT": 1.0,
+                "PRICE_OPEN": 116500.0,
+                "SL": 116300.0,
+                "TP": 116900.0,
+                "PRICE_CURRENT": 117110.0,
+                "PRICE_STOPLIMIT": 0.0,
+                "SYMBOL": "WING20",
+                "COMMENT": "",
+            }
+        ]
+        res = self.runner.invoke(cli.orders)
+        self.assertEqual(
+            res.output,
+            "273443559 ORDER_TYPE_BUY_LIMIT WING20 1.0 116500.0 116300.0 116900.0\n\n",
+        )

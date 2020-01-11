@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyMQL5 import PyMQL5
-from mtcli.conf import VOLUME, STOP_LOSS, TAKE_PROFIT, ORDER_REFUSED, CONNECTION_MISSING
+from mtcli.conf import CONNECTION_MISSING
 
 
 mql5 = PyMQL5()
