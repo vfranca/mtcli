@@ -66,16 +66,20 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.output, "0.34\n")
 
-    @mock.patch("mtcli.cli.trading")
-    def test_compra_uma_acao_a_mercado(self, trading):
-        trading.buy.return_value = 123456
-        res = self.runner.invoke(cli.buy, ["abev3", "-sl", "17.55", "-tp", "23.66"])
+    @mock.patch("mtcli.trading.mql5")
+    def test_compra_uma_acao_a_mercado(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.Buy.return_value = 123456
+        res = self.runner.invoke(
+            cli.buy, ["abev3", "-v", 100, "-sl", 17.55, "-tp", 23.66]
+        )
         self.assertEqual(res.output, "123456\n")
 
     @mock.patch("mtcli.trading.mql5")
     def test_falha_uma_compra_a_mercado(self, mql5):
-        # trading.buy.return_value = 0
         mql5.iClose.return_value = 18.50
         mql5.Buy.return_value = -1
-        res = self.runner.invoke(cli.buy, ["abev3", "-v", 100, "-sl", 17.55, "-tp", 23.66])
+        res = self.runner.invoke(
+            cli.buy, ["abev3", "-v", 100, "-sl", 17.55, "-tp", 23.66]
+        )
         self.assertEqual(res.output, ORDER_REFUSED + "\n")
