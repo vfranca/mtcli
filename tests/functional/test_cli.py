@@ -3,6 +3,7 @@
 from unittest import TestCase, mock
 from click.testing import CliRunner
 from mtcli import cli
+from mtcli.conf import ORDER_REFUSED
 
 
 class TestCli(TestCase):
@@ -70,3 +71,11 @@ class TestCli(TestCase):
         trading.buy.return_value = 123456
         res = self.runner.invoke(cli.buy, ["abev3", "-sl", "17.55", "-tp", "23.66"])
         self.assertEqual(res.output, "123456\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_falha_uma_compra_a_mercado(self, mql5):
+        # trading.buy.return_value = 0
+        mql5.iClose.return_value = 18.50
+        mql5.Buy.return_value = -1
+        res = self.runner.invoke(cli.buy, ["abev3", "-v", 100, "-sl", 17.55, "-tp", 23.66])
+        self.assertEqual(res.output, ORDER_REFUSED + "\n")

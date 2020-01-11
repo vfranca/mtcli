@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import click
-from mtcli import indicator
+from mtcli import indicator, trading
 from mtcli.mtcli import controller
 from mtcli.fib import Fib
-from mtcli import trading
+from mtcli.conf import ORDER_REFUSED
 
 
 @click.group()
@@ -89,16 +89,14 @@ def buy(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de compra."""
     close = trading.get_close(symbol)
     if not price:
-        ticket = trading.buy(symbol, volume)
-    elif float(price) <= close:
-        ticket = trading.buy_limit(
-            symbol, float(price), int(volume), float(stop_loss), float(take_profit)
-        )
-    elif float(price) > close:
-        ticket = trading.buy_stop(
-            symbol, float(price), int(volume), float(stop_loss), float(take_profit)
-        )
-    click.echo(ticket)
+        res = trading.buy(symbol, volume, stop_loss, take_profit)
+    elif price <= close:
+        res = trading.buy_limit(symbol, price, volume, stop_loss, take_profit)
+    elif price > close:
+        res = trading.buy_stop(symbol, price, volume, stop_loss, take_profit)
+    if not res:
+        res = ORDER_REFUSED
+    click.echo(res)
     return 0
 
 
