@@ -143,7 +143,7 @@ def orders(symbol, ticket, cancel):
 @click.option("--stop_loss", "-sl", type=float, help="Novo stop loss")
 @click.option("--take_profit", "-tp", type=float, help="Novo take profit")
 @click.option("--cancel", "-c", help="Cancela todas as posições abertas")
-def positions(symbol, order, volume, stop_loss, take_profit, cancel):
+def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
     """Gerencia as posições abertas."""
     click.echo(trading.get_positions())
     return 0

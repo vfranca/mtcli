@@ -135,3 +135,24 @@ class TestCli(TestCase):
             res.output,
             "273443559 ORDER_TYPE_BUY_LIMIT WING20 1.0 116500.0 116300.0 116900.0\n\n",
         )
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_lista_posicoes_abertas(self, mql5):
+        mql5.PositionAll.return_value = [
+            {
+                "TICKET": 272337225,
+                "SYMBOL": "WING20",
+                "TYPE": "POSITION_TYPE_BUY",
+                "VOLUME": 1.0,
+                "PRICE_OPEN": 117360.0,
+                "SL": 117110.0,
+                "TP": 117860.0,
+                "PRICE_CURRENT": 117360.0,
+                "TIME": "2020-01-06 21:45:39",
+            }
+        ]
+        res = self.runner.invoke(cli.positions)
+        self.assertEqual(
+            res.output,
+            "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n\n",
+        )
