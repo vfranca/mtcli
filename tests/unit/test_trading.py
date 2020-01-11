@@ -76,36 +76,41 @@ class TestTrading(TestCase):
 
     @patch("mtcli.trading.mql5")
     def test_consulta_total_de_ordens_pendentes(self, mql5):
-        mql5.OrdersTotal.return_value =3
+        mql5.OrdersTotal.return_value = 3
         self.assertEqual(trading.get_total_orders(), 3)
 
     @patch("mtcli.trading.mql5")
     def test_lista_ordens_pendentes(self, mql5):
-        mql5.OrderAll.return_value = [{
-            "TICKET": 273443559,
-            "TIME_SETUP": "1578489931",
-            "TYPE": "ORDER_TYPE_BUY_LIMIT",
-            "STATE": "ORDER_STATE_PLACED",
-            "TIME_EXPIRATION": "2020.01.08 00:00:00",
-            "TIME_DONE": "1970.01.01 00:00:00",
-            "TIME_SETUP_MSC": 1578489931129,
-            "TIME_DONE_MSC": 0,
-            "TYPE_FILLING": "TYPE_FILLING_RETURN",
-            "TYPE_TIME": "TYPE_TIME_DAY",
-            "MAGIC": 0,
-            "POSITION_ID": 0,
-            "POSITION_BY_ID": 0,
-            "VOLUME_INITIAL": 1.0,
-            "VOLUME_CURRENT": 1.0,
-            "PRICE_OPEN": 116500.0,
-            "SL": 116300.0,
-            "TP": 116900.0,
-            "PRICE_CURRENT": 117110.0,
-            "PRICE_STOPLIMIT": 0.0,
-            "SYMBOL": "WING20",
-            "COMMENT": ""
-        }]
-        self.assertEqual(trading.get_orders(), "273443559 ORDER_TYPE_BUY_LIMIT WING20 1.0 116500.0 116300.0 116900.0\n")
+        mql5.OrderAll.return_value = [
+            {
+                "TICKET": 273443559,
+                "TIME_SETUP": "1578489931",
+                "TYPE": "ORDER_TYPE_BUY_LIMIT",
+                "STATE": "ORDER_STATE_PLACED",
+                "TIME_EXPIRATION": "2020.01.08 00:00:00",
+                "TIME_DONE": "1970.01.01 00:00:00",
+                "TIME_SETUP_MSC": 1578489931129,
+                "TIME_DONE_MSC": 0,
+                "TYPE_FILLING": "TYPE_FILLING_RETURN",
+                "TYPE_TIME": "TYPE_TIME_DAY",
+                "MAGIC": 0,
+                "POSITION_ID": 0,
+                "POSITION_BY_ID": 0,
+                "VOLUME_INITIAL": 1.0,
+                "VOLUME_CURRENT": 1.0,
+                "PRICE_OPEN": 116500.0,
+                "SL": 116300.0,
+                "TP": 116900.0,
+                "PRICE_CURRENT": 117110.0,
+                "PRICE_STOPLIMIT": 0.0,
+                "SYMBOL": "WING20",
+                "COMMENT": "",
+            }
+        ]
+        self.assertEqual(
+            trading.get_orders(),
+            "273443559 ORDER_TYPE_BUY_LIMIT WING20 1.0 116500.0 116300.0 116900.0\n",
+        )
 
     @patch("mtcli.trading.mql5")
     def test_lista_ordens_pendentes_sem_conexao_com_metatrader(self, mql5):
@@ -139,18 +144,23 @@ class TestTrading(TestCase):
 
     @patch("mtcli.trading.mql5")
     def test_obtem_lista_de_posicoes_abertas(self, mql5):
-        mql5.PositionAll.return_value = [{
-            "TICKET": 272337225,
-            "SYMBOL": "WING20",
-            "TYPE": "POSITION_TYPE_BUY",
-            "VOLUME": 1.0,
-            "PRICE_OPEN": 117360.0,
-            "SL": 117110.0,
-            "TP": 117860.0,
-            "PRICE_CURRENT": 117360.0,
-            "TIME": "2020-01-06 21:45:39"
-        }]
-        self.assertEqual(trading.get_positions(), "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n")
+        mql5.PositionAll.return_value = [
+            {
+                "TICKET": 272337225,
+                "SYMBOL": "WING20",
+                "TYPE": "POSITION_TYPE_BUY",
+                "VOLUME": 1.0,
+                "PRICE_OPEN": 117360.0,
+                "SL": 117110.0,
+                "TP": 117860.0,
+                "PRICE_CURRENT": 117360.0,
+                "TIME": "2020-01-06 21:45:39",
+            }
+        ]
+        self.assertEqual(
+            trading.get_positions(),
+            "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n",
+        )
 
     @patch("mtcli.trading.mql5")
     def test_fecha_uma_posicao_pelo_ativo(self, mql5):

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.5.0"
+version = "0.5.1"
 description = "Utilitario de linha de comando para leitura de graficos do MetaTrader 5"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "MIT"
@@ -21,6 +21,7 @@ pymql5 = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.2"
+black = "^19.10b0"
 
 [tool.poetry.scripts]
 mt = "mtcli.cli:cli"
@@ -31,7 +32,8 @@ atr = "mtcli.cli:atr"
 fib = "mtcli.cli:fib"
 buy = "mtcli.cli:buy"
 sell = "mtcli.cli:sell"
-positions = "mtcli.cli:positions"
+order = "mtcli.cli:orders"
+position = "mtcli.cli:positions"
 cancel = "mtcli.cli:cancel"
 
 [build-system]

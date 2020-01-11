@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyMQL5 import PyMQL5
-from mtcli.conf import VOLUME, STOP_LOSS, TAKE_PROFIT, ORDER_REFUSED, \
-    CONNECTION_MISSING
+from mtcli.conf import VOLUME, STOP_LOSS, TAKE_PROFIT, ORDER_REFUSED, CONNECTION_MISSING
 
 
 mql5 = PyMQL5()
@@ -17,7 +16,9 @@ def info() -> str:
     return mql5.AccountInfoAll()
 
 
-def buy(symbol: str, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
+def buy(
+    symbol: str, vol: int = VOLUME, sl: float = STOP_LOSS, tp: float = TAKE_PROFIT
+) -> int:
     """ Executa uma órdem de compra a mercado."""
     price = get_close(symbol)
     sl = price - sl
@@ -28,7 +29,13 @@ def buy(symbol: str, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT
     return res
 
 
-def buy_limit(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
+def buy_limit(
+    symbol: str,
+    price: float,
+    vol: int = VOLUME,
+    sl: float = STOP_LOSS,
+    tp: float = TAKE_PROFIT,
+) -> int:
     """ Executa uma órdem de compra limitada."""
     sl = price - sl
     tp = price + tp
@@ -38,7 +45,13 @@ def buy_limit(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, t
     return res
 
 
-def buy_stop(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
+def buy_stop(
+    symbol: str,
+    price: float,
+    vol: int = VOLUME,
+    sl: float = STOP_LOSS,
+    tp: float = TAKE_PROFIT,
+) -> int:
     """ Executa uma órdem de compra stop."""
     sl = price - sl
     tp = price + tp
@@ -48,7 +61,9 @@ def buy_stop(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp
     return res
 
 
-def sell(symbol: str, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
+def sell(
+    symbol: str, vol: int = VOLUME, sl: float = STOP_LOSS, tp: float = TAKE_PROFIT
+) -> int:
     """ Executa uma órdem de venda a mercado."""
     price = get_close(symbol)
     sl = price + sl
@@ -59,7 +74,13 @@ def sell(symbol: str, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFI
     return res
 
 
-def sell_limit(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
+def sell_limit(
+    symbol: str,
+    price: float,
+    vol: int = VOLUME,
+    sl: float = STOP_LOSS,
+    tp: float = TAKE_PROFIT,
+) -> int:
     """ Executa uma órdem de venda limitada."""
     sl = price + sl
     tp = price - tp
@@ -69,7 +90,13 @@ def sell_limit(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, 
     return res
 
 
-def sell_stop(symbol: str, price: float, vol: int=VOLUME, sl: float=STOP_LOSS, tp: float=TAKE_PROFIT) -> int:
+def sell_stop(
+    symbol: str,
+    price: float,
+    vol: int = VOLUME,
+    sl: float = STOP_LOSS,
+    tp: float = TAKE_PROFIT,
+) -> int:
     """ Executa uma órdem de venda stop."""
     sl = price + sl
     tp = price - tp
@@ -91,7 +118,15 @@ def get_orders() -> str:
         return CONNECTION_MISSING
     res = ""
     for o in orders:
-        res += "%s %s %s %s %s %s %s\n" % (o["TICKET"], o["TYPE"], o["SYMBOL"], o["VOLUME_INITIAL"], o["PRICE_OPEN"], o["SL"], o["TP"])
+        res += "%s %s %s %s %s %s %s\n" % (
+            o["TICKET"],
+            o["TYPE"],
+            o["SYMBOL"],
+            o["VOLUME_INITIAL"],
+            o["PRICE_OPEN"],
+            o["SL"],
+            o["TP"],
+        )
     return res
 
 
@@ -115,9 +150,17 @@ def get_positions():
     positions = mql5.PositionAll()
     res = ""
     for p in positions:
-        res += "%s %s %s %s %s %s %s %s %s\n" % \
-            (p["TICKET"], p["SYMBOL"], p["TYPE"], p["VOLUME"],
-                p["PRICE_OPEN"], p["SL"], p["TP"], p["PRICE_CURRENT"], p["TIME"])
+        res += "%s %s %s %s %s %s %s %s %s\n" % (
+            p["TICKET"],
+            p["SYMBOL"],
+            p["TYPE"],
+            p["VOLUME"],
+            p["PRICE_OPEN"],
+            p["SL"],
+            p["TP"],
+            p["PRICE_CURRENT"],
+            p["TIME"],
+        )
     return res
 
 

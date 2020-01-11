@@ -5,7 +5,6 @@ from mtcli.fib import Fib
 
 
 class FibTestCase(unittest.TestCase):
-
     def setUp(self):
         self.obj = Fib(88900.0, 87200.0, "h")
         self.obj1 = Fib(88900.0, 87200.0)
@@ -47,8 +46,15 @@ class FibTestCase(unittest.TestCase):
         self.assertEqual(self.obj2.e, 86350, "Extensão de 0.50")
 
     def test_saida_texto(self):
-        self.assertEqual(self.obj.__str__(), "87849.40 88050.00 88250.60 > 89549.40 89750.00 89950.60")
-        self.assertEqual(self.obj2.__str__(), "88250.60 88050.00 87849.40 > 86550.60 86350.00 86149.40")
+        self.assertEqual(
+            self.obj.__str__(),
+            "87849.40 88050.00 88250.60 > 89549.40 89750.00 89950.60",
+        )
+        self.assertEqual(
+            self.obj2.__str__(),
+            "88250.60 88050.00 87849.40 > 86550.60 86350.00 86149.40",
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 digits = int(os.getenv("DIGITS"))
-r = '%.' + str(digits) + 'f'
+r = "%." + str(digits) + "f"
 csv_path = os.getenv("CSV_PATH")
 
 lbl_body_doji = "DOJI"

@@ -5,17 +5,18 @@ from mtcli.bar import Bar
 
 
 class BarTestCase(unittest.TestCase):
-
     def setUp(self):
-        self.obj = Bar([
-            '2015.04.01',
-            '51187.00000',
-            '56965.00000',
-            '51187.00000',
-            '56229.00000',
-            '14628859',
-            '8158109400'
-        ])
+        self.obj = Bar(
+            [
+                "2015.04.01",
+                "51187.00000",
+                "56965.00000",
+                "51187.00000",
+                "56229.00000",
+                "14628859",
+                "8158109400",
+            ]
+        )
 
     def test_obtem_preco_abertura(self):
         self.assertEqual(self.obj.open, 51187.0)
@@ -53,5 +54,6 @@ class BarTestCase(unittest.TestCase):
     def test_obtem_volume_da_barra(self):
         self.assertEqual(self.obj.volume, 14628859)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

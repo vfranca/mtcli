@@ -3,7 +3,6 @@ from mtcli import conf
 
 
 class Bar(object):
-
     def __init__(self, ohlc):
         self.open = float(ohlc[1])
         self.high = float(ohlc[2])
@@ -65,7 +64,7 @@ class Bar(object):
         return round(bottom / range * 100)
 
     def __get_body_range(self):
-        "Retorna o tamanho absoluto do corpo."""
+        "Retorna o tamanho absoluto do corpo." ""
         return abs(self.close - self.open)
 
     def __get_trend(self):
@@ -81,9 +80,8 @@ class Bar(object):
         return trend
 
     def __str__(self):
-        return "%s %.5f %.5f %.5f" % (
-            self.body, self.high, self.low, self.close)
+        return "%s %.5f %.5f %.5f" % (self.body, self.high, self.low, self.close)
 
     def __get_date(self):
-        date = self.datetime.split(' ')
+        date = self.datetime.split(" ")
         return date[0]

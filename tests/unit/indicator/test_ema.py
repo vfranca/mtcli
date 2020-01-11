@@ -24,10 +24,13 @@ class EmaTest(unittest.TestCase):
         self.assertEqual(indicator.ema.get_last_ema(self.file, self.count), 104197.5)
 
     def test_ema(self):
-        self.assertEqual(indicator.ema.get_ema(self.symbol, self.period, self.count), 104566.34)
+        self.assertEqual(
+            indicator.ema.get_ema(self.symbol, self.period, self.count), 104566.34
+        )
 
     def test_limit(self):
-        self.assertEqual([1,2,3,4,5,6,7,8,9,10][-(3+1):-1], [7,8,9])
+        self.assertEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10][-(3 + 1) : -1], [7, 8, 9])
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
