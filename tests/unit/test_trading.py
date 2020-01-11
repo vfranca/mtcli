@@ -17,62 +17,62 @@ class TestTrading(TestCase):
     @patch("mtcli.trading.mql5")
     def test_chama_uma_compra_a_mercado(self, mql5):
         mql5.Buy.return_value = 123456
-        self.assertEqual(trading.buy("PETR4"), 123456)
+        self.assertEqual(trading.buy("PETR4", 100, 27.50, 42.50), 123456)
 
     @patch("mtcli.trading.mql5")
     def test_falha_uma_chamada_de_compra_a_mercado(self, mql5):
         mql5.Buy.return_value = -1
-        self.assertEqual(trading.buy("PETR4"), ORDER_REFUSED)
+        self.assertEqual(trading.buy("PETR4", 100, 27.50, 42.00), 0)
 
     @patch("mtcli.trading.mql5")
     def test_chamada_de_compra_limitada(self, mql5):
         mql5.BuyLimit.return_value = 123456
-        self.assertEqual(trading.buy_limit("PETR4", 29.00), 123456)
+        self.assertEqual(trading.buy_limit("PETR4", 29.00, 100, 27.50, 35.50), 123456)
 
     @patch("mtcli.trading.mql5")
     def test_falha_de_chamada_de_compra_limitada(self, mql5):
         mql5.BuyLimit.return_value = -1
-        self.assertEqual(trading.buy_limit("PETR4", 29.00), ORDER_REFUSED)
+        self.assertEqual(trading.buy_limit("PETR4", 29.00, 100, 27.50, 35.50), 0)
 
     @patch("mtcli.trading.mql5")
     def test_chama_uma_compra_stop(self, mql5):
         mql5.BuyStop.return_value = 123456
-        self.assertEqual(trading.buy_stop("PETR4", 30.35), 123456)
+        self.assertEqual(trading.buy_stop("PETR4", 30.35, 100, 28.50, 35.50), 123456)
 
     @patch("mtcli.trading.mql5")
     def test_falha_uma_chamada_de_compra_stop(self, mql5):
         mql5.BuyStop.return_value = -1
-        self.assertEqual(trading.buy_stop("PETR4", 30.35), ORDER_REFUSED)
+        self.assertEqual(trading.buy_stop("PETR4", 30.35, 100, 28.50, 35.50), 0)
 
     @patch("mtcli.trading.mql5")
     def test_chama_uma_venda_a_mercado(self, mql5):
         mql5.Sell.return_value = 123456
-        self.assertEqual(trading.sell("PETR4"), 123456)
+        self.assertEqual(trading.sell("PETR4", 100, 35.50, 22.50), 123456)
 
     @patch("mtcli.trading.mql5")
     def test_falha_uma_chamada_de_venda_a_mercado(self, mql5):
         mql5.Sell.return_value = -1
-        self.assertEqual(trading.sell("PETR4"), ORDER_REFUSED)
+        self.assertEqual(trading.sell("PETR4", 100, 35.50, 22.50), 0)
 
     @patch("mtcli.trading.mql5")
     def test_chama_uma_venda_limitada(self, mql5):
         mql5.SellLimit.return_value = 123456
-        self.assertEqual(trading.sell_limit("petr4", 30.43), 123456)
+        self.assertEqual(trading.sell_limit("petr4", 30.43, 100, 33.50, 20.50), 123456)
 
     @patch("mtcli.trading.mql5")
     def test_falha_uma_chamada_de_venda_limitada(self, mql5):
         mql5.SellLimit.return_value = -1
-        self.assertEqual(trading.sell_limit("petr4", 30.43), ORDER_REFUSED)
+        self.assertEqual(trading.sell_limit("petr4", 30.43, 100, 33.50, 20.50), 0)
 
     @patch("mtcli.trading.mql5")
     def test_chama_uma_venda_stop(self, mql5):
         mql5.SellStop.return_value = 123456
-        self.assertEqual(trading.sell_stop("petr4", 30.80), 123456)
+        self.assertEqual(trading.sell_stop("petr4", 30.80, 100, 33.50, 20.50), 123456)
 
     @patch("mtcli.trading.mql5")
     def test_falha_uma_chamada_de_venda_stop(self, mql5):
         mql5.SellStop.return_value = -1
-        self.assertEqual(trading.sell_stop("petr4", 30.80), ORDER_REFUSED)
+        self.assertEqual(trading.sell_stop("petr4", 30.80, 100, 33.50, 20.50), 0)
 
     @patch("mtcli.trading.mql5")
     def test_consulta_total_de_ordens_pendentes(self, mql5):

@@ -16,93 +16,53 @@ def info() -> str:
     return mql5.AccountInfoAll()
 
 
-def buy(
-    symbol: str, vol: int = VOLUME, sl: float = STOP_LOSS, tp: float = TAKE_PROFIT
-) -> int:
+def buy(symbol: str, vol: int, sl: float, tp: float) -> int:
     """ Executa uma órdem de compra a mercado."""
     price = get_close(symbol)
-    sl = price - sl
-    tp = price + tp
     res = mql5.Buy(symbol, vol, price, sl, tp, "")
     if res < 0:
-        return ORDER_REFUSED
+        return 0
     return res
 
 
-def buy_limit(
-    symbol: str,
-    price: float,
-    vol: int = VOLUME,
-    sl: float = STOP_LOSS,
-    tp: float = TAKE_PROFIT,
-) -> int:
+def buy_limit(symbol: str, price: float, vol: int, sl: float, tp: float) -> int:
     """ Executa uma órdem de compra limitada."""
-    sl = price - sl
-    tp = price + tp
     res = mql5.BuyLimit(symbol, vol, price, sl, tp, "")
     if res < 0:
-        return ORDER_REFUSED
+        return 0
     return res
 
 
-def buy_stop(
-    symbol: str,
-    price: float,
-    vol: int = VOLUME,
-    sl: float = STOP_LOSS,
-    tp: float = TAKE_PROFIT,
-) -> int:
+def buy_stop(symbol: str, price: float, vol: int, sl: float, tp: float) -> int:
     """ Executa uma órdem de compra stop."""
-    sl = price - sl
-    tp = price + tp
     res = mql5.BuyStop(symbol, vol, price, sl, tp, "")
     if res < 0:
-        return ORDER_REFUSED
+        return 0
     return res
 
 
-def sell(
-    symbol: str, vol: int = VOLUME, sl: float = STOP_LOSS, tp: float = TAKE_PROFIT
-) -> int:
+def sell(symbol: str, vol: int, sl: float, tp: float) -> int:
     """ Executa uma órdem de venda a mercado."""
     price = get_close(symbol)
-    sl = price + sl
-    tp = price - tp
     res = mql5.Sell(symbol, vol, price, sl, tp, "")
     if res < 0:
-        return ORDER_REFUSED
+        return 0
     return res
 
 
-def sell_limit(
-    symbol: str,
-    price: float,
-    vol: int = VOLUME,
-    sl: float = STOP_LOSS,
-    tp: float = TAKE_PROFIT,
-) -> int:
+def sell_limit(symbol: str, price: float, vol: int, sl: float, tp: float) -> int:
     """ Executa uma órdem de venda limitada."""
-    sl = price + sl
-    tp = price - tp
     res = mql5.SellLimit(symbol, vol, price, sl, tp, "")
     if res < 0:
-        return ORDER_REFUSED
+        return 0
     return res
 
 
-def sell_stop(
-    symbol: str,
-    price: float,
-    vol: int = VOLUME,
-    sl: float = STOP_LOSS,
-    tp: float = TAKE_PROFIT,
-) -> int:
+def sell_stop(symbol: str, price: float, vol: int, sl: float, tp: float) -> int:
     """ Executa uma órdem de venda stop."""
-    sl = price + sl
-    tp = price - tp
     res = mql5.SellStop(symbol, vol, price, sl, tp, "")
     if res < 0:
-        return ORDER_REFUSED
+        return 0
     return res
 
 
