@@ -115,16 +115,14 @@ def sell(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de venda."""
     close = trading.get_close(symbol)
     if not price:
-        ticket = trading.sell(symbol, volume)
-    elif float(price) >= close:
-        ticket = trading.sell_limit(
-            symbol, float(price), int(volume), float(stop_loss), float(take_profit)
-        )
-    elif float(price) < close:
-        ticket = trading.sell_stop(
-            symbol, float(price), int(volume), float(stop_loss), float(take_profit)
-        )
-    click.echo(ticket)
+        res = trading.sell(symbol, volume, stop_loss, take_profit)
+    elif price >= close:
+        res = trading.sell_limit(symbol, price, volume, stop_loss, take_profit)
+    elif price < close:
+        res = trading.sell_stop(symbol, price, volume, stop_loss, take_profit)
+    if not res:
+        res = ORDER_REFUSED
+    click.echo(res)
     return 0
 
 
