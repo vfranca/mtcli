@@ -6,7 +6,6 @@ from mtcli.conf import *
 
 
 class BrooksPatterns2TestCase(unittest.TestCase):
-
     def setUp(self):
         self.o = BrooksPatterns2([50, 60], [10, 20], [40, 50], [60, 80], [5, 15])
 
@@ -23,5 +22,6 @@ class BrooksPatterns2TestCase(unittest.TestCase):
         o = BrooksPatterns2([-50, -60], [90, 40], [20, 10], [80, 60], [15, 5])
         self.assertEqual(o.pattern, "%s5.00" % lbl_gap)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

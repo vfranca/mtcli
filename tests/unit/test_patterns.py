@@ -5,7 +5,6 @@ from mtcli.patterns import *
 
 
 class PatternsTestCase(unittest.TestCase):
-
     def test_is_doji(self):
         self.assertTrue(is_doji(3, 31, 66))
         self.assertTrue(is_doji(-3, 31, 66))
@@ -108,5 +107,6 @@ class PatternsTestCase(unittest.TestCase):
     def test_bearish_engolfing(self):
         self.assertEqual(get_two_candles_pattern([40, -80], [2, 7], [6, 1]), "engolfo")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

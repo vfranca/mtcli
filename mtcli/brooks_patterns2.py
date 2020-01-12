@@ -3,7 +3,6 @@ from mtcli import conf
 
 
 class BrooksPatterns2(object):
-
     def __init__(self, body, open, close, high, low):
         self.body = body
         self.open = open

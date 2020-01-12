@@ -7,9 +7,8 @@ from mtcli.bar import Bar
 
 
 class ModelTestCase(unittest.TestCase):
-
     def setUp(self):
-        fixtures_path = os.path.join(os.path.abspath('.'), 'tests', 'fixtures', 'files')
+        fixtures_path = os.path.join(os.path.abspath("."), "tests", "fixtures", "files")
         self.file = os.path.join(fixtures_path, "abev3daily.csv")
         self.bars = bar_model(self.file)
         self.bar = Bar(self.bars[4])
@@ -22,5 +21,6 @@ class ModelTestCase(unittest.TestCase):
         bar = Bar(bars[0])
         self.assertEqual(bar.date, "2017.06.23")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

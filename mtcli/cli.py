@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import click
-from mtcli import indicator
+from mtcli import indicator, trading
 from mtcli.mtcli import controller
 from mtcli.fib import Fib
-from mtcli import trading
-from mtcli.conf import *
+from mtcli.conf import ORDER_REFUSED
 
 
 @click.group()
@@ -15,9 +14,7 @@ def cli():
 
 @click.command()
 @click.argument("symbol")
-@click.option(
-    "--period", "-p", default="daily",
-    help="Timeframe ou tempo gráfico")
+@click.option("--period", "-p", default="daily", help="Timeframe ou tempo gráfico")
 @click.option("--view", "-v", help="Formato de exibição")
 @click.option("--count", "-c", default=40, help="Quantidade de barras")
 @click.option("--date", "-d", help="Data para day trade")
@@ -30,12 +27,10 @@ def bars(symbol, period, view, count, date):
 
 @click.command()
 @click.argument("symbol")
+@click.option("--period", "-p", default="h1", help="Timeframe ou tempo gráfico")
 @click.option(
-    "--period", "-p", default="h1",
-    help="Timeframe ou tempo gráfico")
-@click.option(
-    "--count", "-c", default=20,
-    help="Quantidade de períodos abrangidos no cálculo")
+    "--count", "-c", default=20, help="Quantidade de períodos abrangidos no cálculo"
+)
 def sma(symbol, period, count):
     """Média móvel aritmética."""
     click.echo(indicator.sma.get_sma(symbol, period, count))
@@ -43,12 +38,10 @@ def sma(symbol, period, count):
 
 @click.command()
 @click.argument("symbol")
+@click.option("--period", "-p", default="h1", help="Timeframe ou tempo gráfico")
 @click.option(
-    "--period", "-p", default="h1",
-    help="Timeframe ou tempo gráfico")
-@click.option(
-    "--count", "-c", default=20,
-    help="Quantidade de períodos abrangidos no cálculo")
+    "--count", "-c", default=20, help="Quantidade de períodos abrangidos no cálculo"
+)
 def ema(symbol, period, count):
     """ Média móvel exponencial."""
     click.echo(indicator.ema.get_ema(symbol, period, count))
@@ -56,12 +49,10 @@ def ema(symbol, period, count):
 
 @click.command()
 @click.argument("symbol")
+@click.option("--period", "-p", default="h1", help="Timeframe ou tempo gráfico")
 @click.option(
-    "--period", "-p", default="h1",
-    help="Timeframe ou tempo gráfico")
-@click.option(
-    "--count", "-c", default=14,
-    help="Quantidade de períodos abrangidos no cálculo")
+    "--count", "-c", default=14, help="Quantidade de períodos abrangidos no cálculo"
+)
 def atr(symbol, period, count):
     """Range médio."""
     click.echo(indicator.atr.get_atr(symbol, period, count))
@@ -85,62 +76,91 @@ def info():
 
 @click.command()
 @click.argument("symbol")
-@click.option("--volume", "-v", default=VOLUME, help="Volume ou quantidade do ativo")
-@click.option("--price", "-p", help="Preço de entrada da operação")
-@click.option("--stop_loss", "-sl", default=STOP_LOSS, help="Preço de stop loss da operação")
-@click.option("--take_profit", "-tp", default=TAKE_PROFIT, help="Preço de take profit ou stop gain da operação")
+@click.option("--volume", "-v", type=int, help="Volume ou quantidade do ativo")
+@click.option("--price", "-p", type=float, help="Preço de entrada da operação")
+@click.option("--stop_loss", "-sl", type=float, help="Preço de stop loss da operação")
+@click.option(
+    "--take_profit",
+    "-tp",
+    type=float,
+    help="Preço de take profit ou stop gain da operação",
+)
 def buy(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de compra."""
     close = trading.get_close(symbol)
     if not price:
-        ticket = trading.buy(symbol, volume)
-    elif float(price) <= close:
-        ticket = trading.buy_limit(symbol, float(price), int(volume), float(stop_loss), float(take_profit))
-    elif float(price) > close:
-        ticket = trading.buy_stop(symbol, float(price), int(volume), float(stop_loss), float(take_profit))
-    click.echo(ticket)
+        res = trading.buy(symbol, volume, stop_loss, take_profit)
+    elif price <= close:
+        res = trading.buy_limit(symbol, price, volume, stop_loss, take_profit)
+    elif price > close:
+        res = trading.buy_stop(symbol, price, volume, stop_loss, take_profit)
+    if not res:
+        res = ORDER_REFUSED
+    click.echo(res)
     return 0
 
 
 @click.command()
 @click.argument("symbol")
-@click.option("--volume", "-v", default=VOLUME, help="Volume ou quantidade do ativo")
-@click.option("--price", "-p", help="Preço de entrada da operação")
-@click.option("--stop_loss", "-sl", default=STOP_LOSS, help="Preço de stop loss da operação")
-@click.option("--take_profit", "-tp", default=TAKE_PROFIT, help="Preço de take profit ou stop gain da operação")
+@click.option("--volume", "-v", type=int, help="Volume ou quantidade do ativo")
+@click.option("--price", "-p", type=float, help="Preço de entrada da operação")
+@click.option("--stop_loss", "-sl", type=float, help="Preço de stop loss da operação")
+@click.option(
+    "--take_profit",
+    "-tp",
+    type=float,
+    help="Preço de take profit ou stop gain da operação",
+)
 def sell(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de venda."""
     close = trading.get_close(symbol)
     if not price:
-        ticket = trading.sell(symbol, volume)
-    elif float(price) >= close:
-        ticket = trading.sell_limit(symbol, float(price), int(volume), float(stop_loss), float(take_profit))
-    elif float(price) < close:
-        ticket = trading.sell_stop(symbol, float(price), int(volume), float(stop_loss), float(take_profit))
-    click.echo(ticket)
+        res = trading.sell(symbol, volume, stop_loss, take_profit)
+    elif price >= close:
+        res = trading.sell_limit(symbol, price, volume, stop_loss, take_profit)
+    elif price < close:
+        res = trading.sell_stop(symbol, price, volume, stop_loss, take_profit)
+    if not res:
+        res = ORDER_REFUSED
+    click.echo(res)
     return 0
 
 
 @click.command()
 @click.option("--symbol", "-s", help="Ativo objeto")
-@click.option("--order", "-o", help="Ticket da órdem")
-@click.option("--volume", "-v", help="Volume a reduzir")
-@click.option("--stop_loss", "-sl", help="Novo stop loss")
-@click.option("--take_profit", "-tp", help="Novo take profit")
-@click.option("--cancel", "-c", default="n", help="Cancelar? s/n")
-def positions(symbol, order, volume, stop_loss, take_profit, cancel):
-    """Gerencia posições."""
-    click.echo(trading.positions())
+@click.option("--ticket", "-t", type=int, help="Ticket da órdem")
+@click.option("--cancel", "-c", help="Cancela todas as órdens pendentes")
+def orders(symbol, ticket, cancel):
+    """Gerencia as órdens pendentes."""
+    click.echo(trading.get_orders())
     return 0
 
 
 @click.command()
+@click.option("--symbol", "-s", help="Ativo objeto")
+@click.option("--ticket", "-t", type=int, help="Ticket da posição")
+@click.option("--volume", "-v", type=int, help="Volume a reduzir")
+@click.option("--stop_loss", "-sl", type=float, help="Novo stop loss")
+@click.option("--take_profit", "-tp", type=float, help="Novo take profit")
+@click.option("--cancel", "-c", help="Cancela todas as posições abertas")
+def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
+    """Gerencia as posições abertas."""
+    click.echo(trading.get_positions())
+    return 0
+
+
+@click.command()
+@click.option("--symbol", "-s", help="Ativo cuja posição será cancelada")
 @click.option("--order", "-o", help="Ticket da órdem a ser cancelada")
-@click.option("--position", "-p", help="ID da posição a ser cancelada")
-def cancel(order=None, position=None):
+@click.option("--position", "-p", help="Ticket da posição a ser cancelada")
+def cancel(symbol, order, position):
     """Cancela órdens e posições."""
-    click.echo(trading.cancel_orders())
-    click.echo(trading.cancel_positions())
+    res_orders = trading.cancel_orders()
+    res_positions = trading.cancel_positions()
+    res = ""
+    if res_orders and res_positions:
+        res = "Todas as órdens e posições foram canceladas com sucesso!"
+    click.echo(res)
     return 0
 
 
@@ -152,6 +172,7 @@ cli.add_command(fib)
 cli.add_command(info)
 cli.add_command(buy)
 cli.add_command(sell)
+cli.add_command(orders)
 cli.add_command(positions)
 cli.add_command(cancel)
 

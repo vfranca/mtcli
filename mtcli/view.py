@@ -4,12 +4,12 @@ from mtcli import helper
 from mtcli import conf
 
 
-
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
     """Retorna a exibição com os padrões Brooks."""
     mp = helper.get_medium_point(bar)
     brooks1 = BrooksPatterns1(
-        bar.body, bar.top, bar.bottom, bar.close, mp)  # padrões de 1 barra
+        bar.body, bar.top, bar.bottom, bar.close, mp
+    )  # padrões de 1 barra
 
     tail = brooks1.tail
     if tail == conf.lbl_toptail:
@@ -25,9 +25,21 @@ def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
     view += " R%." + str(conf.digits) + "f %s"  # range, variação percentual
 
     return view % (
-        num_bar, ch_trend, brooks1.pattern, brooks1.body_pattern,
-        abs(bar.body), bar.body_range, brooks_pattern2, tail,
-        bar.high, bar.low, bar.close, mp, bar.range, var_close)
+        num_bar,
+        ch_trend,
+        brooks1.pattern,
+        brooks1.body_pattern,
+        abs(bar.body),
+        bar.body_range,
+        brooks_pattern2,
+        tail,
+        bar.high,
+        bar.low,
+        bar.close,
+        mp,
+        bar.range,
+        var_close,
+    )
 
 
 def ohlc_view(bar):
@@ -39,8 +51,7 @@ def ohlc_view(bar):
     view += " %." + str(conf.digits) + "f"  # fechamento
     view += " %i"  # volume
 
-    return view % (
-        bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
+    return view % (bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
 
 
 def channel_view(bar, ch_trend, num_bar):

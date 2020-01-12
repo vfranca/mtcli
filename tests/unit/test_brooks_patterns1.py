@@ -6,7 +6,6 @@ from mtcli.conf import *
 
 
 class BrooksPatternsTes1tCase(unittest.TestCase):
-
     def test_body_pattern_bull(self):
         o = BrooksPatterns1(50, 25, 25, 92600, 92500)
         self.assertEqual(o.body_pattern, lbl_body_bull)
@@ -39,7 +38,6 @@ class BrooksPatternsTes1tCase(unittest.TestCase):
         o = BrooksPatterns1(-50, 25, 25, 92500, 92600)
         self.assertEqual(o.pattern, lbl_sell_pressure)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
-
-

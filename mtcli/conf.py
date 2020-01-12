@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 digits = int(os.getenv("DIGITS"))
-r = '%.' + str(digits) + 'f'
+r = "%." + str(digits) + "f"
 csv_path = os.getenv("CSV_PATH")
 
 lbl_body_doji = "DOJI"
@@ -29,3 +29,6 @@ PERIOD = "H1"
 VOLUME = 1
 STOP_LOSS = 250
 TAKE_PROFIT = 500
+
+ORDER_REFUSED = "Ordem recusada!"
+CONNECTION_MISSING = "Falha na conexao com o MetaTrader"

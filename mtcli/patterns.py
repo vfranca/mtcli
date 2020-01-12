@@ -171,6 +171,7 @@ def get_pattern(body, top, bottom):
         return "martinvert"
     return ""
 
+
 # Padrões de dois candles
 
 
