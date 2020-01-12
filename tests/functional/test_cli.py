@@ -156,3 +156,12 @@ class TestCli(TestCase):
             res.output,
             "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n\n",
         )
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_cancela_todas_as_posicoes_e_ordens(self, mql5):
+        mql5.CancelAllOrder.return_value = 1
+        mql5.CancelAllPosition.return_value = 1
+        res = self.runner.invoke(cli.cancel)
+        self.assertEqual(
+            res.output, "Todas as órdens e posições foram canceladas com sucesso!\n"
+        )
