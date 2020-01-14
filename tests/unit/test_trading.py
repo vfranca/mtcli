@@ -198,3 +198,9 @@ class TestTrading(TestCase):
         mql5.PositionAll.return_value = self.positions
         mql5.PositionModifySymbol.return_value = 1
         self.assertTrue(trading.modify_stoploss("WING20", 116500.0))
+
+    @patch("mtcli.trading.mql5")
+    def test_altera_o_takeprofit_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        self.assertTrue(trading.modify_takeprofit("WING20", 117500.0))
