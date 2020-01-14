@@ -124,8 +124,16 @@ def get_positions():
     return res
 
 
-def modify_position_by_symbol(symbol, stop_loss, take_profit):
-    return 0
+def modify_stoploss(symbol: str, sl: float) -> bool:
+    """Altera o stoploss da posição de um ativo."""
+    positions = mql5.PositionAll()
+    tp = 0.0
+    for pos in positions:
+        if pos["SYMBOL"] == symbol:
+            tp = pos["TP"]
+        else:
+            raise Exception("Não existe posição aberta para esse ativo!")
+    return mql5.PositionModifySymbol(symbol, sl, tp)
 
 
 def modify_position_by_ticket(ticket, stop_loss, take_profit):
