@@ -9,6 +9,19 @@ from mtcli.conf import ORDER_REFUSED
 class TestCli(TestCase):
     def setUp(self):
         self.runner = CliRunner()
+        self.positions = [
+            {
+                "TICKET": 272337225,
+                "SYMBOL": "WING20",
+                "TYPE": "POSITION_TYPE_BUY",
+                "VOLUME": 1.0,
+                "PRICE_OPEN": 117360.0,
+                "SL": 117110.0,
+                "TP": 117860.0,
+                "PRICE_CURRENT": 117360.0,
+                "TIME": "2020-01-06 21:45:39",
+            }
+        ]
 
     def test_exibe_o_padrao_da_ultima_barra_do_diario(self):
         res = self.runner.invoke(
@@ -138,19 +151,7 @@ class TestCli(TestCase):
 
     @mock.patch("mtcli.trading.mql5")
     def test_lista_posicoes_abertas(self, mql5):
-        mql5.PositionAll.return_value = [
-            {
-                "TICKET": 272337225,
-                "SYMBOL": "WING20",
-                "TYPE": "POSITION_TYPE_BUY",
-                "VOLUME": 1.0,
-                "PRICE_OPEN": 117360.0,
-                "SL": 117110.0,
-                "TP": 117860.0,
-                "PRICE_CURRENT": 117360.0,
-                "TIME": "2020-01-06 21:45:39",
-            }
-        ]
+        mql5.PositionAll.return_value = self.positions
         res = self.runner.invoke(cli.positions)
         self.assertEqual(
             res.output,
@@ -172,3 +173,17 @@ class TestCli(TestCase):
         mql5.CancelAllOrder.return_value = 1
         res = self.runner.invoke(cli.cancel, ["orders"])
         self.assertEqual(res.output, "Todas as órdens foram canceladas com sucesso!\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_altera_o_stoploss_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-sl", 116500.0])
+        self.assertEqual(res.output, "Posição alterada com sucesso!\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_altera_o_take_profit_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-tp", 117500.0])
+        self.assertEqual(res.output, "Posição alterada com sucesso!\n")

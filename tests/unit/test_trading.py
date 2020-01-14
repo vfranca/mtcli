@@ -7,7 +7,20 @@ from mtcli.conf import ORDER_REFUSED, CONNECTION_MISSING
 
 
 class TestTrading(TestCase):
-    """Testes para o módulo trading."""
+    def setUp(self):
+        self.positions = [
+            {
+                "TICKET": 272337225,
+                "SYMBOL": "WING20",
+                "TYPE": "POSITION_TYPE_BUY",
+                "VOLUME": 1.0,
+                "PRICE_OPEN": 117360.0,
+                "SL": 117110.0,
+                "TP": 117860.0,
+                "PRICE_CURRENT": 117360.0,
+                "TIME": "2020-01-06 21:45:39",
+            }
+        ]
 
     @patch("mtcli.trading.mql5")
     def test_obtem_o_preco_de_fechamento_do_ativo(self, mql5):
@@ -144,19 +157,7 @@ class TestTrading(TestCase):
 
     @patch("mtcli.trading.mql5")
     def test_obtem_lista_de_posicoes_abertas(self, mql5):
-        mql5.PositionAll.return_value = [
-            {
-                "TICKET": 272337225,
-                "SYMBOL": "WING20",
-                "TYPE": "POSITION_TYPE_BUY",
-                "VOLUME": 1.0,
-                "PRICE_OPEN": 117360.0,
-                "SL": 117110.0,
-                "TP": 117860.0,
-                "PRICE_CURRENT": 117360.0,
-                "TIME": "2020-01-06 21:45:39",
-            }
-        ]
+        mql5.PositionAll.return_value = self.positions
         self.assertEqual(
             trading.get_positions(),
             "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n",
@@ -191,3 +192,15 @@ class TestTrading(TestCase):
     def test_falha_o_fechamento_de_todas_as_posicoes_abertas(self, mql5):
         mql5.CancelAllPosition.return_value = 0
         self.assertFalse(trading.cancel_positions())
+
+    @patch("mtcli.trading.mql5")
+    def test_altera_o_stoploss_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        self.assertTrue(trading.modify_stoploss("WING20", 116500.0))
+
+    @patch("mtcli.trading.mql5")
+    def test_altera_o_takeprofit_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        self.assertTrue(trading.modify_takeprofit("WING20", 117500.0))
