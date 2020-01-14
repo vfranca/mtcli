@@ -161,7 +161,14 @@ class TestCli(TestCase):
     def test_cancela_todas_as_posicoes_e_ordens(self, mql5):
         mql5.CancelAllOrder.return_value = 1
         mql5.CancelAllPosition.return_value = 1
-        res = self.runner.invoke(cli.cancel)
+        res = self.runner.invoke(cli.cancel, ["all"])
         self.assertEqual(
-            res.output, "Todas as órdens e posições foram canceladas com sucesso!\n"
+            res.output,
+            "Todas as órdens foram canceladas com sucesso!\nTodas as posições foram canceladas com sucesso!\n",
         )
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_cancela_todas_as_ordens_pendentes(self, mql5):
+        mql5.CancelAllOrder.return_value = 1
+        res = self.runner.invoke(cli.cancel, ["orders"])
+        self.assertEqual(res.output, "Todas as órdens foram canceladas com sucesso!\n")
