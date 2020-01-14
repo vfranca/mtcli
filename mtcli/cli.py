@@ -150,17 +150,26 @@ def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
 
 
 @click.command()
+@click.argument("type")
 @click.option("--symbol", "-s", help="Ativo cuja posição será cancelada")
 @click.option("--order", "-o", help="Ticket da órdem a ser cancelada")
 @click.option("--position", "-p", help="Ticket da posição a ser cancelada")
-def cancel(symbol, order, position):
+def cancel(type, symbol, order, position):
     """Cancela órdens e posições."""
-    res_orders = trading.cancel_orders()
-    res_positions = trading.cancel_positions()
-    res = ""
-    if res_orders and res_positions:
-        res = "Todas as órdens e posições foram canceladas com sucesso!"
-    click.echo(res)
+    if type == "orders" or type == "all":
+        res = trading.cancel_orders()
+        if res:
+            res = "Todas as órdens foram canceladas com sucesso!"
+        else:
+            res = "Falha no cancelamento das órdens!"
+        click.echo(res)
+    if type == "positions" or type == "all":
+        res = trading.cancel_positions()
+        if res:
+            res = "Todas as posições foram canceladas com sucesso!"
+        else:
+            res = "Falha no cancelamento das posições!"
+        click.echo(res)
     return 0
 
 
