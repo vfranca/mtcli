@@ -127,7 +127,7 @@ def sell(symbol, volume, price, stop_loss, take_profit):
 
 
 @click.command()
-@click.option("--symbol", "-s", help="Ativo objeto")
+@click.option("--symbol", "-s", help="Ativo da órdem")
 @click.option("--ticket", "-t", type=int, help="Ticket da órdem")
 @click.option("--cancel", "-c", help="Cancela todas as órdens pendentes")
 def orders(symbol, ticket, cancel):
@@ -137,7 +137,7 @@ def orders(symbol, ticket, cancel):
 
 
 @click.command()
-@click.option("--symbol", "-s", help="Ativo objeto")
+@click.option("--symbol", "-s", help="Ativo da posição")
 @click.option("--ticket", "-t", type=int, help="Ticket da posição")
 @click.option("--volume", "-v", type=int, help="Volume a reduzir")
 @click.option("--stop_loss", "-sl", type=float, help="Novo stop loss")
@@ -145,6 +145,16 @@ def orders(symbol, ticket, cancel):
 @click.option("--cancel", "-c", help="Cancela todas as posições abertas")
 def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
     """Gerencia as posições abertas."""
+    if bool(symbol):
+        if bool(stop_loss):
+            res = trading.modify_stoploss(symbol, stop_loss)
+        if bool(take_profit):
+            res = trading.modify_takeprofit(symbol, take_profit)
+        if res:
+            click.echo("Posição alterada com sucesso!")
+        else:
+            click.echo("A alteração falhou!")
+        return 0
     click.echo(trading.get_positions())
     return 0
 
