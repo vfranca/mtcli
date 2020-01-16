@@ -12,6 +12,7 @@ def get_k(count=20):
 def get_price_close(file):
     """ Obtem o preço de fechamento atual."""
     rows = bar_model(file)
+    price_close = 0.0
     for row in rows:
         bar = Bar(row)
         price_close = bar.close
