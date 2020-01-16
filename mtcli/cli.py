@@ -14,15 +14,16 @@ def cli():
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="daily", help="Timeframe ou tempo gráfico")
+@click.option("--period", "-p", default="daily", help="Tempo gráfico")
 @click.option("--view", "-v", help="Formato de exibição")
-@click.option("--count", "-c", default=40, help="Quantidade de barras")
-@click.option("--date", "-d", help="Data para day trade")
+@click.option("--count", "-c", type=int, default=40, help="Quantidade de barras")
+@click.option("--date", "-d", help="Data (para day trade)")
 def bars(symbol, period, view, count, date):
-    """Grafico de barras ou candles."""
+    """Listagem das barras do gráfico."""
     views = controller(symbol, period, view, date, count)
     for view in views:
         click.echo(view)
+    return 0
 
 
 @click.command()

@@ -8,7 +8,9 @@ from mtcli.brooks_patterns2 import BrooksPatterns2
 from mtcli import conf
 
 
-def controller(symbol, period, view, date="", count=40):
+def controller(
+    symbol: str, period: str, view: str, date: str = "", count: int = 40
+) -> list:
     """Retorna uma view."""
     file = conf.csv_path + symbol + period + ".csv"
     views, close, open = [], [], []
