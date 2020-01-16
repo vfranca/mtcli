@@ -11,7 +11,7 @@ from mtcli import conf
 def controller(
     symbol: str, period: str, view: str, date: str = "", count: int = 40
 ) -> list:
-    """Retorna uma view."""
+    """Retorna uma lista de views."""
     file = conf.csv_path + symbol + period + ".csv"
     views, close, open = [], [], []
     high1, low1, body = [], [], []
