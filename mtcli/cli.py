@@ -3,7 +3,12 @@ import click
 from mtcli import indicator, trading
 from mtcli.mtcli import controller
 from mtcli.fib import Fib
-from mtcli.conf import ORDER_REFUSED, PRICE_CURRENT_ERROR
+from mtcli.conf import (
+    ORDER_REFUSED,
+    PRICE_CURRENT_ERROR,
+    POSITION_MODIFIED_SUCCESS,
+    POSITION_MODIFIED_ERROR,
+)
 
 
 @click.group()
@@ -161,14 +166,15 @@ def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
     """Gerencia as posições abertas."""
     if bool(symbol):
         if bool(stop_loss):
-            res = trading.modify_stoploss(symbol, stop_loss)
+            res = trading.modify_stoploss(symbol.upper(), stop_loss)
         if bool(take_profit):
-            res = trading.modify_takeprofit(symbol, take_profit)
+            res = trading.modify_takeprofit(symbol.upper(), take_profit)
         if res:
-            click.echo("Posição alterada com sucesso!")
+            click.echo(POSITION_MODIFIED_SUCCESS)
         else:
-            click.echo("A alteração falhou!")
+            click.echo(POSITION_MODIFIED_ERROR)
         return 0
+
     click.echo(trading.get_positions())
     return 0
 
