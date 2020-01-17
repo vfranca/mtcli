@@ -3,7 +3,7 @@
 from unittest import TestCase, mock
 from click.testing import CliRunner
 from mtcli import cli
-from mtcli.conf import ORDER_REFUSED, PRICE_CURRENT_ERROR
+from mtcli.conf import ORDER_REFUSED, PRICE_CURRENT_ERROR, POSITION_MODIFIED_SUCCESS
 
 
 class TestCli(TestCase):
@@ -178,14 +178,14 @@ class TestCli(TestCase):
         mql5.PositionAll.return_value = self.positions
         mql5.PositionModifySymbol.return_value = 1
         res = self.runner.invoke(cli.positions, ["-s", "WING20", "-sl", 116500.0])
-        self.assertEqual(res.output, "Posição alterada com sucesso!\n")
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
 
     @mock.patch("mtcli.trading.mql5")
     def test_altera_o_take_profit_de_uma_posicao_pelo_ativo(self, mql5):
         mql5.PositionAll.return_value = self.positions
         mql5.PositionModifySymbol.return_value = 1
         res = self.runner.invoke(cli.positions, ["-s", "WING20", "-tp", 117500.0])
-        self.assertEqual(res.output, "Posição alterada com sucesso!\n")
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
 
     @mock.patch("mtcli.trading.mql5")
     def test_venda_stop_com_preco_fechamento_none(self, mql5):
@@ -195,3 +195,15 @@ class TestCli(TestCase):
             cli.sell, ["wing20", "-p", 116110, "-v", 1, "-sl", 116450, "-tp", 115790]
         )
         self.assertEqual(res.output, PRICE_CURRENT_ERROR + "\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_altera_stoploss_de_umaposicao_com_minuscula(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        res = self.runner.invoke(cli.positions, ["-s", "wing20", "-sl", 115200])
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_altera_takeprofit_de_umaposicao_com_minuscula(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        res = self.runner.invoke(cli.positions, ["-s", "wing20", "-tp", 118200])
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")

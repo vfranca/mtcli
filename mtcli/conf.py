@@ -35,3 +35,5 @@ CONNECTION_MISSING = "Falha na conexao com o MetaTrader"
 PRICE_CURRENT_ERROR = (
     "O preço atual não foi encontrado! Verifique a conexão com o MetaTrader"
 )
+POSITION_MODIFIED_SUCCESS = "A posição foi alterada com sucesso!"
+POSITION_MODIFIED_ERROR = "Ocorreu um erro! Verifique a conexão com o MetaTrader"
