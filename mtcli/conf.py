@@ -30,5 +30,8 @@ VOLUME = 1
 STOP_LOSS = 250
 TAKE_PROFIT = 500
 
-ORDER_REFUSED = "Ordem recusada!"
+ORDER_REFUSED = "Ordem recusada! Verifique a conexão com o MetaTrader"
 CONNECTION_MISSING = "Falha na conexao com o MetaTrader"
+PRICE_CURRENT_ERROR = (
+    "O preço atual não foi encontrado! Verifique a conexão com o MetaTrader"
+)
