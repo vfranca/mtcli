@@ -3,7 +3,7 @@ import click
 from mtcli import indicator, trading
 from mtcli.mtcli import controller
 from mtcli.fib import Fib
-from mtcli.conf import ORDER_REFUSED
+from mtcli.conf import ORDER_REFUSED, PRICE_CURRENT_ERROR
 
 
 @click.group()
@@ -14,15 +14,16 @@ def cli():
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="daily", help="Timeframe ou tempo gráfico")
+@click.option("--period", "-p", default="daily", help="Tempo gráfico")
 @click.option("--view", "-v", help="Formato de exibição")
-@click.option("--count", "-c", default=40, help="Quantidade de barras")
-@click.option("--date", "-d", help="Data para day trade")
+@click.option("--count", "-c", type=int, default=40, help="Quantidade de barras")
+@click.option("--date", "-d", help="Data (para day trade)")
 def bars(symbol, period, view, count, date):
-    """Grafico de barras ou candles."""
+    """Listagem das barras do gráfico."""
     views = controller(symbol, period, view, date, count)
     for view in views:
         click.echo(view)
+    return 0
 
 
 @click.command()
@@ -113,15 +114,28 @@ def buy(symbol, volume, price, stop_loss, take_profit):
 )
 def sell(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de venda."""
-    close = trading.get_close(symbol)
+    # Venda a mercado
     if not price:
         res = trading.sell(symbol, volume, stop_loss, take_profit)
-    elif price >= close:
+        if res:
+            click.echo(res)
+        else:
+            click.echo(ORDER_REFUSED)
+        return 0
+
+    # Verifica se existe preço atual
+    price_current = trading.get_close(symbol)
+    if price_current == None:
+        click.echo(PRICE_CURRENT_ERROR)
+
+    # Venda limitada
+    if price >= price_current:
         res = trading.sell_limit(symbol, price, volume, stop_loss, take_profit)
-    elif price < close:
+
+    # Venda stop
+    if price < price_current:
         res = trading.sell_stop(symbol, price, volume, stop_loss, take_profit)
-    if not res:
-        res = ORDER_REFUSED
+
     click.echo(res)
     return 0
 

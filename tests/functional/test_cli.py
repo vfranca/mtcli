@@ -3,7 +3,7 @@
 from unittest import TestCase, mock
 from click.testing import CliRunner
 from mtcli import cli
-from mtcli.conf import ORDER_REFUSED
+from mtcli.conf import ORDER_REFUSED, PRICE_CURRENT_ERROR
 
 
 class TestCli(TestCase):
@@ -108,7 +108,6 @@ class TestCli(TestCase):
 
     @mock.patch("mtcli.trading.mql5")
     def test_falha_uma_venda_a_mercado(self, mql5):
-        mql5.iClose.return_value = 18.50
         mql5.Sell.return_value = -1
         res = self.runner.invoke(
             cli.sell, ["abev3", "-v", 100, "-sl", 20.50, "-tp", 13.50]
@@ -187,3 +186,12 @@ class TestCli(TestCase):
         mql5.PositionModifySymbol.return_value = 1
         res = self.runner.invoke(cli.positions, ["-s", "WING20", "-tp", 117500.0])
         self.assertEqual(res.output, "Posição alterada com sucesso!\n")
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_venda_stop_com_preco_fechamento_none(self, mql5):
+        mql5.iClose.return_value = None
+        mql5.SellStop.return_value = 123456
+        res = self.runner.invoke(
+            cli.sell, ["wing20", "-p", 116110, "-v", 1, "-sl", 116450, "-tp", 115790]
+        )
+        self.assertEqual(res.output, PRICE_CURRENT_ERROR + "\n")
