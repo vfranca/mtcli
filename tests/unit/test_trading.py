@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase, mock
 from mtcli import trading
-from mtcli.conf import ORDER_REFUSED, CONNECTION_MISSING
+from mtcli.conf import ORDER_REFUSED, CONNECTION_MISSING, GENERAL_ERROR
 
 
 class TestTrading(TestCase):
@@ -203,3 +203,8 @@ class TestTrading(TestCase):
         mql5.PositionAll.return_value = self.positions
         mql5.PositionModifySymbol.return_value = 1
         self.assertTrue(trading.modify_takeprofit("WING20", 117500.0))
+
+    @mock.patch("mtcli.trading.mql5")
+    def test_executa_uma_venda_stop_com_o_pymql5_retornando_none(self, mql5):
+        mql5.SellStop.return_value = None
+        self.assertRaises(Exception, trading.sell_stop, "abev3", 18.50, 100, 0, 0)

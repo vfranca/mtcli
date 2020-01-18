@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from PyMQL5 import PyMQL5
-from mtcli.conf import CONNECTION_MISSING
+from mtcli.conf import CONNECTION_MISSING, GENERAL_ERROR
 
 
 mql5 = PyMQL5()
@@ -61,6 +61,8 @@ def sell_limit(symbol: str, price: float, vol: int, sl: float, tp: float) -> int
 def sell_stop(symbol: str, price: float, vol: int, sl: float, tp: float) -> int:
     """ Executa uma órdem de venda stop."""
     res = mql5.SellStop(symbol, vol, price, sl, tp, "")
+    if res == None:
+        raise Exception(GENERAL_ERROR)
     if res < 0:
         return 0
     return res
