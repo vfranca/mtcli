@@ -21,3 +21,41 @@ class MT5Facade(object):
         if res == None:
             raise Exception(CONNECTION_ERROR)
         return res
+
+    def buy(
+        self,
+        volume: int,
+        price_open: float = 0.0,
+        sl: float = 0.0,
+        tp: float = 0.0,
+        comments: str = "",
+    ) -> int:
+        """ Abre uma posição comprada."""
+        if not price_open:
+            price_open = self.close()
+        symbol = self.symbol
+        res = mql5.Buy(symbol, volume, price_open, sl, tp, comments)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        if res == -1:
+            return 0
+        return res
+
+    def sell(
+        self,
+        volume: int,
+        price_open: float = 0.0,
+        sl: float = 0.0,
+        tp: float = 0.0,
+        comments: str = "",
+    ) -> int:
+        """ Abre uma posição vendida."""
+        if not price_open:
+            price_open = self.close()
+        symbol = self.symbol
+        res = mql5.Sell(symbol, volume, price_open, sl, tp, comments)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        if res == -1:
+            return 0
+        return res
