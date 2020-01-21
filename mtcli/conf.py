@@ -38,3 +38,4 @@ PRICE_CURRENT_ERROR = (
 POSITION_MODIFIED_SUCCESS = "A posição foi alterada com sucesso!"
 POSITION_MODIFIED_ERROR = "Ocorreu um erro! Verifique a conexão com o MetaTrader"
 GENERAL_ERROR = "Ocorreu um erro! Verifique a conexão com o MetaTrader"
+CONNECTION_ERROR = "Erro de conexão: verifique a conexão com o MetaTrader5"
