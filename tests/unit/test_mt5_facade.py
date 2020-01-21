@@ -46,6 +46,42 @@ class TestMT5Facade(TestCase):
         self.assertRaises(Exception, self.mt5.buy)
 
     @mock.patch("mtcli.mt5_facade.mql5")
+    def test_abre_uma_posicao_comprada_com_ordem_limit(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.BuyLimit.return_value = 123456
+        self.assertEqual(self.mt5.buy_limit(100, 17.50), 123456)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_compra_limit(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.BuyLimit.return_value = -1
+        self.assertEqual(self.mt5.buy_limit(100, 17.50), 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_compra_limit_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.BuyLimit.return_value = None
+        self.assertRaises(Exception, self.mt5.buy_limit)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_abre_uma_posicao_comprada_com_ordem_stop(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.BuyStop.return_value = 123456
+        self.assertEqual(self.mt5.buy_stop(100, 19.50), 123456)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_compra_stop(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.BuyStop.return_value = -1
+        self.assertEqual(self.mt5.buy_stop(100, 19.50), 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_compra_stop_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.BuyStop.return_value = None
+        self.assertRaises(Exception, self.mt5.buy_stop)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_abre_uma_posicao_vendida_com_ordem_a_mercado(self, mql5):
         mql5.Sell.return_value = 123456
         self.assertEqual(self.mt5.sell(100), 123456)
@@ -59,3 +95,39 @@ class TestMT5Facade(TestCase):
     def test_falha_uma_venda_a_mercado_sem_conexao_com_o_metatrader(self, mql5):
         mql5.Sell.return_value = None
         self.assertRaises(Exception, self.mt5.sell)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_abre_uma_posicao_vendida_com_ordem_limit(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.SellLimit.return_value = 123456
+        self.assertEqual(self.mt5.sell_limit(100, 19.50), 123456)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_venda_limit(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.SellLimit.return_value = -1
+        self.assertEqual(self.mt5.sell_limit(100, 19.50), 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_venda_limit_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.SellLimit.return_value = None
+        self.assertRaises(Exception, self.mt5.sell_limit, 100, 19.50)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_abre_uma_posicao_vendida_com_ordem_stop(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.SellStop.return_value = 123456
+        self.assertEqual(self.mt5.sell_stop(100, 17.50), 123456)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_venda_stop(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.SellStop.return_value = -1
+        self.assertEqual(self.mt5.sell_stop(100, 17.50), 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_uma_venda_stop_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.iClose.return_value = 18.50
+        mql5.SellStop.return_value = None
+        self.assertRaises(Exception, self.mt5.sell_stop, 100, 17.50)

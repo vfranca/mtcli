@@ -41,6 +41,40 @@ class MT5Facade(object):
             return 0
         return res
 
+    def buy_limit(
+        self,
+        volume: int,
+        price_open: float,
+        sl: float = 0.0,
+        tp: float = 0.0,
+        comments: str = "",
+    ) -> int:
+        """Abre uma posição comprada com órdem limit."""
+        symbol = self.symbol
+        res = mql5.BuyLimit(symbol, volume, price_open, sl, tp, comments)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        if res == -1:
+            return 0
+        return res
+
+    def buy_stop(
+        self,
+        volume: int,
+        price_open: float,
+        sl: float = 0.0,
+        tp: float = 0.0,
+        comments: str = "",
+    ) -> int:
+        """Abre uma posição comprada com ordem stop."""
+        symbol = self.symbol
+        res = mql5.BuyStop(symbol, volume, price_open, sl, tp, comments)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        if res == -1:
+            return 0
+        return res
+
     def sell(
         self,
         volume: int,
@@ -54,6 +88,40 @@ class MT5Facade(object):
             price_open = self.close()
         symbol = self.symbol
         res = mql5.Sell(symbol, volume, price_open, sl, tp, comments)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        if res == -1:
+            return 0
+        return res
+
+    def sell_limit(
+        self,
+        volume: int,
+        price_open: float,
+        sl: float = 0.0,
+        tp: float = 0.0,
+        comments: str = "",
+    ) -> int:
+        """Abre uma posição vendida com órdem limit."""
+        symbol = self.symbol
+        res = mql5.SellLimit(symbol, volume, price_open, sl, tp, comments)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        if res == -1:
+            return 0
+        return res
+
+    def sell_stop(
+        self,
+        volume: int,
+        price_open: float,
+        sl: float = 0.0,
+        tp: float = 0.0,
+        comments: str = "",
+    ) -> int:
+        """Abre uma posição vendida com ordem stop."""
+        symbol = self.symbol
+        res = mql5.SellStop(symbol, volume, price_open, sl, tp, comments)
         if res == None:
             raise Exception(CONNECTION_ERROR)
         if res == -1:
