@@ -172,3 +172,16 @@ class TestMT5Facade(TestCase):
     ):
         mql5.OrderAll.return_value = None
         self.assertRaises(Exception, self.mt5.orders)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_lista_todas_as_posicoes_abertas(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        self.assertEqual(
+            self.mt5.positions(),
+            "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n",
+        )
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_lista_todas_as_posicoes_abertas_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.PositionAll.return_value = None
+        self.assertRaises(Exception, self.mt5.positions)
