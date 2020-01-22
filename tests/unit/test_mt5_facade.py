@@ -6,6 +6,32 @@ from mtcli.conf import CONNECTION_ERROR
 class TestMT5Facade(TestCase):
     def setUp(self):
         self.mt5 = MT5Facade("abev3", "daily")
+        self.orders = [
+            {
+                "TICKET": 273443559,
+                "TIME_SETUP": "1578489931",
+                "TYPE": "ORDER_TYPE_BUY_LIMIT",
+                "STATE": "ORDER_STATE_PLACED",
+                "TIME_EXPIRATION": "2020.01.08 00:00:00",
+                "TIME_DONE": "1970.01.01 00:00:00",
+                "TIME_SETUP_MSC": 1578489931129,
+                "TIME_DONE_MSC": 0,
+                "TYPE_FILLING": "TYPE_FILLING_RETURN",
+                "TYPE_TIME": "TYPE_TIME_DAY",
+                "MAGIC": 0,
+                "POSITION_ID": 0,
+                "POSITION_BY_ID": 0,
+                "VOLUME_INITIAL": 1.0,
+                "VOLUME_CURRENT": 1.0,
+                "PRICE_OPEN": 116500.0,
+                "SL": 116300.0,
+                "TP": 116900.0,
+                "PRICE_CURRENT": 117110.0,
+                "PRICE_STOPLIMIT": 0.0,
+                "SYMBOL": "WING20",
+                "COMMENT": "",
+            }
+        ]
         self.positions = [
             {
                 "TICKET": 272337225,
@@ -131,3 +157,18 @@ class TestMT5Facade(TestCase):
         mql5.iClose.return_value = 18.50
         mql5.SellStop.return_value = None
         self.assertRaises(Exception, self.mt5.sell_stop, 100, 17.50)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_lista_todas_as_ordens_pendentes(self, mql5):
+        mql5.OrderAll.return_value = self.orders
+        self.assertEqual(
+            self.mt5.orders(),
+            "273443559 ORDER_TYPE_BUY_LIMIT WING20 1.0 116500.0 116300.0 116900.0\n",
+        )
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_lista_todas_as_ordens_pendentes_sem_conexao_com_o_metatrader(
+        self, mql5
+    ):
+        mql5.OrderAll.return_value = None
+        self.assertRaises(Exception, self.mt5.orders)

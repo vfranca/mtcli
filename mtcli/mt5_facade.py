@@ -11,7 +11,7 @@ mql5 = PyMQL5()
 class MT5Facade(object):
     """ Facade para PyMQL5."""
 
-    def __init__(self, symbol: str, period: str):
+    def __init__(self, symbol: str, period: str = ""):
         self.symbol = symbol
         self.period = period
 
@@ -126,4 +126,22 @@ class MT5Facade(object):
             raise Exception(CONNECTION_ERROR)
         if res == -1:
             return 0
+        return res
+
+    def orders(self) -> str:
+        """Retorna uma lista com as órdens pendentes."""
+        orders = mql5.OrderAll()
+        if orders == None:
+            raise Exception(CONNECTION_ERROR)
+        res = ""
+        for o in orders:
+            res += "%s %s %s %s %s %s %s\n" % (
+                o["TICKET"],
+                o["TYPE"],
+                o["SYMBOL"],
+                o["VOLUME_INITIAL"],
+                o["PRICE_OPEN"],
+                o["SL"],
+                o["TP"],
+            )
         return res
