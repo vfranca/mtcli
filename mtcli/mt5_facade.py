@@ -172,3 +172,17 @@ class MT5Facade(object):
         if res == None:
             raise Exception(CONNECTION_ERROR)
         return res
+
+    def cancel_position_symbol(self, symbol: str) -> bool:
+        """Cancela a posição do ativo."""
+        res = mql5.PositionCloseSymbol(symbol)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        return res
+
+    def cancel_position_ticket(self, ticket: int) -> bool:
+        """Cancela a posição do ticket."""
+        res = mql5.PositionCloseTicket(ticket)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        return res

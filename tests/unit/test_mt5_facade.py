@@ -200,3 +200,33 @@ class TestMT5Facade(TestCase):
     def test_cancela_todas_as_posicoes_abertas_sem_conexao_com_o_metatrader(self, mql5):
         mql5.CancelAllPosition.return_value = None
         self.assertRaises(Exception, self.mt5.cancel_positions)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionCloseSymbol.return_value = 1
+        self.assertTrue(self.mt5.cancel_position_symbol("abev3"))
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_o_cancelamento_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionCloseSymbol.return_value = 0
+        self.assertFalse(self.mt5.cancel_position_symbol("abev3"))
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_uma_posicao_pelo_ativo_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.PositionCloseSymbol.return_value = None
+        self.assertRaises(Exception, self.mt5.cancel_position_symbol, "abev3")
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_uma_posicao_pelo_ticket(self, mql5):
+        mql5.PositionCloseTicket.return_value = 1
+        self.assertTrue(self.mt5.cancel_position_ticket(1234567890))
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_o_cancelamento_de_uma_posicao_pelo_ticket(self, mql5):
+        mql5.PositionCloseTicket.return_value = 0
+        self.assertFalse(self.mt5.cancel_position_ticket(1234567890))
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_uma_posicao_pelo_ticket_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.PositionCloseTicket.return_value = None
+        self.assertRaises(Exception, self.mt5.cancel_position_ticket, 1234567890)
