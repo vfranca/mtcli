@@ -165,3 +165,10 @@ class MT5Facade(object):
                 p["TIME"],
             )
         return res
+
+    def cancel_positions(self) -> bool:
+        """Cancela todas as posições abertas."""
+        res = mql5.CancelAllPosition()
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        return res

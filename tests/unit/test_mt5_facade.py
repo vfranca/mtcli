@@ -185,3 +185,18 @@ class TestMT5Facade(TestCase):
     def test_lista_todas_as_posicoes_abertas_sem_conexao_com_o_metatrader(self, mql5):
         mql5.PositionAll.return_value = None
         self.assertRaises(Exception, self.mt5.positions)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_todas_as_posicoes_abertas(self, mql5):
+        mql5.CancelAllPosition.return_value = 1
+        self.assertTrue(self.mt5.cancel_positions())
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_o_cancelamento_de_todas_as_posicoes_abertas(self, mql5):
+        mql5.CancelAllPosition.return_value = 0
+        self.assertFalse(self.mt5.cancel_positions())
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_todas_as_posicoes_abertas_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.CancelAllPosition.return_value = None
+        self.assertRaises(Exception, self.mt5.cancel_positions)
