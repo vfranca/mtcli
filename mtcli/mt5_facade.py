@@ -166,6 +166,13 @@ class MT5Facade(object):
             )
         return res
 
+    def modify_position_symbol(self, symbol: str, sl: float, tp: float) -> bool:
+        """Altera parâmetros da posição do ativo."""
+        res = mql5.PositionModifySymbol(symbol, sl, tp)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        return res
+
     def cancel_positions(self) -> bool:
         """Cancela todas as posições abertas."""
         res = mql5.CancelAllPosition()
