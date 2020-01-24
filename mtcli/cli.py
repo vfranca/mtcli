@@ -155,7 +155,8 @@ def sell(symbol, volume, price, stop_loss, take_profit):
 @click.option("--cancel", "-c", help="Cancela todas as órdens pendentes")
 def orders(symbol, ticket, cancel):
     """Gerencia as órdens pendentes."""
-    click.echo(trading.get_orders())
+    mt5 = MT5Facade()
+    click.echo(mt5.orders())
     return 0
 
 

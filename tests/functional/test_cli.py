@@ -127,7 +127,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, ORDER_REFUSED + "\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_lista_ordens_pendentes(self, mql5):
         mql5.OrderAll.return_value = [
             {
