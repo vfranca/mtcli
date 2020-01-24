@@ -174,6 +174,38 @@ class TestMT5Facade(TestCase):
         self.assertRaises(Exception, self.mt5.orders)
 
     @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_todas_as_ordens_pendentes(self, mql5):
+        mql5.CancelAllOrder.return_value = 1
+        self.assertTrue(self.mt5.cancel_orders())
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_o_cancelamento_de_todas_as_ordens_pendentes(self, mql5):
+        mql5.CancelAllOrder.return_value = 0
+        self.assertFalse(self.mt5.cancel_orders())
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_todas_as_ordens_pendentes_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.CancelAllOrder.return_value = None
+        self.assertRaises(Exception, self.mt5.cancel_orders)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_uma_ordem_pendente_pelo_ticket(self, mql5):
+        mql5.DeleteOrder.return_value = 1
+        self.assertTrue(self.mt5.cancel_order(1234567890))
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_falha_o_cancelamento_de_uma_ordem_pendente_pelo_ticket(self, mql5):
+        mql5.DeleteOrder.return_value = 0
+        self.assertFalse(self.mt5.cancel_order(1234567890))
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_cancela_uma_ordem_pendente_pelo_ticket_sem_conexao_com_o_metatrader(
+        self, mql5
+    ):
+        mql5.DeleteOrder.return_value = None
+        self.assertRaises(Exception, self.mt5.cancel_order, 1234567890)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_lista_todas_as_posicoes_abertas(self, mql5):
         mql5.PositionAll.return_value = self.positions
         self.assertEqual(

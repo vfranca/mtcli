@@ -146,6 +146,20 @@ class MT5Facade(object):
             )
         return res
 
+    def cancel_orders(self) -> bool:
+        """Cancela todas as órdens pendentes."""
+        res = mql5.CancelAllOrder()
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        return res
+
+    def cancel_order(self, ticket: int) -> bool:
+        """Cancela a ordem pelo ticket."""
+        res = mql5.DeleteOrder(ticket)
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        return res
+
     def positions(self) -> str:
         """Retorna todas as posições abertas."""
         positions = mql5.PositionAll()
