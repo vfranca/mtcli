@@ -121,9 +121,11 @@ def buy(symbol, volume, price, stop_loss, take_profit):
 )
 def sell(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de venda."""
+    mt5 = MT5Facade(symbol)
+
     # Venda a mercado
     if not price:
-        res = trading.sell(symbol, volume, stop_loss, take_profit)
+        res = mt5.sell(volume, stop_loss, take_profit)
         if res:
             click.echo(res)
         else:
@@ -131,17 +133,17 @@ def sell(symbol, volume, price, stop_loss, take_profit):
         return 0
 
     # Verifica se existe preço atual
-    price_current = trading.get_close(symbol)
+    price_current = mt5.close()
     if price_current == None:
         click.echo(PRICE_CURRENT_ERROR)
 
     # Venda limitada
     if price >= price_current:
-        res = trading.sell_limit(symbol, price, volume, stop_loss, take_profit)
+        res = mt5.sell_limit(price, volume, stop_loss, take_profit)
 
     # Venda stop
     if price < price_current:
-        res = trading.sell_stop(symbol, price, volume, stop_loss, take_profit)
+        res = mt5.sell_stop(price, volume, stop_loss, take_profit)
 
     click.echo(res)
     return 0

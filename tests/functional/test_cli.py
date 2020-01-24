@@ -108,7 +108,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, ORDER_REFUSED + "\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_vende_a_mercado(self, mql5):
         mql5.iClose.return_value = 18.50
         mql5.Sell.return_value = 123456
@@ -118,7 +118,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "123456\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_falha_uma_venda_a_mercado(self, mql5):
         mql5.Sell.return_value = -1
         res = self.runner.invoke(
