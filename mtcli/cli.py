@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import click
-from mtcli import indicator, trading
+from mtcli import indicator
 from mtcli.mtcli import controller
 from mtcli.fib import Fib
 from mtcli.mt5_facade import MT5Facade
@@ -95,15 +95,29 @@ def info():
 def buy(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de compra."""
     mt5 = MT5Facade(symbol)
-    close = mt5.close()
+
+    # Compra a mercado
     if not price:
         res = mt5.buy(volume, stop_loss, take_profit)
-    elif price <= close:
+        if res:
+            click.echo(res)
+        else:
+            click.echo(ORDER_REFUSED)
+        return 0
+
+    # Verifica se existe preço atual
+    price_current = mt5.close()
+    if price_current == None:
+        click.echo(PRICE_CURRENT_ERROR)
+
+    # Compra limitada
+    if price <= price_current:
         res = mt5.buy_limit(price, volume, stop_loss, take_profit)
-    elif price > close:
+
+    # Compra stop
+    if price > price_current:
         res = mt5.buy_stop(price, volume, stop_loss, take_profit)
-    if not res:
-        res = ORDER_REFUSED
+
     click.echo(res)
     return 0
 
