@@ -88,7 +88,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "0.34\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_compra_a_mercado(self, mql5):
         mql5.iClose.return_value = 18.50
         mql5.Buy.return_value = 123456
@@ -98,7 +98,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "123456\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_falha_uma_compra_a_mercado(self, mql5):
         mql5.iClose.return_value = 18.50
         mql5.Buy.return_value = -1
@@ -108,7 +108,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, ORDER_REFUSED + "\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_vende_a_mercado(self, mql5):
         mql5.iClose.return_value = 18.50
         mql5.Sell.return_value = 123456
@@ -118,7 +118,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "123456\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_falha_uma_venda_a_mercado(self, mql5):
         mql5.Sell.return_value = -1
         res = self.runner.invoke(
@@ -127,7 +127,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, ORDER_REFUSED + "\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_lista_ordens_pendentes(self, mql5):
         mql5.OrderAll.return_value = [
             {
@@ -162,7 +162,7 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_lista_posicoes_abertas(self, mql5):
         mql5.PositionAll.return_value = self.positions
         res = self.runner.invoke(cli.positions)
@@ -172,7 +172,23 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_altera_o_stoploss_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-sl", 116500.0])
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
+        self.assertEqual(res.exit_code, 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_altera_o_take_profit_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-tp", 117500.0])
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
+        self.assertEqual(res.exit_code, 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_cancela_todas_as_posicoes_e_ordens(self, mql5):
         mql5.CancelAllOrder.return_value = 1
         mql5.CancelAllPosition.return_value = 1
@@ -183,30 +199,14 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_cancela_todas_as_ordens_pendentes(self, mql5):
         mql5.CancelAllOrder.return_value = 1
         res = self.runner.invoke(cli.cancel, ["orders"])
         self.assertEqual(res.output, "Todas as órdens foram canceladas com sucesso!\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
-    def test_altera_o_stoploss_de_uma_posicao_pelo_ativo(self, mql5):
-        mql5.PositionAll.return_value = self.positions
-        mql5.PositionModifySymbol.return_value = 1
-        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-sl", 116500.0])
-        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
-        self.assertEqual(res.exit_code, 0)
-
-    @mock.patch("mtcli.trading.mql5")
-    def test_altera_o_take_profit_de_uma_posicao_pelo_ativo(self, mql5):
-        mql5.PositionAll.return_value = self.positions
-        mql5.PositionModifySymbol.return_value = 1
-        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-tp", 117500.0])
-        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
-        self.assertEqual(res.exit_code, 0)
-
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_venda_stop_com_pymql5_retornando_none(self, mql5):
         mql5.iClose.return_value = 116310
         mql5.SellStop.return_value = None
@@ -216,14 +216,14 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "")
         self.assertEqual(res.exit_code, 1)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_stoploss_de_umaposicao_com_minuscula(self, mql5):
         mql5.PositionAll.return_value = self.positions
         res = self.runner.invoke(cli.positions, ["-s", "wing20", "-sl", 115200])
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_takeprofit_de_umaposicao_com_minuscula(self, mql5):
         mql5.PositionAll.return_value = self.positions
         res = self.runner.invoke(cli.positions, ["-s", "wing20", "-tp", 118200])

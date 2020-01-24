@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import click
-from mtcli import indicator, trading
+from mtcli import indicator
 from mtcli.mtcli import controller
 from mtcli.fib import Fib
+from mtcli.mt5_facade import MT5Facade
 from mtcli.conf import (
     ORDER_REFUSED,
     PRICE_CURRENT_ERROR,
@@ -93,15 +94,30 @@ def info():
 )
 def buy(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de compra."""
-    close = trading.get_close(symbol)
+    mt5 = MT5Facade(symbol)
+
+    # Compra a mercado
     if not price:
-        res = trading.buy(symbol, volume, stop_loss, take_profit)
-    elif price <= close:
-        res = trading.buy_limit(symbol, price, volume, stop_loss, take_profit)
-    elif price > close:
-        res = trading.buy_stop(symbol, price, volume, stop_loss, take_profit)
-    if not res:
-        res = ORDER_REFUSED
+        res = mt5.buy(volume, stop_loss, take_profit)
+        if res:
+            click.echo(res)
+        else:
+            click.echo(ORDER_REFUSED)
+        return 0
+
+    # Verifica se existe preço atual
+    price_current = mt5.close()
+    if price_current == None:
+        click.echo(PRICE_CURRENT_ERROR)
+
+    # Compra limitada
+    if price <= price_current:
+        res = mt5.buy_limit(price, volume, stop_loss, take_profit)
+
+    # Compra stop
+    if price > price_current:
+        res = mt5.buy_stop(price, volume, stop_loss, take_profit)
+
     click.echo(res)
     return 0
 
@@ -119,9 +135,11 @@ def buy(symbol, volume, price, stop_loss, take_profit):
 )
 def sell(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de venda."""
+    mt5 = MT5Facade(symbol)
+
     # Venda a mercado
     if not price:
-        res = trading.sell(symbol, volume, stop_loss, take_profit)
+        res = mt5.sell(volume, stop_loss, take_profit)
         if res:
             click.echo(res)
         else:
@@ -129,17 +147,17 @@ def sell(symbol, volume, price, stop_loss, take_profit):
         return 0
 
     # Verifica se existe preço atual
-    price_current = trading.get_close(symbol)
+    price_current = mt5.close()
     if price_current == None:
         click.echo(PRICE_CURRENT_ERROR)
 
     # Venda limitada
     if price >= price_current:
-        res = trading.sell_limit(symbol, price, volume, stop_loss, take_profit)
+        res = mt5.sell_limit(price, volume, stop_loss, take_profit)
 
     # Venda stop
     if price < price_current:
-        res = trading.sell_stop(symbol, price, volume, stop_loss, take_profit)
+        res = mt5.sell_stop(price, volume, stop_loss, take_profit)
 
     click.echo(res)
     return 0
@@ -151,7 +169,8 @@ def sell(symbol, volume, price, stop_loss, take_profit):
 @click.option("--cancel", "-c", help="Cancela todas as órdens pendentes")
 def orders(symbol, ticket, cancel):
     """Gerencia as órdens pendentes."""
-    click.echo(trading.get_orders())
+    mt5 = MT5Facade()
+    click.echo(mt5.orders())
     return 0
 
 
@@ -164,18 +183,19 @@ def orders(symbol, ticket, cancel):
 @click.option("--cancel", "-c", help="Cancela todas as posições abertas")
 def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
     """Gerencia as posições abertas."""
+    mt5 = MT5Facade()
     if bool(symbol):
         if bool(stop_loss):
-            res = trading.modify_stoploss(symbol.upper(), stop_loss)
+            res = mt5.modify_position_symbol(symbol.upper(), stop_loss, 0.0)
         if bool(take_profit):
-            res = trading.modify_takeprofit(symbol.upper(), take_profit)
+            res = mt5.modify_position_symbol(symbol.upper(), 0.0, take_profit)
         if res:
             click.echo(POSITION_MODIFIED_SUCCESS)
         else:
             click.echo(POSITION_MODIFIED_ERROR)
         return 0
 
-    click.echo(trading.get_positions())
+    click.echo(mt5.positions())
     return 0
 
 
@@ -186,15 +206,16 @@ def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
 @click.option("--position", "-p", help="Ticket da posição a ser cancelada")
 def cancel(type, symbol, order, position):
     """Cancela órdens e posições."""
+    mt5 = MT5Facade()
     if type == "orders" or type == "all":
-        res = trading.cancel_orders()
+        res = mt5.cancel_orders()
         if res:
             res = "Todas as órdens foram canceladas com sucesso!"
         else:
             res = "Falha no cancelamento das órdens!"
         click.echo(res)
     if type == "positions" or type == "all":
-        res = trading.cancel_positions()
+        res = mt5.cancel_positions()
         if res:
             res = "Todas as posições foram canceladas com sucesso!"
         else:
