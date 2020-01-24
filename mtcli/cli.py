@@ -169,18 +169,19 @@ def orders(symbol, ticket, cancel):
 @click.option("--cancel", "-c", help="Cancela todas as posições abertas")
 def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
     """Gerencia as posições abertas."""
+    mt5 = MT5Facade()
     if bool(symbol):
         if bool(stop_loss):
-            res = trading.modify_stoploss(symbol.upper(), stop_loss)
+            res = mt5.modify_position_symbol(symbol.upper(), stop_loss, 0.0)
         if bool(take_profit):
-            res = trading.modify_takeprofit(symbol.upper(), take_profit)
+            res = mt5.modify_position_symbol(symbol.upper(), 0.0, take_profit)
         if res:
             click.echo(POSITION_MODIFIED_SUCCESS)
         else:
             click.echo(POSITION_MODIFIED_ERROR)
         return 0
 
-    click.echo(trading.get_positions())
+    click.echo(mt5.positions())
     return 0
 
 

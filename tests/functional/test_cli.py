@@ -162,7 +162,7 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_lista_posicoes_abertas(self, mql5):
         mql5.PositionAll.return_value = self.positions
         res = self.runner.invoke(cli.positions)
@@ -170,6 +170,22 @@ class TestCli(TestCase):
             res.output,
             "272337225 WING20 POSITION_TYPE_BUY 1.0 117360.0 117110.0 117860.0 117360.0 2020-01-06 21:45:39\n\n",
         )
+        self.assertEqual(res.exit_code, 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_altera_o_stoploss_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-sl", 116500.0])
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
+        self.assertEqual(res.exit_code, 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_altera_o_take_profit_de_uma_posicao_pelo_ativo(self, mql5):
+        mql5.PositionAll.return_value = self.positions
+        mql5.PositionModifySymbol.return_value = 1
+        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-tp", 117500.0])
+        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
     @mock.patch("mtcli.trading.mql5")
@@ -191,22 +207,6 @@ class TestCli(TestCase):
         self.assertEqual(res.exit_code, 0)
 
     @mock.patch("mtcli.trading.mql5")
-    def test_altera_o_stoploss_de_uma_posicao_pelo_ativo(self, mql5):
-        mql5.PositionAll.return_value = self.positions
-        mql5.PositionModifySymbol.return_value = 1
-        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-sl", 116500.0])
-        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
-        self.assertEqual(res.exit_code, 0)
-
-    @mock.patch("mtcli.trading.mql5")
-    def test_altera_o_take_profit_de_uma_posicao_pelo_ativo(self, mql5):
-        mql5.PositionAll.return_value = self.positions
-        mql5.PositionModifySymbol.return_value = 1
-        res = self.runner.invoke(cli.positions, ["-s", "WING20", "-tp", 117500.0])
-        self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
-        self.assertEqual(res.exit_code, 0)
-
-    @mock.patch("mtcli.trading.mql5")
     def test_venda_stop_com_pymql5_retornando_none(self, mql5):
         mql5.iClose.return_value = 116310
         mql5.SellStop.return_value = None
@@ -216,14 +216,14 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "")
         self.assertEqual(res.exit_code, 1)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_stoploss_de_umaposicao_com_minuscula(self, mql5):
         mql5.PositionAll.return_value = self.positions
         res = self.runner.invoke(cli.positions, ["-s", "wing20", "-sl", 115200])
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_takeprofit_de_umaposicao_com_minuscula(self, mql5):
         mql5.PositionAll.return_value = self.positions
         res = self.runner.invoke(cli.positions, ["-s", "wing20", "-tp", 118200])
