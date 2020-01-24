@@ -3,6 +3,7 @@ import click
 from mtcli import indicator, trading
 from mtcli.mtcli import controller
 from mtcli.fib import Fib
+from mtcli.mt5_facade import MT5Facade
 from mtcli.conf import (
     ORDER_REFUSED,
     PRICE_CURRENT_ERROR,
@@ -93,13 +94,14 @@ def info():
 )
 def buy(symbol, volume, price, stop_loss, take_profit):
     """Executa uma órdem de compra."""
-    close = trading.get_close(symbol)
+    mt5 = MT5Facade(symbol)
+    close = mt5.close()
     if not price:
-        res = trading.buy(symbol, volume, stop_loss, take_profit)
+        res = mt5.buy(volume, stop_loss, take_profit)
     elif price <= close:
-        res = trading.buy_limit(symbol, price, volume, stop_loss, take_profit)
+        res = mt5.buy_limit(price, volume, stop_loss, take_profit)
     elif price > close:
-        res = trading.buy_stop(symbol, price, volume, stop_loss, take_profit)
+        res = mt5.buy_stop(price, volume, stop_loss, take_profit)
     if not res:
         res = ORDER_REFUSED
     click.echo(res)
