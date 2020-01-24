@@ -188,7 +188,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_cancela_todas_as_posicoes_e_ordens(self, mql5):
         mql5.CancelAllOrder.return_value = 1
         mql5.CancelAllPosition.return_value = 1
@@ -199,14 +199,14 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_cancela_todas_as_ordens_pendentes(self, mql5):
         mql5.CancelAllOrder.return_value = 1
         res = self.runner.invoke(cli.cancel, ["orders"])
         self.assertEqual(res.output, "Todas as órdens foram canceladas com sucesso!\n")
         self.assertEqual(res.exit_code, 0)
 
-    @mock.patch("mtcli.trading.mql5")
+    @mock.patch("mtcli.mt5_facade.mql5")
     def test_venda_stop_com_pymql5_retornando_none(self, mql5):
         mql5.iClose.return_value = 116310
         mql5.SellStop.return_value = None

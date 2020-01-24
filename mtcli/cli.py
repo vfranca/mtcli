@@ -192,15 +192,16 @@ def positions(symbol, ticket, volume, stop_loss, take_profit, cancel):
 @click.option("--position", "-p", help="Ticket da posição a ser cancelada")
 def cancel(type, symbol, order, position):
     """Cancela órdens e posições."""
+    mt5 = MT5Facade()
     if type == "orders" or type == "all":
-        res = trading.cancel_orders()
+        res = mt5.cancel_orders()
         if res:
             res = "Todas as órdens foram canceladas com sucesso!"
         else:
             res = "Falha no cancelamento das órdens!"
         click.echo(res)
     if type == "positions" or type == "all":
-        res = trading.cancel_positions()
+        res = mt5.cancel_positions()
         if res:
             res = "Todas as posições foram canceladas com sucesso!"
         else:
