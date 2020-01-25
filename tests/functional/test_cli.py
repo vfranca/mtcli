@@ -264,7 +264,14 @@ class TestCli(TestCase):
     def test_exibe_dados_da_conta_de_trading(self, mql5):
         mql5.AccountInfoAll.return_value = self.account
         res = self.runner.invoke(cli.account)
-        self.assertEqual(res.output, 
-            "1090113038 ACCOUNT_TRADE_MODE_DEMO VALMIR FRANCA DA SILVA CLEAR-Demo CLEAR CTVM S.A.\n"
+        self.assertEqual(
+            res.output,
+            "1090113038 ACCOUNT_TRADE_MODE_DEMO VALMIR FRANCA DA SILVA CLEAR-Demo CLEAR CTVM S.A.\n",
         )
-        self.assertFalse(res.exit_code)
+        self.assertEqual(res.exit_code, 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_exibe_dados_da_conta_de_trading_sem_conexao_com_o_metatrader(self, mql5):
+        mql5.AccountInfoAll.return_value = None
+        res = self.runner.invoke(cli.account)
+        self.assertEqual(res.exit_code, 1)
