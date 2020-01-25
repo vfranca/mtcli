@@ -290,3 +290,40 @@ class TestMT5Facade(TestCase):
     def test_cancela_uma_posicao_pelo_ticket_sem_conexao_com_o_metatrader(self, mql5):
         mql5.PositionCloseTicket.return_value = None
         self.assertRaises(Exception, self.mt5.cancel_position_ticket, 1234567890)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_pega_informacoes_da_conta_de_negociacao(self, mql5):
+        mql5.AccountInfoAll.return_value = [
+            {
+                "LOGIN": 1090113038,
+                "TRADE_MODE": "ACCOUNT_TRADE_MODE_DEMO",
+                "LEVERAGE": "1",
+                "LIMIT_ORDERS": 0,
+                "MARGIN_SO_MODE": "ACCOUNT_STOPOUT_MODE_MONEY",
+                "TRADE_ALLOWED": "1",
+                "TRADE_EXPERT": "1",
+                "MARGIN_MODE": "ACCOUNT_MARGIN_MODE_RETAIL_NETTING",
+                "CURRENCY_DIGITS": "2",
+                "BALANCE": 101010.99,
+                "CREDIT": 0.0,
+                "PROFIT": 0.0,
+                "EQUITY": 101010.99,
+                "MARGIN": 0.0,
+                "MARGIN_FREE": 101010.99,
+                "MARGIN_LEVEL": 0.0,
+                "MARGIN_SO_CALL": 0.0,
+                "MARGIN_INITIAL": 0.0,
+                "MARGIN_MAINTENANCE": 0.0,
+                "ASSETS": 0.0,
+                "LIABILITIES": 0.0,
+                "COMMISSION_BLOCKED": 0.0,
+                "NAME": "VALMIR FRANCA DA SILVA",
+                "SERVER": "CLEAR-Demo",
+                "CURRENCY": "BRL",
+                "COMPANY": "CLEAR CTVM S.A.",
+            }
+        ]
+        self.assertEqual(
+            self.mt5.account(),
+            "1090113038 ACCOUNT_TRADE_MODE_DEMO VALMIR FRANCA DA SILVA CLEAR-Demo CLEAR CTVM S.A.",
+        )

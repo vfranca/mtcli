@@ -22,6 +22,19 @@ class MT5Facade(object):
             raise Exception(CONNECTION_ERROR)
         return res
 
+    def account(self) -> str:
+        """Retorna dados da conta de trading."""
+        res = mql5.AccountInfoAll()
+        if res == None:
+            raise Exception(CONNECTION_ERROR)
+        return "%s %s %s %s %s" % (
+            res[0]["LOGIN"],
+            res[0]["TRADE_MODE"],
+            res[0]["NAME"],
+            res[0]["SERVER"],
+            res[0]["COMPANY"],
+        )
+
     def buy(
         self,
         volume: int,
