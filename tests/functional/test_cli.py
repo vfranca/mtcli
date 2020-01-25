@@ -3,7 +3,7 @@
 from unittest import TestCase, mock
 from click.testing import CliRunner
 from mtcli import cli
-from mtcli.conf import ORDER_REFUSED, PRICE_CURRENT_ERROR, POSITION_MODIFIED_SUCCESS
+from mtcli.conf import ORDER_ERROR, PRICE_CURRENT_ERROR, POSITION_MODIFIED_SUCCESS
 
 
 class TestCli(TestCase):
@@ -135,7 +135,7 @@ class TestCli(TestCase):
         res = self.runner.invoke(
             cli.buy, ["abev3", "-v", 100, "-sl", 17.55, "-tp", 23.66]
         )
-        self.assertEqual(res.output, ORDER_REFUSED + "\n")
+        self.assertEqual(res.output, ORDER_ERROR + "\n")
         self.assertEqual(res.exit_code, 0)
 
     @mock.patch("mtcli.mt5_facade.mql5")
@@ -154,7 +154,7 @@ class TestCli(TestCase):
         res = self.runner.invoke(
             cli.sell, ["abev3", "-v", 100, "-sl", 20.50, "-tp", 13.50]
         )
-        self.assertEqual(res.output, ORDER_REFUSED + "\n")
+        self.assertEqual(res.output, ORDER_ERROR + "\n")
         self.assertEqual(res.exit_code, 0)
 
     @mock.patch("mtcli.mt5_facade.mql5")

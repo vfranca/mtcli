@@ -30,12 +30,8 @@ VOLUME = 1
 STOP_LOSS = 250
 TAKE_PROFIT = 500
 
-ORDER_REFUSED = "Ordem recusada! Verifique a conexão com o MetaTrader"
-CONNECTION_MISSING = "Falha na conexao com o MetaTrader"
-PRICE_CURRENT_ERROR = (
-    "O preço atual não foi encontrado! Verifique a conexão com o MetaTrader"
-)
+ORDER_ERROR = "A órdem falhoou! "
+PRICE_CURRENT_ERROR = "Preço atual não encontrado!"
 POSITION_MODIFIED_SUCCESS = "A posição foi alterada com sucesso!"
-POSITION_MODIFIED_ERROR = "Ocorreu um erro! Verifique a conexão com o MetaTrader"
-GENERAL_ERROR = "Ocorreu um erro! Verifique a conexão com o MetaTrader"
-CONNECTION_ERROR = "Erro de conexão: verifique a conexão com o MetaTrader5"
+POSITION_MODIFIED_ERROR = "A alteração falhou!"
+CONNECTION_ERROR = "A conexão com o MetaTrader falhou!"

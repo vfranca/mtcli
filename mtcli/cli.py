@@ -5,7 +5,7 @@ from mtcli.mtcli import controller
 from mtcli.fib import Fib
 from mtcli.mt5_facade import MT5Facade
 from mtcli.conf import (
-    ORDER_REFUSED,
+    ORDER_ERROR,
     PRICE_CURRENT_ERROR,
     POSITION_MODIFIED_SUCCESS,
     POSITION_MODIFIED_ERROR,
@@ -103,7 +103,7 @@ def buy(symbol, volume, price, stop_loss, take_profit):
         if res:
             click.echo(res)
         else:
-            click.echo(ORDER_REFUSED)
+            click.echo(ORDER_ERROR)
         return 0
 
     # Verifica se existe preço atual
@@ -144,7 +144,7 @@ def sell(symbol, volume, price, stop_loss, take_profit):
         if res:
             click.echo(res)
         else:
-            click.echo(ORDER_REFUSED)
+            click.echo(ORDER_ERROR)
         return 0
 
     # Verifica se existe preço atual
