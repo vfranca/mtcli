@@ -9,6 +9,36 @@ from mtcli.conf import ORDER_REFUSED, PRICE_CURRENT_ERROR, POSITION_MODIFIED_SUC
 class TestCli(TestCase):
     def setUp(self):
         self.runner = CliRunner()
+        self.account = [
+            {
+                "LOGIN": 1090113038,
+                "TRADE_MODE": "ACCOUNT_TRADE_MODE_DEMO",
+                "LEVERAGE": "1",
+                "LIMIT_ORDERS": 0,
+                "MARGIN_SO_MODE": "ACCOUNT_STOPOUT_MODE_MONEY",
+                "TRADE_ALLOWED": "1",
+                "TRADE_EXPERT": "1",
+                "MARGIN_MODE": "ACCOUNT_MARGIN_MODE_RETAIL_NETTING",
+                "CURRENCY_DIGITS": "2",
+                "BALANCE": 101010.99,
+                "CREDIT": 0.0,
+                "PROFIT": 0.0,
+                "EQUITY": 101010.99,
+                "MARGIN": 0.0,
+                "MARGIN_FREE": 101010.99,
+                "MARGIN_LEVEL": 0.0,
+                "MARGIN_SO_CALL": 0.0,
+                "MARGIN_INITIAL": 0.0,
+                "MARGIN_MAINTENANCE": 0.0,
+                "ASSETS": 0.0,
+                "LIABILITIES": 0.0,
+                "COMMISSION_BLOCKED": 0.0,
+                "NAME": "VALMIR FRANCA DA SILVA",
+                "SERVER": "CLEAR-Demo",
+                "CURRENCY": "BRL",
+                "COMPANY": "CLEAR CTVM S.A.",
+            }
+        ]
         self.positions = [
             {
                 "TICKET": 272337225,
@@ -229,3 +259,12 @@ class TestCli(TestCase):
         res = self.runner.invoke(cli.positions, ["-s", "wing20", "-tp", 118200])
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
+
+    @mock.patch("mtcli.mt5_facade.mql5")
+    def test_exibe_dados_da_conta_de_trading(self, mql5):
+        mql5.AccountInfoAll.return_value = self.account
+        res = self.runner.invoke(cli.account)
+        self.assertEqual(res.output, 
+            "1090113038 ACCOUNT_TRADE_MODE_DEMO VALMIR FRANCA DA SILVA CLEAR-Demo CLEAR CTVM S.A.\n"
+        )
+        self.assertFalse(res.exit_code)

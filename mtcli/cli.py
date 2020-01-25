@@ -75,9 +75,10 @@ def fib(high, low, trend):
 
 
 @click.command()
-def info():
-    """Exibe dados da conta."""
-    click.echo(trading.info())
+def account():
+    """Exibe dados da conta de trading."""
+    mt5 = MT5Facade()
+    click.echo(mt5.account())
     return 0
 
 
@@ -229,7 +230,7 @@ cli.add_command(sma)
 cli.add_command(ema)
 cli.add_command(atr)
 cli.add_command(fib)
-cli.add_command(info)
+cli.add_command(account)
 cli.add_command(buy)
 cli.add_command(sell)
 cli.add_command(orders)
