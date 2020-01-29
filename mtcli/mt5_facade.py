@@ -195,6 +195,24 @@ class MT5Facade(object):
 
     def modify_position_symbol(self, symbol: str, sl: float, tp: float) -> bool:
         """Altera parâmetros da posição do ativo."""
+        positions = mql5.PositionAll()
+
+        # Altera somente o stoploss
+        if sl and not tp:
+            for pos in positions:
+                if pos["SYMBOL"] == symbol:
+                    tp = pos["TP"]
+                else:
+                    raise Exception("Não existe posição aberta para esse ativo!")
+
+        # Altera somente o take profit
+        if tp and not sl:
+            for pos in positions:
+                if pos["SYMBOL"] == symbol:
+                    sl = pos["SL"]
+                else:
+                    raise Exception("Não existe posição aberta para esse ativo!")
+
         res = mql5.PositionModifySymbol(symbol, sl, tp)
         if res == None:
             raise Exception(CONNECTION_ERROR)
