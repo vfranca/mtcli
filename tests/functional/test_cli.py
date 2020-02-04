@@ -3,7 +3,15 @@
 from unittest import TestCase, mock
 from click.testing import CliRunner
 from mtcli import cli
-from mtcli.conf import ORDER_ERROR, PRICE_CURRENT_ERROR, POSITION_MODIFIED_SUCCESS
+from mtcli.conf import (
+    ORDER_ERROR,
+    PRICE_CURRENT_ERROR,
+    POSITION_MODIFIED_SUCCESS,
+    ORDER_CANCELED_ERROR,
+    ORDER_CANCELED_SUCCESS,
+    POSITION_CANCELED_ERROR,
+    POSITION_CANCELED_SUCCESS,
+)
 
 
 class TestCli(TestCase):
@@ -224,8 +232,7 @@ class TestCli(TestCase):
         mql5.CancelAllPosition.return_value = 1
         res = self.runner.invoke(cli.cancel, ["all"])
         self.assertEqual(
-            res.output,
-            "Todas as órdens foram canceladas com sucesso!\nTodas as posições foram canceladas com sucesso!\n",
+            res.output, ORDER_CANCELED_SUCCESS + "\n" + POSITION_CANCELED_SUCCESS + "\n"
         )
         self.assertEqual(res.exit_code, 0)
 
@@ -233,7 +240,7 @@ class TestCli(TestCase):
     def test_cancela_todas_as_ordens_pendentes(self, mql5):
         mql5.CancelAllOrder.return_value = 1
         res = self.runner.invoke(cli.cancel, ["orders"])
-        self.assertEqual(res.output, "Todas as órdens foram canceladas com sucesso!\n")
+        self.assertEqual(res.output, ORDER_CANCELED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
     @mock.patch("mtcli.mt5_facade.mql5")

@@ -9,6 +9,10 @@ from mtcli.conf import (
     PRICE_CURRENT_ERROR,
     POSITION_MODIFIED_SUCCESS,
     POSITION_MODIFIED_ERROR,
+    ORDER_CANCELED_ERROR,
+    ORDER_CANCELED_SUCCESS,
+    POSITION_CANCELED_ERROR,
+    POSITION_CANCELED_SUCCESS,
 )
 
 
@@ -205,16 +209,16 @@ def cancel(type, symbol, order, position):
     if type == "orders" or type == "all":
         res = mt5.cancel_orders()
         if res:
-            res = "Todas as órdens foram canceladas com sucesso!"
+            res = ORDER_CANCELED_SUCCESS
         else:
-            res = "Falha no cancelamento das órdens!"
+            res = ORDER_CANCELED_ERROR
         click.echo(res)
     if type == "positions" or type == "all":
         res = mt5.cancel_positions()
         if res:
-            res = "Todas as posições foram canceladas com sucesso!"
+            res = POSITION_CANCELED_SUCCESS
         else:
-            res = "Falha no cancelamento das posições!"
+            res = POSITION_CANCELED_ERROR
         click.echo(res)
     return 0
 
@@ -230,7 +234,3 @@ cli.add_command(sell)
 cli.add_command(orders)
 cli.add_command(positions)
 cli.add_command(cancel)
-
-
-if __name__ == "__main__":
-    exit(cli())

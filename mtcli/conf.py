@@ -30,8 +30,12 @@ VOLUME = 1
 STOP_LOSS = 250
 TAKE_PROFIT = 500
 
-ORDER_ERROR = "A órdem falhoou! "
-PRICE_CURRENT_ERROR = "Preço atual não encontrado!"
-POSITION_MODIFIED_SUCCESS = "A posição foi alterada com sucesso!"
-POSITION_MODIFIED_ERROR = "A alteração falhou!"
-CONNECTION_ERROR = "A conexão com o MetaTrader falhou!"
+ORDER_ERROR = "Órdem recusada"
+PRICE_CURRENT_ERROR = "Preço indisponível"
+POSITION_MODIFIED_SUCCESS = "Posição alterada"
+POSITION_MODIFIED_ERROR = "Alteração recusada"
+CONNECTION_ERROR = "MetaTrader desconectado"
+ORDER_CANCELED_SUCCESS = "Todas as órdens foram canceladas"
+ORDER_CANCELED_ERROR = "Cancelamento Recusado"
+POSITION_CANCELED_SUCCESS = "Todas as posições foram canceladas"
+POSITION_CANCELED_ERROR = "Cancelamento Recusado"
