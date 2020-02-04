@@ -46,8 +46,7 @@ class MT5Facade(object):
         """ Abre uma posição comprada."""
         if not price_open:
             price_open = self.close()
-        symbol = self.symbol
-        res = mql5.Buy(symbol, volume, price_open, sl, tp, comments)
+        res = mql5.Buy(self.symbol, volume, price_open, sl, tp, comments)
         if res == None:
             raise Exception(CONNECTION_ERROR)
         if res == -1:
@@ -63,8 +62,7 @@ class MT5Facade(object):
         comments: str = "",
     ) -> int:
         """Abre uma posição comprada com órdem limit."""
-        symbol = self.symbol
-        res = mql5.BuyLimit(symbol, volume, price_open, sl, tp, comments)
+        res = mql5.BuyLimit(self.symbol, volume, price_open, sl, tp, comments)
         if res == None:
             raise Exception(CONNECTION_ERROR)
         if res == -1:
@@ -80,8 +78,7 @@ class MT5Facade(object):
         comments: str = "",
     ) -> int:
         """Abre uma posição comprada com ordem stop."""
-        symbol = self.symbol
-        res = mql5.BuyStop(symbol, volume, price_open, sl, tp, comments)
+        res = mql5.BuyStop(self.symbol, volume, price_open, sl, tp, comments)
         if res == None:
             raise Exception(CONNECTION_ERROR)
         if res == -1:
@@ -99,8 +96,7 @@ class MT5Facade(object):
         """ Abre uma posição vendida."""
         if not price_open:
             price_open = self.close()
-        symbol = self.symbol
-        res = mql5.Sell(symbol, volume, price_open, sl, tp, comments)
+        res = mql5.Sell(self.symbol, volume, price_open, sl, tp, comments)
         if res == None:
             raise Exception(CONNECTION_ERROR)
         if res == -1:
@@ -116,8 +112,7 @@ class MT5Facade(object):
         comments: str = "",
     ) -> int:
         """Abre uma posição vendida com órdem limit."""
-        symbol = self.symbol
-        res = mql5.SellLimit(symbol, volume, price_open, sl, tp, comments)
+        res = mql5.SellLimit(self.symbol, volume, price_open, sl, tp, comments)
         if res == None:
             raise Exception(CONNECTION_ERROR)
         if res == -1:
@@ -133,8 +128,7 @@ class MT5Facade(object):
         comments: str = "",
     ) -> int:
         """Abre uma posição vendida com ordem stop."""
-        symbol = self.symbol
-        res = mql5.SellStop(symbol, volume, price_open, sl, tp, comments)
+        res = mql5.SellStop(self.symbol, volume, price_open, sl, tp, comments)
         if res == None:
             raise Exception(CONNECTION_ERROR)
         if res == -1:

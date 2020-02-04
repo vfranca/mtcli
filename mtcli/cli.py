@@ -84,22 +84,19 @@ def account():
 
 @click.command()
 @click.argument("symbol")
-@click.option("--volume", "-v", type=int, help="Volume ou quantidade do ativo")
-@click.option("--price", "-p", type=float, help="Preço de entrada da operação")
-@click.option("--stop_loss", "-sl", type=float, help="Preço de stop loss da operação")
+@click.option("--volume", "-v", type=int, help="Quantidade do ativo")
+@click.option("--price", "-p", type=float, help="Preço de entrada")
+@click.option("--stoploss", "-sl", type=float, help="Preço de stop loss")
 @click.option(
-    "--take_profit",
-    "-tp",
-    type=float,
-    help="Preço de take profit ou stop gain da operação",
+    "--takeprofit", "-tp", type=float, help="Preço do takeprofit",
 )
-def buy(symbol, volume, price, stop_loss, take_profit):
+def buy(symbol, volume, price, stoploss, takeprofit):
     """Executa uma órdem de compra."""
     mt5 = MT5Facade(symbol)
 
     # Compra a mercado
     if not price:
-        res = mt5.buy(volume, stop_loss, take_profit)
+        res = mt5.buy(volume, price, stoploss, takeprofit)
         if res:
             click.echo(res)
         else:
@@ -113,11 +110,11 @@ def buy(symbol, volume, price, stop_loss, take_profit):
 
     # Compra limitada
     if price <= price_current:
-        res = mt5.buy_limit(price, volume, stop_loss, take_profit)
+        res = mt5.buy_limit(volume, price, stoploss, takeprofit)
 
     # Compra stop
     if price > price_current:
-        res = mt5.buy_stop(price, volume, stop_loss, take_profit)
+        res = mt5.buy_stop(volume, price, stoploss, takeprofit)
 
     click.echo(res)
     return 0
@@ -125,22 +122,19 @@ def buy(symbol, volume, price, stop_loss, take_profit):
 
 @click.command()
 @click.argument("symbol")
-@click.option("--volume", "-v", type=int, help="Volume ou quantidade do ativo")
-@click.option("--price", "-p", type=float, help="Preço de entrada da operação")
-@click.option("--stop_loss", "-sl", type=float, help="Preço de stop loss da operação")
+@click.option("--volume", "-v", type=int, help="Quantidade do ativo")
+@click.option("--price", "-p", type=float, help="Preço de entrada")
+@click.option("--stoploss", "-sl", type=float, help="Preço de stoploss")
 @click.option(
-    "--take_profit",
-    "-tp",
-    type=float,
-    help="Preço de take profit ou stop gain da operação",
+    "--takeprofit", "-tp", type=float, help="Preço do takeprofit",
 )
-def sell(symbol, volume, price, stop_loss, take_profit):
+def sell(symbol, volume, price, stoploss, takeprofit):
     """Executa uma órdem de venda."""
     mt5 = MT5Facade(symbol)
 
     # Venda a mercado
     if not price:
-        res = mt5.sell(volume, stop_loss, take_profit)
+        res = mt5.sell(volume, price, stoploss, takeprofit)
         if res:
             click.echo(res)
         else:
@@ -154,11 +148,11 @@ def sell(symbol, volume, price, stop_loss, take_profit):
 
     # Venda limitada
     if price >= price_current:
-        res = mt5.sell_limit(price, volume, stop_loss, take_profit)
+        res = mt5.sell_limit(volume, price, stoploss, takeprofit)
 
     # Venda stop
     if price < price_current:
-        res = mt5.sell_stop(price, volume, stop_loss, take_profit)
+        res = mt5.sell_stop(volume, price, stoploss, takeprofit)
 
     click.echo(res)
     return 0
