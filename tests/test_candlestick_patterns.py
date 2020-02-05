@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest
-from mtcli.patterns import *
+from mtcli.candlestick_patterns import *
 
 
-class PatternsTestCase(unittest.TestCase):
+class TestCandlestickPatterns(unittest.TestCase):
     def test_is_doji(self):
         self.assertTrue(is_doji(3, 31, 66))
         self.assertTrue(is_doji(-3, 31, 66))

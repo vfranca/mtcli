@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from mtcli.model import bar_model
-from mtcli import view as _view
-from mtcli import helper
+from mtcli.models import bar_model
+from mtcli import views as _view
+from mtcli import helpers as helper
 from mtcli.bar import Bar
 from mtcli.brooks_patterns1 import BrooksPatterns1
 from mtcli.brooks_patterns2 import BrooksPatterns2

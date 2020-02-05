@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-
 class Fib(object):
     def __init__(self, high, low, trend="h"):
         self.h = high

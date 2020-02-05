@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest
 from mtcli.fib import Fib
 
 
-class FibTestCase(unittest.TestCase):
+class TestFib(unittest.TestCase):
     def setUp(self):
         self.obj = Fib(88900.0, 87200.0, "h")
         self.obj1 = Fib(88900.0, 87200.0)

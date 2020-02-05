@@ -1,11 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest, os
-from mtcli import view, model, conf
+from mtcli import views as view, models as model, conf
 from mtcli.bar import Bar
 
 
-class ViewTestCase(unittest.TestCase):
+class TestViews(unittest.TestCase):
     def setUp(self):
         self.file = os.path.join(
             os.path.abspath("."), "tests", "fixtures", "files", "abev3daily.csv"

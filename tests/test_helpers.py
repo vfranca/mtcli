@@ -1,11 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest
-from mtcli import helper
+from mtcli import helpers as helper
 from mtcli.bar import Bar
 
 
-class HelperTestCase(unittest.TestCase):
+class TestHelpers(unittest.TestCase):
     def setUp(self):
         self.bar = Bar(
             [

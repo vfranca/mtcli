@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from mtcli.model import bar_model
+from mtcli.models import bar_model
 from mtcli.bar import Bar
 from mtcli import conf
 

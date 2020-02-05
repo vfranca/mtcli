@@ -1,12 +1,10 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest, os
-from mtcli.model import *
-from mtcli import helper
+from mtcli.models import bar_model
+from mtcli import helpers as helper
 from mtcli.bar import Bar
 
 
-class ModelTestCase(unittest.TestCase):
+class TestsModels(unittest.TestCase):
     def setUp(self):
         fixtures_path = os.path.join(os.path.abspath("."), "tests", "fixtures", "files")
         self.file = os.path.join(fixtures_path, "abev3daily.csv")
