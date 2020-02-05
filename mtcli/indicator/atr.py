@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+Average True Range ou ATR
+"""
 from mtcli.models import bar_model
 from mtcli.bar import Bar
 from mtcli import conf

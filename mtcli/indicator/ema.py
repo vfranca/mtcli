@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+Exponential Moving Average ou EMA
+"""
 from mtcli.models import bar_model
 from mtcli.bar import Bar
 from mtcli import conf
