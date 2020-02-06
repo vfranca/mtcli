@@ -1,0 +1,3 @@
+O GeraCSV.ex5 deve ser anexado ao gráfico a ser analizado.
+
+O arquivo .env deve ser colocado em C:\.env e deve ser alterado com a informação do caminho da pasta de dados do MetaTrader5 em seu sistema.
