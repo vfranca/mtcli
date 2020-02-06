@@ -16,12 +16,14 @@ Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 pip install mtcli
 ```
   
+  
 ### Procedimento no MetaTrader 5  
   
 1. Faça o download do GeraCSV.ex5.  
 2. Execute o MetaTrader 5 e abra um gráfico.  
 3. Execute o GeraCSV.ex5.  
 4. Selecione a opção "anexar ao gráfico" no menu de contexto do GeraCSV.ex5.  
+  
   
 ### Arquivo .env  
   
@@ -31,6 +33,13 @@ Crie um arquivo .env na pasta raiz do Windows com o conteúdo abaixo:
 DIGITS="2"  
 CSV_PATH=<caminho_dos_arquivos_do_metatrader5>  
 ```
+  
+  
+### Arquivos mtcli  
+
+Uma pasta compactada está disponível para download contendo os arquivos acima descritos necessários para uso com o mtcli bem como instruções de como usá-los.  
+Segue o link para download: https://drive.google.com/open?id=1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp  
+  
   
 ## Exemplos de Uso  
   
