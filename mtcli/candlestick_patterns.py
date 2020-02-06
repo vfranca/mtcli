@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+Padrões de Candlesticks
+"""
 
 
 # Padrões simples

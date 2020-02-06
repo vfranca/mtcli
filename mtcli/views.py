@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from mtcli.brooks_patterns1 import BrooksPatterns1
-from mtcli import helper
+from mtcli import helpers as helper
 from mtcli import conf
 
 

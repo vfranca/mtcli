@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+Barra do gráfico
+"""
 from mtcli import conf
 
 

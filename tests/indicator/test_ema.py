@@ -1,10 +1,7 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*- #
 from unittest import TestCase, mock, skip
 from mtcli import indicator, conf
 
 
-# @unittest.skip("É necessário desacoplar constantes de configuração")
 class TestEma(TestCase):
 
     symbol = "ABEV3"

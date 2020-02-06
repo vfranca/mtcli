@@ -1,16 +1,18 @@
-# -*- coding: utf-8 -*-
-from mtcli.model import bar_model
+"""
+Average True Range ou ATR
+"""
+from mtcli.models import BarModel
 from mtcli.bar import Bar
 from mtcli import conf
 
 
 def get_atr(symbol, period, count):
     """Calcula o ATR."""
-    file = conf.csv_path + symbol + period + ".csv"
+    csv_file = conf.csv_path + symbol + period + ".csv"
     ranges = []
-    rows = bar_model(file)
-    for row in rows:
-        bar = Bar(row)
+    bars = BarModel(csv_file)
+    for item in bars:
+        bar = Bar(item)
         # Elimina doji de 4 preços
         if bar.open == bar.high and bar.high == bar.low and bar.low == bar.close:
             continue

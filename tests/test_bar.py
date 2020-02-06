@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest
 from mtcli.bar import Bar
 
 
-class BarTestCase(unittest.TestCase):
+class TestBar(unittest.TestCase):
     def setUp(self):
         self.obj = Bar(
             [

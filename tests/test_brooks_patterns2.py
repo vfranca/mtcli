@@ -1,11 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest
 from mtcli.brooks_patterns2 import BrooksPatterns2
 from mtcli.conf import *
 
 
-class BrooksPatterns2TestCase(unittest.TestCase):
+class TestBrooksPatterns2(unittest.TestCase):
     def setUp(self):
         self.o = BrooksPatterns2([50, 60], [10, 20], [40, 50], [60, 80], [5, 15])
 

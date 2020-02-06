@@ -1,11 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import unittest
 from mtcli.brooks_patterns1 import BrooksPatterns1
 from mtcli.conf import *
 
 
-class BrooksPatternsTes1tCase(unittest.TestCase):
+class TestBrooksPatterns1(unittest.TestCase):
     def test_body_pattern_bull(self):
         o = BrooksPatterns1(50, 25, 25, 92600, 92500)
         self.assertEqual(o.body_pattern, lbl_body_bull)

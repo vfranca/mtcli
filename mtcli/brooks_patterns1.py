@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+"""
+Padrões do método Al Brooks de 1 barra
+"""
 from mtcli import conf
 
 

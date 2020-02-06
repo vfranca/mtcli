@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
-from mtcli.model import bar_model
-from mtcli import view as _view
-from mtcli import helper
+from mtcli.models import BarModel
+from mtcli import views as _view
+from mtcli import helpers as helper
 from mtcli.bar import Bar
 from mtcli.brooks_patterns1 import BrooksPatterns1
 from mtcli.brooks_patterns2 import BrooksPatterns2
@@ -12,12 +11,12 @@ def controller(
     symbol: str, period: str, view: str, date: str = "", count: int = 40
 ) -> list:
     """Retorna uma lista de views."""
-    file = conf.csv_path + symbol + period + ".csv"
+    csv_file = conf.csv_path + symbol + period + ".csv"
     views, close, open = [], [], []
     high1, low1, body = [], [], []
     num_bar, counter, bull, bear, doji = 0, 0, 0, 0, 0
 
-    bars = bar_model(file)
+    bars = BarModel(csv_file)
     for item in bars:
         bar = Bar(item)
         counter += 1

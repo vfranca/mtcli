@@ -2,7 +2,7 @@ from unittest import TestCase, mock
 from mtcli.mtcli import controller
 
 
-class TestController(TestCase):
+class TestMTCli(TestCase):
     @mock.patch("mtcli.mtcli._view")
     def test_controlador_retorna_view_default(self, view):
         view.brooks_view.return_value = (
