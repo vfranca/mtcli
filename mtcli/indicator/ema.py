@@ -1,7 +1,7 @@
 """
 Exponential Moving Average ou EMA
 """
-from mtcli.models import bar_model
+from mtcli.models import BarModel
 from mtcli.bar import Bar
 from mtcli import conf
 
@@ -11,22 +11,22 @@ def get_k(count=20):
     return round(2 / (count + 1), 3)
 
 
-def get_price_close(file):
+def get_price_close(csv_file):
     """ Obtem o preço de fechamento atual."""
-    rows = bar_model(file)
+    bars = BarModel(csv_file)
     price_close = 0.0
-    for row in rows:
-        bar = Bar(row)
+    for item in bars:
+        bar = Bar(item)
         price_close = bar.close
     return price_close
 
 
-def get_last_ema(file, count=20):
+def get_last_ema(csv_file, count=20):
     """ Obtem a última EMA. """
     prices = []
-    rows = bar_model(file)
-    for row in rows:
-        bar = Bar(row)
+    bars = BarModel(csv_file)
+    for item in bars:
+        bar = Bar(item)
         prices.append(bar.close)
     prices = prices[-(count + 1) : -1]
     return round(sum(prices) / len(prices), 2)
@@ -34,8 +34,8 @@ def get_last_ema(file, count=20):
 
 def get_ema(symbol, period, count=20):
     """ Calcula a média móvel exponencial dos preços de fechamento."""
-    file = conf.csv_path + symbol + period + ".csv"
+    csv_file = conf.csv_path + symbol + period + ".csv"
     k = get_k(count)
-    close = get_price_close(file)
-    last_ema = get_last_ema(file, count)
+    close = get_price_close(csv_file)
+    last_ema = get_last_ema(csv_file, count)
     return round(close * k + last_ema * (1 - k), conf.digits)

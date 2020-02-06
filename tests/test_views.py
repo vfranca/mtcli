@@ -1,5 +1,6 @@
 import unittest, os
-from mtcli import views as view, models as model, conf
+from mtcli import views as view, conf
+from mtcli.models import BarModel
 from mtcli.bar import Bar
 
 
@@ -8,8 +9,8 @@ class TestViews(unittest.TestCase):
         self.file = os.path.join(
             os.path.abspath("."), "tests", "fixtures", "files", "abev3daily.csv"
         )
-        self.bars = model.bar_model(self.file)
-        self.bar = Bar(self.bars[4])
+        self.bars = BarModel(self.file)
+        self.bar = Bar(self.bars.data[4])
 
     def test_obtem_view_com_padroes_brooks(self):
         self.assertEqual(
