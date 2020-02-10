@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.6.2"
+version = "0.6.3"
 description = "Utilitario de linha de comando para leitura de graficos do MetaTrader 5"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "MIT"
 readme = "docs/README.md"
 repository = "https://github.com/vfranca/mtcli"
-documentation = "https://mtcli.readthedocs.io"
+documentation = "https://vfranca.github.io/mtcli/"
 keywords = ["metatrader5", "trading"]
 classifiers = [
 "Development Status :: 2 - Pre-Alpha",
