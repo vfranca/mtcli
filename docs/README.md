@@ -38,11 +38,11 @@ Segue o link para download: https://drive.google.com/open?id=1olFEKJnnunBI1SDoW7
   
 ## Comandos  
   
-* [mt bars](docs/chart.md) - Exibe as barras do gráfico.  
-* [mt sma](docs/chart.md) - Exibe a média móvel simples.  
-* [mt ema](docs/chart.md) - Exibe a média móvel exponencial.  
-* [mt atr](docs/chart.md) - Exibe average true range.  
-* [mt fib](docs/chart.md) - Exibe retrações e projeções de fibonacci.  
+* [mt bars](chart.md) - Exibe as barras do gráfico.  
+* [mt sma](chart.md) - Exibe a média móvel simples.  
+* [mt ema](chart.md) - Exibe a média móvel exponencial.  
+* [mt atr](chart.md) - Exibe average true range.  
+* [mt fib](chart.md) - Exibe retrações e projeções de fibonacci.  
 
 ------------
   
