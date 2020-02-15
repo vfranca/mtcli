@@ -28,7 +28,7 @@ goto :EOF
 
 :build
 echo executando black
-black mtspread
+black mtcli
 black tests
 echo executando testes
 pytest -q
@@ -48,7 +48,7 @@ goto :EOF
 
 :deploy
 echo executando black
-black mtspread
+black mtcli
 black tests
 echo executando tests
 pytest -q
