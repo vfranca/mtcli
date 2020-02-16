@@ -5,6 +5,7 @@ if "%1" == "" (
 echo build
 echo pos-release
 echo deploy
+echo check
 goto :EOF
 )
 
@@ -23,6 +24,12 @@ goto :EOF
 rem Executa o deploy
 if "%1" == "deploy" (
 call :deploy
+goto :EOF
+)
+
+rem Executa a checagem
+if "%1" == "check" (
+call :check
 goto :EOF
 )
 
@@ -56,5 +63,18 @@ echo executando o build
 poetry build
 echo executando o deploy
 poetry publish
+echo fim
+goto :EOF
+
+:check
+echo executando checagem
+echo verificando testes
+pytest -q
+echo verificando codificacao
+black mtcli tests
+echo verificando poetry
+poetry check
+echo verificando status do repositorio local
+git status
 echo fim
 goto :EOF
