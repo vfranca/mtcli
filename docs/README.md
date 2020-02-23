@@ -11,7 +11,7 @@ Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 
 * [MetaTrader5](https://www.metatrader5.com/pt) - Plataforma de trading.  
 * [GeraCSV.ex5](https://drive.google.com/file/d/1ijglZp05ZI29VzrMKTbKrQFO6CYPznyp/view?usp=sharing) - Expert advisor executando no MetaTrader5.  
-* [Python](https://www.python.org/) - Interpretador de comandos disponível no prompt de comando.  
+* [Python](https://www.python.org/downloads/windows) - Interpretador de comandos disponível no prompt de comando.  
 
 
 ## Instalação
