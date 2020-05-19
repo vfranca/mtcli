@@ -1,0 +1,11 @@
+ASC = ascendente
+DESC = descendente
+OB = outside bar - barra externa
+IB = inside bar - barra interna
+CP = forca compradora
+VD = forca vendedora
+G = gap
+TOP = top tail - sombra superior
+BOTTOM = bottom tail - sombra inferior
+R = range
+MP = medium point - ponto medio
