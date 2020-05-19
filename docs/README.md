@@ -10,32 +10,27 @@ Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 ## Pré-requisitos  
 
 * [MetaTrader5](https://www.metatrader5.com/pt) - Plataforma de trading.  
-* [GeraCSV.ex5](https://drive.google.com/file/d/1ijglZp05ZI29VzrMKTbKrQFO6CYPznyp/view?usp=sharing) - Expert advisor executando no MetaTrader5.  
 * [Python](https://www.python.org/downloads/windows) - Interpretador de comandos disponível no prompt de comando.  
 
 
-## Instalação
+## Instalação  
 
+1. Instale o Python. Obtenha o instalador em https://www.python.org/downloads/windows. Durante a instalação marque a opção para ficar disponível no path do Windows.
+
+2. No prompt de comando execute:
 ```
 > pip install mtcli
 ```
+3. Instale o MetaTrader 5. De preferência obtenha o instalador no site da sua corretora, caso contrário o instalador está disponível para download no site oficial do MetaTrader.  
+4. Baixe no link abaixo o arquivo contendo os arquivos de trabalho do mtcli:  
+https://drive.google.com/file/d/1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp/view?usp=sharing  
+5. Descompacte o arquivo mtcli_arquivos.zip e renomeie para um nome da sua preferência. Essa pasta deverá ser usada para executar os atalhos de comandos do mtcli. Além disso nela estarão os expert advisors que deverão ser anexados ao s gráficos do MetaTrader 5 e o arquivo .env com variáveis de configuração.  
+6. Copie o arquivo .env para c:\.env e altere a variável CSV_PATH com o caminho da pasta de arquivos do MetaTrader 5.  
+7. Anexe um dos  expert advisors ao gráfico do MetaTrader 5.  
 
-### Arquivo .env  
-  
-Crie um arquivo .env na pasta raiz do Windows com o conteúdo abaixo:  
-  
-```
-DIGITS="2"  
-CSV_PATH=<caminho_dos_arquivos_do_metatrader5>  
-```
-  
-  
-### Arquivos mtcli  
+Pronto! O mtcli está pronto para ser usado.  
 
-Uma pasta compactada está disponível para download contendo os arquivos acima descritos para uso com o mtcli bem como instruções de como usá-los.  
-Segue o link para download: https://drive.google.com/open?id=1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp  
-  
-  
+
 ## Comandos  
   
 * [mt bars](https://github.com/vfranca/mtcli/blob/master/docs/chart.md) - Exibe as barras do gráfico.  
