@@ -1,4 +1,5 @@
 @echo off
+rem deprecated
 rem aliases para comandos do mtcli
 rem lista as variáveis de ambiente
 if "%1" == "-l" (

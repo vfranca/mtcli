@@ -1,6 +1,6 @@
 @echo off
 rem aliases para comandos do mtcli
-rem chamada da view channel
+rem grafico de máximas e mínimas
 if "%1" == "" (
 mt bars %t% --period %p% --date %d% --view ch --count 107
 ) else (
