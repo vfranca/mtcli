@@ -7,4 +7,6 @@ echo %t%
 goto :EOF
 )
 
-set t=%1%
+set t=%1
+title %1
+
