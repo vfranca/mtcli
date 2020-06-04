@@ -2,4 +2,4 @@
 rem aliases para comandos do mtcli
 rem grafico de máximas e mínimas do m5
 set p=m5
-call hl %*
+call highlows %*
