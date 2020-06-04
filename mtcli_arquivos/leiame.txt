@@ -19,21 +19,21 @@ O arquivo .env deve ser colocado em C:\.env e deve ser alterado com a informaç�
 
 ## Atalhos  
 
-Os arquivos em lote (.bat) são atalhos para os comandos do mtcli e antes de serem usados deve-se executar o arquivo init.bat. Execute no prompt de comando:
+Os arquivos em lote (.bat) são atalhos para os comandos do mtcli e antes de serem usados deverá executar o arquivo conf.bat. Execute no prompt de comando:
 ```
-> init
+> conf
 ```
 Para definir o ativo objeto da exibição dos dados do gráfico:  
 ```
-> a petr4  
+> s petr4  
 ```
-Para exibir as barras do gráfico diário na visão de canal:  
+Para exibir o gráfico padrão do diário:    
+```
+> dd1  
+Para exibir o gráfico de máximas e mínimas do diário:  
 ```
 > d1  
 ```
-Para exibir as barras do gráfico diário na visão default: 
-```
-> dd1  
 ```
 Para exibir as médias móveis do diário de 20, de 50 e de 200 períodos:  
 ```
