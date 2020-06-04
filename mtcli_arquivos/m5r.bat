@@ -1,5 +1,6 @@
 @echo off
 rem aliases para comandos do mtcli
-rem grafico de ranges
+rem grafico de ranges do m5
 set p=m5
-mt bars %t% --view r --period %p% --date %d% --count 108
+call ranges %*
+time /t

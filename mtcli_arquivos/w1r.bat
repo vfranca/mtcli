@@ -1,5 +1,5 @@
 @echo off
 rem aliases para comandos do mtcli
-rem grafico de ranges
+rem grafico de ranges do weekly
 set p=weekly
-mt bars %t% --view r --period %p% --count 107
+call ranges %*
