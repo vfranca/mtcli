@@ -1,6 +1,7 @@
 @echo off
-rem deprecated
 rem aliases para comandos do mtcli
+rem gerencia as variáveis de ambiente
+cls
 rem lista as variáveis de ambiente
 if "%1" == "-l" (
 echo symbol %t%
@@ -8,7 +9,6 @@ echo period %p%
 echo date %d%
 goto :EOF
 )
-
 rem inicia as variáveis de ambiente
 set t=petr4
 echo symbol PETR4
