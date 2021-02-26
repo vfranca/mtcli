@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.7.1"
+version = "0.8.0"
 description = "Utilitario de linha de comando para leitura de graficos do MetaTrader 5"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 maintainers = ["Valmir Franca <vfranca3@gmail.com>"]
-license = "MIT"
+license = "GPL-2.0-only"
 readme = "docs/README.md"
 repository = "https://github.com/vfranca/mtcli"
 documentation = "https://vfranca.github.io/mtcli/"
@@ -14,7 +14,7 @@ classifiers = [
 "Environment :: Console",
 "Environment :: Win32 (MS Windows)",
 "Intended Audience :: Financial and Insurance Industry",
-"License :: OSI Approved :: MIT License",
+"License :: OSI Approved :: GNU General Public License (GPL)",
 "Natural Language :: Portuguese (Brazilian)",
 "Operating System :: Microsoft :: Windows :: Windows 10",
 "Programming Language :: Python :: 3.8",
