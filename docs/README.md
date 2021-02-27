@@ -24,7 +24,7 @@ Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.
 3. Instale o MetaTrader 5. De preferência obtenha o instalador no site da sua corretora, caso contrário o instalador está disponível para download no site oficial do MetaTrader.  
 4. Baixe no link abaixo o arquivo contendo os arquivos de trabalho do mtcli:  
 https://drive.google.com/file/d/1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp/view?usp=sharing  
-5. Descompacte o arquivo mtcli_arquivos.zip e renomeie para um nome da sua preferência. Essa pasta deverá ser usada para executar os atalhos de comandos do mtcli. Além disso nela estarão os expert advisors que deverão ser anexados ao s gráficos do MetaTrader 5 e o arquivo .env com variáveis de configuração.  
+5. Descompacte o arquivo mtcli-workspace.zip e renomeie para um nome da sua preferência. Essa pasta deverá ser usada para executar os atalhos de comandos do mtcli. Além disso nela estarão os expert advisors que deverão ser anexados ao s gráficos do MetaTrader 5 e o arquivo .env com variáveis de configuração.  
 6. Copie o arquivo .env para c:\.env e altere a variável CSV_PATH com o caminho da pasta de arquivos do MetaTrader 5.  
 7. Anexe um dos  expert advisors ao gráfico do MetaTrader 5.  
 
@@ -43,10 +43,13 @@ Pronto! O mtcli está pronto para ser usado.
   
   ## Agradecimentos  
   
-Agradecimentos ao @MaiconBaggio desenvolvedor do PyMQL5 que faz uma comunicação com o MetaTrader5 e fornecedor do robô que faz a geração automática dos arquivos CSV.  
+Agradecimentos:  
+Ao @MaiconBaggio desenvolvedor do PyMQL5 que faz uma comunicação com o MetaTrader5 e fornecedor do primeiro EA exportador das cotações.  
+Ao Claudio Garini que transferiu a geração das cotações para um indicador.  
+
 
 ------------
   
 ## Licenciamento  
 
-Este pacote é software livre e está licenciado sob os termos da [MIT](../LICENSE).  
+Este aplicativo está licenciado sob os termos da [GPL](../LICENSE).  
