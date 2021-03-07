@@ -26,11 +26,10 @@ classifiers = [
 python = "^3.8"
 click = "^7.0"
 python-dotenv = "^0.10.3"
-pymql5 = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.2"
-black = "^19.10b0"
+mock = "^4.0.3"
 
 [tool.poetry.scripts]
 mt = "mtcli.cli:cli"
