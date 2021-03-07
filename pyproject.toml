@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.8.0"
-description = "Utilitario de linha de comando para leitura de graficos do MetaTrader 5"
+version = "0.8.1"
+description = "Ferramenta de linha de comando para leitura de graficos do MetaTrader 5 para deficientes visuais"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 maintainers = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "GPL-2.0-only"
@@ -24,8 +24,9 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.8"
-click = "^7.0"
 python-dotenv = "^0.10.3"
+click = "^7.1.2"
+PyMQL5 = "^1.2.1"
 
 [tool.poetry.dev-dependencies]
 mock = "^4.0.3"

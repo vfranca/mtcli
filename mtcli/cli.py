@@ -18,7 +18,7 @@ from mtcli.conf import (
 
 @click.group()
 def cli():
-    """Console de scripts para MTCLI."""
+    """Converte graficos do MetaTrader 5 para texto."""
     pass
 
 
@@ -92,7 +92,10 @@ def account():
 @click.option("--price", "-p", type=float, help="Preço de entrada")
 @click.option("--stoploss", "-sl", type=float, help="Preço de stop loss")
 @click.option(
-    "--takeprofit", "-tp", type=float, help="Preço do takeprofit",
+    "--takeprofit",
+    "-tp",
+    type=float,
+    help="Preço do takeprofit",
 )
 def buy(symbol, volume, price, stoploss, takeprofit):
     """Executa uma órdem de compra."""
@@ -130,7 +133,10 @@ def buy(symbol, volume, price, stoploss, takeprofit):
 @click.option("--price", "-p", type=float, help="Preço de entrada")
 @click.option("--stoploss", "-sl", type=float, help="Preço de stoploss")
 @click.option(
-    "--takeprofit", "-tp", type=float, help="Preço do takeprofit",
+    "--takeprofit",
+    "-tp",
+    type=float,
+    help="Preço do takeprofit",
 )
 def sell(symbol, volume, price, stoploss, takeprofit):
     """Executa uma órdem de venda."""

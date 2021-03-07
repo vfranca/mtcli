@@ -88,6 +88,14 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
+name = "pymql5"
+version = "1.2.1"
+description = "O PyMQL5 a uma API que realiza a conexao entre Python3 e o Metatrader5 atraves de socket UDP"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pyparsing"
 version = "2.4.7"
 description = "Python parsing module"
@@ -138,7 +146,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3867dcad0ef2bd9bba260ba7c8da667b73724e4c48c5f483113ffb733dc2c398"
+content-hash = "57af43fa4dc658e1e98da77d6a735a672d4e54170517ff8dd86630c60b064c2e"
 
 [metadata.files]
 atomicwrites = [
@@ -176,6 +184,9 @@ pluggy = [
 py = [
     {file = "py-1.10.0-py2.py3-none-any.whl", hash = "sha256:3b80836aa6d1feeaa108e046da6423ab8f6ceda6468545ae8d02d9d58d18818a"},
     {file = "py-1.10.0.tar.gz", hash = "sha256:21b81bda15b66ef5e1a777a21c4dcd9c20ad3efd0b3f817e7a809035269e1bd3"},
+]
+pymql5 = [
+    {file = "PyMQL5-1.2.1.tar.gz", hash = "sha256:4d8a237639825af4573d38dd0cebba1652443cf6fc2b666b313855e64f29bc9b"},
 ]
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},
