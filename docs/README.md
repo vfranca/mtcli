@@ -1,6 +1,6 @@
 # mtcli  
   
-Utilitário de linha de comando para leitura de gráficos do MetaTrader 5.  
+Ferramenta de linha de comando para leitura de gráficos do MetaTrader 5 para deficientes visuais.  
   
 [PyPI](https://pypi.python.org/pypi/mtcli)  
 [Documentação](https://vfranca.github.io/mtcli)  
