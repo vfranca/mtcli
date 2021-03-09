@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.8.1"
+version = "0.9.0"
 description = "Ferramenta de linha de comando para leitura de graficos do MetaTrader 5 para deficientes visuais"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 maintainers = ["Valmir Franca <vfranca3@gmail.com>"]
@@ -31,6 +31,7 @@ PyMQL5 = "^1.2.1"
 [tool.poetry.dev-dependencies]
 mock = "^4.0.3"
 pytest = "^6.2.2"
+black = "^20.8b1"
 
 [tool.poetry.scripts]
 mt = "mtcli.cli:cli"
