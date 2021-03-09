@@ -17,7 +17,7 @@ from mtcli.conf import (
 
 
 @click.group(invoke_without_command=True)
-@click.option("--version", "-v", is_flag=True)
+@click.option("--version", is_flag=True)
 def cli(version):
     """Converte graficos do MetaTrader 5 para texto."""
     if version:
