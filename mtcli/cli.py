@@ -14,6 +14,7 @@ from mtcli.conf import (
     POSITION_CANCELED_ERROR,
     POSITION_CANCELED_SUCCESS,
 )
+from mtcli import __version__
 
 
 @click.group(invoke_without_command=True)
@@ -21,8 +22,7 @@ from mtcli.conf import (
 def cli(version):
     """Converte graficos do MetaTrader 5 para texto."""
     if version:
-        click.echo("mtcli v0.10.0")
-
+        click.echo("mtcli v%s" % __version__)
 
 
 @click.command()
