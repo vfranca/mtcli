@@ -280,3 +280,7 @@ class TestCli(TestCase):
         mql5.AccountInfoAll.return_value = None
         res = self.runner.invoke(cli.account)
         self.assertEqual(res.exit_code, 1)
+
+    def test_exibe_a_versao_do_mtcli(self):
+        res = self.runner.invoke(cli.cli, ["--version"])
+        self.assertEqual(res.output, "mtcli v0.10.0\n")
