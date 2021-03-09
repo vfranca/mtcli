@@ -14,12 +14,15 @@ from mtcli.conf import (
     POSITION_CANCELED_ERROR,
     POSITION_CANCELED_SUCCESS,
 )
+from mtcli import __version__
 
 
-@click.group()
-def cli():
+@click.group(invoke_without_command=True)
+@click.option("--version", is_flag=True, help="Exibe a versao do mtcli")
+def cli(version):
     """Converte graficos do MetaTrader 5 para texto."""
-    pass
+    if version:
+        click.echo("mtcli v%s" % __version__)
 
 
 @click.command()
