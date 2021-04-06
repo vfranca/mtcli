@@ -1,4 +1,7 @@
-from unittest import TestCase, mock
+"""
+Testes funcionais
+"""
+from unittest import TestCase, mock, skip
 from click.testing import CliRunner
 from mtcli import cli
 from mtcli.conf import (
@@ -117,13 +120,14 @@ class TestCli(TestCase):
         self.assertEqual(res.output, " ASC -0.38\n")
         self.assertEqual(res.exit_code, 0)
 
-    def test_exibe_o_atr_do_diario_da_abev3_de_14_periodos(self):
+    def test_exibe_o_range_medio_do_diario_da_abev3_de_14_periodos(self):
         res = self.runner.invoke(
-            cli.atr, ["abev3", "--period", "daily", "--count", "14"]
+            cli.rm, ["abev3", "--period", "daily", "--count", "14"]
         )
         self.assertEqual(res.output, "0.34\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_compra_a_mercado(self, mql5):
         mql5.iClose.return_value = 18.50
@@ -134,6 +138,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "123456\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_falha_uma_compra_a_mercado(self, mql5):
         mql5.iClose.return_value = 18.50
@@ -144,6 +149,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, ORDER_ERROR + "\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_vende_a_mercado(self, mql5):
         mql5.iClose.return_value = 18.50
@@ -154,6 +160,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "123456\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_falha_uma_venda_a_mercado(self, mql5):
         mql5.Sell.return_value = -1
@@ -163,6 +170,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, ORDER_ERROR + "\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_lista_ordens_pendentes(self, mql5):
         mql5.OrderAll.return_value = [
@@ -198,6 +206,7 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_lista_posicoes_abertas(self, mql5):
         mql5.PositionAll.return_value = self.positions
@@ -208,6 +217,7 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_o_stoploss_de_uma_posicao_pelo_ativo(self, mql5):
         mql5.PositionAll.return_value = self.positions
@@ -216,6 +226,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_o_take_profit_de_uma_posicao_pelo_ativo(self, mql5):
         mql5.PositionAll.return_value = self.positions
@@ -224,6 +235,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_cancela_todas_as_posicoes_e_ordens(self, mql5):
         mql5.CancelAllOrder.return_value = 1
@@ -234,6 +246,7 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_cancela_todas_as_ordens_pendentes(self, mql5):
         mql5.CancelAllOrder.return_value = 1
@@ -241,6 +254,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, ORDER_CANCELED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_venda_stop_com_pymql5_retornando_none(self, mql5):
         mql5.iClose.return_value = 116310
@@ -251,6 +265,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, "")
         self.assertEqual(res.exit_code, 1)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_stoploss_de_umaposicao_com_minuscula(self, mql5):
         mql5.PositionAll.return_value = self.positions
@@ -258,6 +273,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_altera_takeprofit_de_umaposicao_com_minuscula(self, mql5):
         mql5.PositionAll.return_value = self.positions
@@ -265,6 +281,7 @@ class TestCli(TestCase):
         self.assertEqual(res.output, POSITION_MODIFIED_SUCCESS + "\n")
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_exibe_dados_da_conta_de_trading(self, mql5):
         mql5.AccountInfoAll.return_value = self.account
@@ -275,6 +292,7 @@ class TestCli(TestCase):
         )
         self.assertEqual(res.exit_code, 0)
 
+    @skip("")
     @mock.patch("mtcli.mt5_facade.mql5")
     def test_exibe_dados_da_conta_de_trading_sem_conexao_com_o_metatrader(self, mql5):
         mql5.AccountInfoAll.return_value = None

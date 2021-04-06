@@ -1,20 +1,12 @@
-# -*- coding: utf-8 -*-
-import click
+"""
+Scripts do console
+"""
+from mtcli import mtcli
 from mtcli import indicator
-from mtcli.mtcli import controller
-from mtcli.fib import Fib
-from mtcli.mt5_facade import MT5Facade
-from mtcli.conf import (
-    ORDER_ERROR,
-    PRICE_CURRENT_ERROR,
-    POSITION_MODIFIED_SUCCESS,
-    POSITION_MODIFIED_ERROR,
-    ORDER_CANCELED_ERROR,
-    ORDER_CANCELED_SUCCESS,
-    POSITION_CANCELED_ERROR,
-    POSITION_CANCELED_SUCCESS,
-)
-import mtcli
+from mtcli import mt5_facade as mt5
+from mtcli import conf
+from mtcli import __version__
+import click
 
 
 @click.group(invoke_without_command=True)
@@ -22,7 +14,8 @@ import mtcli
 def cli(version):
     """Converte graficos do MetaTrader 5 para texto."""
     if version:
-        click.echo("mtcli v%s" % mtcli.__version__)
+        click.echo("mtcli %s" % __version__)
+        return 0
 
 
 @click.command()
@@ -32,8 +25,8 @@ def cli(version):
 @click.option("--count", "-c", type=int, default=40, help="Quantidade de barras")
 @click.option("--date", "-d", help="Data (para day trade)")
 def bars(symbol, period, view, count, date):
-    """Listagem das barras do gráfico."""
-    views = controller(symbol, period, view, date, count)
+    """Lista as barras do gráfico."""
+    views = mtcli.controller(symbol, period, view, date, count)
     for view in views:
         click.echo(view)
     return 0
@@ -41,44 +34,20 @@ def bars(symbol, period, view, count, date):
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="h1", help="Timeframe ou tempo gráfico")
-@click.option(
-    "--count", "-c", default=20, help="Quantidade de períodos abrangidos no cálculo"
-)
-def sma(symbol, period, count):
-    """Média móvel aritmética."""
+@click.option("--period", "-p", default="h1", help="Tempo gráfico")
+@click.option("--count", "-c", default=20, help="Quantidade de períodos")
+def mm(symbol, period, count):
+    """Calcula a média móvel simples."""
     click.echo(indicator.sma.get_sma(symbol, period, count))
 
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="h1", help="Timeframe ou tempo gráfico")
-@click.option(
-    "--count", "-c", default=20, help="Quantidade de períodos abrangidos no cálculo"
-)
-def ema(symbol, period, count):
-    """ Média móvel exponencial."""
-    click.echo(indicator.ema.get_ema(symbol, period, count))
-
-
-@click.command()
-@click.argument("symbol")
-@click.option("--period", "-p", default="h1", help="Timeframe ou tempo gráfico")
-@click.option(
-    "--count", "-c", default=14, help="Quantidade de períodos abrangidos no cálculo"
-)
-def atr(symbol, period, count):
-    """Range médio."""
+@click.option("--period", "-p", default="h1", help="Tempo gráfico")
+@click.option("--count", "-c", default=14, help="Quantidade de períodos")
+def rm(symbol, period, count):
+    """Calcula o range médio das barras."""
     click.echo(indicator.atr.get_atr(symbol, period, count))
-
-
-@click.command()
-@click.argument("high")
-@click.argument("low")
-@click.argument("trend")
-def fib(high, low, trend):
-    """Retrações e extensões de fibonacci."""
-    click.echo(Fib(float(high), float(low), str(trend)))
 
 
 @click.command()
@@ -233,10 +202,8 @@ def cancel(type, symbol, order, position):
 
 
 cli.add_command(bars)
-cli.add_command(sma)
-# cli.add_command(ema)
-cli.add_command(atr)
-cli.add_command(fib)
+cli.add_command(mm)
+cli.add_command(rm)
 # cli.add_command(account)
 # cli.add_command(buy)
 # cli.add_command(sell)
