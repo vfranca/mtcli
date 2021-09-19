@@ -6,6 +6,8 @@ load_dotenv()
 digits = int(os.getenv("DIGITS"))
 r = "%." + str(digits) + "f"
 csv_path = os.getenv("CSV_PATH")
+csv_path = csv_path.replace("\\", "/")
+csv_path += "/"
 
 lbl_body_doji = "DOJI"
 lbl_body_bull = "VERDE"
