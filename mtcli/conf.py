@@ -1,10 +1,20 @@
-# -*- coding: utf-8 -*-
+"""
+mtcli
+Variáveis de configuração
+"""
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
-digits = int(os.getenv("DIGITS"))
+
+digits = os.getenv("DIGITS")
+if digits == None:
+    digits = 2
+else:
+    digits = int(digits)
+    
 r = "%." + str(digits) + "f"
+
 csv_path = os.getenv("CSV_PATH")
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
