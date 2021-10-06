@@ -21,19 +21,20 @@ Ferramenta de linha de comando para leitura de gráficos do MetaTrader 5 para de
 ```
 > pip install mtcli
 ```
+
 3. Instale o MetaTrader 5. De preferência obtenha o instalador no site da sua corretora, caso contrário o instalador está disponível para download no site oficial do MetaTrader.  
+
 4. Baixe no link abaixo o arquivo contendo os arquivos de trabalho do mtcli:  
 https://drive.google.com/file/d/1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp/view?usp=sharing  
 
-5. Descompacte o arquivo mtcli.zip. Uma pasta mtcli será criada. Essa pasta deverá ser usada para executar os atalhos de comandos do mtcli. Além disso nela está indicador mtcli.ex5 que deverá ser anexados ao s gráficos do MetaTrader 5.
+5. Descompacte o arquivo mtcli.zip. Uma pasta mtcli será criada. Essa pasta deverá ser usada para executar os atalhos de comandos do mtcli. Além disso nela estará o indicador mtcli.ex5 que deverá ser anexados ao gráfico do MetaTrader 5.
  
-6. No MetaTrader 5 abra a pasta de dados (CTRL+SHIFT+D) e copie o camimnho da pasta mql5\Files para a área de transfer~encia.
-
+6. No MetaTrader 5 abra a pasta de dados (CTRL+SHIFT+D) e copie o camimnho da pasta mql5/Files para a área de transferência.
 
 7. Configure o mtcli com o caminho copiado da pasta do MetaTrader 5:
 ```cmd
-> cd C:\
-> dotenv CSV_PATH <cole-aqui-o-caminho-da-pasta>
+> cd mtcli
+> conf CSV_PATH <cole-aqui-o-caminho-da-pasta>
 ```
 
 8. Anexe o indicador mtcli.ex5 ao gráfico do MetaTrader 5.  
