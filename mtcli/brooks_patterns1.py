@@ -20,7 +20,7 @@ class BrooksPatterns1(object):
         self.pattern = self.__get_pattern()
 
     def __get_body_pattern(self):
-        """ Padrão de corpo: alta/baixa/doji."""
+        """Padrão de corpo: alta/baixa/doji."""
         if abs(self.body) <= self.body_doji_max:
             return conf.lbl_body_doji
         if self.body > 0:
@@ -37,7 +37,7 @@ class BrooksPatterns1(object):
         return conf.lbl_tail_neutral
 
     def __get_pattern(self):
-        """ Padrão de uma barra: careca/topo raspado, fundo raspado."""
+        """Padrão de uma barra: careca/topo raspado, fundo raspado."""
         if self.__is_buy_pressure():
             return conf.lbl_buy_pressure
         if self.__is_sell_pressure():
@@ -45,19 +45,19 @@ class BrooksPatterns1(object):
         return ""
 
     def __is_topo_careca(self):
-        """ Se for topo careca retorna true."""
+        """Se for topo careca retorna true."""
         pass
 
     def __is_fundo_careca(self):
-        """ Se for fundo careca retorna true."""
+        """Se for fundo careca retorna true."""
         pass
 
     def __is_careca(self):
-        """ Se for careca retorna true."""
+        """Se for careca retorna true."""
         pass
 
     def __is_buy_pressure(self):
-        """ Se tiver pressão compradora retorna true."""
+        """Se tiver pressão compradora retorna true."""
         if self.body < 0:
             return False
         if abs(self.body) < self.body_trend_min:
@@ -69,7 +69,7 @@ class BrooksPatterns1(object):
         return True
 
     def __is_sell_pressure(self):
-        """ Se tiver pressão vendedora retorna true."""
+        """Se tiver pressão vendedora retorna true."""
         if self.body > 0:
             return False
         if abs(self.body) < self.body_trend_min:

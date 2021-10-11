@@ -12,7 +12,7 @@ if digits == None:
     digits = 2
 else:
     digits = int(digits)
-    
+
 r = "%." + str(digits) + "f"
 
 csv_path = os.getenv("CSV_PATH")

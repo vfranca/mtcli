@@ -3,7 +3,6 @@ Scripts do console
 """
 from mtcli import mtcli
 from mtcli import indicator
-from mtcli import mt5_facade as mt5
 from mtcli import conf
 from mtcli import __version__
 import click
