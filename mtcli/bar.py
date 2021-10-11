@@ -21,18 +21,18 @@ class Bar(object):
         self.trend = self.__get_trend()
 
     def __get_range(self):
-        """ Retorna o range do candle."""
+        """Retorna o range do candle."""
         return self.high - self.low
 
     def __get_body(self):
-        """ Retorna o tamanho  relativo do corpo real em porcentagem."""
+        """Retorna o tamanho  relativo do corpo real em porcentagem."""
         if self.range == 0:
             return 0
 
         return round((self.close - self.open) / self.range * 100)
 
     def __get_top(self):
-        """ Retorna o tamanho relativo da sombra superior em porcentagem."""
+        """Retorna o tamanho relativo da sombra superior em porcentagem."""
         high = self.high
         open = self.open
         close = self.close
@@ -49,7 +49,7 @@ class Bar(object):
         return round(top / range * 100)
 
     def __get_bottom(self):
-        """ Retorna o tamanho relativo da sombra inferior em porcentagem."""
+        """Retorna o tamanho relativo da sombra inferior em porcentagem."""
         low = self.low
         open = self.open
         close = self.close

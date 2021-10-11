@@ -7,7 +7,7 @@ from mtcli import conf
 
 
 def get_sma(symbol, period, count=20):
-    """ Calcula a média móvel simples dos preços de fechamento."""
+    """Calcula a média móvel simples dos preços de fechamento."""
     csv_file = conf.csv_path + symbol + period + ".csv"
     prices = []
     bars = BarModel(csv_file)

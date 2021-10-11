@@ -7,12 +7,12 @@ from mtcli import conf
 
 
 def get_k(count=20):
-    """ Calcula o coeficiente multiplicador."""
+    """Calcula o coeficiente multiplicador."""
     return round(2 / (count + 1), 3)
 
 
 def get_price_close(csv_file):
-    """ Obtem o preço de fechamento atual."""
+    """Obtem o preço de fechamento atual."""
     bars = BarModel(csv_file)
     price_close = 0.0
     for item in bars:
@@ -22,7 +22,7 @@ def get_price_close(csv_file):
 
 
 def get_last_ema(csv_file, count=20):
-    """ Obtem a última EMA. """
+    """Obtem a última EMA."""
     prices = []
     bars = BarModel(csv_file)
     for item in bars:
@@ -33,7 +33,7 @@ def get_last_ema(csv_file, count=20):
 
 
 def get_ema(symbol, period, count=20):
-    """ Calcula a média móvel exponencial dos preços de fechamento."""
+    """Calcula a média móvel exponencial dos preços de fechamento."""
     csv_file = conf.csv_path + symbol + period + ".csv"
     k = get_k(count)
     close = get_price_close(csv_file)

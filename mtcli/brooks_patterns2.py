@@ -15,7 +15,7 @@ class BrooksPatterns2(object):
         self.pattern = self.__get_pattern()
 
     def __get_pattern(self):
-        """ Padrão de duas barras."""
+        """Padrão de duas barras."""
         # Verifica se existe gap
         if self.__is_gap():
             if self.body[1] > 0:
@@ -27,7 +27,7 @@ class BrooksPatterns2(object):
         return conf.lbl_fbo
 
     def __is_gap(self):
-        """ Se for gap retorna true."""
+        """Se for gap retorna true."""
         """ Se não tiver tendência retorna false."""
         if self.body[1] == 0:
             return False
@@ -42,11 +42,11 @@ class BrooksPatterns2(object):
         return True
 
     def __is_bull_reversal(self):
-        """ Se for reversão de alta de duas barras retorna true."""
+        """Se for reversão de alta de duas barras retorna true."""
         pass
 
     def __is_bear_reversal(self):
-        """ Se for reversão de baixa de duas barras retorna true."""
+        """Se for reversão de baixa de duas barras retorna true."""
         pass
 
     def __is_microdoubletop(self):
@@ -58,7 +58,7 @@ class BrooksPatterns2(object):
         pass
 
     def __get_trend(self):
-        """ Retorna a tendência da sequência de dois candles."""
+        """Retorna a tendência da sequência de dois candles."""
         if self.high[1] > self.high[0] and self.low[1] > self.low[0]:
             return conf.lbl_asc
         if self.high[1] < self.high[0] and self.low[1] < self.low[0]:
