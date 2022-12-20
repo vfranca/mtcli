@@ -9,34 +9,36 @@ import MetaTrader5 as mt5
 
 load_dotenv()
 
-# dígitos da moeda
+# Dígitos da moeda
 digits = os.getenv("DIGITS")
-if digits == None:
-    digits = 2
-else:
-    digits = int(digits)
+if digits == None: digits = 2
+else: digits = int(digits)
 
 r = "%." + str(digits) + "f"
 
 # caminho dos dados do MetaTrader 5
-csv_path = os.getenv("CSV_PATH")
-
 mt5.initialize()
 info = mt5.terminal_info()
-csv_path = info.data_path + "/MQL5/Files"
+csv_path = os.getenv("CSV_PATH")
+if csv_path == None: csv_path = info.data_path + "/MQL5/Files"
 mt5.shutdown()
-
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
-# nome de um doji
-lbl_body_doji = "DOJI"
+# Nome do corpo doji
+corpo_doji = os.getenv("CORPO_DOJI")
+if corpo_doji == None: lbl_body_doji = "DOJI"
+else: lbl_body_doji = corpo_doji
 
-# cor do corpo de alta
-lbl_body_bull = "VERDE"
+# Nome do corpo de alta
+alta=os.getenv("CORPO_DE_ALTA")
+if alta == None: lbl_body_bull = "VERDE"
+else: lbl_body_bull = alta
 
-# cor do corpo de baixa
-lbl_body_bear = "VERMELHO"
+# Nome do corpo de baixa
+baixa = os.getenv("CORPO_DE_BAIXA")
+if baixa == None: lbl_body_bear = "VERMELHO"
+else: lbl_body_bear = baixa
 
 # nome da sombra superior
 lbl_toptail = "TOP"
