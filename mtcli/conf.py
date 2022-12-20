@@ -4,9 +4,12 @@ Variáveis de configuração
 """
 import os
 from dotenv import load_dotenv
+import MetaTrader5 as mt5
+
 
 load_dotenv()
 
+# dígitos da moeda
 digits = os.getenv("DIGITS")
 if digits == None:
     digits = 2
@@ -15,15 +18,32 @@ else:
 
 r = "%." + str(digits) + "f"
 
+# caminho dos dados do MetaTrader 5
 csv_path = os.getenv("CSV_PATH")
+
+mt5.initialize()
+info = mt5.terminal_info()
+csv_path = info.data_path + "/MQL5/Files"
+mt5.shutdown()
+
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
+# nome de um doji
 lbl_body_doji = "DOJI"
+
+# cor do corpo de alta
 lbl_body_bull = "VERDE"
+
+# cor do corpo de baixa
 lbl_body_bear = "VERMELHO"
+
+# nome da sombra superior
 lbl_toptail = "TOP"
+
+# nome da sombra inferior
 lbl_bottomtail = "BOTTOM"
+
 lbl_tail_neutral = "NONE"
 lbl_buy_pressure = "CP"
 lbl_sell_pressure = "VD"
