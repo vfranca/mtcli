@@ -6,8 +6,8 @@ from mtcli import conf
 
 class BrooksPatterns1(object):
 
-    body_doji_max = 10
-    body_trend_min = 50
+    body_doji_max = conf.percentual_lateral
+    body_trend_min = conf.percentual_rompimento
 
     def __init__(self, body, top, bottom, close, retracement):
         self.body = body

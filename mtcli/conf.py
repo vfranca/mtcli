@@ -25,18 +25,18 @@ mt5.shutdown()
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
-# Nome do corpo doji
-corpo_doji = os.getenv("CORPO_DOJI")
-if corpo_doji == None: lbl_body_doji = "DOJI"
-else: lbl_body_doji = corpo_doji
+# Nome da barra lateral
+lateral = os.getenv("LATERAL")
+if lateral == None: lbl_body_doji = "DOJI"
+else: lbl_body_doji = lateral
 
-# Nome do corpo de alta
-alta=os.getenv("CORPO_DE_ALTA")
+# Nome da barra de alta
+alta=os.getenv("ALTA")
 if alta == None: lbl_body_bull = "VERDE"
 else: lbl_body_bull = alta
 
-# Nome do corpo de baixa
-baixa = os.getenv("CORPO_DE_BAIXA")
+# Nome da barra de baixa
+baixa = os.getenv("BAIXA")
 if baixa == None: lbl_body_bear = "VERMELHO"
 else: lbl_body_bear = baixa
 
@@ -46,22 +46,58 @@ lbl_toptail = "TOP"
 # nome da sombra inferior
 lbl_bottomtail = "BOTTOM"
 
+# Nome da sombra careca
 lbl_tail_neutral = "NONE"
-lbl_buy_pressure = "CP"
-lbl_sell_pressure = "VD"
 
+# Sigla da pressão compradora
+pressao_compra = os.getenv("PRESSAO_COMPRA")
+if pressao_compra == None: lbl_buy_pressure = "CP"
+else: lbl_buy_pressure = pressao_compra
+
+# Sigla da pressão vendedora
+pressao_venda = os.getenv("PRESSAO_VENDA")
+if pressao_venda == None: lbl_sell_pressure = "VD"
+else: lbl_sell_pressure = pressao_venda
+
+# Sigla do gap de fechamento
 lbl_gap = "G"
+
+# Sigla da falha de rompimento
 lbl_fbo = ""
 
+# Nome da barra ascendente
 lbl_asc = "ASC"
+
+# Nome da barra descendente
 lbl_desc = "DESC"
+
+# Nome da barra externa
 lbl_ob = "OB"
+
+# Nome da barra interna
 lbl_ib = "IB"
 
-SYMBOL = "WINV19"
-PERIOD = "H1"
+# Percentual do corpo da barra de rompimento
+percentual_rompimento = int(os.getenv("PERCENTUAL_ROMPIMENTO"))
+if percentual_rompimento == None: percentual_rompimento = 80
+
+# Percentual do corpo da barra lateral
+percentual_lateral = int(os.getenv("PERCENTUAL_LATERAL"))
+if percentual_lateral == None: percentual_lateral = 10
+
+# Ativo padrão
+SYMBOL = "IBOV"
+
+# Período padrão
+PERIOD = "D1"
+
+# Volume padrão
 VOLUME = 1
+
+# Stop loss padrão
 STOP_LOSS = 250
+
+# Take profit padrão
 TAKE_PROFIT = 500
 
 ORDER_ERROR = "Órdem recusada"
