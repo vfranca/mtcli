@@ -80,12 +80,12 @@ lbl_ib = "IB"
 # Percentual do corpo da barra de rompimento
 percentual_rompimento = os.getenv("PERCENTUAL_ROMPIMENTO")
 if percentual_rompimento == None: percentual_rompimento = 50
-int(percentual_rompimento)
+percentual_rompimento = int(percentual_rompimento)
 
 # Percentual do corpo da barra lateral
 percentual_lateral = os.getenv("PERCENTUAL_LATERAL")
 if percentual_lateral == None: percentual_lateral = 10
-int(percentual_lateral)
+percentual_lateral = int(percentual_lateral)
 
 # Ativo padrão
 SYMBOL = "IBOV"
