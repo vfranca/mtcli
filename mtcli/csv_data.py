@@ -1,7 +1,7 @@
 import csv
 
 
-class Model:
+class Data:
 
     data = []
 
@@ -15,7 +15,7 @@ class Model:
         return len(self.data)
 
 
-class BarModel(Model):
+class Rates(Data):
     def __init__(self, csv_file):
         with open(csv_file, encoding="utf-16", newline="") as f:
             lines = csv.reader(f, delimiter=",", quotechar="'")

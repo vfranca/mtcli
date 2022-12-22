@@ -1,4 +1,4 @@
-from mtcli.models import BarModel
+from mtcli.csv_data import Rates
 from mtcli import views as _view
 from mtcli import helpers as helper
 from mtcli.bar import Bar
@@ -8,30 +8,43 @@ from mtcli import conf
 
 
 def controller(
-    symbol: str, period: str, view: str, date: str = "", count: int = 40
-) -> list:
-    """Retorna uma lista de views."""
+    symbol, period, view, date = "", count= 40
+):
+    """Retorna uma lista de barras."""
+    # Arquivo CSV com as cotações OHLC
     csv_file = conf.csv_path + symbol + period + ".csv"
-    views, close, open = [], [], []
-    high1, low1, body = [], [], []
-    num_bar, counter, bull, bear, doji = 0, 0, 0, 0, 0
 
-    bars = BarModel(csv_file)
-    for item in bars:
-        bar = Bar(item)
+    # Inicia as listas
+    views = []
+    close = []
+    open = []
+    high1 = []
+    low1 = []
+    body = []
+    num_bar = 0
+    counter = 0
+    bull = 0
+    bear = 0
+    doji = 0
+
+    # Obtem as cotacoes (rates) do arquivo CSV
+    rates = Rates(csv_file)
+    for rate in rates:
+        # Extrai os dados da barra
+        bar = Bar(rate)
         counter += 1
 
-        # Filtra a lista de views a partir de uma data
+        # Se houver uma data de intraday filtra a lista de barras a partir de uma data
         if date and bar.date != date:
             continue
 
-        # Obtem o número da barra
+        # Se houver um filtro por data obtem o número da barra
         if date:
             num_bar += 1
         else:
             num_bar = ""
 
-        # Extrai dados de duas barras consecutivas
+        # Extrai o price action de 2 barras em sequência
         body.append(bar.body)
         open.append(bar.open)
         close.append(bar.close)
@@ -54,7 +67,7 @@ def controller(
 
         # Contagem de barras de tendência e barras doji
         if count:
-            start = len(bars) - count
+            start = len(rates) - count
             if counter > start:
                 mp = helper.get_medium_point(bar)
                 pattern1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, mp)
