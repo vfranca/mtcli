@@ -38,9 +38,7 @@ requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.poetry.scripts]
-mt = "mtcli.cli:cli"
-bars = "mtcli.cli:bars"
-mm = "mtcli.cli:mm"
-sma = "mtcli.cli:mm"
-rm = "mtcli.cli:rm"
-atr = "mtcli.cli:rm"
+mt = "mtcli.mt:cli"
+bars = "mtcli.bars:bars"
+mm = "mtcli.mm:mm"
+rm = "mtcli.rm:rm"

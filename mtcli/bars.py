@@ -1,20 +1,28 @@
+import click
 from mtcli.csv_data import Rates
 from mtcli import views as _view
-from mtcli import helpers as helper
-from mtcli.bar import Bar
-from mtcli.brooks_patterns1 import BrooksPatterns1
-from mtcli.brooks_patterns2 import BrooksPatterns2
+from mtcli.pa import helpers as helper
+from mtcli.pa.pa_bar import Bar
+from mtcli.pa.pa_one_bar import OneBar
+from mtcli.pa.pa_two_bars import TwoBars
 from mtcli import conf
 
 
-def controller(
-    symbol, period, view, date = "", count= 40
-):
+# Cria o comando bars
+@click.command()
+@click.argument("symbol")
+@click.option("--view", "-v", help="Formato de exibição")
+@click.option("--period", "-p", default="D1", help="Tempo gráfico")
+@click.option("--count", "-c", type=int, default=40, help="Quantidade de barras")
+@click.option("--date", "-d", default="", help="Data (para day trade)")
+def bars(symbol, view, period, count, date):
+    """Lista as barras do gráfico."""
+
     """Retorna uma lista de barras."""
     # Arquivo CSV com as cotações OHLC
     csv_file = conf.csv_path + symbol + period + ".csv"
 
-    # Inicia as listas
+    # Inicia as variaveis
     views = []
     close = []
     open = []
@@ -51,7 +59,7 @@ def controller(
         high1.append(bar.high)
         low1.append(bar.low)
         if len(body) == 2:
-            brooks = BrooksPatterns2(body, open, close, high1, low1)
+            brooks = TwoBars(body, open, close, high1, low1)
             pattern2 = brooks.pattern
             ch_trend = brooks.trend
             var_close = helper.get_var(close[0], close[1])
@@ -70,7 +78,7 @@ def controller(
             start = len(rates) - count
             if counter > start:
                 mp = helper.get_medium_point(bar)
-                pattern1 = BrooksPatterns1(bar.body, bar.top, bar.bottom, bar.close, mp)
+                pattern1 = OneBar(bar.body, bar.top, bar.bottom, bar.close, mp)
                 if pattern1.pattern == conf.lbl_buy_pressure:
                     bull += 1
                 elif pattern1.pattern == conf.lbl_sell_pressure:
@@ -104,4 +112,10 @@ def controller(
         if count and len(views) > count:
             views.pop(0)
 
-    return views
+    # Exibe as barras
+    for view in views:
+        click.echo(view)
+
+
+if __name__ == "__main__":
+    bars()

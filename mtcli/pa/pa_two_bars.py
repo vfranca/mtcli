@@ -4,7 +4,7 @@ Padrões do método Al Brooks de 2 barras
 from mtcli import conf
 
 
-class BrooksPatterns2(object):
+class TwoBars(object):
     def __init__(self, body, open, close, high, low):
         self.body = body
         self.open = open

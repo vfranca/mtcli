@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from mtcli.brooks_patterns1 import BrooksPatterns1
-from mtcli import helpers as helper
+from mtcli.pa.pa_one_bar import OneBar
+from mtcli.pa import helpers as helper
 from mtcli import conf
 
 
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
     """Retorna a exibição com os padrões Brooks."""
     mp = helper.get_medium_point(bar)
-    brooks1 = BrooksPatterns1(
+    brooks1 = OneBar(
         bar.body, bar.top, bar.bottom, bar.close, mp
     )  # padrões de 1 barra
 

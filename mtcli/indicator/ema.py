@@ -2,7 +2,7 @@
 Exponential Moving Average ou EMA
 """
 from mtcli.csv_data import Rates
-from mtcli.bar import Bar
+from mtcli.pa.pa_bar import Bar
 from mtcli import conf
 
 

@@ -4,7 +4,7 @@ Padrões do método Al Brooks de 1 barra
 from mtcli import conf
 
 
-class BrooksPatterns1(object):
+class OneBar(object):
 
     body_doji_max = conf.percentual_lateral
     body_trend_min = conf.percentual_rompimento

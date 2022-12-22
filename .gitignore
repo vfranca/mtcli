@@ -107,3 +107,6 @@ ENV/
 
 # twine
 /.pypirc
+
+# temporários
+*.~
