@@ -7,9 +7,7 @@ from mtcli import conf
 def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
     """Retorna a exibição com os padrões Brooks."""
     mp = helper.get_medium_point(bar)
-    brooks1 = OneBar(
-        bar.body, bar.top, bar.bottom, bar.close, mp
-    )  # padrões de 1 barra
+    brooks1 = OneBar(bar.body, bar.top, bar.bottom, bar.close, mp)  # padrões de 1 barra
 
     tail = brooks1.tail
     if tail == conf.lbl_toptail:
