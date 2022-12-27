@@ -10,7 +10,7 @@ Ferramenta de linha de comando para usuários cegos do MetaTrader 5.
 ## Pré-requisitos  
 
 * [MetaTrader 5](https://www.metatrader5.com/pt) - Plataforma de trading.  
-* Indicador mtcli -programa MQL5 executado no MetaTrader 5.  
+* [Indicador mtcli](https://drive.google.com/open?id=1yKYI873r_liiexugqisgc-OeVc_5IlGH&authuser=vfranca3%40gmail.com&usp=drive_fs) -programa MQL5 executado no MetaTrader 5.  
 * [Python](https://www.python.org/downloads/windows) - Interpretador de comandos.  
 
 
@@ -25,6 +25,7 @@ winget install python
 ```
 
 4. Instalar o mtcli:
+
 ```cmd
 pip install mtcli
 ```
@@ -38,13 +39,22 @@ https://drive.google.com/file/d/1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp/view?usp=shari
 ## Comandos  
   
 ```cmd
-mt bars <ativo> - Exibe as barras do gráfico do ativo especificado.
-mt mm <ativo> - Exibe a média móvel simples dos últimos 20 períodos do ativo.
-mt rm <ativo> - Exibe o range médio dos últimos 14 períodos do ativo.
+mt bars <ticker_de_ativo> 
 ```
+Exibe as barras do gráfico do ticker de ativo.
+
+```cmd
+mt mm <ticker_de_ativo>
+```
+Exibe a média móvel simples dos últimos 20 períodos do ticker de ativo.
+
+```cmd
+mt rm <ticker_de_ativo>
+```
+Exibe o range médio dos últimos 14 períodos do ticker_de_ativo.
 
 ------------
-  
+ 
   ## Agradecimentos  
   
 Ao @MaiconBaggio desenvolvedor do PyMQL5 que faz uma comunicação com o MetaTrader5 e fornecedor do primeiro EA exportador das cotações.  
