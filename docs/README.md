@@ -1,6 +1,6 @@
 # mtcli  
   
-Ferramenta de linha de comando para leitura de gráficos do MetaTrader 5 para deficientes visuais.  
+Ferramenta de linha de comando para usuários cegos do MetaTrader 5.
   
 [PyPI](https://pypi.python.org/pypi/mtcli)  
 [Documentação](https://vfranca.github.io/mtcli)  
@@ -9,37 +9,30 @@ Ferramenta de linha de comando para leitura de gráficos do MetaTrader 5 para de
 
 ## Pré-requisitos  
 
-* [MetaTrader5](https://www.metatrader5.com/pt) - Plataforma de trading.  
-* [Python](https://www.python.org/downloads/windows) - Interpretador de comandos disponível no prompt de comando.  
+* [MetaTrader 5](https://www.metatrader5.com/pt) - Plataforma de trading.  
+* Indicador mtcli -programa MQL5 executado no MetaTrader 5.  
+* [Python](https://www.python.org/downloads/windows) - Interpretador de comandos.  
 
 
 ## Instalação  
 
-1. Instale o Python. Obtenha o instalador em https://www.python.org/downloads/windows. Durante a instalação marque a opção para ficar disponível no path do Windows.
+1. Instalar o MetaTrader 5.  
+2. Executar o indicador mtcli.ex5 e anexar a um gráfico.  
+3. Instalar o Python:
 
-2. No prompt de comando execute:
-```
-> pip install mtcli
-```
-
-3. Instale o MetaTrader 5. De preferência obtenha o instalador no site da sua corretora, caso contrário o instalador está disponível para download no site oficial do MetaTrader.  
-
-4. Baixe no link abaixo o arquivo contendo os arquivos de trabalho do mtcli:  
-https://drive.google.com/file/d/1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp/view?usp=sharing  
-
-5. Descompacte o arquivo mtcli.zip. Uma pasta mtcli será criada. Essa pasta deverá ser usada para executar os atalhos de comandos do mtcli. Além disso nela estará o indicador mtcli.ex5 que deverá ser anexados ao gráfico do MetaTrader 5.
- 
-6. No MetaTrader 5 abra a pasta de dados (CTRL+SHIFT+D) e copie o camimnho da pasta mql5/Files para a área de transferência.
-
-7. Configure o mtcli com o caminho copiado da pasta do MetaTrader 5:
 ```cmd
-> cd mtcli
-> conf CSV_PATH <cole-aqui-o-caminho-da-pasta>
+winget install python
 ```
 
-8. Anexe o indicador mtcli.ex5 ao gráfico do MetaTrader 5.  
+4. Instalar o mtcli:
+```cmd
+pip install mtcli
+```
 
-Pronto! O mtcli estará pronto para ser usado.  
+
+
+Opcionalmente baixe a pasta mtcli e descompacte os arquivos.
+https://drive.google.com/file/d/1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp/view?usp=sharing  
 
 
 ## Comandos  
