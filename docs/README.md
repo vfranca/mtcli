@@ -59,10 +59,3 @@ Exibe o range médio dos últimos 14 períodos do ticker_de_ativo.
   
 Ao @MaiconBaggio desenvolvedor do PyMQL5 que faz uma comunicação com o MetaTrader5 e fornecedor do primeiro EA exportador das cotações.  
 Ao Claudio Garini que transferiu a geração das cotações para um indicador.  
-
-
-------------
-  
-## Licenciamento  
-
-Este aplicativo está licenciado sob os termos da [GPL](../LICENSE).  
