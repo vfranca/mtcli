@@ -1,26 +1,14 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.20.1"
+version = "0.21"
 description = "Converte gráfico do MetaTrader 5 para texto"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
-maintainers = ["Valmir Franca <vfranca3@gmail.com>"]
-license = "GPL-2.0-only"
+license = "BSD-3-Clause"
 readme = "docs/README.md"
 repository = "https://github.com/vfranca/mtcli"
 documentation = "https://vfranca.github.io/mtcli/"
-keywords = ["metatrader5", "trading"]
-classifiers = [
-"Development Status :: 2 - Pre-Alpha",
-"Environment :: Console",
-"Environment :: Win32 (MS Windows)",
-"Intended Audience :: Financial and Insurance Industry",
-"License :: OSI Approved :: GNU General Public License (GPL)",
-"Natural Language :: Portuguese (Brazilian)",
-"Operating System :: Microsoft :: Windows :: Windows 10",
-"Programming Language :: Python :: 3.8",
-"Topic :: Adaptive Technologies",
-"Topic :: Office/Business :: Financial :: Investment"
-]
+keywords = ["MetaTrader 5", "trading", "CLI"]
+packages = [{include = "mtcli"}]
 
 [tool.poetry.dependencies]
 python = ">=3.8, <4"
