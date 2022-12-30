@@ -1,18 +1,18 @@
 import unittest, os
 from mtcli import views as view, conf
-from mtcli.models import BarModel
-from mtcli.bar import Bar
+from mtcli.csv_data import Rates
+from mtcli.pa.pa_bar import Bar
 
 
-class TestViews(unittest.TestCase):
+class TestUnitViews(unittest.TestCase):
     def setUp(self):
         self.file = os.path.join(
-            os.path.abspath("."), "tests", "fixtures", "files", "abev3daily.csv"
+            os.path.abspath("."), "tests", "fixtures", "files", "ABEV3D1.csv"
         )
-        self.bars = BarModel(self.file)
-        self.bar = Bar(self.bars.data[4])
+        self.rates = Rates(self.file)
+        self.bar = Bar(self.rates.data[4])
 
-    def test_obtem_view_com_padroes_brooks(self):
+    def test_obtem_view_com_padroes_de_price_action(self):
         self.assertEqual(
             view.brooks_view(self.bar, "ASC", 1, "", 1.87),
             "1 ASC  VERMELHO20R0.05  BOTTOM56 17.59 17.34 17.48MP17.46 R0.25 1.87",
@@ -23,10 +23,10 @@ class TestViews(unittest.TestCase):
             view.ohlc_view(self.bar), "2017.06.29 17.53 17.59 17.34 17.48 14436"
         )
 
-    def test_obtem_view_de_canal(self):
+    def test_obtem_view_de_grafico_minimo(self):
         self.assertEqual(view.channel_view(self.bar, "ASC", 1), "1 ASC 17.59 17.34")
 
-    def test_obtem_view_com_precos_de_fechamento(self):
+    def test_obtem_view_com_fechamentos(self):
         self.assertEqual(view.close_view(self.bar, 1), "1 17.48")
 
     def test_obtem_view_com_maximas(self):

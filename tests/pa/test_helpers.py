@@ -1,6 +1,6 @@
 import unittest
-from mtcli import helpers as helper
-from mtcli.bar import Bar
+from mtcli.pa import helpers as helper
+from mtcli.pa.pa_bar import Bar
 
 
 class TestHelpers(unittest.TestCase):

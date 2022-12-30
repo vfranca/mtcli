@@ -1,4 +1,4 @@
-from mtcli.bar import Bar
+from mtcli.pa.pa_bar import Bar
 
 
 rate = [
