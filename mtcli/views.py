@@ -1,4 +1,6 @@
-# -*- coding: utf-8 -*-
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 from mtcli.pa.pa_one_bar import OneBar
 from mtcli.pa import helpers as helper
 from mtcli import conf

@@ -1,3 +1,6 @@
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 import click
 from mtcli.csv_data import Rates
 from mtcli.pa.pa_bar import Bar

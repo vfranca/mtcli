@@ -1,3 +1,6 @@
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 import unittest
 from mtcli.pa import helpers as helper
 from mtcli.pa.pa_bar import Bar

@@ -1,3 +1,6 @@
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 import unittest
 from mtcli.pa.pa_two_bars import TwoBars
 from mtcli.conf import *

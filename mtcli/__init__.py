@@ -1,1 +1,4 @@
-__version__ = "0.22.2"
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
+__version__ = "0.23.0"

@@ -1,6 +1,6 @@
-"""
-Padrões do método Al Brooks de 2 barras
-"""
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 from mtcli import conf
 
 

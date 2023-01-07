@@ -1,3 +1,6 @@
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 from mtcli import conf
 from mtcli import __version__
 import click

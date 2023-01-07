@@ -1,3 +1,6 @@
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 import unittest, os
 from mtcli import views as view, conf
 from mtcli.csv_data import Rates

@@ -1,7 +1,6 @@
-"""
-mtcli
-Variáveis de configuração
-"""
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 import os
 from dotenv import load_dotenv
 import MetaTrader5 as mt5

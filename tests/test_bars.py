@@ -1,3 +1,6 @@
+# mtcli
+# Copyright 2023 Valmir França da Silva
+# http://github.com/vfranca
 from unittest import TestCase, mock, skip
 from click.testing import CliRunner
 from mtcli.bars import bars
@@ -8,9 +11,7 @@ class TestBars(TestCase):
         self.runner = CliRunner()
 
     def test_exibe_o_grafico_completo_da_ultima_barra_do_diario(self):
-        res = self.runner.invoke(
-            bars, ["abev3", "--period", "d1", "--count", "1"]
-        )
+        res = self.runner.invoke(bars, ["abev3", "--period", "d1", "--count", "1"])
         self.assertEqual(
             res.output, " ASC  DOJI7R0.02  TOP64 18.57 18.29 18.37MP18.43 R0.28 -0.38\n"
         )
