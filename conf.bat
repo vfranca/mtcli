@@ -1,6 +1,6 @@
 @echo off
 if not "%1" == "" (
-dotenv set %1 %2
+dotenv -f .mtcli set %1 %2
 goto :EOF
 )
-dotenv list
+dotenv -f .mtcli list

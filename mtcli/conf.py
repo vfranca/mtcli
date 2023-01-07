@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import MetaTrader5 as mt5
 
 
-load_dotenv()
+load_dotenv(".mtcli")
 
 # Dígitos da moeda
 digits = os.getenv("DIGITS")
