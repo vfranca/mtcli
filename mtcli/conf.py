@@ -17,10 +17,10 @@ else:
 
 r = "%." + str(digits) + "f"
 
-# caminho dos dados do MetaTrader 5
+# caminho da pasta do MetaTrader 5
 mt5.initialize()
 info = mt5.terminal_info()
-csv_path = os.getenv("CSV_PATH")
+csv_path = os.getenv("MT5_PASTA")
 if csv_path == None:
     csv_path = info.data_path + "/MQL5/Files"
 mt5.shutdown()

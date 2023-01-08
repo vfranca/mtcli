@@ -15,6 +15,7 @@ from dotenv import dotenv_values, set_key
 @click.option("--rompimento-baixa", "-rb")
 @click.option("--percentual-doji", "-pd")
 @click.option("--percentual-rompimento", "-pr")
+@click.option("--mt5-pasta", "-mp")
 def set(**kwargs):
     """Manipula as variáveis de ambiente."""
     # Define o arquivo de variáveis
@@ -56,7 +57,14 @@ def set(**kwargs):
         return 0
     # Altera o percentual do corpo da barra de rompimento
     if kwargs["percentual_rompimento"]:
-        res = set_key(env_file, "PERCENTUAL_ROMPIMENTO", kwargs["percentual_rompimento"])
+        res = set_key(
+            env_file, "PERCENTUAL_ROMPIMENTO", kwargs["percentual_rompimento"]
+        )
+        click.echo("%s=%s" % (res[1], res[2]))
+        return 0
+    # Altera o caminho da pasta do MT5
+    if kwargs["mt5_pasta"]:
+        res = set_key(env_file, "MT5_PASTA", kwargs["mt5_pasta"])
         click.echo("%s=%s" % (res[1], res[2]))
         return 0
     # Lista as variáveis disponíveis
