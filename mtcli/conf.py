@@ -9,7 +9,7 @@ import MetaTrader5 as mt5
 load_dotenv(".mtcli")
 
 # Dígitos da moeda
-digits = os.getenv("DIGITS")
+digits = os.getenv("DIGITOS")
 if digits == None:
     digits = 2
 else:

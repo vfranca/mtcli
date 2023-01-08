@@ -7,7 +7,7 @@ from dotenv import dotenv_values, set_key
 
 # Cria o comando set
 @click.command()
-@click.option("--digits", "-d", help="Digitos da moeda.")
+@click.option("--digitos", "-d", help="Digitos da moeda.")
 @click.option("--lateral", "-l", help="Nome da barra doji.")
 @click.option("--alta", "-a", help="Nome da barra de alta.")
 @click.option("--baixa", "-b", help="Nome da barra de baixa.")
@@ -27,8 +27,8 @@ def set(**kwargs):
     # Define o arquivo de variáveis
     env_file = ".mtcli"
     # Altera os dígitos da moeda
-    if kwargs["digits"]:
-        res = set_key(env_file, "DIGITS", kwargs["digits"])
+    if kwargs["digitos"]:
+        res = set_key(env_file, "DIGITOS", kwargs["digitos"])
         click.echo("%s=%s" % (res[1], res[2]))
         return 0
     # Altera o nome da barra lateral
