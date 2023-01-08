@@ -7,15 +7,21 @@ from dotenv import dotenv_values, set_key
 
 # Cria o comando set
 @click.command()
-@click.option("--digits", "-d")
-@click.option("--lateral", "-l")
-@click.option("--alta", "-a")
-@click.option("--baixa", "-b")
-@click.option("--rompimento-alta", "-ra")
-@click.option("--rompimento-baixa", "-rb")
-@click.option("--percentual-doji", "-pd")
-@click.option("--percentual-rompimento", "-pr")
-@click.option("--mt5-pasta", "-mp")
+@click.option("--digits", "-d", help="Digitos da moeda.")
+@click.option("--lateral", "-l", help="Nome da barra doji.")
+@click.option("--alta", "-a", help="Nome da barra de alta.")
+@click.option("--baixa", "-b", help="Nome da barra de baixa.")
+@click.option(
+    "--rompimento-alta", "-ra", help="Abreviatura da barra de rompimento de alta."
+)
+@click.option(
+    "--rompimento-baixa", "-rb", help="Abreviatura da barra de rompimento de baixa."
+)
+@click.option("--percentual-doji", "-pd", help="Percentual do corpo da barra doji.")
+@click.option(
+    "--percentual-rompimento", "-pr", help="Percentual do corpo da barra de rompimento."
+)
+@click.option("--mt5-pasta", "-mp", help="Caminho da pasta do MetaTrader 5.")
 def set(**kwargs):
     """Manipula as variáveis de ambiente."""
     # Define o arquivo de variáveis
