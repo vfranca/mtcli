@@ -6,7 +6,7 @@ from mtcli import conf
 
 class OneBar(object):
 
-    body_doji_max = conf.percentual_lateral
+    body_doji_max = conf.percentual_doji
     body_trend_min = conf.percentual_rompimento
 
     def __init__(self, body, top, bottom, close, retracement):

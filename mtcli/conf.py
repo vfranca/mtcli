@@ -95,11 +95,11 @@ if percentual_rompimento == None:
     percentual_rompimento = 50
 percentual_rompimento = int(percentual_rompimento)
 
-# Percentual do corpo da barra lateral
-percentual_lateral = os.getenv("PERCENTUAL_LATERAL")
-if percentual_lateral == None:
-    percentual_lateral = 10
-percentual_lateral = int(percentual_lateral)
+# Percentual do corpo da barra doji
+percentual_doji = os.getenv("PERCENTUAL_DOJI")
+if percentual_doji == None:
+    percentual_doji = 10
+percentual_doji = int(percentual_doji)
 
 # Ativo padrão
 SYMBOL = "IBOV"
