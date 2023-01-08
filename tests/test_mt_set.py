@@ -28,5 +28,5 @@ def test_altera_o_nome_da_barra_de_alta():
 
 
 def test_altera_o_nome_da_barra_de_baixa():
-    res = run.invoke(mt, ["set", "--baixa", "vermelha"])
-    assert res.output == "BAIXA=VERMELHA\n"
+    res = run.invoke(mt, ["set", "--baixa", "vermelho"])
+    assert res.output == "BAIXA=VERMELHO\n"
