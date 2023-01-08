@@ -9,7 +9,8 @@ from dotenv import dotenv_values, set_key
 @click.command()
 @click.option("--digits", "-d")
 @click.option("--alta", "-a")
-def set(digits, alta):
+@click.option("--baixa", "-b")
+def set(digits, alta, baixa):
     """Manipula as variáveis de ambiente."""
     # Define o arquivo de variáveis
     env_file = ".mtcli"
@@ -21,6 +22,11 @@ def set(digits, alta):
     # Altera o nome da barra de alta
     if alta:
         res = set_key(env_file, "ALTA", alta.upper())
+        click.echo("%s=%s" % (res[1], res[2]))
+        return 0
+    # Altera o nome da barra de alta
+    if baixa:
+        res = set_key(env_file, "BAIXA", baixa.upper())
         click.echo("%s=%s" % (res[1], res[2]))
         return 0
     # Lista as variáveis disponíveis

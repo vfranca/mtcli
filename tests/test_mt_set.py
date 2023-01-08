@@ -25,3 +25,8 @@ def test_altera_a_quantidade_de_digitos_da_moeda():
 def test_altera_o_nome_da_barra_de_alta():
     res = run.invoke(mt, ["set", "--alta", "verde"])
     assert res.output == "ALTA=VERDE\n"
+
+
+def test_altera_o_nome_da_barra_de_baixa():
+    res = run.invoke(mt, ["set", "--baixa", "vermelha"])
+    assert res.output == "BAIXA=VERMELHA\n"
