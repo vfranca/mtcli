@@ -22,6 +22,11 @@ def test_altera_a_quantidade_de_digitos_da_moeda():
     assert res.output == "DIGITS=2\n"
 
 
+def test_altera_o_nome_da_barra_lateral():
+    res = run.invoke(mt, ["set", "--lateral", "doji"])
+    assert res.output == "LATERAL=DOJI\n"
+
+
 def test_altera_o_nome_da_barra_de_alta():
     res = run.invoke(mt, ["set", "--alta", "verde"])
     assert res.output == "ALTA=VERDE\n"

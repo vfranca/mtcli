@@ -8,6 +8,7 @@ from dotenv import dotenv_values, set_key
 # Cria o comando set
 @click.command()
 @click.option("--digits", "-d")
+@click.option("--lateral", "-l")
 @click.option("--alta", "-a")
 @click.option("--baixa", "-b")
 def set(**kwargs):
@@ -17,6 +18,11 @@ def set(**kwargs):
     # Altera os dígitos da moeda
     if kwargs["digits"]:
         res = set_key(env_file, "DIGITS", kwargs["digits"])
+        click.echo("%s=%s" % (res[1], res[2]))
+        return 0
+    # Altera o nome da barra lateral
+    if kwargs["lateral"]:
+        res = set_key(env_file, "LATERAL", kwargs["lateral"].upper())
         click.echo("%s=%s" % (res[1], res[2]))
         return 0
     # Altera o nome da barra de alta
