@@ -13,7 +13,7 @@ def test_exibe_uma_lista_de_variaveis_de_ambiente_disponiveis():
     res = run.invoke(mt, ["set"])
     assert (
         res.output
-        == "DIGITS=2\nLATERAL=DOJI\nALTA=VERDE\nBAIXA=VERMELHO\nPRESSAO_COMPRA=CP\nPRESSAO_VENDA=VD\nPERCENTUAL_LATERAL=10\nPERCENTUAL_ROMPIMENTO=50\nCSV_PATH=C:/Users/Administrador/git/mtcli/tests/fixtures/Files\n"
+        == "DIGITS=2\nLATERAL=DOJI\nALTA=VERDE\nBAIXA=VERMELHO\nROMPIMENTO_ALTA=CP\nROMPIMENTO_BAIXA=VD\nPERCENTUAL_LATERAL=10\nPERCENTUAL_ROMPIMENTO=50\nCSV_PATH=C:/Users/Administrador/git/mtcli/tests/fixtures/Files\n"
     )
 
 
@@ -35,3 +35,8 @@ def test_altera_o_nome_da_barra_de_alta():
 def test_altera_o_nome_da_barra_de_baixa():
     res = run.invoke(mt, ["set", "--baixa", "vermelho"])
     assert res.output == "BAIXA=VERMELHO\n"
+
+
+def test_altera_o_nome_da_barra_de_rompimento_de_alta():
+    res = run.invoke(mt, ["set", "--rompimento-alta", "cp"])
+    assert res.output == "ROMPIMENTO_ALTA=CP\n"
