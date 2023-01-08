@@ -14,6 +14,7 @@ from dotenv import dotenv_values, set_key
 @click.option("--rompimento-alta", "-ra")
 @click.option("--rompimento-baixa", "-rb")
 @click.option("--percentual-doji", "-pd")
+@click.option("--percentual-rompimento", "-pr")
 def set(**kwargs):
     """Manipula as variáveis de ambiente."""
     # Define o arquivo de variáveis
@@ -48,9 +49,14 @@ def set(**kwargs):
         res = set_key(env_file, "ROMPIMENTO_BAIXA", kwargs["rompimento_baixa"].upper())
         click.echo("%s=%s" % (res[1], res[2]))
         return 0
-    # Altera a abreviatura da barra de rompimento de baixa
+    # Altera o percentual do corpo da barra doji
     if kwargs["percentual_doji"]:
         res = set_key(env_file, "PERCENTUAL_DOJI", kwargs["percentual_doji"])
+        click.echo("%s=%s" % (res[1], res[2]))
+        return 0
+    # Altera o percentual do corpo da barra de rompimento
+    if kwargs["percentual_rompimento"]:
+        res = set_key(env_file, "PERCENTUAL_ROMPIMENTO", kwargs["percentual_rompimento"])
         click.echo("%s=%s" % (res[1], res[2]))
         return 0
     # Lista as variáveis disponíveis

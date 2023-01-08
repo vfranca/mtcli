@@ -49,3 +49,8 @@ def test_altera_a_abreviatura_da_barra_de_rompimento_de_baixa():
 def test_altera_o_percentual_do_corpo_da_barra_doji():
     res = run.invoke(mt, ["set", "--percentual-doji", "10"])
     assert res.output == "PERCENTUAL_DOJI=10\n"
+
+
+def test_altera_o_percentual_do_corpo_da_barra_de_rompimento():
+    res = run.invoke(mt, ["set", "--percentual-rompimento", "50"])
+    assert res.output == "PERCENTUAL_ROMPIMENTO=50\n"
