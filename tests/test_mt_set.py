@@ -20,3 +20,8 @@ def test_exibe_uma_lista_de_variaveis_de_ambiente_disponiveis():
 def test_altera_a_quantidade_de_digitos_da_moeda():
     res = run.invoke(mt, ["set", "--digits", "2"])
     assert res.output == "DIGITS=2\n"
+
+
+def test_altera_o_nome_da_barra_de_alta():
+    res = run.invoke(mt, ["set", "--alta", "verde"])
+    assert res.output == "ALTA=VERDE\n"
