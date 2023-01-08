@@ -40,3 +40,8 @@ def test_altera_o_nome_da_barra_de_baixa():
 def test_altera_o_nome_da_barra_de_rompimento_de_alta():
     res = run.invoke(mt, ["set", "--rompimento-alta", "cp"])
     assert res.output == "ROMPIMENTO_ALTA=CP\n"
+
+
+def test_altera_o_nome_da_barra_de_rompimento_de_baixa():
+    res = run.invoke(mt, ["set", "--rompimento-baixa", "vd"])
+    assert res.output == "ROMPIMENTO_BAIXA=VD\n"
