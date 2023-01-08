@@ -57,36 +57,36 @@ lbl_bottomtail = "BOTTOM"
 # Nome da sombra careca
 lbl_tail_neutral = "NONE"
 
-# Sigla da pressão compradora
-pressao_compra = os.getenv("PRESSAO_COMPRA")
-if pressao_compra == None:
+# Abreviatura da barra de rompimento de alta
+rompimento_alta = os.getenv("ROMPIMENTO_ALTA")
+if rompimento_alta == None:
     lbl_buy_pressure = "CP"
 else:
-    lbl_buy_pressure = pressao_compra
+    lbl_buy_pressure = rompimento_alta
 
-# Sigla da pressão vendedora
-pressao_venda = os.getenv("PRESSAO_VENDA")
-if pressao_venda == None:
+# Abreviatura da barra de rompimento de baixa
+rompimento_baixa = os.getenv("ROMPIMENTO_BAIXA")
+if rompimento_baixa == None:
     lbl_sell_pressure = "VD"
 else:
-    lbl_sell_pressure = pressao_venda
+    lbl_sell_pressure = rompimento_baixa
 
-# Sigla do gap de fechamento
+# Abreviatura do gap de fechamento
 lbl_gap = "G"
 
-# Sigla da falha de rompimento
+# Abreviatura da falha de rompimento
 lbl_fbo = ""
 
-# Nome da barra ascendente
+# Nome da barra ascendente (up bar)
 lbl_asc = "ASC"
 
-# Nome da barra descendente
+# Nome da barra descendente (down bar)
 lbl_desc = "DESC"
 
-# Nome da barra externa
+# Nome da barra externa (outside bar)
 lbl_ob = "OB"
 
-# Nome da barra interna
+# Nome da barra interna (inside bar)
 lbl_ib = "IB"
 
 # Percentual do corpo da barra de rompimento
