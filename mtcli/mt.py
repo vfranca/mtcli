@@ -10,6 +10,7 @@ from mtcli.bars import bars
 from mtcli.mm import mm
 from mtcli.rm import rm
 from mtcli.set import set
+from mtcli.ma import ma
 
 
 # Cria o grupo de comandos mt
@@ -27,6 +28,7 @@ mt.add_command(bars)
 mt.add_command(mm)
 mt.add_command(rm)
 mt.add_command(set)
+mt.add_command(ma)
 
 
 if __name__ == "__main__":
