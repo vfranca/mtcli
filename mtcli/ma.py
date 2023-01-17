@@ -2,7 +2,8 @@
 # Copyright 2023 Valmir França da Silva
 # http://github.com/vfranca
 import click
-from mtcli.csv_data import Rates
+from mtcli.csv_ma import MAs
+from mtcli import conf
 
 
 # Cria o comando ma
@@ -15,10 +16,11 @@ from mtcli.csv_data import Rates
 def ma(symbol, period, count, method, date):
     """Exibe o histórico de médias móveis."""
     # Arquivo CSV contendo as médias móveis
-    # csv_file = conf.csv_path + symbol + period + "-MA.csv"
+    csv_file = conf.csv_path + symbol + period + "-MA.csv"
     # Importa as médias móveis
-    # rates = Rates(csv_file)
-    click.echo("moving average")
+    mas = MAs(csv_file)
+    for ma in mas:
+        click.echo("%s %s" % (ma[3], ma[2]))
 
 
 if __name__ == "__main__":

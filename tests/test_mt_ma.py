@@ -9,9 +9,7 @@ from mtcli.mt import mt
 run = CliRunner()
 
 
-def test_exibe_a_media_movel_exponencial():
-    res = run.invoke(
-        mt, ["ma", "ibov", "--period", "d1", "--count", "20", "--method", "exponential"]
-    )
-    assert res.output == "moving average\n"
+def test_exibe_a_media_movel():
+    res = run.invoke(mt, ["ma", "ibov", "--period", "d1"])
+    assert res.output == "up 108525.0 109213.0\n"
     assert res.exit_code == 0
