@@ -3,7 +3,7 @@
 # http://github.com/vfranca
 import click
 from mtcli.csv_ma import MAs
-from mtcli import conf
+from mtcli.conf import csv_path
 
 
 # Cria o comando ma
@@ -11,11 +11,10 @@ from mtcli import conf
 @click.argument("symbol")
 @click.option("--period", "-p", default="D1", help="Período aplicado.")
 @click.option("--count", "-c", type=int, default=20, help="Quantidade de períodos.")
-@click.option("--method", "-m", default="", help="")
-def ma(symbol, period, count, method):
-    """Exibe o histórico de médias móveis."""
+def ma(symbol, period, count):
+    """Exibe as médias móveis do indicador MA_TXT."""
     # Arquivo CSV contendo as médias móveis
-    csv_file = conf.csv_path + symbol + period + "-MA" + str(count) + ".csv"
+    csv_file = csv_path + symbol + period + "-MA" + str(count) + ".csv"
     # Importa as médias móveis
     mas = MAs(csv_file)
     for ma in mas:
