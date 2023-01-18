@@ -2,10 +2,12 @@
 # Copyright 2023 Valmir França da Silva
 # http://github.com/vfranca
 import csv
-from mtcli.csv_data import Data
 
 
-class MAs(Data):
+class MAs:
+
+    data = []
+
     def __init__(self, csv_file):
         with open(csv_file, encoding="utf-16", newline="") as f:
             lines = csv.reader(f, delimiter=",", quotechar="'")
