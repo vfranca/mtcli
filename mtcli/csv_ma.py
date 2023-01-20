@@ -4,16 +4,15 @@
 import csv
 
 
-class MAs:
-
+# Função para extrair os dados do arquivo CSV
+def get_data(csv_file):
+    """Importa dados do arquivo CSV."""
+    # Lista para armazenar as linhas do CSV
     data = []
-
-    def __init__(self, csv_file):
-        with open(csv_file, encoding="utf-16", newline="") as f:
-            lines = csv.reader(f, delimiter=",", quotechar="'")
-            for line in lines:
-                self.data.append(line)
-
-    def __iter__(self):
-        for item in self.data:
-            yield item
+    # Extrai os dados do CSV para popular a lista
+    with open(csv_file, encoding="utf-16", newline="") as f:
+        lines = csv.reader(f, delimiter=",", quotechar="'")
+        for line in lines:
+            data.append(line)
+    # Retorna a lista de listas do CSV
+    return data

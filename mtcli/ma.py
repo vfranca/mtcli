@@ -2,7 +2,7 @@
 # Copyright 2023 Valmir França da Silva
 # http://github.com/vfranca
 import click
-from mtcli.csv_ma import MAs
+from mtcli.csv_ma import get_data
 from mtcli.conf import csv_path
 
 
@@ -16,8 +16,8 @@ def ma(symbol, period, count):
     # Arquivo CSV contendo as médias móveis
     csv_file = csv_path + symbol + period + "-MA" + str(count) + ".csv"
     # Importa as médias móveis
-    mas = MAs(csv_file)
-    for ma in mas:
+    ma_data = get_data(csv_file)
+    for ma in ma_data:
         click.echo("%s %s" % (ma[3], ma[2]))
 
 
