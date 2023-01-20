@@ -1,12 +1,10 @@
 # mtcli  
   
-Ferramenta de linha de comando para usuários cegos do MetaTrader 5.
-  
-[PyPI](https://pypi.python.org/pypi/mtcli)  
-[Documentação](https://vfranca.github.io/mtcli)  
-  
-------------
+Linha de comando para converter dados do MetaTrader 5 para formato TXT.  
+O formato TXT é especialmente acessado por tecnologias assistivas para cegos.  
 
+[mtcli no PyPI](https://pypi.python.org/pypi/mtcli)  
+  
 ## Pré-requisitos  
 
 * [MetaTrader 5](https://www.metatrader5.com/pt) - Plataforma de trading.  
@@ -53,9 +51,7 @@ mt rm <ticker_de_ativo>
 ```
 Exibe o range médio dos últimos 14 períodos do ticker_de_ativo.
 
-------------
- 
-  ## Agradecimentos  
+## Agradecimentos  
   
-Ao @MaiconBaggio desenvolvedor do PyMQL5 que faz uma comunicação com o MetaTrader5 e fornecedor do primeiro EA exportador das cotações.  
-Ao Claudio Garini que transferiu a geração das cotações para um indicador.  
+Ao @MaiconBaggio fornecedor do primeiro EA exportador das cotações para CSV.  
+Ao Claudio Garini que transferiu a exportação das cotações para um indicador.  
