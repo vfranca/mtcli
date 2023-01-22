@@ -3,7 +3,7 @@
 # http://github.com/vfranca
 import unittest, os
 from mtcli import views as view, conf
-from mtcli.csv_data import Rates
+from mtcli.csv_data import get_data
 from mtcli.pa.pa_bar import Bar
 
 
@@ -12,8 +12,8 @@ class TestUnitViews(unittest.TestCase):
         self.file = os.path.join(
             os.path.abspath("."), "tests", "fixtures", "files", "ABEV3D1.csv"
         )
-        self.rates = Rates(self.file)
-        self.bar = Bar(self.rates.data[4])
+        self.rates = get_data(self.file)
+        self.bar = Bar(self.rates[4])
 
     def test_obtem_view_com_padroes_de_price_action(self):
         self.assertEqual(

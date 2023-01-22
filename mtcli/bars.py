@@ -2,7 +2,7 @@
 # Copyright 2023 Valmir França da Silva
 # http://github.com/vfranca
 import click
-from mtcli.csv_data import Rates
+from mtcli.csv_data import get_data
 from mtcli import views as _view
 from mtcli.pa import helpers as helper
 from mtcli.pa.pa_bar import Bar
@@ -19,12 +19,9 @@ from mtcli import conf
 @click.option("--count", "-c", type=int, default=40, help="Quantidade de barras")
 @click.option("--date", "-d", default="", help="Data (para day trade)")
 def bars(symbol, view, period, count, date):
-    """Lista as barras do gráfico."""
-
-    """Retorna uma lista de barras."""
+    """Exibe uma lista de barras."""
     # Arquivo CSV com as cotações OHLC
     csv_file = conf.csv_path + symbol + period + ".csv"
-
     # Inicia as variaveis
     views = []
     close = []
@@ -37,9 +34,8 @@ def bars(symbol, view, period, count, date):
     bull = 0
     bear = 0
     doji = 0
-
     # Obtem as cotacoes (rates) do arquivo CSV
-    rates = Rates(csv_file)
+    rates = get_data(csv_file)
     for rate in rates:
         # Extrai os dados da barra
         bar = Bar(rate)

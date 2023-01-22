@@ -2,7 +2,7 @@
 # Copyright 2023 Valmir França da Silva
 # http://github.com/vfranca
 import click
-from mtcli.csv_ma import get_data
+from mtcli.csv_data import get_data
 from mtcli.conf import csv_path
 
 

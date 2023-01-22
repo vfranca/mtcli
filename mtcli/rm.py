@@ -2,7 +2,7 @@
 # Copyright 2023 Valmir França da Silva
 # http://github.com/vfranca
 import click
-from mtcli.csv_data import Rates
+from mtcli.csv_data import get_data
 from mtcli.pa.pa_bar import Bar
 from mtcli import conf
 
@@ -16,7 +16,7 @@ def rm(symbol, period, count):
     """Range médio das barras."""
     csv_file = conf.csv_path + symbol + period + ".csv"
     ranges = []
-    rates = Rates(csv_file)
+    rates = get_data(csv_file)
     for rate in rates:
         bar = Bar(rate)
         # Elimina doji de 4 preços
