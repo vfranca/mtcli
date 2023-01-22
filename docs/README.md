@@ -8,7 +8,7 @@ O formato TXT é especialmente acessado por tecnologias assistivas para cegos.
 ## Pré-requisitos  
 
 * [MetaTrader 5](https://www.metatrader5.com/pt) - Plataforma de trading.  
-* [Indicador mtcli](https://drive.google.com/open?id=1yKYI873r_liiexugqisgc-OeVc_5IlGH&authuser=vfranca3%40gmail.com&usp=drive_fs) -programa MQL5 executado no MetaTrader 5.  
+* [Indicador mtcli](https://tinyurl.com/vfranca-mtcli) - programa MQL5 executado no MetaTrader 5.  
 * [Python](https://www.python.org/downloads/windows) - Interpretador de comandos.  
 
 
