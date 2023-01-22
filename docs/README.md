@@ -1,6 +1,6 @@
 # mtcli  
   
-Linha de comando para converter dados do MetaTrader 5 para formato TXT.  
+Aplicativo de Linha de comando para converter dados do MetaTrader 5 para formato TXT.  
 O formato TXT é especialmente acessado por tecnologias assistivas para cegos.  
 
 [mtcli no PyPI](https://pypi.python.org/pypi/mtcli)  
@@ -30,26 +30,38 @@ pip install mtcli
 
 
 
-Opcionalmente baixe a pasta mtcli e descompacte os arquivos.
-https://drive.google.com/file/d/1olFEKJnnunBI1SDoW7QoMT9p6_yRQyhp/view?usp=sharing  
-
+Opcionalmente baixe a pasta mtcli e descompacte os arquivos em C:\mtcli.
+[clique aqui para fazer o download](https://tinyurl.com/vfranca-mtcli-pasta)
 
 ## Comandos  
   
 ```cmd
-mt bars <ticker_de_ativo> 
+mt bars <codigo_do_ativo> 
 ```
-Exibe as barras do gráfico do ticker de ativo.
+Exibe as barras do gráfico do código do ativo.  
+Digite mt bars --help para ver as opções.  
 
 ```cmd
-mt mm <ticker_de_ativo>
+mt mm <codigo_do_ativo>
 ```
-Exibe a média móvel simples dos últimos 20 períodos do ticker de ativo.
+Exibe a média móvel simples dos últimos 20 períodos do ticker de ativo.  
+Digite mt mm --help para ver as opções.  
+
 
 ```cmd
-mt rm <ticker_de_ativo>
+mt rm <codigo_do_ativo>
 ```
-Exibe o range médio dos últimos 14 períodos do ticker_de_ativo.
+Exibe o range médio dos últimos 14 períodos do código do ativo.  
+Digite mt rm --help para ver as opções.  
+
+
+```cmd
+mt ma <codigo_do_ativo>
+```
+Exibe as médias móveis exportadas pelo indicador MA_TXT.  
+Digite mt ma --help para ver as opções.  
+[Clique aqui para baixar o indicador MA_TXT](https://tinyurl.com/vfranca-ma-txt)
+
 
 ## Agradecimentos  
   
