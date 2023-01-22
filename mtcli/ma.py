@@ -9,8 +9,8 @@ from mtcli.conf import csv_path
 # Cria o comando ma
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="D1", help="Período aplicado.")
-@click.option("--count", "-c", type=int, default=20, help="Quantidade de períodos.")
+@click.option("--period", "-p", default="D1", help="Tempo gráfico.")
+@click.option("--count", "-c", type=int, default=20, help="Quantidade de barras.")
 def ma(symbol, period, count):
     """Exibe as médias móveis do indicador MA_TXT."""
     # Arquivo CSV contendo as médias móveis

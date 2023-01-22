@@ -30,7 +30,7 @@ pip install mtcli
 
 
 
-Opcionalmente baixe a pasta mtcli e descompacte os arquivos em C:\mtcli.
+Opcionalmente baixe a pasta mtcli e descompacte os arquivos em C:\mtcli.  
 [clique aqui para fazer o download](https://tinyurl.com/vfranca-mtcli-pasta)
 
 ## Comandos  
@@ -38,29 +38,29 @@ Opcionalmente baixe a pasta mtcli e descompacte os arquivos em C:\mtcli.
 ```cmd
 mt bars <codigo_do_ativo> 
 ```
-Exibe as barras do gráfico do código do ativo.  
+Exibe as últimas 40 barras diárias  do ativo.  
 Digite mt bars --help para ver as opções.  
 
 ```cmd
 mt mm <codigo_do_ativo>
 ```
-Exibe a média móvel simples dos últimos 20 períodos do ticker de ativo.  
+Exibe a média móvel simples das últimas 20 barras diárias do ativo.  
 Digite mt mm --help para ver as opções.  
 
 
 ```cmd
 mt rm <codigo_do_ativo>
 ```
-Exibe o range médio dos últimos 14 períodos do código do ativo.  
+Exibe o range médio das últimas 14 barras diárias do ativo.  
 Digite mt rm --help para ver as opções.  
-
 
 ```cmd
 mt ma <codigo_do_ativo>
 ```
-Exibe as médias móveis exportadas pelo indicador MA_TXT.  
+Exibe as médias móveis das 20 barras diárias do código conforme exportadas pelo indicador MA_TXT.  
 Digite mt ma --help para ver as opções.  
-[Clique aqui para baixar o indicador MA_TXT](https://tinyurl.com/vfranca-ma-txt)
+[Clique aqui para baixar o indicador MA_TXT](https://tinyurl.com/vfranca-ma-txt)  
+Observação: é necessário anexar o indicador MA_TXT ao gráfico e configurar para exportar as 20 barras do diário.  
 
 
 ## Agradecimentos  
