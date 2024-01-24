@@ -19,7 +19,7 @@ O formato TXT é especialmente acessado por tecnologias assistivas para cegos.
 3. Instalar o Python:
 
 ```cmd
-winget install python
+winget install --scope machine Python.Python.3.11
 ```
 
 4. Instalar o mtcli:
