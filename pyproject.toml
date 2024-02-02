@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.27.1"
+version = "0.27.2"
 description = "Converte gráfico do MetaTrader 5 para texto"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "BSD-3-Clause"
