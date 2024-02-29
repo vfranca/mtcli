@@ -7,85 +7,54 @@ O formato TXT é especialmente acessado por tecnologias assistivas para cegos.
   
 ## Pré-requisitos  
 
-1. Windows 10 ou 11 com conta Administrador ativada
-2. Leitor de tela NVDA instalado
+1. Windows 10 ou 11 com conta Administrador ativada.  
+2. Leitor de tela NVDA instalado.  
   
-Para ativar a conta administrador execute o seguinte comando no terminal CMD:
+Para ativar a conta administrador execute o seguinte comando no terminal CMD:  
 ```CMD
 > net user Administrador /active:yes
 ```
-
+    
+O mtcli não foi testado com outros leitores de tela além do NVDA.  
+  
 
 ## Instalação  
 
 ### MetaTrader 5 (mt5)
-
-Faça o download do MetaTrader 5 e execute o instalador.  
+Faça o download do MT5 e execute o instalador.  
 [clique aqui para baixar o instalador MT5para Windows](https://www.metatrader5.com/pt)  
-
+  
 ### Indicador mtcli
 Faça o download do indicador mtcli e anexe a um gráfico  no MetaTrader 5.  
 [Clique aqui para baixar o indicador mtcli](https://tinyurl.com/vfranca-mtcli)  
-
+  
 ### Python
 Instale o interpretador de comandos Python.  
-Existem 3 opções para instalar o Python:  
-1. Instalar pelo terminal Windows com o gerenciador de pacotes winget
-2. Instalar pelo terminal Windows com o gerenciador de pacotes chocolatey
-3. Instalar manualmente pelo instalador Python
-
-#### winget
+Execute o comando abaixo no CMD do Windows:  
 ```CMD
 > winget install --scope machine Python.Python.3.11
 ```
 
-#### chocolatey
-[Clique aqui para a página de instalação do chocolatey(https://chocolatey.org/install)  
+[Clique aqui para ver outras formas de instalar o Python](python.md)
 
-#### instalador Python
-[Clique aqui para baixar o instalador Python](https://www.python.org/downloads/windows)  
 
-### mtcli:
+### mtcli
 
-Instale o mtcli pelo CMD do Windows.  
-Execute o seguinte comando para instalar o mtcli:  
-
+Execute o comando abaixo no CMD do Windows para instalar o mtcli:  
 ```CMD
 > pip install mtcli
 ```
 
-
 ## Comandos  
   
-```CMD
-> mt bars <codigo_do_ativo> 
-```
-Exibe as últimas 40 barras diárias  do ativo.  
-Digite mt bars --help para ver as opções.  
-
-```CMD
-> mt mm <codigo_do_ativo>
-```
-Exibe a média móvel simples das últimas 20 barras diárias do ativo.  
-Digite mt mm --help para ver as opções.  
-
-
-```CMD
-> mt rm <codigo_do_ativo>
-```
-Exibe o range médio das últimas 14 barras diárias do ativo.  
-Digite mt rm --help para ver as opções.  
-
-```CMD
-> mt ma <codigo_do_ativo>
-```
-Exibe as médias móveis das 20 barras diárias do código conforme exportadas pelo indicador MA_TXT.  
-Digite mt ma --help para ver as opções.  
-[Clique aqui para baixar o indicador MA_TXT](https://tinyurl.com/vfranca-ma-txt)  
-
-Observação: é necessário anexar o indicador MA_TXT ao gráfico e configurar para exportar as 20 barras do diário.  
-
-
+comando | descrição
+:----- | :------
+mt bars --period d1 --count 20 ibov | exibe 20 barras do diário do IBOV
+mt mm --period d1 --count 20 ibov | exibe a média móvel simples de 20 dias do IBOV
+mt rm --period d1 --count 20 ibov | exibe o range médio de 20 dias do IBOV
+  
+Digite a opção --help para exibir um resumo das opções.  
+  
 ## Agradecimentos  
   
 Ao @MaiconBaggio fornecedor do primeiro EA exportador das cotações para CSV.  
