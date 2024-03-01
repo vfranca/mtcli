@@ -12,7 +12,7 @@ O formato TXT é especialmente acessado por tecnologias assistivas para cegos.
   
 Para ativar a conta administrador execute o seguinte comando no terminal CMD:  
 ```CMD
-> net user Administrador /active:yes
+net user Administrador /active:yes
 ```
     
 O mtcli não foi testado com outros leitores de tela além do NVDA.  
@@ -32,7 +32,7 @@ Faça o download do indicador mtcli e anexe a um gráfico  no MetaTrader 5.
 Instale o interpretador de comandos Python.  
 Execute o comando abaixo no CMD do Windows:  
 ```CMD
-> winget install --scope machine Python.Python.3.11
+winget install --scope machine Python.Python.3.11
 ```
 
 [Clique aqui para ver outras formas de instalar o Python](python.md)
@@ -42,7 +42,7 @@ Execute o comando abaixo no CMD do Windows:
 
 Execute o comando abaixo no CMD do Windows para instalar o mtcli:  
 ```CMD
-> pip install mtcli
+pip install mtcli
 ```
 
 ## Comandos  
