@@ -57,20 +57,7 @@ Digite a opção --help para exibir um resumo das opções.
 
 ## abreviaturas  
 
-abreviaturas empregadas na exibição da barra/candle:    
-
-abreviatura | descrição 
-:----- | :------
-ASC | barra ascendente 
-DESC |  barra descendente
-OB | barra externa 
-IB | barra interna 
-G | gap do fechamento em relação à máxima ou mínima anterior
-TOP | sombra superior
-BOTTOM | sombra inferior
-R | range
-MP | ponto médio da barra
-
+[Clique aqui para ver uma lista de abreviaturas exibidas nas barras](abreviaturas.md)  
 
 ## Agradecimentos  
   
