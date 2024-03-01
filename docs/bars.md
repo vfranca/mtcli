@@ -1,5 +1,5 @@
 # bars
-Exibe as barras do gráfico de candles  
+Exibe as barras do gráfico de candles.  
   
 ## sintaxe
 mt bars [--period <periodo>] [--count <quantidade>] [--view <visao>] [--date <data>] <ativo>  
@@ -32,7 +32,7 @@ mn1 | mensal
 
 exemplo:
 ```cmd
-mt bars eurusd --period d1
+mt bars --period d1 eurusd
 ```
 
 ### --count, -c
@@ -40,7 +40,7 @@ Define a quantidade de barras a serem exibidas.
 
 exemplo:  
 ```cmd
-mt bars eurusd --count 100
+mt bars --count 100 eurusd
 ``` 
   
 ### --view, -v
@@ -59,5 +59,5 @@ oh | OHLC
 
 exemplo:  
 ```cmd
-mt bars eurusd -v ch
+mt bars -v ch eurusd
 ```
