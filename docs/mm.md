@@ -40,6 +40,6 @@ Define a quantidade de barras calculadas.
 
 exemplo:  
 ```cmd
-mt bars --count 20 eurusd
+mt mm --period d1 --count 20 eurusd
 ``` 
   
