@@ -49,9 +49,9 @@ Execute o comando abaixo no CMD do Windows para instalar o mtcli:
   
 comando | descrição
 :----- | :------
-mt bars --period d1 --count 20 ibov | exibe 20 barras do diário do IBOV
-mt mm --period d1 --count 20 ibov | exibe a média móvel simples de 20 dias do IBOV
-mt rm --period d1 --count 20 ibov | exibe o range médio de 20 dias do IBOV
+[mt bars](bars.md) | exibe barras do gráfico de candles
+[mt mm](mm.md) | exibe a média móvel simples
+[mt rm](rm.md) | exibe o range médio 
   
 Digite a opção --help para exibir um resumo das opções.  
 
