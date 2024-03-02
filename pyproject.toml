@@ -21,6 +21,9 @@ metatrader5 = "^5.0.43"
 mock = "^4.0.3"
 pytest = "^6.2.5"
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.2"
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
