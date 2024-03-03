@@ -18,12 +18,12 @@ else:
 r = "%." + str(digits) + "f"
 
 # caminho da pasta do MetaTrader 5
-mt5.initialize()
-info = mt5.terminal_info()
 csv_path = os.getenv("MT5_PASTA")
 if csv_path == None:
+    mt5.initialize()
+    info = mt5.terminal_info()
     csv_path = info.data_path + "/MQL5/Files"
-mt5.shutdown()
+    mt5.shutdown()
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
