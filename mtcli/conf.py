@@ -1,24 +1,25 @@
 # mtcli
 # Copyright 2023 Valmir França da Silva
 # http://github.com/vfranca
-import os
+from os import getenv
 from dotenv import load_dotenv
 import MetaTrader5 as mt5
 
 
+load_dotenv()
 load_dotenv(".mtcli")
+load_dotenv("mtcli.ini")
 
 # Dígitos da moeda
-digits = os.getenv("DIGITOS")
+digits = getenv("DIGITOS")
 if digits == None:
     digits = 2
 else:
     digits = int(digits)
-
 r = "%." + str(digits) + "f"
 
 # caminho da pasta do MetaTrader 5
-csv_path = os.getenv("MT5_PASTA")
+csv_path = getenv("MT5_PASTA")
 if csv_path == None:
     mt5.initialize()
     info = mt5.terminal_info()
@@ -28,21 +29,21 @@ csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
 # Nome da barra lateral
-lateral = os.getenv("LATERAL")
+lateral = getenv("LATERAL")
 if lateral == None:
     lbl_body_doji = "DOJI"
 else:
     lbl_body_doji = lateral
 
 # Nome da barra de alta
-alta = os.getenv("ALTA")
+alta = getenv("ALTA")
 if alta == None:
     lbl_body_bull = "VERDE"
 else:
     lbl_body_bull = alta
 
 # Nome da barra de baixa
-baixa = os.getenv("BAIXA")
+baixa = getenv("BAIXA")
 if baixa == None:
     lbl_body_bear = "VERMELHO"
 else:
@@ -58,14 +59,14 @@ lbl_bottomtail = "BOTTOM"
 lbl_tail_neutral = "NONE"
 
 # Abreviatura da barra de rompimento de alta
-rompimento_alta = os.getenv("ROMPIMENTO_ALTA")
+rompimento_alta = getenv("ROMPIMENTO_ALTA")
 if rompimento_alta == None:
     lbl_buy_pressure = "CP"
 else:
     lbl_buy_pressure = rompimento_alta
 
 # Abreviatura da barra de rompimento de baixa
-rompimento_baixa = os.getenv("ROMPIMENTO_BAIXA")
+rompimento_baixa = getenv("ROMPIMENTO_BAIXA")
 if rompimento_baixa == None:
     lbl_sell_pressure = "VD"
 else:
@@ -90,13 +91,13 @@ lbl_ob = "OB"
 lbl_ib = "IB"
 
 # Percentual do corpo da barra de rompimento
-percentual_rompimento = os.getenv("PERCENTUAL_ROMPIMENTO")
+percentual_rompimento = getenv("PERCENTUAL_ROMPIMENTO")
 if percentual_rompimento == None:
     percentual_rompimento = 50
 percentual_rompimento = int(percentual_rompimento)
 
 # Percentual do corpo da barra doji
-percentual_doji = os.getenv("PERCENTUAL_DOJI")
+percentual_doji = getenv("PERCENTUAL_DOJI")
 if percentual_doji == None:
     percentual_doji = 10
 percentual_doji = int(percentual_doji)

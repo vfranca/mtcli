@@ -82,6 +82,8 @@ celerybeat-schedule
 
 # dotenv
 /.mtcli
+/.env
+/mtcli.ini
 
 # virtualenv
 .venv

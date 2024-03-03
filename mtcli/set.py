@@ -23,9 +23,9 @@ from dotenv import dotenv_values, set_key
 )
 @click.option("--mt5-pasta", "-mp", help="Caminho da pasta do MetaTrader 5.")
 def set(**kwargs):
-    """Manipula as variáveis de ambiente."""
-    # Define o arquivo de variáveis
-    env_file = ".mtcli"
+    """Altera configurações no mtcli.ini."""
+    # Define o arquivo de configurações
+    env_file = "mtcli.ini"
     # Altera os dígitos da moeda
     if kwargs["digitos"]:
         res = set_key(env_file, "DIGITOS", kwargs["digitos"])
