@@ -11,7 +11,7 @@ keywords = ["MetaTrader 5", "trading", "CLI"]
 packages = [{include = "mtcli"}]
 
 [tool.poetry.dependencies]
-python = ">=3.8, <4"
+python = "^3.11"
 click = "^8.0.3"
 python-dotenv = "^0.19"
 numpy = "^1.24"
@@ -20,6 +20,8 @@ metatrader5 = "^5.0.43"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.2"
 mock = "^5.1.0"
+pytest-env = "^1.1.5"
+pytest-cov = "^6.0.0"
 
 [build-system]
 requires = ["poetry>=0.12"]
