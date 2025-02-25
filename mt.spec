@@ -2,7 +2,8 @@
 included_files = [
     ("resources/Mtcli.ex5", "."),
     ("resources/MA_TXT.ex5", "."),
-    ("docs/README.md", ".")
+    ("docs/README.md", "."),
+    ("LICENSE", ".")
 ]
 a = Analysis(
     ['mtcli\\mt.py'],
