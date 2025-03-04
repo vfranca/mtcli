@@ -1,6 +1,7 @@
 """
 Extrai dados de price action da barra
 """
+
 from mtcli import conf
 
 

@@ -1,6 +1,7 @@
 """
 Faz leituras de price action
 """
+
 from mtcli import conf
 
 

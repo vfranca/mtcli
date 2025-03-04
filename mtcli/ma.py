@@ -1,6 +1,7 @@
 """
 Exibe a média móvel do indicador MA_TXT
 """
+
 import click
 from mtcli.csv_data import get_data
 from mtcli.conf import csv_path

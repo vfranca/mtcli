@@ -1,6 +1,7 @@
 """
 Exibe o gráfico de barras
 """
+
 import click
 from mtcli import csv_data
 from mtcli import conf
@@ -103,8 +104,8 @@ def bars(symbol, view, period, count, date):
         percentual_body = abs(range_body) / range_bar * 100
         # Verifica se é uma barra de rompimento
         breakout = ""
-        if percentual_body >= 60:
-            breakout = "BO"
+        if percentual_body >= conf.percentual_rompimento:
+            breakout = conf.rompimento_alta if range_body > 0 else conf.rompimento_baixa
         click.echo(
             view_full
             % (

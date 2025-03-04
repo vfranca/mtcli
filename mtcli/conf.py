@@ -1,6 +1,7 @@
 """
 Gerencia configurações
 """
+
 from os import getenv
 from dotenv import load_dotenv
 import MetaTrader5 as mt5

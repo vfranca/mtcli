@@ -1,6 +1,7 @@
 """
 Leituras de price action de duas barras
 """
+
 from mtcli import conf
 
 

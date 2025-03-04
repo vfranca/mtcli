@@ -1,6 +1,7 @@
 """
 Aplicativo CLI para exibir gráficos do MetaTrader 5
 """
+
 import click
 from mtcli import conf
 from mtcli import __version__

@@ -1,6 +1,7 @@
 """
 Exibe o range médio das barras
 """
+
 import click
 from mtcli.csv_data import get_data
 from mtcli.pa.pa_bar import Bar

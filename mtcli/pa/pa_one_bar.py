@@ -1,6 +1,7 @@
 """
 Leituras de price action de uma única barra
 """
+
 from mtcli import conf
 
 

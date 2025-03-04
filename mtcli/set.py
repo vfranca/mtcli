@@ -1,6 +1,7 @@
 """
-Gerencia configurações 
+Gerencia configurações
 """
+
 import click
 from dotenv import dotenv_values, set_key
 

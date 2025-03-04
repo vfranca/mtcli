@@ -1,6 +1,7 @@
 """
 Exibe a media móvel simples
 """
+
 import click
 from mtcli.csv_data import get_data
 from mtcli.pa.pa_bar import Bar
