@@ -1,31 +1,29 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
-from mtcli.conf import up_bar, down_bar, outside_bar, inside_bar
+"""
+Faz leituras de price action
+"""
+from mtcli import conf
 
 
-# Verifica o tipo da barra
 def tipo_barra(h, l):
     """Verifica o tipo da barra."""
     # Verifica se é uma upbar
     # máxima mais alta e mínima mais alta ou igual
     if h[1] > h[0] and l[1] >= l[0]:
-        return up_bar
+        return conf.up_bar
     # Verifica se é uma downbar
     # mínima mais baixa e máxima mais baixa ou igual
     if l[1] < l[0] and h[1] <= h[0]:
-        return down_bar
+        return conf.down_bar
     # Verifica se é uma outside bar
     # máxima mais alta e mínima mais baixa
     if h[1] > h[0] and l[1] < l[0]:
-        return outside_bar
+        return conf.outside_bar
     # Verifica se é uma inside bar
     # máxima mais baixa ou igual e mínima mais alta ou igual
     if h[1] <= h[0] and l[1] >= l[0]:
-        return inside_bar
+        return conf.inside_bar
 
 
-# Calcula o gap de fechamento
 def gap_fechamento(c, h, l):
     """Retorna a string do gap de fechamento."""
     c1, c2 = c
@@ -42,7 +40,6 @@ def gap_fechamento(c, h, l):
     return ""
 
 
-# Calcula a variação percentual entre fechamentos
 def variacao_percentual(c):
     """Retorna a string da variação percentual."""
     c1, c2 = c
@@ -51,25 +48,21 @@ def variacao_percentual(c):
     return str(var) + "%"
 
 
-# Calcula o range da barra
 def range_barra(h, l):
     """Calcula o range da barra."""
     return h - l
 
 
-# Calcula o ponto médio da barra
 def ponto_medio(h, l):
     """Calcula o ponto médio da barra."""
     return (h + l) / 2
 
 
-# Calcula o corpo da barra
 def corpo(o, c):
     """Calcula o corpo da barra."""
     return c - o
 
 
-# Calcula a sombra acima na barra
 def sombra_acima(h, o, c):
     """Calcula a sombra acima na barra."""
     if o > c:
@@ -77,7 +70,6 @@ def sombra_acima(h, o, c):
     return h - c
 
 
-# Calcula a sobra abaixo na barra
 def sombra_abaixo(l, o, c):
     """Calcula a sombra abaixo na barra."""
     if o > c:

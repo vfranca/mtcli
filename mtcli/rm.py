@@ -1,19 +1,18 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Exibe o range médio das barras
+"""
 import click
 from mtcli.csv_data import get_data
 from mtcli.pa.pa_bar import Bar
 from mtcli import conf
 
 
-# Cria o comando rm
 @click.command()
 @click.argument("symbol")
 @click.option("--period", "-p", default="D1", help="Tempo gráfico")
-@click.option("--count", "-c", default=14, help="Quantidade de períodos")
+@click.option("--count", "-c", default=14, help="Quantidade de barras")
 def rm(symbol, period, count):
-    """Range médio das barras."""
+    """Exibe o range médio das barras."""
     csv_file = conf.csv_path + symbol + period + ".csv"
     ranges = []
     rates = get_data(csv_file)

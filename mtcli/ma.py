@@ -1,6 +1,6 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Exibe a média móvel do indicador MA_TXT
+"""
 import click
 from mtcli.csv_data import get_data
 from mtcli.conf import csv_path
@@ -12,7 +12,7 @@ from mtcli.conf import csv_path
 @click.option("--period", "-p", default="D1", help="Tempo gráfico.")
 @click.option("--count", "-c", type=int, default=20, help="Quantidade de barras.")
 def ma(symbol, period, count):
-    """Exibe as médias móveis do indicador MA_TXT."""
+    """Exibe a media móvel do indicador MA_TXT."""
     # Arquivo CSV contendo as médias móveis
     csv_file = csv_path + symbol + period + "-MA" + str(count) + ".csv"
     # Importa as médias móveis

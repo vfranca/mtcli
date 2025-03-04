@@ -1,25 +1,24 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Exibe o gráfico de barras
+"""
 import click
-from mtcli.csv_data import get_data
-from mtcli.conf import csv_path, digits as d
-from mtcli.paction import tipo_barra, gap_fechamento, variacao_percentual, range_barra
+from mtcli import csv_data
+from mtcli import conf
+from mtcli import paction as pa
 
 
-# Cria o comando bars
 @click.command()
 @click.argument("symbol")
 @click.option("--view", "-v", help="Formato de exibição")
 @click.option("--period", "-p", default="D1", help="Tempo gráfico")
 @click.option("--count", "-c", type=int, default=40, help="Quantidade de barras")
-@click.option("--date", "-d", default="", help="Data (para day trade)")
+@click.option("--date", "-d", help="Data para intraday")
 def bars(symbol, view, period, count, date):
-    """Exibe uma lista de barras."""
+    """Exibe o grafico de barras."""
     # Arquivo CSV das cotações
-    csv_file = csv_path + symbol + period + ".csv"
+    csv_file = conf.csv_path + symbol + period + ".csv"
     # Importa os dados CSV
-    list_rates = get_data(csv_file)
+    list_rates = csv_data.get_data(csv_file)
     # Restringe a N últimas barras
     list_rates = list_rates[-count:]
     # Converte a lista para dicionário
@@ -28,19 +27,19 @@ def bars(symbol, view, period, count, date):
         dict_rates[list_rates[i][0]] = list_rates[i][1:]
     # Prepara a string de exibição no formato mínimo
     # ASC 35.00 30.00 32.50
-    view_min = "%s %.{0}f %.{1}f %.{2}f".format(d, d, d)
+    view_min = "%s %.{0}f %.{0}f %.{0}f".format(conf.digits)
     # Prepara a string de exibição no formato ranges
     # ASC 5.00
-    view_ranges = "%s %.{0}f".format(d)
+    view_ranges = "%s %.{0}f".format(conf.digits)
     # Prepara a string de exibição no formato fechamentos
     # 32.50
-    view_closes = "%.{0}f".format(d)
+    view_closes = "%.{0}f".format(conf.digits)
     # Prepara a string de exibição no formato variações percentuais
     # ASC 1.50%
     view_percentuais = "%s %.2f%%"
     # Prepara a string de exibição no formato completo
     # ASC CP VERDE75 G2.5 BOTTOM20 35.00 30.00 32.00M32.50 5.00 2.50%
-    view_full = "%s %s %s%i %s %s %.{0}f %.{1}f %.{2}fM%.{3}f".format(d, d, d, d)
+    view_full = "%s %s %s%i %s %s %.{0}f %.{0}f %.{0}fM%.{0}f".format(conf.digits)
     # Definições em barras consecutivas
     list_h = []
     list_l = []
@@ -55,11 +54,11 @@ def bars(symbol, view, period, count, date):
         list_c.append(c)
         if len(list_h) == 2:
             # Define o tipo da barra
-            barra = tipo_barra(list_h, list_l)
+            barra = pa.tipo_barra(list_h, list_l)
             # Calcula o gap de fechamento
-            gap = gap_fechamento(list_c, list_h, list_l)
+            gap = pa.gap_fechamento(list_c, list_h, list_l)
             # Calcula a variação percentual
-            vp = variacao_percentual(list_c)
+            vp = pa.variacao_percentual(list_c)
             list_h.pop(0)
             list_l.pop(0)
             list_c.pop(0)
@@ -83,7 +82,7 @@ def bars(symbol, view, period, count, date):
         f_range = 0
         for v in dict_rates.values():
             h, l = float(v[1]), float(v[2])
-            f_range = range_barra(h, l)
+            f_range = pa.range_barra(h, l)
             click.echo(view_ranges % (v[6].upper(), f_range))
         return 0
     # Exibe as barras no formato completo

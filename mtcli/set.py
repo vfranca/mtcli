@@ -1,11 +1,10 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Gerencia configurações 
+"""
 import click
 from dotenv import dotenv_values, set_key
 
 
-# Cria o comando set
 @click.command()
 @click.option("--digitos", "-d", help="Digitos da moeda.")
 @click.option("--lateral", "-l", help="Nome da barra doji.")
@@ -23,7 +22,7 @@ from dotenv import dotenv_values, set_key
 )
 @click.option("--mt5-pasta", "-mp", help="Caminho da pasta do MetaTrader 5.")
 def set(**kwargs):
-    """Altera configurações no mtcli.ini."""
+    """Gerencia configuracoes."""
     # Define o arquivo de configurações
     env_file = "mtcli.ini"
     # Altera os dígitos da moeda

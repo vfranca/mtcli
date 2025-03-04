@@ -1,6 +1,6 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Gerencia configurações
+"""
 from os import getenv
 from dotenv import load_dotenv
 import MetaTrader5 as mt5
