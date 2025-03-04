@@ -3,8 +3,8 @@ Exibe a media móvel simples
 """
 
 import click
-from mtcli.csv_data import get_data
-from mtcli.pa.pa_bar import Bar
+from mtcli import csv_data
+from mtcli.pa import pa_bar
 from mtcli import conf
 
 
@@ -16,9 +16,9 @@ def mm(symbol, period, count):
     """Exibe a media móvel simples."""
     csv_file = conf.csv_path + symbol + period + ".csv"
     prices = []
-    rates = get_data(csv_file)
+    rates = csv_data.get_data(csv_file)
     for rate in rates:
-        bar = Bar(rate)
+        bar = pa_bar.Bar(rate)
         prices.append(bar.close)
     prices = prices[-count:]
     sma = round(sum(prices) / len(prices), conf.digits)
