@@ -3,8 +3,8 @@ Exibe o range médio das barras
 """
 
 import click
-from mtcli.csv_data import get_data
-from mtcli.pa.pa_bar import Bar
+from mtcli import csv_data
+from mtcli.pa import pa_bar
 from mtcli import conf
 
 
@@ -16,9 +16,9 @@ def rm(symbol, period, count):
     """Exibe o range médio das barras."""
     csv_file = conf.csv_path + symbol + period + ".csv"
     ranges = []
-    rates = get_data(csv_file)
+    rates = csv_data.get_data(csv_file)
     for rate in rates:
-        bar = Bar(rate)
+        bar = pa_bar.Bar(rate)
         # Elimina doji de 4 preços
         if bar.open == bar.high and bar.high == bar.low and bar.low == bar.close:
             continue
