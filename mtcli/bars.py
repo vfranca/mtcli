@@ -28,19 +28,19 @@ def bars(symbol, view, period, count, date):
         dict_rates[list_rates[i][0]] = list_rates[i][1:]
     # Prepara a string de exibição no formato mínimo
     # ASC 35.00 30.00 32.50
-    view_min = "%s %.{0}f %.{0}f %.{0}f".format(conf.digits)
+    view_min = "%s %.{0}f %.{0}f %.{0}f".format(conf.digitos)
     # Prepara a string de exibição no formato ranges
     # ASC 5.00
-    view_ranges = "%s %.{0}f".format(conf.digits)
+    view_ranges = "%s %.{0}f".format(conf.digitos)
     # Prepara a string de exibição no formato fechamentos
     # 32.50
-    view_closes = "%.{0}f".format(conf.digits)
+    view_closes = "%.{0}f".format(conf.digitos)
     # Prepara a string de exibição no formato variações percentuais
     # ASC 1.50%
     view_percentuais = "%s %.2f%%"
     # Prepara a string de exibição no formato completo
     # ASC CP VERDE75 G2.5 BOTTOM20 35.00 30.00 32.00M32.50 5.00 2.50%
-    view_full = "%s %s %s%i %s %s %.{0}f %.{0}f %.{0}fM%.{0}f".format(conf.digits)
+    view_full = "%s %s %s%i %s %s %.{0}f %.{0}f %.{0}fM%.{0}f".format(conf.digitos)
     # Definições em barras consecutivas
     list_h = []
     list_l = []

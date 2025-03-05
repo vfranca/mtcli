@@ -21,7 +21,7 @@ def mm(symbol, period, count):
         bar = pa_bar.Bar(rate)
         prices.append(bar.close)
     prices = prices[-count:]
-    sma = round(sum(prices) / len(prices), conf.digits)
+    sma = round(sum(prices) / len(prices), conf.digitos)
     click.echo(sma)
 
 

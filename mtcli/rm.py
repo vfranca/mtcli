@@ -24,7 +24,7 @@ def rm(symbol, period, count):
             continue
         ranges.append(bar.high - bar.low)
     ranges = ranges[-count:]
-    rm = round(sum(ranges) / len(ranges), conf.digits)
+    rm = round(sum(ranges) / len(ranges), conf.digitos)
     click.echo(rm)
 
 

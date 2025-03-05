@@ -23,7 +23,7 @@ class Bar(object):
         self.trend = self.__get_trend()
 
     def __get_range(self):
-        """Retorna o range do candle."""
+        """Retorna o range da barra."""
         return self.high - self.low
 
     def __get_body(self):
@@ -75,11 +75,11 @@ class Bar(object):
         b = self.body
 
         if b > 0:
-            trend = conf.lbl_body_bull
+            trend = conf.alta
         elif b < 0:
-            trend = conf.lbl_body_bear
+            trend = conf.baixa
         else:
-            trend = conf.lbl_body_doji
+            trend = conf.lateral
 
         return trend
 
