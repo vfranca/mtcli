@@ -1,110 +1,157 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
-from mtcli.pa.pa_one_bar import OneBar
-from mtcli.pa import helpers as helper
+"""
+Formata as exibições
+"""
+
 from mtcli import conf
+from mtcli.pa import pattern
+from mtcli.pa import helpers
 
 
-def brooks_view(bar, ch_trend, num_bar, brooks_pattern2, var_close):
-    """Retorna a exibição com os padrões Brooks."""
-    mp = helper.get_medium_point(bar)
-    brooks1 = OneBar(bar.body, bar.top, bar.bottom, bar.close, mp)  # padrões de 1 barra
-
-    tail = brooks1.tail
-    if tail == conf.lbl_toptail:
-        tail = "%s%i" % (tail, bar.top)
-    if tail == conf.lbl_bottomtail:
-        tail = "%s%i" % (tail, bar.bottom)
-
-    view = "%s %s %s %s%iR%." + str(conf.digits) + "f %s %s"
-    view += " %." + str(conf.digits) + "f"  # máxima
-    view += " %." + str(conf.digits) + "f"  # mínima
-    view += " %." + str(conf.digits) + "f"  # fechamento
-    view += "MP%." + str(conf.digits) + "f"  # ponto médio
-    view += " R%." + str(conf.digits) + "f %s"  # range, variação percentual
-
-    return view % (
-        num_bar,
-        ch_trend,
-        brooks1.pattern,
-        brooks1.body_pattern,
-        abs(bar.body),
-        bar.body_range,
-        brooks_pattern2,
-        tail,
-        bar.high,
-        bar.low,
-        bar.close,
-        mp,
-        bar.range,
-        var_close,
-    )
+def view_min(bars):
+    """Exibição mínima"""
+    views = []
+    n = 0
+    corpo = []
+    abert = []
+    fech = []
+    max = []
+    min = []
+    for bar in bars:
+        n += 1
+        corpo.append(bar.body)
+        abert.append(bar.open)
+        fech.append(bar.close)
+        max.append(bar.high)
+        min.append(bar.low)
+        if len(min) == 2:
+            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
+            direc = padrao.trend
+            corpo.pop(0)
+            abert.pop(0)
+            fech.pop(0)
+            max.pop(0)
+            min.pop(0)
+        else:
+            direc = ""
+        view = "%s %s"  # num da barra e tendencia do canal
+        view += " %." + str(conf.digitos) + "f"  # máxima
+        view += " %." + str(conf.digitos) + "f"  # mínima
+        views.append(view % (n, direc, bar.high, bar.low))
+    return views
 
 
-def ohlc_view(bar):
-    """Retorna a view com o OHLC."""
-    view = "%s"  # data
-    view += " %." + str(conf.digits) + "f"  # abertura
-    view += " %." + str(conf.digits) + "f"  # máxima
-    view += " %." + str(conf.digits) + "f"  # mínima
-    view += " %." + str(conf.digits) + "f"  # fechamento
-    view += " %i"  # volume
-
-    return view % (bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
-
-
-def channel_view(bar, ch_trend, num_bar):
-    """Retorna a exibição no formato de canal."""
-    view = "%s %s"  # num da barra e tendencia do canal
-    view += " %." + str(conf.digits) + "f"  # máxima
-    view += " %." + str(conf.digits) + "f"  # mínima
-
-    return view % (num_bar, ch_trend, bar.high, bar.low)
-
-
-def close_view(bar, num_bar):
-    """Retorna a view com os preços de fechamento."""
-    view = "%s"  # tendência do canal
-    view += " %." + str(conf.digits) + "f"  # fechamento
-
-    return view % (num_bar, bar.close)
-
-
-def high_view(bar, num_bar):
-    """Retorna a view com as máximas."""
-    view = "%s"  # tendência do canal
-    view += " %." + str(conf.digits) + "f"  # máxima
-
-    return view % (num_bar, bar.high)
+def view_ranges(bars):
+    "Exibição dos ranges" ""
+    views = []
+    n = 0
+    corpo = []
+    abert = []
+    fech = []
+    max = []
+    min = []
+    for bar in bars:
+        n += 1
+        corpo.append(bar.body)
+        abert.append(bar.open)
+        fech.append(bar.close)
+        max.append(bar.high)
+        min.append(bar.low)
+        if len(min) == 2:
+            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
+            direc = padrao.trend
+            corpo.pop(0)
+            abert.pop(0)
+            fech.pop(0)
+            max.pop(0)
+            min.pop(0)
+        else:
+            direc = ""
+        view = "%s %s %s"  # num da barra, tendencia do canal, tendencia da barra
+        view += " %." + str(conf.digitos) + "f"  # range
+        views.append(view % (n, direc, bar.trend, bar.range))
+    return views
 
 
-def low_view(bar, num_bar):
-    """Retorna a view com as mínimas."""
-    view = "%s"  # tendência do canal
-    view += " %." + str(conf.digits) + "f"  # mínima
+def view_full(bars):
+    "Exibição completa" ""
+    views = []
+    n = 0
+    corpo = []
+    abert = []
+    fech = []
+    max = []
+    min = []
+    for bar in bars:
+        n += 1
+        corpo.append(bar.body)
+        abert.append(bar.open)
+        fech.append(bar.close)
+        max.append(bar.high)
+        min.append(bar.low)
+        if len(min) == 2:
+            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
+            gap = padrao.pattern
+            direc = padrao.trend
+            var_percent = helpers.get_var(fech[0], fech[1])
+            corpo.pop(0)
+            abert.pop(0)
+            fech.pop(0)
+            max.pop(0)
+            min.pop(0)
+        else:
+            gap = ""
+            direc = ""
+            var_percent = ""
+        mp = helpers.get_medium_point(bar)
+        padrao = pattern.OneBar(
+            bar.body, bar.top, bar.bottom, bar.close, mp
+        )  # padrões de 1 barra
+        sombra = padrao.tail
+        if sombra == conf.toptail:
+            sombra = "%s%i" % (sombra, bar.top)
+        if sombra == conf.bottomtail:
+            sombra = "%s%i" % (sombra, bar.bottom)
+        view = "%s %s %s %s%iR%." + str(conf.digitos) + "f %s %s"
+        view += " %." + str(conf.digitos) + "f"  # máxima
+        view += " %." + str(conf.digitos) + "f"  # mínima
+        view += " %." + str(conf.digitos) + "f"  # fechamento
+        view += "MP%." + str(conf.digitos) + "f"  # ponto médio
+        view += " R%." + str(conf.digitos) + "f %s"  # range, variação percentual
+        views.append(
+            view
+            % (
+                n,
+                direc,
+                padrao.pattern,
+                padrao.body_pattern,
+                abs(bar.body),
+                bar.body_range,
+                gap,
+                sombra,
+                bar.high,
+                bar.low,
+                bar.close,
+                mp,
+                bar.range,
+                var_percent,
+            )
+        )
+    return views
 
-    return view % (num_bar, bar.low)
 
-
-def volume_view(bar, ch_trend, num_bar):
-    """Retorna a view com os volumes."""
-    return "%s %s %s %i" % (num_bar, ch_trend, bar.trend, bar.volume)
-
-
-def range_view(bar, ch_trend, num_bar):
-    """Retorna a view com os ranges das barras."""
-    view = "%s %s %s"  # num da barra, tendencia do canal, tendencia da barra
-    view += " %." + str(conf.digits) + "f"  # range
-
-    return view % (num_bar, ch_trend, bar.trend, bar.range)
-
-
-def stat_view(bull, bear, doji):
-    """Retorna a view stat."""
-    return "verde %i vermelho %i doji %i" % (bull, bear, doji)
-
-
-def var_view(ch_trend, var, num_bar):
-    """Retorna view com a variação percentual de duas barras."""
-    return "%s %s %s" % (num_bar, ch_trend, var)
+def view_ohlc(bars):
+    "Exibição do OHLC" ""
+    views = []
+    n = 0
+    for bar in bars:
+        n += 1
+        view = "%s"  # data
+        view += " %." + str(conf.digitos) + "f"  # abertura
+        view += " %." + str(conf.digitos) + "f"  # máxima
+        view += " %." + str(conf.digitos) + "f"  # mínima
+        view += " %." + str(conf.digitos) + "f"  # fechamento
+        view += " %i"  # volume
+        views.append(
+            view % (bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
+        )
+    return views

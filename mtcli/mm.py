@@ -1,27 +1,27 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Calcula a média móvel simples
+"""
+
 import click
-from mtcli.csv_data import get_data
-from mtcli.pa.pa_bar import Bar
+from mtcli import csv_data
+from mtcli.pa import bar as pa_bar
 from mtcli import conf
 
 
-# Cria o comando mm
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="D1", help="Tempo gráfico")
-@click.option("--count", "-c", default=20, help="Quantidade de períodos")
+@click.option("--period", "-p", default="D1", help="Tempo gráfico default D1")
+@click.option("--count", "-c", default=20, help="Quantidade de barras default 20")
 def mm(symbol, period, count):
-    """Média móvel simples dos  preços de fechamento."""
-    csv_file = conf.csv_path + symbol + period + ".csv"
+    """Calcula a media movel simples."""
+    fcsv = conf.csv_path + symbol + period + ".csv"
     prices = []
-    rates = get_data(csv_file)
+    rates = csv_data.get_data(fcsv)
     for rate in rates:
-        bar = Bar(rate)
+        bar = pa_bar.Bar(rate)
         prices.append(bar.close)
     prices = prices[-count:]
-    sma = round(sum(prices) / len(prices), conf.digits)
+    sma = round(sum(prices) / len(prices), conf.digitos)
     click.echo(sma)
 
 

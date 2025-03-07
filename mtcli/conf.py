@@ -1,128 +1,100 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
-from os import getenv
-from dotenv import load_dotenv
+"""
+Gerencia configurações
+"""
+
+import click
+import dotenv
+import os
 import MetaTrader5 as mt5
 
 
-load_dotenv()
-load_dotenv(".mtcli")
-load_dotenv("mtcli.ini")
+fconf = "mtcli.ini"
+dotenv.load_dotenv(fconf)
+digitos = int(os.getenv("DIGITOS", 2))
+lateral = os.getenv("LATERAL", "DOJI")
+alta = os.getenv("ALTA", "VERDE")
+baixa = os.getenv("BAIXA", "VERMELHO")
+rompimento_alta = os.getenv("ROMPIMENTO_ALTA", "C")
+rompimento_baixa = os.getenv("ROMPIMENTO_BAIXA", "V")
+percentual_doji = os.getenv("PERCENTUAL_DOJI", 60)
+percentual_rompimento = float(os.getenv("PERCENTUAL_ROMPIMENTO", 50))
+up_bar = os.getenv("UP_BAR", "ASC")
+down_bar = os.getenv("DOWN_BAR", "DESC")
+inside_bar = os.getenv("INSIDE_BAR", "IB")
+outside_bar = os.getenv("OUTSIDE_BAR", "OB")
+toptail = os.getenv("TOPTAIL", "TOP")
+bottomtail = os.getenv("BOTTOMTAIL", "BOTTOM")
+notail = os.getenv("NOTAIL", "")
 
-# Dígitos da moeda
-digits = getenv("DIGITOS")
-if digits == None:
-    digits = 2
-else:
-    digits = int(digits)
-r = "%." + str(digits) + "f"
-
-# caminho da pasta do MetaTrader 5
-csv_path = getenv("MT5_PASTA")
-if csv_path == None:
-    mt5.initialize()
-    info = mt5.terminal_info()
-    csv_path = info.data_path + "/MQL5/Files"
-    mt5.shutdown()
+mt5.initialize()
+info = mt5.terminal_info()
+csv_path = info.data_path + "/MQL5/Files"
+mt5.shutdown()
+csv_path = os.getenv("MT5_PASTA", csv_path)
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
-# Nome da barra lateral
-lateral = getenv("LATERAL")
-if lateral == None:
-    lbl_body_doji = "DOJI"
-else:
-    lbl_body_doji = lateral
 
-# Nome da barra de alta
-alta = getenv("ALTA")
-if alta == None:
-    lbl_body_bull = "VERDE"
-else:
-    lbl_body_bull = alta
+@click.command()
+@click.option("--digitos", "-d", help="Digitos da moeda.")
+@click.option("--lateral", "-l", help="Nome da barra doji.")
+@click.option("--alta", "-a", help="Nome da barra de alta.")
+@click.option("--baixa", "-b", help="Nome da barra de baixa.")
+@click.option(
+    "--rompimento-alta", "-ra", help="Abreviatura da barra de rompimento de alta."
+)
+@click.option(
+    "--rompimento-baixa", "-rb", help="Abreviatura da barra de rompimento de baixa."
+)
+@click.option("--percentual-doji", "-pd", help="Percentual do corpo da barra doji.")
+@click.option(
+    "--percentual-rompimento", "-pr", help="Percentual do corpo da barra de rompimento."
+)
+@click.option("--mt5-pasta", "-mp", help="Caminho da pasta do MetaTrader 5.")
+def conf(**kwargs):
+    """Gerencia configuracoes."""
+    res = False
+    # Altera os dígitos da moeda
+    if kwargs["digitos"]:
+        res = dotenv.set_key(fconf, "DIGITOS", kwargs["digitos"])
+    # Altera o nome da barra lateral
+    if kwargs["lateral"]:
+        res = dotenv.set_key(fconf, "LATERAL", kwargs["lateral"].upper())
+    # Altera o nome da barra de alta
+    if kwargs["alta"]:
+        res = dotenv.set_key(fconf, "ALTA", kwargs["alta"].upper())
+    # Altera o nome da barra de baixa
+    if kwargs["baixa"]:
+        res = dotenv.set_key(fconf, "BAIXA", kwargs["baixa"].upper())
+    # Altera a abreviatura da barra de rompimento de alta
+    if kwargs["rompimento_alta"]:
+        res = dotenv.set_key(
+            fconf, "ROMPIMENTO_ALTA", kwargs["rompimento_alta"].upper()
+        )
+    # Altera a abreviatura da barra de rompimento de baixa
+    if kwargs["rompimento_baixa"]:
+        res = dotenv.set_key(
+            fconf, "ROMPIMENTO_BAIXA", kwargs["rompimento_baixa"].upper()
+        )
+    # Altera o percentual do corpo da barra doji
+    if kwargs["percentual_doji"]:
+        res = dotenv.set_key(fconf, "PERCENTUAL_DOJI", kwargs["percentual_doji"])
+    # Altera o percentual do corpo da barra de rompimento
+    if kwargs["percentual_rompimento"]:
+        res = dotenv.set_key(
+            fconf, "PERCENTUAL_ROMPIMENTO", kwargs["percentual_rompimento"]
+        )
+    # Altera o caminho da pasta do MT5
+    if kwargs["mt5_pasta"]:
+        res = dotenv.set_key(fconf, "MT5_PASTA", kwargs["mt5_pasta"])
+    if res:
+        click.echo("%s=%s" % (res[1], res[2]))
+        return 0
+    # Lista as variáveis disponíveis
+    vars = dotenv.dotenv_values(fconf)
+    for var in vars.items():
+        click.echo("%s=%s" % (var[0], var[1]))
 
-# Nome da barra de baixa
-baixa = getenv("BAIXA")
-if baixa == None:
-    lbl_body_bear = "VERMELHO"
-else:
-    lbl_body_bear = baixa
 
-# nome da sombra superior
-lbl_toptail = "TOP"
-
-# nome da sombra inferior
-lbl_bottomtail = "BOTTOM"
-
-# Nome da sombra careca
-lbl_tail_neutral = "NONE"
-
-# Abreviatura da barra de rompimento de alta
-rompimento_alta = getenv("ROMPIMENTO_ALTA")
-if rompimento_alta == None:
-    lbl_buy_pressure = "CP"
-else:
-    lbl_buy_pressure = rompimento_alta
-
-# Abreviatura da barra de rompimento de baixa
-rompimento_baixa = getenv("ROMPIMENTO_BAIXA")
-if rompimento_baixa == None:
-    lbl_sell_pressure = "VD"
-else:
-    lbl_sell_pressure = rompimento_baixa
-
-# Abreviatura do gap de fechamento
-lbl_gap = "G"
-
-# Abreviatura da falha de rompimento
-lbl_fbo = ""
-
-# Nome da barra ascendente (up bar)
-lbl_asc = "ASC"
-
-# Nome da barra descendente (down bar)
-lbl_desc = "DESC"
-
-# Nome da barra externa (outside bar)
-lbl_ob = "OB"
-
-# Nome da barra interna (inside bar)
-lbl_ib = "IB"
-
-# Percentual do corpo da barra de rompimento
-percentual_rompimento = getenv("PERCENTUAL_ROMPIMENTO")
-if percentual_rompimento == None:
-    percentual_rompimento = 50
-percentual_rompimento = int(percentual_rompimento)
-
-# Percentual do corpo da barra doji
-percentual_doji = getenv("PERCENTUAL_DOJI")
-if percentual_doji == None:
-    percentual_doji = 10
-percentual_doji = int(percentual_doji)
-
-# Ativo padrão
-SYMBOL = "IBOV"
-
-# Período padrão
-PERIOD = "D1"
-
-# Volume padrão
-VOLUME = 1
-
-# Stop loss padrão
-STOP_LOSS = 250
-
-# Take profit padrão
-TAKE_PROFIT = 500
-
-ORDER_ERROR = "Órdem recusada"
-PRICE_CURRENT_ERROR = "Preço indisponível"
-POSITION_MODIFIED_SUCCESS = "Posição alterada"
-POSITION_MODIFIED_ERROR = "Alteração recusada"
-CONNECTION_ERROR = "MetaTrader desconectado"
-ORDER_CANCELED_SUCCESS = "Todas as órdens foram canceladas"
-ORDER_CANCELED_ERROR = "Cancelamento Recusado"
-POSITION_CANCELED_SUCCESS = "Todas as posições foram canceladas"
-POSITION_CANCELED_ERROR = "Cancelamento Recusado"
+if __name__ == "__main__":
+    conf()

@@ -1,4 +1,1 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
-__version__ = "0.27.8"
+__version__ = "0.28.0.dev1"

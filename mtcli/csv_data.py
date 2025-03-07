@@ -1,10 +1,10 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Importa dados de CSV
+"""
+
 import csv
 
 
-# Função para extrair os dados do arquivo CSV
 def get_data(csv_file):
     """Importa dados do arquivo CSV."""
     # Lista para armazenar as linhas do CSV

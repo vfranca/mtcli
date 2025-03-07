@@ -1,30 +1,30 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
+"""
+Calcula o tamanho médio das barras
+"""
+
 import click
-from mtcli.csv_data import get_data
-from mtcli.pa.pa_bar import Bar
+from mtcli import csv_data
+from mtcli.pa import bar as pa_bar
 from mtcli import conf
 
 
-# Cria o comando rm
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="D1", help="Tempo gráfico")
-@click.option("--count", "-c", default=14, help="Quantidade de períodos")
+@click.option("--period", "-p", default="D1", help="Tempo gráfico default D1")
+@click.option("--count", "-c", default=10, help="Quantidade de barras default 10")
 def rm(symbol, period, count):
-    """Range médio das barras."""
-    csv_file = conf.csv_path + symbol + period + ".csv"
+    """Calcula o tamanho medio das barras."""
+    fcsv = conf.csv_path + symbol + period + ".csv"
     ranges = []
-    rates = get_data(csv_file)
+    rates = csv_data.get_data(fcsv)
     for rate in rates:
-        bar = Bar(rate)
+        bar = pa_bar.Bar(rate)
         # Elimina doji de 4 preços
         if bar.open == bar.high and bar.high == bar.low and bar.low == bar.close:
             continue
         ranges.append(bar.high - bar.low)
     ranges = ranges[-count:]
-    rm = round(sum(ranges) / len(ranges), conf.digits)
+    rm = round(sum(ranges) / len(ranges), conf.digitos)
     click.echo(rm)
 
 

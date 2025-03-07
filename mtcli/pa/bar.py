@@ -1,6 +1,3 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
 from mtcli import conf
 
 
@@ -73,11 +70,11 @@ class Bar(object):
         b = self.body
 
         if b > 0:
-            trend = conf.lbl_body_bull
+            trend = conf.alta
         elif b < 0:
-            trend = conf.lbl_body_bear
+            trend = conf.baixa
         else:
-            trend = conf.lbl_body_doji
+            trend = conf.lateral
 
         return trend
 
