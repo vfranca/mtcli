@@ -11,28 +11,9 @@ def view_min(bars):
     """Exibição mínima"""
     views = []
     n = 0
-    corpo = []
-    abert = []
-    fech = []
-    max = []
-    min = []
-    for bar in bars:
+    gaps, direcs, vars = get_padroes(bars)
+    for bar, direc in zip(bars, direcs):
         n += 1
-        corpo.append(bar.body)
-        abert.append(bar.open)
-        fech.append(bar.close)
-        max.append(bar.high)
-        min.append(bar.low)
-        if len(min) == 2:
-            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
-            direc = padrao.trend
-            corpo.pop(0)
-            abert.pop(0)
-            fech.pop(0)
-            max.pop(0)
-            min.pop(0)
-        else:
-            direc = ""
         view = "%s %s"  # num da barra e tendencia do canal
         view += " %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
@@ -44,29 +25,10 @@ def view_ranges(bars):
     "Exibição dos ranges" ""
     views = []
     n = 0
-    corpo = []
-    abert = []
-    fech = []
-    max = []
-    min = []
-    for bar in bars:
+    gaps, direcs, vars = get_padroes(bars)
+    for bar, direc in zip(bars, direcs):
         n += 1
-        corpo.append(bar.body)
-        abert.append(bar.open)
-        fech.append(bar.close)
-        max.append(bar.high)
-        min.append(bar.low)
-        if len(min) == 2:
-            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
-            direc = padrao.trend
-            corpo.pop(0)
-            abert.pop(0)
-            fech.pop(0)
-            max.pop(0)
-            min.pop(0)
-        else:
-            direc = ""
-        view = "%s %s %s"  # num da barra, tendencia do canal, tendencia da barra
+        view = "%s %s %s"  # direção, direção da barra
         view += " %." + str(conf.digitos) + "f"  # range
         views.append(view % (n, direc, bar.trend, bar.range))
     return views
@@ -76,32 +38,9 @@ def view_full(bars):
     "Exibição completa" ""
     views = []
     n = 0
-    corpo = []
-    abert = []
-    fech = []
-    max = []
-    min = []
-    for bar in bars:
+    gaps, direcs, vars = get_padroes(bars)
+    for bar, direc, gap, var in zip(bars, direcs, gaps, vars):
         n += 1
-        corpo.append(bar.body)
-        abert.append(bar.open)
-        fech.append(bar.close)
-        max.append(bar.high)
-        min.append(bar.low)
-        if len(min) == 2:
-            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
-            gap = padrao.pattern
-            direc = padrao.trend
-            var_percent = helpers.get_var(fech[0], fech[1])
-            corpo.pop(0)
-            abert.pop(0)
-            fech.pop(0)
-            max.pop(0)
-            min.pop(0)
-        else:
-            gap = ""
-            direc = ""
-            var_percent = ""
         mp = helpers.get_medium_point(bar)
         padrao = pattern.OneBar(
             bar.body, bar.top, bar.bottom, bar.close, mp
@@ -133,7 +72,7 @@ def view_full(bars):
                 bar.close,
                 mp,
                 bar.range,
-                var_percent,
+                var,
             )
         )
     return views
