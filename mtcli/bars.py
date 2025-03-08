@@ -11,7 +11,7 @@ from mtcli.pa import bar as pa_bar
 
 @click.command()
 @click.argument("symbol")
-@click.option("--view", "-v", default="min", help="Forma de exibicao default min")
+@click.option("--view", "-v", default="ch", help="Forma de exibicao default ch")
 @click.option("--period", "-p", default="d1", help="Tempo grafico default D1")
 @click.option(
     "--count", "-c", type=int, default=20, help="Quantidade de barras default 20"
@@ -29,9 +29,9 @@ def bars(symbol, view, period, count, date):
         bars.append(bar)
     bars = bars[-count:]  # filtra por quantidade
     views = []
-    if view == "min":
+    if view == "ch":
         views = _views.view_min(bars)
-    elif view == "ranges":
+    elif view == "r":
         views = _views.view_ranges(bars)
     elif view == "ohlc":
         views = _views.view_ohlc(bars)

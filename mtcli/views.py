@@ -145,13 +145,13 @@ def view_ohlc(bars):
     n = 0
     for bar in bars:
         n += 1
-        view = "%s"  # data
+        view = "%s %s"  # data
         view += " %." + str(conf.digitos) + "f"  # abertura
         view += " %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
         view += " %." + str(conf.digitos) + "f"  # fechamento
         view += " %i"  # volume
         views.append(
-            view % (bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
+            view % (n, bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
         )
     return views
