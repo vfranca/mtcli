@@ -4,7 +4,7 @@ Formata as exibições
 
 from mtcli import conf
 from mtcli.pa import pattern
-from mtcli.pa import helpers
+
 
 
 def view_min(bars):
@@ -41,7 +41,7 @@ def view_full(bars):
     gaps, direcs, vars = get_padroes(bars)
     for bar, direc, gap, var in zip(bars, direcs, gaps, vars):
         n += 1
-        mp = helpers.get_medium_point(bar)
+        mp = get_medium_point(bar)
         padrao = pattern.OneBar(
             bar.body, bar.top, bar.bottom, bar.close, mp
         )  # padrões de 1 barra
@@ -128,7 +128,7 @@ def get_padroes(bars):
             padrao = pattern.TwoBars(corpo, abert, fech, max, min)
             gap = padrao.pattern
             direc = padrao.trend
-            var_percent = float(helpers.get_var(fech[0], fech[1]))
+            var_percent = float(get_var(fech[0], fech[1]))
             corpo.pop(0)
             abert.pop(0)
             fech.pop(0)
@@ -142,3 +142,13 @@ def get_padroes(bars):
         direcs.append(direc)
         vars.append(var_percent)
     return [gaps, direcs, vars]
+
+
+def get_medium_point(bar):
+    """Retorna o ponto médio da barra."""
+    return round(bar.low + bar.range / 2, conf.digitos)
+
+
+def get_var(price1, price2):
+    """Calcula variação percentual de dois preços."""
+    return round((price2 - price1) / price1 * 100, 2)
