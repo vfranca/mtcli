@@ -28,17 +28,17 @@ def bars(symbol, view, period, count, date):
             continue  # filtra por data
         bars.append(bar)
     bars = bars[-count:]  # filtra por quantidade
-    lviews = []
+    views = []
     if view == "min":
-        lviews = _views.view_min(bars)
+        views = _views.view_min(bars)
     elif view == "ranges":
-        lviews = _views.view_ranges(bars)
+        views = _views.view_ranges(bars)
     elif view == "ohlc":
         views = _views.view_ohlc(bars)
     else:
-        lviews = _views.view_full(bars)
-    if lviews:
-        for view in lviews:
+        views = _views.view_full(bars)
+    if views:
+        for view in views:
             click.echo(view)
 
 
