@@ -155,3 +155,51 @@ def view_ohlc(bars):
             view % (n, bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
         )
     return views
+
+
+def view_var(bars):
+    """Exibição de variações percentuais"""
+    views = []
+    n = 0
+    gaps, direcs, vars = get_padroes(bars)
+    for bar, direc, var in zip(bars, direcs, vars):
+        n += 1
+        view = "%s %s"  # direção da barra
+        view += " %.2f%%"  # variação percentual
+        views.append(view % (n, direc, float(var)))
+    return views
+
+
+def get_padroes(bars):
+    gaps = []
+    direcs = []
+    vars = []
+    corpo = []
+    abert = []
+    fech = []
+    max = []
+    min = []
+    for bar in bars:
+        corpo.append(bar.body)
+        abert.append(bar.open)
+        fech.append(bar.close)
+        max.append(bar.high)
+        min.append(bar.low)
+        if len(min) == 2:
+            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
+            gap = padrao.pattern
+            direc = padrao.trend
+            var_percent = float(helpers.get_var(fech[0], fech[1]))
+            corpo.pop(0)
+            abert.pop(0)
+            fech.pop(0)
+            max.pop(0)
+            min.pop(0)
+        else:
+            gap = ""
+            direc = ""
+            var_percent = 0
+        gaps.append(gap)
+        direcs.append(direc)
+        vars.append(var_percent)
+    return [gaps, direcs, vars]
