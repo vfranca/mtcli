@@ -6,7 +6,6 @@ from mtcli import conf
 from mtcli.pa import pattern
 
 
-
 def view_min(bars):
     """Exibição mínima"""
     views = []
@@ -106,6 +105,50 @@ def view_var(bars):
         view = "%s %s"  # direção da barra
         view += " %.2f%%"  # variação percentual
         views.append(view % (n, direc, float(var)))
+    return views
+
+
+def view_open(bars):
+    "Exibição de aberturas" ""
+    views = []
+    n = 0
+    for bar in bars:
+        n += 1
+        view = "%s %." + str(conf.digitos) + "f"  # abertura
+        views.append(view % (n, bar.open))
+    return views
+
+
+def view_high(bars):
+    "Exibição de maximas" ""
+    views = []
+    n = 0
+    for bar in bars:
+        n += 1
+        view = "%s %." + str(conf.digitos) + "f"  # máxima
+        views.append(view % (n, bar.high))
+    return views
+
+
+def view_low(bars):
+    "Exibição de minimas" ""
+    views = []
+    n = 0
+    for bar in bars:
+        n += 1
+        view = "%s %." + str(conf.digitos) + "f"  # mínimas
+        views.append(view % (n, bar.low))
+    return views
+
+
+def view_close(bars):
+    "Exibição de fechamentos" ""
+    views = []
+    n = 0
+    for bar in bars:
+        n += 1
+        view = "%s %." + str(conf.digitos) + "f"  # fechamento
+        views.append(view % (n, bar.close))
     return views
 
 

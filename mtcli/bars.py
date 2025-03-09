@@ -37,6 +37,14 @@ def bars(symbol, view, period, count, date):
         views = _views.view_ohlc(bars)
     elif view == "var":
         views = _views.view_var(bars)
+    elif view == "o":
+        views = _views.view_open(bars)
+    elif view == "h":
+        views = _views.view_high(bars)
+    elif view == "l":
+        views = _views.view_low(bars)
+    elif view == "c":
+        views = _views.view_close(bars)
     else:
         views = _views.view_full(bars)
     if views:
