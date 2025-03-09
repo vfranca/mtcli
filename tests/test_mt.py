@@ -8,4 +8,4 @@ run = CliRunner()
 
 def test_exibe_a_versao():
     res = run.invoke(mt, ["--version"])
-    assert res.output == "mtcli 0.28.0.dev1\n"
+    assert res.output == "mtcli 0.28.0\n"

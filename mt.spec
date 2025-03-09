@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-version = '0.28.0.dev1'
+version = '0.28.0'
 included_files = [
     ("resources/Mtcli.ex5", "."),
     ("resources/MA_TXT.ex5", "."),
