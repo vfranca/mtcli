@@ -6,7 +6,7 @@ from mtcli import conf
 from mtcli.pa import pattern
 
 
-def view_min(bars, count):
+def view_min(bars, count, num):
     """Exibição mínima"""
     views = []
     n = 0
@@ -15,14 +15,20 @@ def view_min(bars, count):
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
-        view = "%s %s"  # num da barra e tendencia do canal
+        if num:  # numerador de barra
+            view = "%s %s"  # tendencia do canal
+        else:
+            view = "%s"  # tendencia do canal
         view += " %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
-        views.append(view % (n, direc, bar.high, bar.low))
+        if num:
+            views.append(view % (n, direc, bar.high, bar.low))
+        else:
+            views.append(view % (direc, bar.high, bar.low))
     return views
 
 
-def view_ranges(bars, count):
+def view_ranges(bars, count, num):
     "Exibição dos ranges" ""
     views = []
     n = 0
@@ -31,13 +37,19 @@ def view_ranges(bars, count):
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
-        view = "%s %s %s"  # direção, direção da barra
+        if num:
+            view = "%s %s %s"  # direção, direção da barra
+        else:
+            view = "%s %s"  # direção, direção da barra
         view += " %." + str(conf.digitos) + "f"  # range
-        views.append(view % (n, direc, bar.trend, bar.range))
+        if num:
+            views.append(view % (n, direc, bar.trend, bar.range))
+        else:
+            views.append(view % (direc, bar.trend, bar.range))
     return views
 
 
-def view_full(bars, count):
+def view_full(bars, count, num):
     "Exibição completa" ""
     views = []
     n = 0
@@ -57,54 +69,87 @@ def view_full(bars, count):
             sombra = "%s%i" % (sombra, bar.top)
         if sombra == conf.bottomtail:
             sombra = "%s%i" % (sombra, bar.bottom)
-        view = "%s %s %s %s%iR%." + str(conf.digitos) + "f %s %s"
+        if num:
+            view = "%s %s"
+        else:
+            view = "%s"
+        view += "%s %s%iR%." + str(conf.digitos) + "f %s %s"
         view += " %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
         view += " %." + str(conf.digitos) + "f"  # fechamento
         view += "MP%." + str(conf.digitos) + "f"  # ponto médio
         view += " R%." + str(conf.digitos) + "f %s"  # range, variação percentual
-        views.append(
-            view
-            % (
-                n,
-                direc,
-                padrao.pattern,
-                padrao.body_pattern,
-                abs(bar.body),
-                bar.body_range,
-                gap,
-                sombra,
-                bar.high,
-                bar.low,
-                bar.close,
-                mp,
-                bar.range,
-                var,
+        if num:
+            views.append(
+                view
+                % (
+                    n,
+                    direc,
+                    padrao.pattern,
+                    padrao.body_pattern,
+                    abs(bar.body),
+                    bar.body_range,
+                    gap,
+                    sombra,
+                    bar.high,
+                    bar.low,
+                    bar.close,
+                    mp,
+                    bar.range,
+                    var,
+                )
             )
-        )
+        else:
+            views.append(
+                view
+                % (
+                    direc,
+                    padrao.pattern,
+                    padrao.body_pattern,
+                    abs(bar.body),
+                    bar.body_range,
+                    gap,
+                    sombra,
+                    bar.high,
+                    bar.low,
+                    bar.close,
+                    mp,
+                    bar.range,
+                    var,
+                )
+            )
     return views
 
 
-def view_ohlc(bars, count):
+def view_ohlc(bars, count, num):
     "Exibição do OHLC" ""
     views = []
     n = 0
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        view = "%s %s"  # data
+        if num:
+            view = "%s "
+        else:
+            view = ""
+        view += "%s"  # data
         view += " %." + str(conf.digitos) + "f"  # abertura
         view += " %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
         view += " %." + str(conf.digitos) + "f"  # fechamento
         view += " %i"  # volume
-        views.append(
-            view % (n, bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
-        )
+        if num:
+            views.append(
+                view % (n, bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
+            )
+        else:
+            views.append(
+                view % (bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
+            )
     return views
 
 
-def view_var(bars, count):
+def view_var(bars, count, num):
     """Exibição de variações percentuais"""
     views = []
     n = 0
@@ -113,68 +158,110 @@ def view_var(bars, count):
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, var in zip(bars, vars):
         n += 1
-        view = "%s %.2f%%"  # variação percentual
-        views.append(view % (n, float(var)))
+        if num:
+            view = "%s "
+        else:
+            view = ""
+        view += "%.2f%%"  # variação percentual
+        if num:
+            views.append(view % (n, float(var)))
+        else:
+            views.append(view % (float(var)))
     return views
 
 
-def view_open(bars, count):
+def view_open(bars, count, num):
     "Exibição de aberturas" ""
     views = []
     n = 0
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        view = "%s %." + str(conf.digitos) + "f"  # abertura
-        views.append(view % (n, bar.open))
+        if num:
+            view = "%s "
+        else:
+            view = ""
+        view += "%." + str(conf.digitos) + "f"  # abertura
+        if num:
+            views.append(view % (n, bar.open))
+        else:
+            views.append(view % (bar.open))
     return views
 
 
-def view_high(bars, count):
+def view_high(bars, count, num):
     "Exibição de maximas" ""
     views = []
     n = 0
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        view = "%s %." + str(conf.digitos) + "f"  # máxima
-        views.append(view % (n, bar.high))
+        if num:
+            view = "%s "
+        else:
+            view = ""
+        view += "%." + str(conf.digitos) + "f"  # máxima
+        if num:
+            views.append(view % (n, bar.high))
+        else:
+            views.append(view % (bar.high))
     return views
 
 
-def view_low(bars, count):
+def view_low(bars, count, num):
     "Exibição de minimas" ""
     views = []
     n = 0
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        view = "%s %." + str(conf.digitos) + "f"  # mínimas
-        views.append(view % (n, bar.low))
+        if num:
+            view = "%s "
+        else:
+            view = ""
+        view += "%." + str(conf.digitos) + "f"  # mínimas
+        if num:
+            views.append(view % (n, bar.low))
+        else:
+            views.append(view % (bar.low))
     return views
 
 
-def view_close(bars, count):
+def view_close(bars, count, num):
     "Exibição de fechamentos" ""
     views = []
     n = 0
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        view = "%s %." + str(conf.digitos) + "f"  # fechamento
-        views.append(view % (n, bar.close))
+        if num:
+            view = "%s "
+        else:
+            view = ""
+        view += "%." + str(conf.digitos) + "f"  # fechamento
+        if num:
+            views.append(view % (n, bar.close))
+        else:
+            views.append(view % (bar.close))
     return views
 
 
-def view_volume(bars, count):
+def view_volume(bars, count, num):
     "Exibição de volumes" ""
     views = []
     n = 0
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        view = "%s %i"  # fechamento
-        views.append(view % (n, bar.volume))
+        if num:
+            view = "%s "
+        else:
+            view = ""
+        view += "%i"  # fechamento
+        if num:
+            views.append(view % (n, bar.volume))
+        else:
+            views.append(view % (bar.volume))
     return views
 
 
