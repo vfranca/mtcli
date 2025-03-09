@@ -152,6 +152,17 @@ def view_close(bars):
     return views
 
 
+def view_volume(bars):
+    "Exibição de volumes" ""
+    views = []
+    n = 0
+    for bar in bars:
+        n += 1
+        view = "%s %i"  # fechamento
+        views.append(view % (n, bar.volume))
+    return views
+
+
 def get_padroes(bars):
     gaps = []
     direcs = []

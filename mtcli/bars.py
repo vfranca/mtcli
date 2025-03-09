@@ -45,6 +45,8 @@ def bars(symbol, view, period, count, date):
         views = _views.view_low(bars)
     elif view == "c":
         views = _views.view_close(bars)
+    elif view == "vol":
+        views = _views.view_volume(bars)
     else:
         views = _views.view_full(bars)
     if views:
