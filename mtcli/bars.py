@@ -25,9 +25,9 @@ def bars(symbol, view, period, count, date, num):
     bars = []
     for rate in rates:
         bar = pa_bar.Bar(rate)
-        if date and bar.date != date:
-            num = True
-            continue  # filtra por data
+        if date and bar.date != date:  # filtra por data para intraday
+            num = True  # Configura numerador padrão para intraday
+            continue
         bars.append(bar)
     views = []
     if view == "ch":
