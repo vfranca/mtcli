@@ -26,6 +26,7 @@ def bars(symbol, view, period, count, date, num):
     for rate in rates:
         bar = pa_bar.Bar(rate)
         if date and bar.date != date:
+            num = True
             continue  # filtra por data
         bars.append(bar)
     views = []
