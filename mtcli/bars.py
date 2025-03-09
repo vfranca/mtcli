@@ -27,28 +27,27 @@ def bars(symbol, view, period, count, date):
         if date and bar.date != date:
             continue  # filtra por data
         bars.append(bar)
-    bars = bars[-count:]  # filtra por quantidade
     views = []
     if view == "ch":
-        views = _views.view_min(bars)
+        views = _views.view_min(bars, count)
     elif view == "r":
-        views = _views.view_ranges(bars)
+        views = _views.view_ranges(bars, count)
     elif view == "ohlc":
-        views = _views.view_ohlc(bars)
+        views = _views.view_ohlc(bars, count)
     elif view == "var":
-        views = _views.view_var(bars)
+        views = _views.view_var(bars, count)
     elif view == "o":
         views = _views.view_open(bars)
     elif view == "h":
-        views = _views.view_high(bars)
+        views = _views.view_high(bars, count)
     elif view == "l":
-        views = _views.view_low(bars)
+        views = _views.view_low(bars, count)
     elif view == "c":
-        views = _views.view_close(bars)
+        views = _views.view_close(bars, count)
     elif view == "vol":
-        views = _views.view_volume(bars)
+        views = _views.view_volume(bars, count)
     else:
-        views = _views.view_full(bars)
+        views = _views.view_full(bars, count)
     if views:
         for view in views:
             click.echo(view)

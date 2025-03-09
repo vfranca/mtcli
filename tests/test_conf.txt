@@ -10,7 +10,7 @@ def test_exibe_uma_lista_de_variaveis_de_ambiente_disponiveis():
     res = run.invoke(mt, ["conf"])
     assert (
         res.output
-        == "DIGITOS=0\nLATERAL=DOJI\nALTA=VERDE\nBAIXA=VERMELHO\nROMPIMENTO_ALTA=CP\nROMPIMENTO_BAIXA=VD\nPERCENTUAL_DOJI=10\nPERCENTUAL_ROMPIMENTO=50\nMT5_PASTA=C:/Users/Administrador/cli/mtcli/tests/fixtures/Files\n"
+        == "DIGITOS=2\nLATERAL=DOJI\nALTA=VERDE\nBAIXA=VERMELHO\nROMPIMENTO_ALTA=CP\nROMPIMENTO_BAIXA=VD\nPERCENTUAL_DOJI=10\nPERCENTUAL_ROMPIMENTO=50\nMT5_PASTA=C:/Users/Administrador/cli/mtcli/tests/fixtures/Files\n"
     )
 
 

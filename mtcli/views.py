@@ -6,11 +6,13 @@ from mtcli import conf
 from mtcli.pa import pattern
 
 
-def view_min(bars):
+def view_min(bars, count):
     """Exibição mínima"""
     views = []
     n = 0
     gaps, direcs, vars = get_padroes(bars)
+    direcs = direcs[-count:]  # filtra quantidade de barras
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
         view = "%s %s"  # num da barra e tendencia do canal
@@ -20,11 +22,13 @@ def view_min(bars):
     return views
 
 
-def view_ranges(bars):
+def view_ranges(bars, count):
     "Exibição dos ranges" ""
     views = []
     n = 0
     gaps, direcs, vars = get_padroes(bars)
+    direcs = direcs[-count:]  # filtra quantidade de barras
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
         view = "%s %s %s"  # direção, direção da barra
@@ -33,11 +37,15 @@ def view_ranges(bars):
     return views
 
 
-def view_full(bars):
+def view_full(bars, count):
     "Exibição completa" ""
     views = []
     n = 0
     gaps, direcs, vars = get_padroes(bars)
+    direcs = direcs[-count:]  # filtra quantidade de barras
+    gaps = gaps[-count:]  # filtra quantidade de barras
+    vars = vars[-count:]  # filtra quantidade de barras
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc, gap, var in zip(bars, direcs, gaps, vars):
         n += 1
         mp = get_medium_point(bar)
@@ -77,10 +85,11 @@ def view_full(bars):
     return views
 
 
-def view_ohlc(bars):
+def view_ohlc(bars, count):
     "Exibição do OHLC" ""
     views = []
     n = 0
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
         view = "%s %s"  # data
@@ -95,23 +104,25 @@ def view_ohlc(bars):
     return views
 
 
-def view_var(bars):
+def view_var(bars, count):
     """Exibição de variações percentuais"""
     views = []
     n = 0
     gaps, direcs, vars = get_padroes(bars)
-    for bar, direc, var in zip(bars, direcs, vars):
+    vars = vars[-count:]  # filtra quantidade de barras
+    bars = bars[-count:]  # filtra quantidade de barras
+    for bar, var in zip(bars, vars):
         n += 1
-        view = "%s %s"  # direção da barra
-        view += " %.2f%%"  # variação percentual
-        views.append(view % (n, direc, float(var)))
+        view = "%s %.2f%%"  # variação percentual
+        views.append(view % (n, float(var)))
     return views
 
 
-def view_open(bars):
+def view_open(bars, count):
     "Exibição de aberturas" ""
     views = []
     n = 0
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
         view = "%s %." + str(conf.digitos) + "f"  # abertura
@@ -119,10 +130,11 @@ def view_open(bars):
     return views
 
 
-def view_high(bars):
+def view_high(bars, count):
     "Exibição de maximas" ""
     views = []
     n = 0
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
         view = "%s %." + str(conf.digitos) + "f"  # máxima
@@ -130,10 +142,11 @@ def view_high(bars):
     return views
 
 
-def view_low(bars):
+def view_low(bars, count):
     "Exibição de minimas" ""
     views = []
     n = 0
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
         view = "%s %." + str(conf.digitos) + "f"  # mínimas
@@ -141,10 +154,11 @@ def view_low(bars):
     return views
 
 
-def view_close(bars):
+def view_close(bars, count):
     "Exibição de fechamentos" ""
     views = []
     n = 0
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
         view = "%s %." + str(conf.digitos) + "f"  # fechamento
@@ -152,10 +166,11 @@ def view_close(bars):
     return views
 
 
-def view_volume(bars):
+def view_volume(bars, count):
     "Exibição de volumes" ""
     views = []
     n = 0
+    bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
         view = "%s %i"  # fechamento

@@ -1,43 +1,40 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
 import unittest
-from mtcli.pa.pa_one_bar import OneBar
-from mtcli.conf import *
+from mtcli.pa.pattern import OneBar
+from mtcli import conf
 
 
 class TestPaOneBar(unittest.TestCase):
     def test_body_pattern_bull(self):
         o = OneBar(50, 25, 25, 92600, 92500)
-        self.assertEqual(o.body_pattern, lbl_body_bull)
+        self.assertEqual(o.body_pattern, conf.alta)
 
     def test_body_pattern_bear(self):
         o = OneBar(-50, 25, 25, 92500, 92600)
-        self.assertEqual(o.body_pattern, lbl_body_bear)
+        self.assertEqual(o.body_pattern, conf.baixa)
 
     def test_body_pattern_doji(self):
         o = OneBar(-5, 50, 45, 92500, 92600)
-        self.assertEqual(o.body_pattern, "DOJI")
+        self.assertEqual(o.body_pattern, conf.lateral)
 
     def test_tail_top(self):
         o = OneBar(-50, 20, 30, 92500, 92600)
-        self.assertEqual(o.tail, lbl_bottomtail)
+        self.assertEqual(o.tail, conf.bottomtail)
 
     def test_tail_bottom(self):
         o = OneBar(-50, 30, 20, 92500, 92600)
-        self.assertEqual(o.tail, lbl_toptail)
+        self.assertEqual(o.tail, conf.toptail)
 
     def test_tail_neutral(self):
         o = OneBar(-50, 25, 25, 92500, 92600)
-        self.assertEqual(o.tail, lbl_tail_neutral)
+        self.assertEqual(o.tail, conf.notail)
 
     def test_buy_pressure(self):
         o = OneBar(50, 20, 30, 92700, 92600)
-        self.assertEqual(o.pattern, lbl_buy_pressure)
+        self.assertEqual(o.pattern, conf.rompimento_alta)
 
     def test_sell_pressure(self):
         o = OneBar(-50, 25, 25, 92500, 92600)
-        self.assertEqual(o.pattern, lbl_sell_pressure)
+        self.assertEqual(o.pattern, conf.rompimento_baixa)
 
 
 if __name__ == "__main__":

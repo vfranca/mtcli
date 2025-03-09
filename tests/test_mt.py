@@ -1,6 +1,3 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
 from click.testing import CliRunner
 from pytest import mark
 from mtcli.mt import mt

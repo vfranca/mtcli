@@ -1,8 +1,5 @@
-# mtcli
-# Copyright 2023 Valmir França da Silva
-# http://github.com/vfranca
 import unittest
-from mtcli.pa.pa_two_bars import TwoBars
+from mtcli.pa.pattern import TwoBars
 from mtcli.conf import *
 
 
@@ -21,7 +18,7 @@ class TestTwoBars(unittest.TestCase):
 
     def test_pattern_bear_gap(self):
         o = TwoBars([-50, -60], [90, 40], [20, 10], [80, 60], [15, 5])
-        self.assertEqual(o.pattern, "%s5.00" % lbl_gap)
+        self.assertEqual(o.pattern, "%s5.00" % "G")
 
 
 if __name__ == "__main__":
