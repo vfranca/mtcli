@@ -70,10 +70,10 @@ def view_full(bars, count, num):
         if sombra == conf.bottomtail:
             sombra = "%s%i" % (sombra, bar.bottom)
         if num:
-            view = "%s %s"
+            view = "%s "
         else:
-            view = "%s"
-        view += "%s %s%iR%." + str(conf.digitos) + "f %s %s"
+            view = ""
+        view += "%s %s %s%iR%." + str(conf.digitos) + "f %s %s"
         view += " %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
         view += " %." + str(conf.digitos) + "f"  # fechamento
