@@ -1,1 +1,1 @@
-@pyinstaller --distpath releases -y mt.spec
+@pyinstaller --distpath dist-pyinstaller -y mt.spec
