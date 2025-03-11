@@ -65,9 +65,9 @@ def view_full(bars, count, num):
             bar.body, bar.top, bar.bottom, bar.close, mp
         )  # padrões de 1 barra
         sombra = padrao.tail
-        if sombra == conf.toptail:
+        if sombra == conf.sombra_superior:
             sombra = "%s%i" % (sombra, bar.top)
-        if sombra == conf.bottomtail:
+        if sombra == conf.sombra_inferior:
             sombra = "%s%i" % (sombra, bar.bottom)
         if num:
             view = "%s "
@@ -77,7 +77,7 @@ def view_full(bars, count, num):
         view += " %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
         view += " %." + str(conf.digitos) + "f"  # fechamento
-        view += "MP%." + str(conf.digitos) + "f"  # ponto médio
+        view += conf.ponto_medio + "%." + str(conf.digitos) + "f"  # ponto médio
         view += " R%." + str(conf.digitos) + "f %s"  # range, variação percentual
         if num:
             views.append(

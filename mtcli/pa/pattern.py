@@ -32,10 +32,10 @@ class OneBar(object):
     def __get_tail(self):
         """Sombra sobressalente: TOPTAIL/BOTTOMTAIL/NEUTRAL."""
         if self.top > self.bottom:
-            return conf.toptail
+            return conf.sombra_superior
         if self.bottom > self.top:
-            return conf.bottomtail
-        return conf.notail
+            return conf.sombra_inferior
+        return ""
 
     def __get_pattern(self):
         """Padrão de uma barra: careca/topo raspado, fundo raspado."""

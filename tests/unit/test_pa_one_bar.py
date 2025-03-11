@@ -18,15 +18,15 @@ class TestPaOneBar(unittest.TestCase):
 
     def test_tail_top(self):
         o = OneBar(-50, 20, 30, 92500, 92600)
-        self.assertEqual(o.tail, conf.bottomtail)
+        self.assertEqual(o.tail, conf.sombra_inferior)
 
     def test_tail_bottom(self):
         o = OneBar(-50, 30, 20, 92500, 92600)
-        self.assertEqual(o.tail, conf.toptail)
+        self.assertEqual(o.tail, conf.sombra_superior)
 
     def test_tail_neutral(self):
         o = OneBar(-50, 25, 25, 92500, 92600)
-        self.assertEqual(o.tail, conf.notail)
+        self.assertEqual(o.tail, "")
 
     def test_buy_pressure(self):
         o = OneBar(50, 20, 30, 92700, 92600)
