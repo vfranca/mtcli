@@ -45,18 +45,6 @@ class OneBar(object):
             return conf.rompimento_baixa
         return ""
 
-    def __is_topo_careca(self):
-        """Se for topo careca retorna true."""
-        pass
-
-    def __is_fundo_careca(self):
-        """Se for fundo careca retorna true."""
-        pass
-
-    def __is_careca(self):
-        """Se for careca retorna true."""
-        pass
-
     def __is_buy_pressure(self):
         """Se tiver pressão compradora retorna true."""
         if self.body < 0:
@@ -100,7 +88,7 @@ class TwoBars(object):
                 gap = self.close[1] - self.high[0]
             if self.body[1] < 0:
                 gap = self.low[0] - self.close[1]
-            view = "G%." + str(conf.digitos) + "f"
+            view = conf.gap + "%." + str(conf.digitos) + "f"
             return view % gap
         return ""
 
@@ -118,22 +106,6 @@ class TwoBars(object):
         if self.body[1] < 0 and self.close[1] >= self.low[0]:
             return False
         return True
-
-    def __is_bull_reversal(self):
-        """Se for reversão de alta de duas barras retorna true."""
-        pass
-
-    def __is_bear_reversal(self):
-        """Se for reversão de baixa de duas barras retorna true."""
-        pass
-
-    def __is_microdoubletop(self):
-        """Se for micro topo duplo retorna true."""
-        pass
-
-    def __is_microdoublebottom(self):
-        """Se for micro fundo duplo retorna true."""
-        pass
 
     def __get_trend(self):
         """Retorna a tendência da sequência de dois candles."""
