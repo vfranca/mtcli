@@ -42,11 +42,12 @@ csv_path += "/"
 @click.option("--alta", "-a", help="Nome da barra de alta.")
 @click.option("--baixa", "-b", help="Nome da barra de baixa.")
 @click.option(
-    "--rompimento-alta", "-ra", help="Abreviatura da barra de rompimento de alta."
+    "--rompimento-alta", "-ra", help="Barra de rompimento de alta."
 )
 @click.option(
-    "--rompimento-baixa", "-rb", help="Abreviatura da barra de rompimento de baixa."
+    "--rompimento-baixa", "-rb", help="Barra de rompimento de baixa."
 )
+@click.option("--ponto_medio", "-pm", help="Ponto medio")
 @click.option("--percentual-doji", "-pd", help="Percentual do corpo da barra doji.")
 @click.option(
     "--percentual-rompimento", "-pr", help="Percentual do corpo da barra de rompimento."
@@ -55,37 +56,42 @@ csv_path += "/"
 def conf(**kwargs):
     """Gerencia configuracoes."""
     res = False
-    # Altera os dígitos da moeda
+    # dígitos da moeda
     if kwargs["digitos"]:
         res = dotenv.set_key(fconf, "DIGITOS", kwargs["digitos"])
-    # Altera o nome da barra lateral
+    # nome da barra lateral
     if kwargs["lateral"]:
         res = dotenv.set_key(fconf, "LATERAL", kwargs["lateral"].upper())
-    # Altera o nome da barra de alta
+    # nome da barra de alta
     if kwargs["alta"]:
         res = dotenv.set_key(fconf, "ALTA", kwargs["alta"].upper())
-    # Altera o nome da barra de baixa
+    # nome da barra de baixa
     if kwargs["baixa"]:
         res = dotenv.set_key(fconf, "BAIXA", kwargs["baixa"].upper())
-    # Altera a abreviatura da barra de rompimento de alta
+    # abreviatura da barra de rompimento de alta
     if kwargs["rompimento_alta"]:
         res = dotenv.set_key(
             fconf, "ROMPIMENTO_ALTA", kwargs["rompimento_alta"].upper()
         )
-    # Altera a abreviatura da barra de rompimento de baixa
+    # abreviatura da barra de rompimento de baixa
     if kwargs["rompimento_baixa"]:
         res = dotenv.set_key(
             fconf, "ROMPIMENTO_BAIXA", kwargs["rompimento_baixa"].upper()
         )
-    # Altera o percentual do corpo da barra doji
+    # ponto médio
+    if kwargs["ponto_medio"]:
+        res = dotenv.set_key(
+            fconf, "PONTO_MEDIO", kwargs["ponto_medio"].upper()
+        )
+    # percentual do corpo da barra doji
     if kwargs["percentual_doji"]:
         res = dotenv.set_key(fconf, "PERCENTUAL_DOJI", kwargs["percentual_doji"])
-    # Altera o percentual do corpo da barra de rompimento
+    # percentual do corpo da barra de rompimento
     if kwargs["percentual_rompimento"]:
         res = dotenv.set_key(
             fconf, "PERCENTUAL_ROMPIMENTO", kwargs["percentual_rompimento"]
         )
-    # Altera o caminho da pasta do MT5
+    # caminho da pasta do MT5
     if kwargs["mt5_pasta"]:
         res = dotenv.set_key(fconf, "MT5_PASTA", kwargs["mt5_pasta"])
     if res:
