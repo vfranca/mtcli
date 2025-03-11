@@ -6,10 +6,10 @@ from mtcli import conf
 from mtcli.pa import pattern
 
 
-def view_min(bars, count, num):
+def view_min(bars, count, num, date):
     """Exibição mínima"""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     gaps, direcs, vars = get_padroes(bars)
     direcs = direcs[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
@@ -28,10 +28,10 @@ def view_min(bars, count, num):
     return views
 
 
-def view_ranges(bars, count, num):
+def view_ranges(bars, count, num, date):
     "Exibição dos ranges" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     gaps, direcs, vars = get_padroes(bars)
     direcs = direcs[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
@@ -49,10 +49,10 @@ def view_ranges(bars, count, num):
     return views
 
 
-def view_full(bars, count, num):
+def view_full(bars, count, num, date):
     "Exibição completa" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     gaps, direcs, vars = get_padroes(bars)
     direcs = direcs[-count:]  # filtra quantidade de barras
     gaps = gaps[-count:]  # filtra quantidade de barras
@@ -121,10 +121,10 @@ def view_full(bars, count, num):
     return views
 
 
-def view_ohlc(bars, count, num):
+def view_ohlc(bars, count, num, date):
     "Exibição do OHLC" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
@@ -149,10 +149,10 @@ def view_ohlc(bars, count, num):
     return views
 
 
-def view_var(bars, count, num):
+def view_var(bars, count, num, date):
     """Exibição de variações percentuais"""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     gaps, direcs, vars = get_padroes(bars)
     vars = vars[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
@@ -170,10 +170,10 @@ def view_var(bars, count, num):
     return views
 
 
-def view_open(bars, count, num):
+def view_open(bars, count, num, date):
     "Exibição de aberturas" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
@@ -189,10 +189,10 @@ def view_open(bars, count, num):
     return views
 
 
-def view_high(bars, count, num):
+def view_high(bars, count, num, date):
     "Exibição de maximas" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
@@ -208,10 +208,10 @@ def view_high(bars, count, num):
     return views
 
 
-def view_low(bars, count, num):
+def view_low(bars, count, num, date):
     "Exibição de minimas" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
@@ -227,10 +227,10 @@ def view_low(bars, count, num):
     return views
 
 
-def view_close(bars, count, num):
+def view_close(bars, count, num, date):
     "Exibição de fechamentos" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
@@ -246,10 +246,10 @@ def view_close(bars, count, num):
     return views
 
 
-def view_volume(bars, count, num):
+def view_volume(bars, count, num, date):
     "Exibição de volumes" ""
     views = []
-    n = 0
+    n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
@@ -308,3 +308,13 @@ def get_medium_point(bar):
 def get_var(price1, price2):
     """Calcula variação percentual de dois preços."""
     return round((price2 - price1) / price1 * 100, 2)
+
+
+def get_n(total_bars, count, date):
+    """Número inicial do numerador"""
+    n = 0
+    if date:  # numerador para intraday
+        n = total_bars - count
+    if n < 0:  # não pode ser negativo
+        n = 0
+    return n

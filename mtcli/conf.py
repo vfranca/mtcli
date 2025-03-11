@@ -41,12 +41,8 @@ csv_path += "/"
 @click.option("--lateral", "-l", help="Nome da barra doji.")
 @click.option("--alta", "-a", help="Nome da barra de alta.")
 @click.option("--baixa", "-b", help="Nome da barra de baixa.")
-@click.option(
-    "--rompimento-alta", "-ra", help="Barra de rompimento de alta."
-)
-@click.option(
-    "--rompimento-baixa", "-rb", help="Barra de rompimento de baixa."
-)
+@click.option("--rompimento-alta", "-ra", help="Barra de rompimento de alta.")
+@click.option("--rompimento-baixa", "-rb", help="Barra de rompimento de baixa.")
 @click.option("--sombra_superior", "-ss", help="Sombra superior")
 @click.option("--sombra_inferior", "-si", help="Sombra inferior")
 @click.option("--ponto_medio", "-pm", help="Ponto medio")
@@ -92,9 +88,7 @@ def conf(**kwargs):
         )
     # ponto médio
     if kwargs["ponto_medio"]:
-        res = dotenv.set_key(
-            fconf, "PONTO_MEDIO", kwargs["ponto_medio"].upper()
-        )
+        res = dotenv.set_key(fconf, "PONTO_MEDIO", kwargs["ponto_medio"].upper())
     # percentual do corpo da barra doji
     if kwargs["percentual_doji"]:
         res = dotenv.set_key(fconf, "PERCENTUAL_DOJI", kwargs["percentual_doji"])

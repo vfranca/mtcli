@@ -26,30 +26,30 @@ def bars(symbol, view, period, count, date, num):
     for rate in rates:
         bar = pa_bar.Bar(rate)
         if date and bar.date != date:  # filtra por data para intraday
-            num = True  # Configura numerador padrão para intraday
+            num = True  # Configura numerador, padrão para intraday
             continue
         bars.append(bar)
     views = []
     if view == "ch":
-        views = _views.view_min(bars, count, num)
+        views = _views.view_min(bars, count, num, date)
     elif view == "r":
-        views = _views.view_ranges(bars, count, num)
+        views = _views.view_ranges(bars, count, num, date)
     elif view == "ohlc":
-        views = _views.view_ohlc(bars, count, num)
+        views = _views.view_ohlc(bars, count, num, date)
     elif view == "var":
-        views = _views.view_var(bars, count, num)
+        views = _views.view_var(bars, count, num, date)
     elif view == "o":
-        views = _views.view_open(bars, count, num)
+        views = _views.view_open(bars, count, num, date)
     elif view == "h":
-        views = _views.view_high(bars, count, num)
+        views = _views.view_high(bars, count, num, date)
     elif view == "l":
-        views = _views.view_low(bars, count, num)
+        views = _views.view_low(bars, count, num, date)
     elif view == "c":
-        views = _views.view_close(bars, count, num)
+        views = _views.view_close(bars, count, num, date)
     elif view == "vol":
-        views = _views.view_volume(bars, count, num)
+        views = _views.view_volume(bars, count, num, date)
     else:
-        views = _views.view_full(bars, count, num)
+        views = _views.view_full(bars, count, num, date)
     if views:
         for view in views:
             click.echo(view)
