@@ -12,9 +12,9 @@ from mtcli.ma import ma
 
 
 @click.group(invoke_without_command=True)
-@click.option("--version", is_flag=True, help="Exibe a versao")
+@click.option("--version", "-v", is_flag=True, help="Exibe a versao do mtcli.")
 def mt(version):
-    """Exibe graficos do MetaTrader 5 em texto."""
+    """Exibe o grafico de barras do MetaTrader 5 em texto."""
     if version:
         click.echo("mtcli %s" % __version__)
         return 0

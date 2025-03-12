@@ -37,28 +37,30 @@ csv_path += "/"
 
 
 @click.command()
-@click.option("--digitos", "-d", help="Digitos da moeda, default 2")
-@click.option("--lateral", "-l", help="Nome da barra doji, default DOJI")
-@click.option("--alta", "-a", help="Nome da barra de alta, default VERDE")
-@click.option("--baixa", "-b", help="Nome da barra de baixa, default VERMELHO")
-@click.option("--rompimento-alta", "-ra", help="Barra de rompimento de alta, default C")
+@click.option("--digitos", "-d", help="Digitos da moeda, default 2.")
+@click.option("--lateral", "-l", help="Nome da barra doji, default DOJI.")
+@click.option("--alta", "-a", help="Nome da barra de alta, default VERDE.")
+@click.option("--baixa", "-b", help="Nome da barra de baixa, default VERMELHO.")
 @click.option(
-    "--rompimento-baixa", "-rb", help="Barra de rompimento de baixa, default V"
+    "--rompimento-alta", "-ra", help="Barra de rompimento de alta, default C."
 )
-@click.option("--sombra_superior", "-ss", help="Sombra superior, default TOP")
-@click.option("--sombra_inferior", "-si", help="Sombra inferior, default BOTTOM")
-@click.option("--ponto_medio", "-pm", help="Ponto medio, default M")
 @click.option(
-    "--percentual-doji", "-pd", help="Percentual do corpo da barra doji, default 10"
+    "--rompimento-baixa", "-rb", help="Barra de rompimento de baixa, default V."
+)
+@click.option("--sombra_superior", "-ss", help="Sombra superior, default TOP.")
+@click.option("--sombra_inferior", "-si", help="Sombra inferior, default BOTTOM.")
+@click.option("--ponto_medio", "-pm", help="Ponto medio da barra, default M.")
+@click.option(
+    "--percentual-doji", "-pd", help="Percentual do corpo da barra doji, default 10."
 )
 @click.option(
     "--percentual-rompimento",
     "-pr",
-    help="Percentual do corpo da barra de rompimento, default 50",
+    help="Percentual do corpo da barra de rompimento, default 50.",
 )
 @click.option("--mt5-pasta", "-mp", help="Caminho da pasta do MetaTrader 5.")
 def conf(**kwargs):
-    """Gerencia configuracoes."""
+    """Gerencia configuracoes registradas no mtcli.ini."""
     res = False
     # dígitos da moeda
     if kwargs["digitos"]:

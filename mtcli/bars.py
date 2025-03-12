@@ -11,15 +11,15 @@ from mtcli.pa import bar as pa_bar
 
 @click.command()
 @click.argument("symbol")
-@click.option("--view", "-v", default="ch", help="Forma de exibicao default ch")
-@click.option("--period", "-p", default="d1", help="Tempo grafico default D1")
+@click.option("--view", "-v", default="ch", help="Forma de exibicao, default ch.")
+@click.option("--period", "-p", default="d1", help="Tempo grafico, default D1.")
 @click.option(
-    "--count", "-c", type=int, default=20, help="Quantidade de barras default 20"
+    "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
 )
-@click.option("--date", "-d", help="Data para intraday")
-@click.option("--num", "-n", is_flag=True)
+@click.option("--date", "-d", help="Data para intraday, formato AAAA.MM.DD.")
+@click.option("--num", "-n", is_flag=True, help="Ativa a numeracao de barras.")
 def bars(symbol, view, period, count, date, num):
-    """Exibe o gráfico de barras."""
+    """Exibe o grafico de barras."""
     fcsv = conf.csv_path + symbol + period + ".csv"
     rates = csv_data.get_data(fcsv)
     bars = []

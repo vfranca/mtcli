@@ -10,8 +10,8 @@ from mtcli import conf
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="D1", help="Tempo gráfico default D1")
-@click.option("--count", "-c", default=20, help="Quantidade de barras default 20")
+@click.option("--period", "-p", default="D1", help="Tempo grafico, default D1.")
+@click.option("--count", "-c", default=20, help="Quantidade de barras, default 20.")
 def mm(symbol, period, count):
     """Calcula a media movel simples."""
     fcsv = conf.csv_path + symbol + period + ".csv"

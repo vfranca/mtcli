@@ -10,8 +10,8 @@ from mtcli import conf
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="D1", help="Tempo gráfico default D1")
-@click.option("--count", "-c", default=10, help="Quantidade de barras default 10")
+@click.option("--period", "-p", default="D1", help="Tempo grafico, default D1.")
+@click.option("--count", "-c", default=10, help="Quantidade de barras, default 10.")
 def rm(symbol, period, count):
     """Calcula o tamanho medio das barras."""
     fcsv = conf.csv_path + symbol + period + ".csv"
