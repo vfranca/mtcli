@@ -1,5 +1,5 @@
 """
-Gerencia configurações
+Gerencia configurações registradas no mtcli.ini
 """
 
 import click
@@ -26,12 +26,16 @@ gap = os.getenv("GAP", "G")
 sombra_superior = os.getenv("SOMBRA_SUPERIOR", "TOP")
 sombra_inferior = os.getenv("SOMBRA_INFERIOR", "BOT")
 ponto_medio = os.getenv("PONTO_MEDIO", "MP")
+csv_path = os.getenv("MT5_PASTA", "")
 
-mt5.initialize()
-info = mt5.terminal_info()
-csv_path = info.data_path + "/MQL5/Files"
-mt5.shutdown()
-csv_path = os.getenv("MT5_PASTA", csv_path)
+
+if not csv_path:
+    mt5.initialize()
+    info = mt5.terminal_info()
+    csv_path = info.data_path + "/MQL5/Files"
+    mt5.shutdown()
+
+# csv_path = os.getenv("MT5_PASTA", csv_path)
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
