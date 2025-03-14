@@ -35,7 +35,6 @@ if not csv_path:
     csv_path = info.data_path + "/MQL5/Files"
     mt5.shutdown()
 
-# csv_path = os.getenv("MT5_PASTA", csv_path)
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 

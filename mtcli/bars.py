@@ -17,8 +17,8 @@ from mtcli.pa import bar as pa_bar
     "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
 )
 @click.option("--date", "-d", help="Data para intraday, formato AAAA.MM.DD.")
-@click.option("--num", "-n", is_flag=True, help="Ativa a numeracao de barras.")
-def bars(symbol, view, period, count, date, num):
+@click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao de barras.")
+def bars(symbol, view, period, count, date, numerator):
     """Exibe o grafico de velas."""
     fcsv = conf.csv_path + symbol + period + ".csv"
     rates = csv_data.get_data(fcsv)
@@ -26,30 +26,30 @@ def bars(symbol, view, period, count, date, num):
     for rate in rates:
         bar = pa_bar.Bar(rate)
         if date and bar.date != date:  # filtra por data para intraday
-            num = True  # Configura numerador, padrão para intraday
+            numerator = True  # Configura numerador, padrão para intraday
             continue
         bars.append(bar)
     views = []
     if view == "ch":
-        views = _views.view_min(bars, count, num, date)
+        views = _views.view_min(bars, count, numerator, date)
     elif view == "r":
-        views = _views.view_ranges(bars, count, num, date)
+        views = _views.view_ranges(bars, count, numerator, date)
     elif view == "ohlc":
-        views = _views.view_ohlc(bars, count, num, date)
+        views = _views.view_ohlc(bars, count, numerator, date)
     elif view == "var":
-        views = _views.view_var(bars, count, num, date)
+        views = _views.view_var(bars, count, numerator, date)
     elif view == "o":
-        views = _views.view_open(bars, count, num, date)
+        views = _views.view_open(bars, count, numerator, date)
     elif view == "h":
-        views = _views.view_high(bars, count, num, date)
+        views = _views.view_high(bars, count, numerator, date)
     elif view == "l":
-        views = _views.view_low(bars, count, num, date)
+        views = _views.view_low(bars, count, numerator, date)
     elif view == "c":
-        views = _views.view_close(bars, count, num, date)
+        views = _views.view_close(bars, count, numerator, date)
     elif view == "vol":
-        views = _views.view_volume(bars, count, num, date)
+        views = _views.view_volume(bars, count, numerator, date)
     else:
-        views = _views.view_full(bars, count, num, date)
+        views = _views.view_full(bars, count, numerator, date)
     if views:
         for view in views:
             click.echo(view)
