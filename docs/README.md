@@ -1,9 +1,8 @@
 # mtcli  
   
-Aplicativo de Linha de comando para exibir gráficos do MetaTrader 5 em texto.
-O formato texto pode ser lido pelo leitor de telas NVDA.
-
-[mtcli no PyPI](https://pypi.python.org/pypi/mtcli)  
+Aplicativo de Linha de comando para exibir gráficos do MetaTrader 5 em texto.  
+O formato texto pode ser lido pelo leitor de telas NVDA.  
+O mtcli é um produto para deficientes visuais e foi feito por um deficiente visual.  
   
 ## Pré-requisitos  
 
@@ -11,14 +10,14 @@ O formato texto pode ser lido pelo leitor de telas NVDA.
 * Leitor de tela NVDA.  
 * Plataforma de negociação MetaTrader 5.  
 * Python disponível no prompt de comando.  
-  
+    
 Para ativar a conta administrador execute o seguinte comando no terminal CMD:  
 ```CMD
 net user Administrador /active:yes
 ```
-    
+      
 obs.: O mtcli não foi testado com outros leitores de tela além do NVDA.  
-  
+    
 
 ## Instalação  
 
@@ -32,14 +31,15 @@ Execute o comando abaixo no prompt do Windows para instalar o mtcli:
 ```CMD
 pip install mtcli
 ```
-
+  
 ## Comandos  
   
-| comando | descrição |
-| :----- | :------ |
-| [mt bars](bars.md) | exibe barras do gráfico de candles. |
-| [mt mm](mm.md) | exibe a média móvel simples. |
-| [mt rm](rm.md) | exibe o range médio das barras.|
+| Comando | Descrição | Exemplo |
+| :----- | :------ | :---- |
+| [mt bars](bars.md) | Exibe o gráfico de candlestick. | mt bars IBOV |
+| [mt mm](mm.md) | Calcula a média móvel simples. | mt mm IBOV |
+| [mt rm](rm.md) | Calcula o tamanho médio das barras.| mt rm IBOV |
+| mt conf | Gerencia configurações do mtcli | mt conf |
   
 ## abreviaturas  
 
