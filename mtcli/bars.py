@@ -1,5 +1,5 @@
 """
-Exibe o gráfico de barras
+Exibe o gráfico de velas
 """
 
 import click
@@ -19,7 +19,7 @@ from mtcli.pa import bar as pa_bar
 @click.option("--date", "-d", help="Data para intraday, formato AAAA.MM.DD.")
 @click.option("--num", "-n", is_flag=True, help="Ativa a numeracao de barras.")
 def bars(symbol, view, period, count, date, num):
-    """Exibe o grafico de barras."""
+    """Exibe o grafico de velas."""
     fcsv = conf.csv_path + symbol + period + ".csv"
     rates = csv_data.get_data(fcsv)
     bars = []
