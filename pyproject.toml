@@ -1,11 +1,10 @@
 [tool.poetry]
 name = "mtcli"
 version = "0.28.0"
-description = "Converte gráfico do MetaTrader 5 para texto"
+description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "BSD-3-Clause"
 readme = "docs/README.md"
-repository = "https://github.com/vfranca/mtcli"
 documentation = "https://vfranca.github.io/mtcli/"
 keywords = ["MetaTrader 5", "trading", "CLI"]
 packages = [{include = "mtcli"}]
@@ -23,9 +22,10 @@ mock = "^5.1.0"
 pytest-env = "^1.1.5"
 pytest-cov = "^6.0.0"
 
+[tool.poetry.scripts]
+mt = "mtcli.mt:mt"
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
-[tool.poetry.scripts]
-mt = "mtcli.mt:mt"
