@@ -1,6 +1,6 @@
 # mtcli  
   
-Aplicativo de Linha de comando para exibir gráficos do MetaTrader 5 em texto.  
+Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto.  
 O formato texto pode ser lido pelo leitor de telas NVDA.  
 O mtcli é um produto para deficientes visuais e foi feito por um deficiente visual.  
   
