@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-version = '0.28.0'
+VERSION = '0.29.0'
 included_files = [
     ("resources/Mtcli.ex5", "."),
     ("resources/MA_TXT.ex5", "."),
@@ -45,5 +45,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='mtcli'+'-'+version,
+    name='mtcli-'+VERSION,
 )
