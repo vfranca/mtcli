@@ -6,7 +6,7 @@ from mtcli import conf
 from mtcli.pa import pattern
 
 
-def view_min(bars, count, numerator, date):
+def view_min(bars, count, numerator, date, period, show_date):
     """Exibição mínima"""
     views = []
     n = get_n(len(bars), count, date)
@@ -15,14 +15,16 @@ def view_min(bars, count, numerator, date):
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
-        if numerator:  # numerador de barra
-            view = "%s %s"  # tendencia do canal
+        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
         else:
-            view = "%s"  # tendencia do canal
-        view += " %." + str(conf.digitos) + "f"  # máxima
+            view = ""
+        view += "%s %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
         if numerator:
             views.append(view % (n, direc, bar.high, bar.low))
+        elif show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(view % (bar.date, direc, bar.high, bar.low))
         else:
             views.append(view % (direc, bar.high, bar.low))
     return views

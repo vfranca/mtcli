@@ -17,8 +17,9 @@ from mtcli.pa import bar as pa_bar
     "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
 )
 @click.option("--date", "-d", help="Data para intraday, formato AAAA.MM.DD.")
-@click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao de barras.")
-def bars(symbol, view, period, count, date, numerator):
+@click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao das velas.")
+@click.option("--show-date", "-sd", is_flag=True, help="Ativa a datacao das velas.")
+def bars(symbol, view, period, count, date, numerator, show_date):
     """Exibe o grafico de velas."""
     fcsv = conf.csv_path + symbol + period + ".csv"
     rates = csv_data.get_data(fcsv)
@@ -31,7 +32,7 @@ def bars(symbol, view, period, count, date, numerator):
         bars.append(bar)
     views = []
     if view == "ch":
-        views = _views.view_min(bars, count, numerator, date)
+        views = _views.view_min(bars, count, numerator, date, period, show_date)
     elif view == "r":
         views = _views.view_ranges(bars, count, numerator, date)
     elif view == "ohlc":

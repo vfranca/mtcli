@@ -70,3 +70,8 @@ def test_exibe_o_grafico_de_variacoes_percentuais():
         mt, ["bars", "abev3", "--period", "d1", "--count", "1", "--view", "var"]
     )
     assert res.output == "-0.38%\n"
+
+
+def test_exibe_view_minima_com_data():
+    res = run.invoke(mt, ["bars", "bbdc4", "--show-date", "--count", "1"])
+    assert res.output == "2025.02.27 DESC 11.62 11.43\n"
