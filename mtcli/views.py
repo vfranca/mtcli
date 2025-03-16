@@ -21,10 +21,10 @@ def view_min(bars, count, numerator, date, period, show_date):
             view = ""
         view += "%s %." + str(conf.digitos) + "f"  # máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
-        if numerator:
-            views.append(view % (n, direc, bar.high, bar.low))
-        elif show_date and (period == "d1" or period == "w1" or period == "mn1"):
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
             views.append(view % (bar.date, direc, bar.high, bar.low))
+        elif numerator:
+            views.append(view % (n, direc, bar.high, bar.low))
         else:
             views.append(view % (direc, bar.high, bar.low))
     return views

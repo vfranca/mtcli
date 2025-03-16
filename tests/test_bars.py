@@ -75,3 +75,8 @@ def test_exibe_o_grafico_de_variacoes_percentuais():
 def test_exibe_view_minima_com_data():
     res = run.invoke(mt, ["bars", "bbdc4", "--show-date", "--count", "1"])
     assert res.output == "2025.02.27 DESC 11.62 11.43\n"
+
+
+def test_exibe_view_minima_com_data_e_numerador_ativados():
+    res = run.invoke(mt, ["bars", "bbdc4", "--show-date", "--numerator", "--count", "1"])
+    assert res.output == "2025.02.27 DESC 11.62 11.43\n"
