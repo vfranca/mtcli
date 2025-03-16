@@ -1,11 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
 VERSION = '0.29.0'
-included_files = [
-    ("build/Mtcli.ex5", "."),
-    ("build/MA_TXT.ex5", "."),
-    ("docs/README.md", "."),
-    ("LICENSE", ".")
-]
+included_files = []
 a = Analysis(
     ['mtcli\\mt.py'],
     pathex=[],
