@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mtcli"
-version = "0.28.1"
+version = "0.28.2"
 description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
 authors = ["Valmir Franca <vfranca3@gmail.com>"]
 license = "BSD-3-Clause"
