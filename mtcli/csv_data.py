@@ -8,9 +8,7 @@ import pathlib
 
 def get_data(fcsv):
     """Importa dados do arquivo CSV."""
-    # Lista para armazenar as linhas do CSV
-    data = []
-    # Extrai os dados do CSV para popular a lista
+    data = []  # lista contendo as linhas do CSV
     try:
         with open(fcsv, encoding="utf-16", newline="") as f:
             lines = csv.reader(f, delimiter=",", quotechar="'")
@@ -18,6 +16,6 @@ def get_data(fcsv):
                 data.append(line)
     except:
         fcsv = pathlib.Path(fcsv)
-        print("Grafico %s nao encontrado! Tente novamente" % fcsv.stem)
+        print("%s nao encontrado! Tente novamente" % fcsv.stem)
     # Retorna a lista de listas do CSV
     return data

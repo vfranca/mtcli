@@ -13,4 +13,4 @@ def test_exibe_a_versao():
 
 def test_exibe_msg_de_excecao_quando_um_arquivo_csv_nao_e_encontrado():
     res = run.invoke(mt, ["bars", "XXXX"])
-    assert res.output == "Grafico XXXXd1 nao encontrado! Tente novamente\n"
+    assert res.output == "XXXXd1 nao encontrado! Tente novamente\n"
