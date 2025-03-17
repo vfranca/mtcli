@@ -32,7 +32,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
         bars.append(bar)
     views = []
     if view == "ch":
-        views = _views.view_min(bars, count, numerator, date, period, show_date)
+        views = _views.view_min(bars, count, period, date, numerator, show_date)
     elif view == "r":
         views = _views.view_ranges(bars, count, numerator, date)
     elif view == "ohlc":
@@ -50,7 +50,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     elif view == "vol":
         views = _views.view_volume(bars, count, numerator, date)
     else:
-        views = _views.view_full(bars, count, numerator, date)
+        views = _views.view_full(bars, count, period, date, numerator, show_date)
     if views:
         for view in views:
             click.echo(view)

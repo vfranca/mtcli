@@ -6,7 +6,7 @@ from mtcli import conf
 from mtcli.pa import pattern
 
 
-def view_min(bars, count, numerator, date, period, show_date):
+def view_min(bars, count, period = "d1", date = "", numerator = False, show_date = False):
     """Exibição mínima"""
     views = []
     n = get_n(len(bars), count, date)
@@ -51,7 +51,7 @@ def view_ranges(bars, count, numerator, date):
     return views
 
 
-def view_full(bars, count, numerator, date):
+def view_full(bars, count, period = "d1", date = "", numerator = False, show_date = False):
     "Exibição completa" ""
     views = []
     n = get_n(len(bars), count, date)
@@ -71,8 +71,8 @@ def view_full(bars, count, numerator, date):
             sombra = "%s%i" % (sombra, bar.top)
         if sombra == conf.sombra_inferior:
             sombra = "%s%i" % (sombra, bar.bottom)
-        if numerator:
-            view = "%s "
+        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
         else:
             view = ""
         view += "%s %s %s%iR%." + str(conf.digitos) + "f %s %s"
@@ -81,7 +81,27 @@ def view_full(bars, count, numerator, date):
         view += " %." + str(conf.digitos) + "f"  # fechamento
         view += conf.ponto_medio + "%." + str(conf.digitos) + "f"  # ponto médio
         view += " R%." + str(conf.digitos) + "f %s"  # range, variação percentual
-        if numerator:
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(
+                view
+                % (
+                    bar.date,
+                    direc,
+                    padrao.pattern,
+                    padrao.body_pattern,
+                    abs(bar.body),
+                    bar.body_range,
+                    gap,
+                    sombra,
+                    bar.high,
+                    bar.low,
+                    bar.close,
+                    mp,
+                    bar.range,
+                    var,
+                )
+            )
+        elif numerator:
             views.append(
                 view
                 % (

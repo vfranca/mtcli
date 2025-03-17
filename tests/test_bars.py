@@ -80,3 +80,12 @@ def test_exibe_view_minima_com_data():
 def test_exibe_view_minima_com_data_e_numerador_ativados():
     res = run.invoke(mt, ["bars", "bbdc4", "--show-date", "--numerator", "--count", "1"])
     assert res.output == "2025.02.27 DESC 11.62 11.43\n"
+    res = run.invoke(mt, ["bars", "bbdc4", "--show-date", "--numerator", "--count", "1", "--period", "w1"])
+    assert res.output == "2025.03.09 ASC 12.20 11.27\n"
+    res = run.invoke(mt, ["bars", "bbdc4", "--show-date", "--numerator", "--count", "1", "--period", "mn1"])
+    assert res.output == "2025.03.01 IB 12.20 11.22\n"
+
+
+def test_exibe_view_completa_com_data_ativada():
+    res = run.invoke(mt, ["bars", "bbdc4", "--view", "f", "--count", "1", "--show-date"])
+    assert res.output == "2025.02.27 DESC VD VERMELHO53R0.10 G0.03 TOP37 11.62 11.43 11.45MP11.52 R0.19 -0.78\n"
