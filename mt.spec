@@ -1,11 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*-
-version = '0.28.0'
-included_files = [
-    ("resources/Mtcli.ex5", "."),
-    ("resources/MA_TXT.ex5", "."),
-    ("docs/README.md", "."),
-    ("LICENSE", ".")
-]
+VERSION = '0.28.1'
+included_files = []
 a = Analysis(
     ['mtcli\\mt.py'],
     pathex=[],
@@ -45,5 +40,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='mtcli'+'-'+version,
+    name='mtcli-'+VERSION,
 )
