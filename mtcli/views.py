@@ -16,10 +16,10 @@ def view_min(bars, count, numerator, date):
     for bar, direc in zip(bars, direcs):
         n += 1
         if numerator:  # numerador de barra
-            view = "%s %s"  # tendencia do canal
+            view = "%s "  # numerador
         else:
-            view = "%s"  # tendencia do canal
-        view += " %." + str(conf.digitos) + "f"  # máxima
+            view = ""  # tendencia do canal
+        view += "%s %." + str(conf.digitos) + "f"  # direção e máxima
         view += " %." + str(conf.digitos) + "f"  # mínima
         if numerator:
             views.append(view % (n, direc, bar.high, bar.low))
