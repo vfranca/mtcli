@@ -38,9 +38,9 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     elif view == "r":
         views = _views.view_ranges(bars, count, period, date, numerator, show_date)
     elif view == "ohlc":
-        views = _views.view_ohlc(bars, count, numerator, date)
+        views = _views.view_ohlc(bars, count, date, numerator)
     elif view == "var":
-        views = _views.view_var(bars, count, numerator, date)
+        views = _views.view_var(bars, count, period, date, numerator, show_date)
     elif view == "o":
         views = _views.view_open(bars, count, numerator, date)
     elif view == "h":

@@ -145,7 +145,7 @@ def view_full(bars, count, period = "d1", date = "", numerator = False, show_dat
     return views
 
 
-def view_ohlc(bars, count, numerator, date):
+def view_ohlc(bars, count, date = "", numerator = False):
     "Exibição do OHLC" ""
     views = []
     n = get_n(len(bars), count, date)
@@ -173,7 +173,7 @@ def view_ohlc(bars, count, numerator, date):
     return views
 
 
-def view_var(bars, count, numerator, date):
+def view_var(bars, count, period = "d1", date = "", numerator = False, show_date = False):
     """Exibição de variações percentuais"""
     views = []
     n = get_n(len(bars), count, date)
@@ -182,12 +182,14 @@ def view_var(bars, count, numerator, date):
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, var in zip(bars, vars):
         n += 1
-        if numerator:
-            view = "%s "
+        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
         else:
             view = ""
         view += "%.2f%%"  # variação percentual
-        if numerator:
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(view % (bar.date, float(var)))
+        elif numerator:
             views.append(view % (n, float(var)))
         else:
             views.append(view % (float(var)))
