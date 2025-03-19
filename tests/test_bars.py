@@ -155,3 +155,10 @@ def test_exibe_view_maximas_com_data():
         mt, ["bars", "bbdc4", "--view", "h", "--count", "1", "--show-date"]
     )
     assert res.output == "2025.02.27 11.62\n"
+
+
+def test_exibe_view_minimas_com_data():
+    res = run.invoke(
+        mt, ["bars", "bbdc4", "--view", "l", "--count", "1", "--show-date"]
+    )
+    assert res.output == "2025.02.27 11.43\n"

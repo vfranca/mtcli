@@ -273,19 +273,23 @@ def view_high(bars, count, period="d1", date="", numerator=False, show_date=Fals
     return views
 
 
-def view_low(bars, count, numerator, date):
+def view_low(bars, count, period="d1", date="", numerator=False, show_date=False):
     "Exibição de minimas" ""
     views = []
     n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        if numerator:
-            view = "%s "
+        if numerator or (
+            show_date and (period == "d1", period == "w1", period == "mn1")
+        ):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
         else:
             view = ""
         view += "%." + str(conf.digitos) + "f"  # mínimas
-        if numerator:
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(view % (bar.date, bar.low))
+        elif numerator:
             views.append(view % (n, bar.low))
         else:
             views.append(view % (bar.low))
