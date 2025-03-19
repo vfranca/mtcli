@@ -30,7 +30,7 @@ def view_min(bars, count, period = "d1", date = "", numerator = False, show_date
     return views
 
 
-def view_ranges(bars, count, numerator, date):
+def view_ranges(bars, count, period = "d1", date = "", numerator = False, show_date = False):
     "Exibição dos ranges" ""
     views = []
     n = get_n(len(bars), count, date)
@@ -39,12 +39,14 @@ def view_ranges(bars, count, numerator, date):
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
-        if numerator:
-            view = "%s %s %s"  # direção, direção da barra
+        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
         else:
-            view = "%s %s"  # direção, direção da barra
-        view += " %." + str(conf.digitos) + "f"  # range
-        if numerator:
+            view = ""
+        view += "%s %s %." + str(conf.digitos) + "f"  # range
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(view % (bar.date, direc, bar.trend, bar.range))
+        elif numerator:
             views.append(view % (n, direc, bar.trend, bar.range))
         else:
             views.append(view % (direc, bar.trend, bar.range))

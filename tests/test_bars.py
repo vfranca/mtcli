@@ -89,3 +89,8 @@ def test_exibe_view_minima_com_data_e_numerador_ativados():
 def test_exibe_view_completa_com_data_ativada():
     res = run.invoke(mt, ["bars", "bbdc4", "--view", "f", "--count", "1", "--show-date"])
     assert res.output == "2025.02.27 DESC VD VERMELHO53R0.10 G0.03 TOP37 11.62 11.43 11.45MP11.52 R0.19 -0.78\n"
+
+
+def test_exibe_view_ranges_com_data_ativada():
+    res = run.invoke(mt, ["bars", "bbdc4", "--view", "r", "--count", "1", "--show-date"])
+    assert res.output ==  "2025.02.27 DESC VERMELHO 0.19\n"
