@@ -143,8 +143,15 @@ def test_exibe_view_volume_com_data():
     assert res.output == "2025.02.27 19949\n"
 
 
-def test_exibe_view_abertura_com_data():
+def test_exibe_view_aberturas_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "o", "--count", "1", "--show-date"]
     )
     assert res.output == "2025.02.27 11.55\n"
+
+
+def test_exibe_view_maximas_com_data():
+    res = run.invoke(
+        mt, ["bars", "bbdc4", "--view", "h", "--count", "1", "--show-date"]
+    )
+    assert res.output == "2025.02.27 11.62\n"

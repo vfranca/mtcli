@@ -44,7 +44,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     elif view == "o":  # abertura
         views = _views.view_open(bars, count, period, date, numerator, show_date)
     elif view == "h":
-        views = _views.view_high(bars, count, numerator, date)
+        views = _views.view_high(bars, count, period, date, numerator, show_date)
     elif view == "l":
         views = _views.view_low(bars, count, numerator, date)
     elif view == "c":
