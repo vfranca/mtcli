@@ -6,7 +6,7 @@ from mtcli import conf
 from mtcli.pa import pattern
 
 
-def view_min(bars, count, period = "d1", date = "", numerator = False, show_date = False):
+def view_min(bars, count, period="d1", date="", numerator=False, show_date=False):
     """Exibição mínima"""
     views = []
     n = get_n(len(bars), count, date)
@@ -15,7 +15,9 @@ def view_min(bars, count, period = "d1", date = "", numerator = False, show_date
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
-        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+        if numerator or (
+            show_date and (period == "d1", period == "w1", period == "mn1")
+        ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
             view = ""
@@ -30,7 +32,7 @@ def view_min(bars, count, period = "d1", date = "", numerator = False, show_date
     return views
 
 
-def view_ranges(bars, count, period = "d1", date = "", numerator = False, show_date = False):
+def view_ranges(bars, count, period="d1", date="", numerator=False, show_date=False):
     "Exibição dos ranges" ""
     views = []
     n = get_n(len(bars), count, date)
@@ -39,7 +41,9 @@ def view_ranges(bars, count, period = "d1", date = "", numerator = False, show_d
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
         n += 1
-        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+        if numerator or (
+            show_date and (period == "d1", period == "w1", period == "mn1")
+        ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
             view = ""
@@ -53,7 +57,7 @@ def view_ranges(bars, count, period = "d1", date = "", numerator = False, show_d
     return views
 
 
-def view_full(bars, count, period = "d1", date = "", numerator = False, show_date = False):
+def view_full(bars, count, period="d1", date="", numerator=False, show_date=False):
     "Exibição completa" ""
     views = []
     n = get_n(len(bars), count, date)
@@ -73,7 +77,9 @@ def view_full(bars, count, period = "d1", date = "", numerator = False, show_dat
             sombra = "%s%i" % (sombra, bar.top)
         if sombra == conf.sombra_inferior:
             sombra = "%s%i" % (sombra, bar.bottom)
-        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+        if numerator or (
+            show_date and (period == "d1", period == "w1", period == "mn1")
+        ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
             view = ""
@@ -145,7 +151,7 @@ def view_full(bars, count, period = "d1", date = "", numerator = False, show_dat
     return views
 
 
-def view_ohlc(bars, count, date = "", numerator = False):
+def view_ohlc(bars, count, date="", numerator=False):
     "Exibição do OHLC" ""
     views = []
     n = get_n(len(bars), count, date)
@@ -173,7 +179,7 @@ def view_ohlc(bars, count, date = "", numerator = False):
     return views
 
 
-def view_var(bars, count, period = "d1", date = "", numerator = False, show_date = False):
+def view_var(bars, count, period="d1", date="", numerator=False, show_date=False):
     """Exibição de variações percentuais"""
     views = []
     n = get_n(len(bars), count, date)
@@ -182,7 +188,9 @@ def view_var(bars, count, period = "d1", date = "", numerator = False, show_date
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, var in zip(bars, vars):
         n += 1
-        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+        if numerator or (
+            show_date and (period == "d1", period == "w1", period == "mn1")
+        ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
             view = ""
@@ -196,19 +204,46 @@ def view_var(bars, count, period = "d1", date = "", numerator = False, show_date
     return views
 
 
-def view_open(bars, count, numerator, date):
+def view_volume(bars, count, period="d1", date="", numerator=False, show_date=False):
+    "Exibição de volumes" ""
+    views = []
+    n = get_n(len(bars), count, date)
+    bars = bars[-count:]  # filtra quantidade de barras
+    for bar in bars:
+        n += 1
+        if numerator or (
+            show_date and (period == "d1", period == "w1", period == "mn1")
+        ):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
+        else:
+            view = ""
+        view += "%i"  # fechamento
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(view % (bar.date, bar.volume))
+        elif numerator:
+            views.append(view % (n, bar.volume))
+        else:
+            views.append(view % (bar.volume))
+    return views
+
+
+def view_open(bars, count, period="d1", date="", numerator=False, show_date=False):
     "Exibição de aberturas" ""
     views = []
     n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        if numerator:
-            view = "%s "
+        if numerator or (
+            show_date and (period == "d1", period == "w1", period == "mn1")
+        ):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
         else:
             view = ""
         view += "%." + str(conf.digitos) + "f"  # abertura
-        if numerator:
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(view % (bar.date, bar.open))
+        elif numerator:
             views.append(view % (n, bar.open))
         else:
             views.append(view % (bar.open))
@@ -269,27 +304,6 @@ def view_close(bars, count, numerator, date):
             views.append(view % (n, bar.close))
         else:
             views.append(view % (bar.close))
-    return views
-
-
-def view_volume(bars, count, period = "d1", date = "", numerator = False, show_date = False):
-    "Exibição de volumes" ""
-    views = []
-    n = get_n(len(bars), count, date)
-    bars = bars[-count:]  # filtra quantidade de barras
-    for bar in bars:
-        n += 1
-        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
-            view = "%s "  # numerador ou data
-        else:
-            view = ""
-        view += "%i"  # fechamento
-        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
-            views.append(view % (bar.date, bar.volume))
-        elif numerator:
-            views.append(view % (n, bar.volume))
-        else:
-            views.append(view % (bar.volume))
     return views
 
 
