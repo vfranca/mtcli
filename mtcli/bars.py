@@ -50,7 +50,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     elif view == "c":
         views = _views.view_close(bars, count, numerator, date)
     elif view == "vol":
-        views = _views.view_volume(bars, count, numerator, date)
+        views = _views.view_volume(bars, count, period, date, numerator, show_date)
     else:
         views = _views.view_full(bars, count, period, date, numerator, show_date)
     if views:

@@ -272,19 +272,21 @@ def view_close(bars, count, numerator, date):
     return views
 
 
-def view_volume(bars, count, numerator, date):
+def view_volume(bars, count, period = "d1", date = "", numerator = False, show_date = False):
     "Exibição de volumes" ""
     views = []
     n = get_n(len(bars), count, date)
     bars = bars[-count:]  # filtra quantidade de barras
     for bar in bars:
         n += 1
-        if numerator:
-            view = "%s "
+        if numerator or (show_date and (period == "d1", period == "w1", period == "mn1")):  # numerador de barra ou data
+            view = "%s "  # numerador ou data
         else:
             view = ""
         view += "%i"  # fechamento
-        if numerator:
+        if show_date and (period == "d1" or period == "w1" or period == "mn1"):
+            views.append(view % (bar.date, bar.volume))
+        elif numerator:
             views.append(view % (n, bar.volume))
         else:
             views.append(view % (bar.volume))

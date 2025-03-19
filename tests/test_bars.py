@@ -99,3 +99,9 @@ def test_exibe_view_ranges_com_data_ativada():
 def test_exibe_view_da_variacao_percentual_com_data():
     res = run.invoke(mt, ["bars", "bbdc4", "--view", "var", "--count", "1", "--show-date"])
     assert res.output == "2025.02.27 -0.78%\n"
+
+
+def test_exibe_view_volume_com_data():
+    res = run.invoke(mt, ["bars", "bbdc4", "--view", "vol", "--count", "1", "--show-date"])
+    assert res.output == "2025.02.27 19949\n"
+
