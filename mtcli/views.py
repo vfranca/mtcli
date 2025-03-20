@@ -16,7 +16,7 @@ def view_min(bars, count, period="d1", date="", numerator=False, show_date=False
     for bar, direc in zip(bars, direcs):
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -42,7 +42,7 @@ def view_ranges(bars, count, period="d1", date="", numerator=False, show_date=Fa
     for bar, direc in zip(bars, direcs):
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -78,7 +78,7 @@ def view_full(bars, count, period="d1", date="", numerator=False, show_date=Fals
         if sombra == conf.sombra_inferior:
             sombra = "%s%i" % (sombra, bar.bottom)
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -189,7 +189,7 @@ def view_var(bars, count, period="d1", date="", numerator=False, show_date=False
     for bar, var in zip(bars, vars):
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -212,7 +212,7 @@ def view_volume(bars, count, period="d1", date="", numerator=False, show_date=Fa
     for bar in bars:
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -235,7 +235,7 @@ def view_open(bars, count, period="d1", date="", numerator=False, show_date=Fals
     for bar in bars:
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -258,7 +258,7 @@ def view_high(bars, count, period="d1", date="", numerator=False, show_date=Fals
     for bar in bars:
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -281,7 +281,7 @@ def view_low(bars, count, period="d1", date="", numerator=False, show_date=False
     for bar in bars:
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
@@ -304,7 +304,7 @@ def view_close(bars, count, period="d1", date="", numerator=False, show_date=Fal
     for bar in bars:
         n += 1
         if numerator or (
-            show_date and (period == "d1", period == "w1", period == "mn1")
+            show_date and (period == "d1" or period == "w1" or period == "mn1")
         ):  # numerador de barra ou data
             view = "%s "  # numerador ou data
         else:
