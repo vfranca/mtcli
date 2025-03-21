@@ -11,8 +11,43 @@ from mtcli.pa import bar as pa_bar
 
 @click.command()
 @click.argument("symbol")
-@click.option("--view", "-v", default="ch", help="Forma de exibicao, default ch.")
-@click.option("--period", "-p", default="d1", help="Tempo grafico, default D1.")
+@click.option(
+    "--view",
+    "-v",
+    type=click.Choice(
+        ["ch", "f", "r", "var", "vol", "ohlc", "o", "h", "l", "c"], case_sensitive=False
+    ),
+    default="ch",
+    help="Forma de exibicao, default ch.",
+)
+@click.option(
+    "--period",
+    "-p",
+    type=click.Choice(
+        [
+            "mn1",
+            "w1",
+            "d1",
+            "h4",
+            "h3",
+            "h2",
+            "h1",
+            "m30",
+            "m20",
+            "m12",
+            "m10",
+            "m6",
+            "m5",
+            "m4",
+            "m3",
+            "m2",
+            "m1",
+        ],
+        case_sensitive=False,
+    ),
+    default="d1",
+    help="Tempo grafico, default D1.",
+)
 @click.option(
     "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
 )
