@@ -9,7 +9,34 @@ from mtcli import conf
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="D1", help="Tempo grafico, default D1.")
+@click.option(
+    "--period",
+    "-p",
+    type=click.Choice(
+        [
+            "mn1",
+            "w1",
+            "d1",
+            "h4",
+            "h3",
+            "h2",
+            "h1",
+            "m30",
+            "m15",
+            "m12",
+            "m10",
+            "m6",
+            "m5",
+            "m4",
+            "m3",
+            "m2",
+            "m1",
+        ],
+        case_sensitive=False,
+    ),
+    default="D1",
+    help="Tempo grafico, default D1.",
+)
 @click.option(
     "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
 )
