@@ -2,7 +2,7 @@
 @set ma_txt=MA_TXT.ex5
 @set readme=readme.md
 @set license=LICENSE
-@set version=0.29.0
+@set version=0.29.1
 @set dir_build=build\
 @set dir_dist=dist\pyinstaller\mtcli-%version%\
 @pyinstaller --distpath dist/pyinstaller -y mt.spec
