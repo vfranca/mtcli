@@ -17,8 +17,8 @@ from mtcli.pa import bar as pa_bar
     type=click.Choice(
         ["ch", "f", "r", "var", "vol", "ohlc", "o", "h", "l", "c"], case_sensitive=False
     ),
-    default="ch",
-    help="Forma de exibicao, default ch.",
+    default="f",
+    help="Forma de exibicao, default f.",
 )
 @click.option(
     "--period",

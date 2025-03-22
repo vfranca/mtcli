@@ -70,13 +70,16 @@ def test_exibe_a_view_de_variacoes_percentuais():
 
 
 def test_exibe_view_minima_com_data():
-    res = run.invoke(mt, ["bars", "bbdc4", "--show-date", "--count", "1"])
+    res = run.invoke(
+        mt, ["bars", "bbdc4", "--view", "ch", "--show-date", "--count", "1"]
+    )
     assert res.output == "2025.02.27 DESC 11.62 11.43\n"
 
 
 def test_exibe_view_minima_com_data_e_numerador_ativados():
     res = run.invoke(
-        mt, ["bars", "bbdc4", "--show-date", "--numerator", "--count", "1"]
+        mt,
+        ["bars", "bbdc4", "--view", "ch", "--show-date", "--numerator", "--count", "1"],
     )
     assert res.output == "2025.02.27 DESC 11.62 11.43\n"
     res = run.invoke(
@@ -84,6 +87,8 @@ def test_exibe_view_minima_com_data_e_numerador_ativados():
         [
             "bars",
             "bbdc4",
+            "--view",
+            "ch",
             "--show-date",
             "--numerator",
             "--count",
@@ -98,6 +103,8 @@ def test_exibe_view_minima_com_data_e_numerador_ativados():
         [
             "bars",
             "bbdc4",
+            "--view",
+            "ch",
             "--show-date",
             "--numerator",
             "--count",
@@ -170,7 +177,19 @@ def test_exibe_view_fechamentos_com_data():
 
 def test_exibe_intraday_com_numerador_desativado():
     res = run.invoke(
-        mt, ["bars", "wdov24", "--period", "m5", "--date", "2024.09.27", "--count", "1"]
+        mt,
+        [
+            "bars",
+            "wdov24",
+            "--period",
+            "m5",
+            "--date",
+            "2024.09.27",
+            "--count",
+            "1",
+            "--view",
+            "ch",
+        ],
     )
     assert res.output == "OB 5436.00 5428.00\n"
 
@@ -187,6 +206,8 @@ def test_exibe_intraday_com_numerador_ativado():
             "2024.09.27",
             "--count",
             "1",
+            "--view",
+            "ch",
             "--numerator",
         ],
     )
