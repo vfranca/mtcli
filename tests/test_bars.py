@@ -169,3 +169,28 @@ def test_exibe_view_fechamentos_com_data():
         mt, ["bars", "bbdc4", "--view", "c", "--count", "1", "--show-date"]
     )
     assert res.output == "2025.02.27 11.45\n"
+
+
+def test_exibe_intraday_com_numerador_desativado():
+    res = run.invoke(
+        mt, ["bars", "wdov24", "--period", "m5", "--date", "2024.09.27", "--count", "1"]
+    )
+    assert res.output == "OB 5436.00 5428.00\n"
+
+
+def test_exibe_intraday_com_numerador_ativado():
+    res = run.invoke(
+        mt,
+        [
+            "bars",
+            "wdov24",
+            "--period",
+            "m5",
+            "--date",
+            "2024.09.27",
+            "--count",
+            "1",
+            "--numerator",
+        ],
+    )
+    assert res.output == "103 OB 5436.00 5428.00\n"

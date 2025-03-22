@@ -64,7 +64,6 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     for rate in rates:
         bar = pa_bar.Bar(rate)
         if date and bar.date != date:  # filtra por data para intraday
-            numerator = True  # Configura numerador, padrão para intraday
             continue
         bars.append(bar)
     views = []
