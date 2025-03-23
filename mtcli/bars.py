@@ -34,6 +34,7 @@ from mtcli.pa import bar as pa_bar
             "h1",
             "m30",
             "m20",
+            "m15",
             "m12",
             "m10",
             "m6",
