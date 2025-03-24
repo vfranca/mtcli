@@ -1,37 +1,51 @@
 # mtcli  
   
-Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto.  
+Aplicativo CLI para exibir o gráfico de barras do MetaTrader 5 em texto.  
 O formato texto pode ser lido pelo leitor de telas NVDA.  
-O mtcli é um produto para deficientes visuais e foi feito por um deficiente visual.  
+O mtcli é uma aplicação feita por um deficiente visual para deficientes visuais.
   
 ## Pré-requisitos  
 
-* Windows 10 ou 11 com conta Administrador ativada.  
-* Leitor de tela NVDA.  
 * Plataforma de negociação MetaTrader 5.  
-* Python disponível no prompt de comando.  
-    
-Para ativar a conta administrador execute o seguinte comando no terminal CMD:  
-```CMD
-net user Administrador /active:yes
-```
-      
+* Leitor de tela NVDA.  
+
 obs.: O mtcli não foi testado com outros leitores de tela além do NVDA.  
     
 
 ## Instalação  
 
-### Indicador mtcli
-Faça o download do indicador mtcli e anexe a um gráfico  no MetaTrader 5.  
-[Clique aqui para baixar o indicador mtcli](https://tinyurl.com/vfranca-mtcli)  
-  
-### mtcli
+### Executável
 
-Execute o comando abaixo no prompt do Windows para instalar o mtcli:  
-```CMD
+[Clique aqui para baixar o executável](https://bit.ly/mtcli)
+  
+Descompacte  a pasta e execute:  
+```
+cd mtcli
+mt --version
+```
+deverá exibir algo como mtcli 0.31.2
+
+A pasta contem dois aplicativos do MetaTrader 5: Mtcli.ex5 e MA_TXT.ex5.  
+
+* O Mtcli.ex5 exporta as cotações em CSV, e é necessário para que os comandos do mtcli possam ser executados
+* O MA_TXT.ex5 exporta as médias móveis em CSV, e é necessário para que o comando mt ma possa ser executado
+  
+Eles deverão ser anexados ao gráfico do MetaTrader 5 para que o mtcli possa ler esses dados
+  
+Digite mt --help para obter uma ajuda rápida e uma  lista de subcomandos disponíveis:
+```
+mt --help
+```
+Para uma ajuda para cada subcomando execute mt <subcomando> --help
+
+### Python
+
+Outra forma de obter o mtcli é pelo índice de pacotes do python (PyPI).  
+Se você tiver o python instalado e disponível no prompt de comando execute o seguinte comando para instalar o mtcli:  
+```
 pip install mtcli
 ```
-  
+
 ## Comandos  
   
 | Comando | Descrição | Exemplo |
