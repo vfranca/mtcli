@@ -1,4 +1,4 @@
-@set version=0.31.1
+@set version=0.31.2
 @set mtcli=Mtcli.ex5
 @set ma_txt=MA_TXT.ex5
 @set readme=readme.md
