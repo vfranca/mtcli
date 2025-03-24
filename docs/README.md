@@ -50,7 +50,7 @@ pip install mtcli
   
 | Comando | Descrição | Exemplo |
 | :----- | :------ | :---- |
-| [mt bars](bars.md) | Exibe o gráfico de candlestick. | mt bars IBOV |
+| [mt bars](bars.md) | Exibe o gráfico de barras em texto. | mt bars IBOV |
 | [mt mm](mm.md) | Calcula a média móvel simples. | mt mm IBOV |
 | [mt rm](rm.md) | Calcula o tamanho médio das barras.| mt rm IBOV |
 | mt conf | Gerencia configurações do mtcli | mt conf |
