@@ -252,3 +252,75 @@ def test_exibe_view_no_m5():
         mt, ["bars", "wdoj25", "--view", "f", "--period", "m5", "--count", "1"]
     )
     assert res.output == "  VERDE17  TOP83 5772.00 5769.00 5769.50M5770.50 R3.00\n"
+
+
+def test_exibe_view_no_m6():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m6", "--count", "1"]
+    )
+    assert res.output == "  DOJI0  TOP83 5772.00 5769.00 5769.50M5770.50 R3.00\n"
+
+
+def test_exibe_view_no_m10():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m10", "--count", "1"]
+    )
+    assert res.output == "IB  DOJI0  TOP83 5772.00 5769.00 5769.50M5770.50 R3.00\n"
+
+
+def test_exibe_view_no_m12():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m12", "--count", "1"]
+    )
+    assert res.output == "IB  DOJI0  TOP83 5772.00 5769.00 5769.50M5770.50 R3.00\n"
+
+
+def test_exibe_view_no_m15():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m15", "--count", "1"]
+    )
+    assert (
+        res.output == "DESC V VERMELHO67 G1.00  5772.00 5769.00 5769.50M5770.50 R3.00\n"
+    )
+
+
+def test_exibe_view_no_m20():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m20", "--count", "1"]
+    )
+    assert res.output == "IB  DOJI0  TOP83 5772.00 5769.00 5769.50M5770.50 R3.00\n"
+
+
+def test_exibe_view_no_m30():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m30", "--count", "1"]
+    )
+    assert res.output == "IB V VERMELHO80   5774.00 5769.00 5769.50M5771.50 R5.00\n"
+
+
+def test_exibe_view_no_h1():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "h1", "--count", "1"]
+    )
+    assert res.output == "IB V VERMELHO80   5774.00 5769.00 5769.50M5771.50 R5.00\n"
+
+
+def test_exibe_view_no_h2():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "h2", "--count", "1"]
+    )
+    assert res.output == "IB V VERMELHO80   5774.00 5769.00 5769.50M5771.50 R5.00\n"
+
+
+def test_exibe_view_no_h3():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "h3", "--count", "1"]
+    )
+    assert res.output == "IB V VERMELHO80   5774.00 5769.00 5769.50M5771.50 R5.00\n"
+
+
+def test_exibe_view_no_h4():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "h4", "--count", "1"]
+    )
+    assert res.output == "ASC C VERDE55  TOP32 5774.50 5759.00 5769.50M5766.75 R15.50\n"
