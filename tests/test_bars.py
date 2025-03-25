@@ -212,3 +212,43 @@ def test_exibe_intraday_com_numerador_ativado():
         ],
     )
     assert res.output == "103 OB 5436.00 5428.00\n"
+
+
+def test_exibe_view_no_m1():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m1", "--count", "1"]
+    )
+    assert (
+        res.output == " V VERMELHO50  BOTTOM50 5770.00 5769.00 5769.50M5769.50 R1.00\n"
+    )
+
+
+def test_exibe_view_no_m2():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m2", "--count", "1"]
+    )
+    assert res.output == "IB C VERDE50  TOP50 5770.00 5769.00 5769.50M5769.50 R1.00\n"
+
+
+def test_exibe_view_no_m3():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m3", "--count", "1"]
+    )
+    assert (
+        res.output
+        == "IB V VERMELHO80  BOTTOM20 5771.50 5769.00 5769.50M5770.25 R2.50\n"
+    )
+
+
+def test_exibe_view_no_m4():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m2", "--count", "1"]
+    )
+    assert res.output == "IB C VERDE50  TOP50 5770.00 5769.00 5769.50M5769.50 R1.00\n"
+
+
+def test_exibe_view_no_m5():
+    res = run.invoke(
+        mt, ["bars", "wdoj25", "--view", "f", "--period", "m5", "--count", "1"]
+    )
+    assert res.output == "  VERDE17  TOP83 5772.00 5769.00 5769.50M5770.50 R3.00\n"
