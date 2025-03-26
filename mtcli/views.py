@@ -176,10 +176,12 @@ def view_var(bars, count, period="d1", date="", numerator=False, show_date=False
     """Exibição de variações percentuais"""
     views = []
     n = get_n(len(bars), count, date)
-    gaps, direcs, vars = get_padroes(bars)
-    vars = vars[-count:]  # filtra quantidade de barras
+    vars_fech, vars_max, vars_min = get_vars(bars)
+    vars_fech = vars_fech[-count:]  # filtra quantidade de barras
+    vars_max = vars_max[-count:]  # filtra quantidade de barras
+    vars_min = vars_min[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
-    for bar, var in zip(bars, vars):
+    for bar, var_fech, var_max, var_min in zip(bars, vars_fech, vars_max, vars_min):
         n += 1
         if numerator or (
             show_date and (period == "d1" or period == "w1" or period == "mn1")
@@ -187,13 +189,17 @@ def view_var(bars, count, period="d1", date="", numerator=False, show_date=False
             view = "%s "  # numerador ou data
         else:
             view = ""
-        view += "%.2f%%"  # variação percentual
+        view += "%.2f%% "  # variação percentual máxima
+        view += "%.2f%% "  # variação percentual mínima
+        view += "%.2f%%"  # variação percentual do fechamento
         if show_date and (period == "d1" or period == "w1" or period == "mn1"):
-            views.append(view % (bar.date, float(var)))
+            views.append(
+                view % (bar.date, float(var_max), float(var_min), float(var_fech))
+            )
         elif numerator:
-            views.append(view % (n, float(var)))
+            views.append(view % (n, float(var_max), float(var_min), float(var_fech)))
         else:
-            views.append(view % (float(var)))
+            views.append(view % (float(var_max), float(var_min), float(var_fech)))
     return views
 
 
@@ -313,6 +319,7 @@ def view_close(bars, count, period="d1", date="", numerator=False, show_date=Fal
 
 
 def get_padroes(bars):
+    """Retorna leituras de price action das barras."""
     gaps = []
     direcs = []
     vars = []
@@ -345,6 +352,35 @@ def get_padroes(bars):
         direcs.append(direc)
         vars.append(var_percent)
     return [gaps, direcs, vars]
+
+
+def get_vars(bars):
+    """Calcula variações percentuais das barras."""
+    vars_fech = []
+    vars_max = []
+    vars_min = []
+    fech = []
+    max = []
+    min = []
+    for bar in bars:
+        fech.append(bar.close)
+        max.append(bar.high)
+        min.append(bar.low)
+        if len(min) == 2:
+            var_fech = float(get_var(fech[0], fech[1]))
+            var_max = float(get_var(fech[0], max[1]))
+            var_min = float(get_var(fech[0], min[1]))
+            fech.pop(0)
+            max.pop(0)
+            min.pop(0)
+        else:
+            var_fech = 0
+            var_max = 0
+            var_min = 0
+        vars_fech.append(var_fech)
+        vars_max.append(var_max)
+        vars_min.append(var_min)
+    return [vars_fech, vars_max, vars_min]
 
 
 def get_medium_point(bar):
