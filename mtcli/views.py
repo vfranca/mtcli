@@ -10,7 +10,7 @@ def view_full(bars, count, period="d1", date="", numerator=False, show_date=Fals
     "Exibição completa" ""
     views = []
     n = get_n(len(bars), count, date)
-    gaps, direcs, vars = get_padroes(bars)
+    gaps, direcs = get_padroes(bars)
     direcs = direcs[-count:]  # filtra quantidade de barras
     gaps = gaps[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
@@ -97,7 +97,7 @@ def view_min(bars, count, period="d1", date="", numerator=False, show_date=False
     """Exibição mínima"""
     views = []
     n = get_n(len(bars), count, date)
-    gaps, direcs, vars = get_padroes(bars)
+    gaps, direcs = get_padroes(bars)
     direcs = direcs[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
@@ -123,7 +123,7 @@ def view_ranges(bars, count, period="d1", date="", numerator=False, show_date=Fa
     "Exibição dos ranges" ""
     views = []
     n = get_n(len(bars), count, date)
-    gaps, direcs, vars = get_padroes(bars)
+    gaps, direcs = get_padroes(bars)
     direcs = direcs[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc in zip(bars, direcs):
@@ -322,7 +322,6 @@ def get_padroes(bars):
     """Retorna leituras de price action das barras."""
     gaps = []
     direcs = []
-    vars = []
     corpo = []
     abert = []
     fech = []
@@ -338,7 +337,6 @@ def get_padroes(bars):
             padrao = pattern.TwoBars(corpo, abert, fech, max, min)
             gap = padrao.pattern
             direc = padrao.trend
-            var_percent = float(get_var(fech[0], fech[1]))
             corpo.pop(0)
             abert.pop(0)
             fech.pop(0)
@@ -347,11 +345,9 @@ def get_padroes(bars):
         else:
             gap = ""
             direc = ""
-            var_percent = 0
         gaps.append(gap)
         direcs.append(direc)
-        vars.append(var_percent)
-    return [gaps, direcs, vars]
+    return [gaps, direcs]
 
 
 def get_vars(bars):
