@@ -38,6 +38,27 @@ if not csv_path:
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"
 
+timeframes = [
+    "mn1",
+    "w1",
+    "d1",
+    "h4",
+    "h3",
+    "h2",
+    "h1",
+    "m30",
+    "m20",
+    "m15",
+    "m12",
+    "m10",
+    "m6",
+    "m5",
+    "m4",
+    "m3",
+    "m2",
+    "m1",
+]
+
 
 @click.command()
 @click.option("--digitos", "-d", help="Digitos da moeda, default 2.")
