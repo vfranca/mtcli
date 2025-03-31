@@ -2,7 +2,7 @@ from mtcli.pa import bar
 
 
 rate = [
-    "2015.04.01",
+    "2015.04.01 12:40:00",
     "51187.00000",
     "56965.00000",
     "51187.00000",
@@ -15,7 +15,7 @@ bar = bar.Bar(rate)
 
 
 def test_retorna_a_data():
-    assert bar.date == "2015.04.01"
+    assert str(bar.date) == "2015-04-01"
 
 
 def test_retorna_a_abertura():

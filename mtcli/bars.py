@@ -30,7 +30,7 @@ from mtcli.pa import bar as pa_bar
 @click.option(
     "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
 )
-@click.option("--date", "-d", help="Data para intraday, formato AAAA.MM.DD.")
+@click.option("--date", "-d", help="Data para intraday, formato AAAA-MM-DD.")
 @click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao das velas.")
 @click.option("--show-date", "-sd", is_flag=True, help="Ativa a datacao das velas.")
 def bars(symbol, view, period, count, date, numerator, show_date):
@@ -42,7 +42,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     bars = []
     for rate in rates:
         bar = pa_bar.Bar(rate)
-        if date and bar.date != date:  # filtra por data para intraday
+        if date and str(bar.date) != date:  # filtra por data para intraday
             continue
         bars.append(bar)
     views = []
