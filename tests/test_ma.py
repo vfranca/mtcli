@@ -7,6 +7,6 @@ run = CliRunner()
 
 
 def test_exibe_a_media_movel():
-    res = run.invoke(mt, ["ma", "ibov", "--period", "D1", "--count", "20"])
-    assert res.output == "down 124823.22\n"
+    res = run.invoke(mt, ["ma", "bbdc4", "--period", "D1", "--count", "20"])
+    assert res.output == "flat 12.36\n"
     assert res.exit_code == 0

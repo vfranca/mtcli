@@ -23,6 +23,7 @@ def ma(symbol, period, count):
     """Exibe as medias moveis do indicador MA_TXT."""
     fcsv = conf.csv_path + symbol + period + "-MA" + str(count) + ".csv"
     ma_data = csv_data.get_data(fcsv)
+    ma_data = ma_data[-1:] # limita à última linha
     for ma in ma_data:
         click.echo("%s %s" % (ma[3], ma[2]))
 
