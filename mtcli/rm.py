@@ -4,7 +4,7 @@ Calcula o tamanho médio das barras
 
 import click
 from mtcli.models import model_rates
-from mtcli.models import model_ranges
+from mtcli.models import model_average_range
 from mtcli import conf
 
 
@@ -22,11 +22,9 @@ def rm(symbol, period, count):
     """Calcula o tamanho medio das barras."""
     rates = model_rates.RatesModel(symbol, period)
     rates = rates.lista
-    ranges = model_ranges.RangesModel(rates)
-    ranges = ranges.lista
-    ranges = ranges[-count:]
-    rm = round(sum(ranges) / len(ranges), conf.digitos)
-    click.echo(rm)
+    ar = model_average_range.AverageRangeModel(rates, count)
+    ar = ar.ar
+    click.echo(ar)
 
 
 if __name__ == "__main__":
