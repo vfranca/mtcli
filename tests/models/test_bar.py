@@ -1,4 +1,4 @@
-from mtcli.pa import bar
+from mtcli.models import model_bar as bar
 
 
 rate = [
@@ -11,7 +11,7 @@ rate = [
     "8158109400",
 ]
 
-bar = bar.Bar(rate)
+bar = bar.BarModel(rate)
 
 
 def test_retorna_a_data():

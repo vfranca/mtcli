@@ -4,9 +4,9 @@ Exibe o gráfico de velas
 
 import click
 from mtcli import views as _views
-from mtcli import csv_data
 from mtcli import conf
-from mtcli.pa import bar as pa_bar
+from mtcli.models import model_rates
+from mtcli.models import model_bars
 
 
 @click.command()
@@ -37,14 +37,10 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     """Exibe o grafico de velas."""
     period = period.lower()
     view = view.lower()
-    fcsv = conf.csv_path + symbol + period + ".csv"
-    rates = csv_data.get_data(fcsv)
-    bars = []
-    for rate in rates:
-        bar = pa_bar.Bar(rate)
-        if date and str(bar.date) != date:  # filtra por data para intraday
-            continue
-        bars.append(bar)
+    rates = model_rates.RatesModel(symbol, period)
+    rates = rates.lista
+    bars = model_bars.BarsModel(rates, date)
+    bars = bars.lista
     views = []
     if view == "ch":
         views = _views.view_min(bars, count, period, date, numerator, show_date)

@@ -2,7 +2,7 @@ from mtcli import conf
 from datetime import datetime
 
 
-class Bar(object):
+class BarModel(object):
     def __init__(self, rate):
         self.datetime = rate[0]
         self.date = self.__get_date()

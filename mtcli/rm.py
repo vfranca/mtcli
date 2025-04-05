@@ -3,8 +3,8 @@ Calcula o tamanho médio das barras
 """
 
 import click
-from mtcli import csv_data
-from mtcli.pa import bar as pa_bar
+from mtcli.models import csv_data
+from mtcli.models import model_bar as pa_bar
 from mtcli import conf
 
 
@@ -24,7 +24,7 @@ def rm(symbol, period, count):
     ranges = []
     rates = csv_data.get_data(fcsv)
     for rate in rates:
-        bar = pa_bar.Bar(rate)
+        bar = pa_bar.BarModel(rate)
         # Elimina doji de 4 preços
         if bar.open == bar.high and bar.high == bar.low and bar.low == bar.close:
             continue

@@ -1,5 +1,5 @@
 import unittest
-from mtcli.pa import pattern
+from mtcli.models import pattern
 from mtcli import conf
 
 

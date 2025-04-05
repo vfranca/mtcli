@@ -3,7 +3,7 @@ Formata as exibições
 """
 
 from mtcli import conf
-from mtcli.pa import pattern
+from mtcli.models import pattern
 
 
 def view_full(bars, count, period="d1", date="", numerator=False, show_date=False):

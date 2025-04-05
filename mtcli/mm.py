@@ -3,8 +3,8 @@ Calcula a média móvel simples
 """
 
 import click
-from mtcli import csv_data
-from mtcli.pa import bar as pa_bar
+from mtcli.models import csv_data
+from mtcli.models import model_bar as pa_bar
 from mtcli import conf
 
 
@@ -24,7 +24,7 @@ def mm(symbol, period, count):
     prices = []
     rates = csv_data.get_data(fcsv)
     for rate in rates:
-        bar = pa_bar.Bar(rate)
+        bar = pa_bar.BarModel(rate)
         prices.append(bar.close)
     prices = prices[-count:]
     sma = round(sum(prices) / len(prices), conf.digitos)
