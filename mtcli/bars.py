@@ -3,6 +3,7 @@ Exibe o gráfico de velas
 """
 
 import click
+from mtcli.views import view_min
 from mtcli import views as _views
 from mtcli import conf
 from mtcli.models import model_rates
@@ -43,7 +44,9 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     bars = bars.lista
     views = []
     if view == "ch":
-        views = _views.view_min(bars, count, period, date, numerator, show_date)
+        views = view_min.MinView(bars, count, period, date, numerator, show_date)
+        views = views.lista()
+#         views = _views.view_min(bars, count, period, date, numerator, show_date)
     elif view == "r":
         views = _views.view_ranges(bars, count, period, date, numerator, show_date)
     elif view == "ohlc":
