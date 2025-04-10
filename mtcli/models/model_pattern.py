@@ -5,7 +5,7 @@ Leituras de padrões de price action
 from mtcli import conf
 
 
-class OneBar(object):
+class OneBarModel(object):
 
     body_doji_max = conf.percentual_doji
     body_trend_min = conf.percentual_rompimento
@@ -70,7 +70,7 @@ class OneBar(object):
         return True
 
 
-class TwoBars(object):
+class TwoBarsModel(object):
     def __init__(self, body, open, close, high, low):
         self.body = body
         self.open = open

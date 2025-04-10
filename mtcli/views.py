@@ -3,21 +3,23 @@ Formata as exibições
 """
 
 from mtcli import conf
-from mtcli.models import pattern
+from mtcli.models import model_pattern
+from mtcli.models import model_chart
 
 
 def view_full(bars, count, period="d1", date="", numerator=False, show_date=False):
     "Exibição completa" ""
     views = []
-    n = get_n(len(bars), count, date)
-    gaps, direcs = get_padroes(bars)
+    chart = model_chart.ChartModel(bars, len(bars), count, date)
+    n = chart.get_n()
+    gaps, direcs = chart.get_padroes()
     direcs = direcs[-count:]  # filtra quantidade de barras
     gaps = gaps[-count:]  # filtra quantidade de barras
     bars = bars[-count:]  # filtra quantidade de barras
     for bar, direc, gap in zip(bars, direcs, gaps):
         n += 1
         mp = get_medium_point(bar)
-        padrao = pattern.OneBar(
+        padrao = model_pattern.OneBarModel(
             bar.body, bar.top, bar.bottom, bar.close, mp
         )  # padrões de 1 barra
         sombra = padrao.tail
@@ -334,7 +336,7 @@ def get_padroes(bars):
         max.append(bar.high)
         min.append(bar.low)
         if len(min) == 2:
-            padrao = pattern.TwoBars(corpo, abert, fech, max, min)
+            padrao = model_pattern.TwoBarsModel(corpo, abert, fech, max, min)
             gap = padrao.pattern
             direc = padrao.trend
             corpo.pop(0)
