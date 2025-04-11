@@ -45,8 +45,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     views = []
     if view == "ch":
         views = view_min.MinView(bars, count, period, date, numerator, show_date)
-        views = views.lista()
-#         views = _views.view_min(bars, count, period, date, numerator, show_date)
+        views = views.views()
     elif view == "r":
         views = _views.view_ranges(bars, count, period, date, numerator, show_date)
     elif view == "ohlc":

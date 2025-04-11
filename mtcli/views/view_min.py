@@ -11,16 +11,16 @@ class MinView:
         self.date = date
         self.numerator = numerator
         self.show_date = show_date
-        chart = model_chart.ChartModel(bars, len(bars), count, date)
-        self.n = chart.get_n()
-        gaps, direcs = chart.get_padroes()
+        self.chart = model_chart.ChartModel(bars, len(bars), count, date)
+        gaps, direcs = self.chart.get_padroes()
         self.direcs = direcs[-count:]
         self.bars = bars[-count:]
 
-    def lista(self):
+    def views(self):
         views = []
+        n = self.chart.get_n()
         for bar, direc in zip(self.bars, self.direcs):
-            self.n += 1
+            n += 1
             if self.numerator or (
                 self.show_date and (self.period == "d1" or self.period == "w1" or self.period == "mn1")
             ):  # numerador de barra ou data
@@ -32,7 +32,7 @@ class MinView:
             if self.show_date and (self.period == "d1" or self.period == "w1" or self.period == "mn1"):
                 views.append(view % (bar.date, direc, bar.high, bar.low))
             elif self.numerator:
-                views.append(view % (self.n, direc, bar.high, bar.low))
+                views.append(view % (n, direc, bar.high, bar.low))
             else:
                 views.append(view % (direc, bar.high, bar.low))
         return views
