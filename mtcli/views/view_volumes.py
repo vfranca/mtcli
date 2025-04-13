@@ -19,8 +19,22 @@ class VolumesView:
     def views(self):
         views = []
         n = self.chart.get_n()
-        gaps, direcs = self.chart.get_padroes()
-        direcs = direcs[-self.count :]
-        for bar, direc in zip(self.bars, direcs):
+        for bar in self.bars:
             n += 1
+            if self.numerator or (
+                self.show_date
+                and (self.period == "d1" or self.period == "w1" or self.period == "mn1")
+            ):  # numerador de barra ou data
+                view = "%s "  # numerador ou data
+            else:
+                view = ""
+            view += "%i"  # fechamento
+            if self.show_date and (
+                self.period == "d1" or self.period == "w1" or self.period == "mn1"
+            ):
+                views.append(view % (bar.date, bar.volume))
+            elif self.numerator:
+                views.append(view % (n, bar.volume))
+            else:
+                views.append(view % (bar.volume))
         return views
