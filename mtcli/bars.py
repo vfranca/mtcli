@@ -3,6 +3,7 @@ Exibe o gráfico de velas
 """
 
 import click
+from mtcli.views import view_full
 from mtcli.views import view_min
 from mtcli.views import view_ranges
 from mtcli.views import view_ranges

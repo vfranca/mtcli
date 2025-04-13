@@ -47,3 +47,35 @@ class ChartModel:
             gaps.append(gap)
             direcs.append(direc)
         return [gaps, direcs]
+
+    def get_vars(self):
+        """Calcula variações percentuais das barras."""
+        vars_fech = []
+        vars_max = []
+        vars_min = []
+        fech = []
+        max = []
+        min = []
+        for bar in self.bars:
+            fech.append(bar.close)
+            max.append(bar.high)
+            min.append(bar.low)
+            if len(min) == 2:
+                var_fech = float(get_var(fech[0], fech[1]))
+                var_max = float(get_var(fech[0], max[1]))
+                var_min = float(get_var(fech[0], min[1]))
+                fech.pop(0)
+                max.pop(0)
+                min.pop(0)
+            else:
+                var_fech = 0
+                var_max = 0
+                var_min = 0
+            vars_fech.append(var_fech)
+            vars_max.append(var_max)
+            vars_min.append(var_min)
+        return [vars_fech, vars_max, vars_min]
+
+    def get_var(self, price1, price2):
+        """Calcula variação percentual de dois preços."""
+        return round((price2 - price1) / price1 * 100, 2)

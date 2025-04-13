@@ -19,6 +19,7 @@ class BarModel(object):
         self.bottom = self.__get_bottom()
         self.body_range = self.__get_body_range()
         self.trend = self.__get_trend()
+        self.medium_point = self.__get_medium_point()
 
     def __get_date(self):
         """Retorna a data da barra."""
@@ -91,6 +92,10 @@ class BarModel(object):
             trend = conf.lateral
 
         return trend
+
+    def __get_medium_point(self):
+        """Retorna o ponto médio da barra."""
+        return round(self.low + self.range / 2, conf.digitos)
 
     def __str__(self):
         return "%s %.5f %.5f %.5f" % (self.body, self.high, self.low, self.close)
