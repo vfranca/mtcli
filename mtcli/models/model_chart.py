@@ -61,9 +61,9 @@ class ChartModel:
             max.append(bar.high)
             min.append(bar.low)
             if len(min) == 2:
-                var_fech = float(get_var(fech[0], fech[1]))
-                var_max = float(get_var(fech[0], max[1]))
-                var_min = float(get_var(fech[0], min[1]))
+                var_fech = float(self.get_var(fech[0], fech[1]))
+                var_max = float(self.get_var(fech[0], max[1]))
+                var_min = float(self.get_var(fech[0], min[1]))
                 fech.pop(0)
                 max.pop(0)
                 min.pop(0)
