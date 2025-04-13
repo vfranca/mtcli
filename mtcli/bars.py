@@ -5,6 +5,14 @@ Exibe o gráfico de velas
 import click
 from mtcli.views import view_min
 from mtcli.views import view_ranges
+from mtcli.views import view_ranges
+from mtcli.views import view_volumes
+from mtcli.views import view_vars
+from mtcli.views import view_rates
+from mtcli.views import view_open
+from mtcli.views import view_high
+from mtcli.views import view_low
+from mtcli.views import view_close
 from mtcli import views as _views
 from mtcli import conf
 from mtcli.models import model_rates
@@ -51,21 +59,31 @@ def bars(symbol, view, period, count, date, numerator, show_date):
         views = view_ranges.RangesView(bars, count, period, date, numerator, show_date)
         views = views.views()
     elif view == "ohlc":
-        views = _views.view_ohlc(bars, count, date, numerator)
+        views = view_rates.RatesView(bars, count, period, date, numerator, show_date)
+        views = views.views()
     elif view == "var":
-        views = _views.view_var(bars, count, period, date, numerator, show_date)
+        views = view_vars.VarsView(bars, count, period, date, numerator, show_date)
+        views = views.views()
     elif view == "o":  # abertura
-        views = _views.view_open(bars, count, period, date, numerator, show_date)
+        views = view_open.OpenView(bars, count, period, date, numerator, show_date)
+        views = views.views()
     elif view == "h":
-        views = _views.view_high(bars, count, period, date, numerator, show_date)
+        views = view_high.HighView(bars, count, period, date, numerator, show_date)
+        views = views.views()
     elif view == "l":
-        views = _views.view_low(bars, count, period, date, numerator, show_date)
+        views = view_open.OpenView(bars, count, period, date, numerator, show_date)
+        views = views.views()
     elif view == "c":
-        views = _views.view_close(bars, count, period, date, numerator, show_date)
+        views = view_close.CloseView(bars, count, period, date, numerator, show_date)
+        views = views.views()
     elif view == "vol":
-        views = _views.view_volume(bars, count, period, date, numerator, show_date)
+        views = view_volumes.VolumesView(
+            bars, count, period, date, numerator, show_date
+        )
+        views = views.views()
     else:
-        views = _views.view_full(bars, count, period, date, numerator, show_date)
+        views = view_full.FullView(bars, count, period, date, numerator, show_date)
+        views = views.views()
     if views:
         for view in views:
             click.echo(view)
