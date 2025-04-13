@@ -72,7 +72,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
         views = view_high.HighView(bars, count, period, date, numerator, show_date)
         views = views.views()
     elif view == "l":
-        views = view_open.OpenView(bars, count, period, date, numerator, show_date)
+        views = view_low.LowView(bars, count, period, date, numerator, show_date)
         views = views.views()
     elif view == "c":
         views = view_close.CloseView(bars, count, period, date, numerator, show_date)

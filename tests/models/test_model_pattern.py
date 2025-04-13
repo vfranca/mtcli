@@ -39,7 +39,9 @@ class TestOneBarModel(unittest.TestCase):
 
 class TestTwoBars(unittest.TestCase):
     def setUp(self):
-        self.o = model_pattern.TwoBarsModel([50, 60], [10, 20], [40, 50], [60, 80], [5, 15])
+        self.o = model_pattern.TwoBarsModel(
+            [50, 60], [10, 20], [40, 50], [60, 80], [5, 15]
+        )
 
     def test_retorna_os_fechamentos(self):
         self.assertEqual(self.o.close, [40, 50])
@@ -51,7 +53,9 @@ class TestTwoBars(unittest.TestCase):
         self.assertEqual(self.o.low, [5, 15])
 
     def test_retorna_gap_de_fechamento(self):
-        o = model_pattern.TwoBarsModel([-50, -60], [90, 40], [20, 10], [80, 60], [15, 5])
+        o = model_pattern.TwoBarsModel(
+            [-50, -60], [90, 40], [20, 10], [80, 60], [15, 5]
+        )
         self.assertEqual(o.pattern, "%s5.00" % "G")
 
 
