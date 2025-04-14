@@ -324,3 +324,24 @@ def test_exibe_view_no_h4():
         mt, ["bars", "wdoj25", "--view", "f", "--period", "h4", "--count", "1"]
     )
     assert res.output == "ASC C VERDE55  TOP32 5774.50 5759.00 5769.50M5766.75 R15.50\n"
+
+
+def test_exibe_view_no_h6():
+    res = run.invoke(
+        mt, ["bars", "btcusd", "--view", "ch", "--period", "h6", "--count", "1"]
+    )
+    assert res.output == "DESC 85412.93 83655.09\n"
+
+
+def test_exibe_view_no_h8():
+    res = run.invoke(
+        mt, ["bars", "btcusd", "--view", "ch", "--period", "h8", "--count", "1"]
+    )
+    assert res.output == "OB 85738.73 83655.09\n"
+
+
+def test_exibe_view_no_h12():
+    res = run.invoke(
+        mt, ["bars", "btcusd", "--view", "ch", "--period", "h12", "--count", "1"]
+    )
+    assert res.output == "ASC 85738.73 83655.09\n"
