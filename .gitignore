@@ -118,3 +118,6 @@ ENV/
 
 # temporários
 *.~
+
+# mkdocs
+site/
