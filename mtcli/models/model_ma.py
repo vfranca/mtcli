@@ -9,12 +9,12 @@ class MaModel:
         self.time = self.__get_time()
         self.close = float(rate[1])
         self.ma = float(rate[2])
-        self.inclinacao = float(rate[3])
+        self.inclinacao = str(rate[3])
         self.variacao = float(rate[4])
-        self.variacao_flat = int(rate[5])
+        self.variacao_flat = float(rate[5])
         self.count = int(rate[6])
-        self.mode = int(rate[7])
-        self.price = int(rate[8])
+        self.mode = str(rate[7])
+        self.price = str(rate[8])
 
     def __get_date(self):
         """Retorna a data da barra."""
