@@ -1,4 +1,4 @@
-from mtcli.models import model_pattern
+from mtcli.models import model_paction
 from mtcli.models import model_chart
 from mtcli import conf
 
@@ -24,10 +24,12 @@ class FullView:
         direcs = direcs[-self.count :]
         for bar, gap, direc in zip(self.bars, gaps, direcs):
             n += 1
-            padrao = model_pattern.OneBarModel(
+            pa = model_paction.BarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
             )  # padrões de 1 barra
-            sombra = padrao.tail
+            breakout = pa.get_breakout()
+            body = pa.get_body()
+            sombra = pa.get_tail()
             if sombra == conf.sombra_superior:
                 sombra = "%s%i" % (sombra, bar.top)
             if sombra == conf.sombra_inferior:
@@ -39,7 +41,12 @@ class FullView:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
-            view += "%s %s %s%i %s %s"
+            view += "%s %s %s%i"
+            if gap:
+                view += " " + conf.gap + "%." + str(conf.digitos) + "f"
+            else:
+                view += " %s"
+            view += " %s"
             view += " %." + str(conf.digitos) + "f"  # máxima
             view += " %." + str(conf.digitos) + "f"  # mínima
             view += " %." + str(conf.digitos) + "f"  # fechamento
@@ -53,8 +60,8 @@ class FullView:
                     % (
                         bar.date,
                         direc,
-                        padrao.pattern,
-                        padrao.body_pattern,
+                        breakout,
+                        body,
                         abs(bar.body),
                         gap,
                         sombra,
@@ -71,8 +78,8 @@ class FullView:
                     % (
                         n,
                         direc,
-                        padrao.pattern,
-                        padrao.body_pattern,
+                        breakout,
+                        body,
                         abs(bar.body),
                         gap,
                         sombra,
@@ -88,8 +95,8 @@ class FullView:
                     view
                     % (
                         direc,
-                        padrao.pattern,
-                        padrao.body_pattern,
+                        breakout,
+                        body,
                         abs(bar.body),
                         gap,
                         sombra,
