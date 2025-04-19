@@ -3,7 +3,7 @@ from mtcli.models import model_chart
 from mtcli import conf
 
 
-class FullView:
+class IntermediateView:
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
@@ -27,13 +27,7 @@ class FullView:
             pa = model_paction.BarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
             )  # padrões de 1 barra
-            breakout = pa.get_breakout()
             trend = pa.get_body()
-            tail = pa.get_tail()
-            if tail == conf.sombra_superior:
-                tail = "%s%i" % (tail, bar.top)
-            if tail == conf.sombra_inferior:
-                tail = "%s%i" % (tail, bar.bottom)
             if self.numerator or (
                 self.show_date
                 and (self.period == "d1" or self.period == "w1" or self.period == "mn1")
@@ -41,16 +35,14 @@ class FullView:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
-            view += "%s %s %s%i"  # direcao, breakout, tendência, corpo
+            view += "%s %s %i"  # direcao, tendencia, corpo
             if gap:
                 view += " " + conf.gap + "%." + str(conf.digitos) + "f"
             else:
                 view += " %s"
-            view += " %s"
             view += " %." + str(conf.digitos) + "f"  # máxima
             view += " %." + str(conf.digitos) + "f"  # mínima
             view += " %." + str(conf.digitos) + "f"  # fechamento
-            view += conf.ponto_medio + "%." + str(conf.digitos) + "f"  # ponto médio
             view += " R%." + str(conf.digitos) + "f"  # range, variação percentual
             if self.show_date and (
                 self.period == "d1" or self.period == "w1" or self.period == "mn1"
@@ -60,15 +52,12 @@ class FullView:
                     % (
                         bar.date,
                         direc,
-                        breakout,
                         trend,
                         abs(bar.body),
                         gap,
-                        tail,
                         bar.high,
                         bar.low,
                         bar.close,
-                        bar.medium_point,
                         bar.range,
                     )
                 )
@@ -78,15 +67,12 @@ class FullView:
                     % (
                         n,
                         direc,
-                        breakout,
                         trend,
                         abs(bar.body),
                         gap,
-                        tail,
                         bar.high,
                         bar.low,
                         bar.close,
-                        bar.medium_point,
                         bar.range,
                     )
                 )
@@ -95,15 +81,12 @@ class FullView:
                     view
                     % (
                         direc,
-                        breakout,
                         trend,
                         abs(bar.body),
                         gap,
-                        tail,
                         bar.high,
                         bar.low,
                         bar.close,
-                        bar.medium_point,
                         bar.range,
                     )
                 )

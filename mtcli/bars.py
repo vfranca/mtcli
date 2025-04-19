@@ -4,6 +4,7 @@ Exibe o gráfico de velas
 
 import click
 from mtcli.views import view_full
+from mtcli.views import view_intermediate
 from mtcli.views import view_min
 from mtcli.views import view_ranges
 from mtcli.views import view_ranges
@@ -26,7 +27,8 @@ from mtcli.models import model_bars
     "--view",
     "-v",
     type=click.Choice(
-        ["ch", "f", "r", "var", "vol", "ohlc", "o", "h", "l", "c"], case_sensitive=False
+        ["ch", "f", "i", "r", "var", "vol", "ohlc", "o", "h", "l", "c"],
+        case_sensitive=False,
     ),
     default="f",
     help="Forma de exibicao, default f.",
@@ -79,6 +81,11 @@ def bars(symbol, view, period, count, date, numerator, show_date):
         views = views.views()
     elif view == "vol":
         views = view_volumes.VolumesView(
+            bars, count, period, date, numerator, show_date
+        )
+        views = views.views()
+    elif view == "i":
+        views = view_intermediate.IntermediateView(
             bars, count, period, date, numerator, show_date
         )
         views = views.views()
