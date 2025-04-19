@@ -34,8 +34,8 @@ class ChartModel:
             min.append(bar.low)
             if len(min) == 2:
                 pa = model_paction.TwoBarsModel(corpo, abert, fech, max, min)
-                gap = pa.pattern
-                direc = pa.trend
+                gap = pa.get_gap()
+                direc = pa.get_trend()
                 corpo.pop(0)
                 abert.pop(0)
                 fech.pop(0)

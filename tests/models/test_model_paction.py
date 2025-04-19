@@ -56,7 +56,7 @@ class TestTwoBars(unittest.TestCase):
         o = model_paction.TwoBarsModel(
             [-50, -60], [90, 40], [20, 10], [80, 60], [15, 5]
         )
-        self.assertEqual(o.pattern, "%s5.00" % "G")
+        self.assertEqual(o.get_gap(), 5.00)
 
 
 if __name__ == "__main__":

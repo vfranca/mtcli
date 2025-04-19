@@ -17,10 +17,6 @@ class BarModel:
         self.close = close
         self.retracement = retracement
 
-    #         self.body_pattern = self.__get_body_pattern()
-    #         self.tail = self.__get_tail()
-    #         self.pattern = self.__get_pattern()
-
     def get_body(self):
         """Padrão de corpo: alta/baixa/doji."""
         if abs(self.body) <= int(self.body_doji_max):
@@ -71,26 +67,22 @@ class BarModel:
         return True
 
 
-class TwoBarsModel(object):
+class TwoBarsModel:
     def __init__(self, body, open, close, high, low):
         self.body = body
         self.open = open
         self.close = close
         self.high = high
         self.low = low
-        self.trend = self.__get_trend()
-        self.pattern = self.__get_pattern()
 
-    def __get_pattern(self):
-        """Padrão de duas barras."""
-        # Verifica se existe gap
+    def get_gap(self):
+        """Gap de rompimento."""
         if self.__is_gap():
             if self.body[1] > 0:
                 gap = self.close[1] - self.high[0]
             if self.body[1] < 0:
                 gap = self.low[0] - self.close[1]
-            view = conf.gap + "%." + str(conf.digitos) + "f"
-            return view % gap
+            return gap
         return ""
 
     def __is_gap(self):
@@ -108,8 +100,8 @@ class TwoBarsModel(object):
             return False
         return True
 
-    def __get_trend(self):
-        """Retorna a tendência da sequência de dois candles."""
+    def get_trend(self):
+        """Retorna a tendência da sequência de duas barras."""
         if self.high[1] > self.high[0] and self.low[1] > self.low[0]:
             return conf.up_bar
         if self.high[1] < self.high[0] and self.low[1] < self.low[0]:

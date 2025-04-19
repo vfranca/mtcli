@@ -41,7 +41,12 @@ class FullView:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
-            view += "%s %s %s%i %s %s"
+            view += "%s %s %s%i"
+            if gap:
+                view += " " + conf.gap + "%." + str(conf.digitos) + "f"
+            else:
+                view += " %s"
+            view += " %s"
             view += " %." + str(conf.digitos) + "f"  # máxima
             view += " %." + str(conf.digitos) + "f"  # mínima
             view += " %." + str(conf.digitos) + "f"  # fechamento
