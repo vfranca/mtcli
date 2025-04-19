@@ -25,7 +25,3 @@ class MaModel:
         """Retorna o horário da barra."""
         hora = datetime.strptime(self.datetime, "%Y.%m.%d %H:%M:%S")
         return hora.time()
-
-    def __get_body_range(self):
-        """Retorna o tamanho absoluto do corpo."""
-        return abs(self.close - self.open)

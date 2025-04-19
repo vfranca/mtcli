@@ -1,15 +1,14 @@
-from .model_ma import MaModel
+from mtcli.models import model_ma
 
 
 class MasModel:
 
     def __init__(self, rates):
         self.rates = rates
-        self.lista = self.__lista()
 
-    def __lista(self):
+    def lista(self):
         lista = []
         for rate in self.rates:
-            ma = MaModel(rate)
+            ma = model_ma.MaModel(rate)
             lista.append(ma)
         return lista

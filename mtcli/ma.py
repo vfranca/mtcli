@@ -3,7 +3,8 @@ Exibe a média móvel do indicador MA_TXT
 """
 
 import click
-from mtcli.models import csv_data
+from mtcli.models import model_rates_ma
+from mtcli.models import model_mas
 from mtcli import conf
 
 
@@ -21,11 +22,13 @@ from mtcli import conf
 )
 def ma(symbol, period, count):
     """Exibe as medias moveis do indicador MA_TXT."""
-    fcsv = conf.csv_path + symbol + period + "-MA" + str(count) + ".csv"
-    ma_data = csv_data.get_data(fcsv)
-    ma_data = ma_data[-1:]  # limita à última linha
-    for ma in ma_data:
-        click.echo("%s %s" % (ma[3], ma[2]))
+    rates = model_rates_ma.RatesMaModel(symbol, period, count)
+    rates = rates.lista()
+    mas = model_mas.MasModel(rates)
+    mas = mas.lista()
+    mas = mas[-1:]  # limita à última linha
+    for ma in mas:
+        click.echo("%s %.2f" % (ma.inclinacao, ma.ma))
 
 
 if __name__ == "__main__":
