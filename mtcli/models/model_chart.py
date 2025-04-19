@@ -1,4 +1,4 @@
-from mtcli.models import model_pattern
+from mtcli.models import model_paction
 
 
 class ChartModel:
@@ -33,9 +33,9 @@ class ChartModel:
             max.append(bar.high)
             min.append(bar.low)
             if len(min) == 2:
-                padrao = model_pattern.TwoBarsModel(corpo, abert, fech, max, min)
-                gap = padrao.pattern
-                direc = padrao.trend
+                pa = model_paction.TwoBarsModel(corpo, abert, fech, max, min)
+                gap = pa.pattern
+                direc = pa.trend
                 corpo.pop(0)
                 abert.pop(0)
                 fech.pop(0)

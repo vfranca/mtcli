@@ -5,7 +5,7 @@ Leituras de padrões de price action
 from mtcli import conf
 
 
-class OneBarModel(object):
+class BarModel:
 
     body_doji_max = conf.percentual_doji
     body_trend_min = conf.percentual_rompimento
@@ -16,11 +16,12 @@ class OneBarModel(object):
         self.bottom = bottom
         self.close = close
         self.retracement = retracement
-        self.body_pattern = self.__get_body_pattern()
-        self.tail = self.__get_tail()
-        self.pattern = self.__get_pattern()
 
-    def __get_body_pattern(self):
+    #         self.body_pattern = self.__get_body_pattern()
+    #         self.tail = self.__get_tail()
+    #         self.pattern = self.__get_pattern()
+
+    def get_body(self):
         """Padrão de corpo: alta/baixa/doji."""
         if abs(self.body) <= int(self.body_doji_max):
             return conf.lateral
@@ -29,7 +30,7 @@ class OneBarModel(object):
         if self.body < 0:
             return conf.baixa
 
-    def __get_tail(self):
+    def get_tail(self):
         """Sombra sobressalente: TOPTAIL/BOTTOMTAIL/NEUTRAL."""
         if self.top > self.bottom:
             return conf.sombra_superior
@@ -37,35 +38,35 @@ class OneBarModel(object):
             return conf.sombra_inferior
         return ""
 
-    def __get_pattern(self):
+    def get_breakout(self):
         """Padrão de uma barra: careca/topo raspado, fundo raspado."""
-        if self.__is_buy_pressure():
+        if self.__is_bull_breakout():
             return conf.rompimento_alta
-        if self.__is_sell_pressure():
+        if self.__is_bear_breakout():
             return conf.rompimento_baixa
         return ""
 
-    def __is_buy_pressure(self):
-        """Se tiver pressão compradora retorna true."""
+    def __is_bull_breakout(self):
+        """Verifica se é uma barra de rompimento de alta."""
         if self.body < 0:
             return False
         if abs(self.body) < self.body_trend_min:
             return False
         if self.close < self.retracement:
             return False
-        if abs(self.body) >= 80:
+        if abs(self.body) >= self.body_trend_min:
             return True
         return True
 
-    def __is_sell_pressure(self):
-        """Se tiver pressão vendedora retorna true."""
+    def __is_bear_breakout(self):
+        """Verifica se é uma barra de rompimento de baixa."""
         if self.body > 0:
             return False
         if abs(self.body) < self.body_trend_min:
             return False
         if self.close > self.retracement:
             return False
-        if abs(self.body) >= 80:
+        if abs(self.body) >= self.body_trend_min:
             return True
         return True
 

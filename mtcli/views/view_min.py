@@ -1,4 +1,3 @@
-from mtcli.models import model_pattern
 from mtcli.models import model_chart
 from mtcli import conf
 
