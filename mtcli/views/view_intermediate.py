@@ -20,9 +20,8 @@ class IntermediateView:
         views = []
         n = self.chart.get_n()
         gaps, direcs = self.chart.get_padroes()
-        gaps = gaps[-self.count :]
         direcs = direcs[-self.count :]
-        for bar, gap, direc in zip(self.bars, gaps, direcs):
+        for bar, direc in zip(self.bars, direcs):
             n += 1
             pa = model_paction.BarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
@@ -36,10 +35,6 @@ class IntermediateView:
             else:
                 view = ""
             view += "%s %s %i"  # direcao, tendencia, corpo
-            if gap:
-                view += " " + conf.gap + "%." + str(conf.digitos) + "f"
-            else:
-                view += " %s"
             view += " %." + str(conf.digitos) + "f"  # máxima
             view += " %." + str(conf.digitos) + "f"  # mínima
             view += " R%." + str(conf.digitos) + "f"  # range, variação percentual
@@ -53,7 +48,6 @@ class IntermediateView:
                         direc,
                         trend,
                         abs(bar.body),
-                        gap,
                         bar.high,
                         bar.low,
                         bar.range,
@@ -67,7 +61,6 @@ class IntermediateView:
                         direc,
                         trend,
                         abs(bar.body),
-                        gap,
                         bar.high,
                         bar.low,
                         bar.range,
@@ -80,7 +73,6 @@ class IntermediateView:
                         direc,
                         trend,
                         abs(bar.body),
-                        gap,
                         bar.high,
                         bar.low,
                         bar.range,
