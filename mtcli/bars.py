@@ -27,11 +27,11 @@ from mtcli.models import model_bars
     "--view",
     "-v",
     type=click.Choice(
-        ["ch", "f", "i", "r", "var", "vol", "ohlc", "o", "h", "l", "c"],
+        ["ch", "f", "i", "r", "var", "vol", "oh", "o", "h", "l", "c"],
         case_sensitive=False,
     ),
     default="f",
-    help="Forma de exibicao, default f.",
+    help="Forma de exibicao, default f. Opcoes: ch - minima; f - completa; i - intermediaria; r - ranges; -var - variacoes percentuais; vol - volumes; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
 )
 @click.option(
     "--period",

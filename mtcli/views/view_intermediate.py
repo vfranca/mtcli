@@ -42,7 +42,6 @@ class IntermediateView:
                 view += " %s"
             view += " %." + str(conf.digitos) + "f"  # máxima
             view += " %." + str(conf.digitos) + "f"  # mínima
-            view += " %." + str(conf.digitos) + "f"  # fechamento
             view += " R%." + str(conf.digitos) + "f"  # range, variação percentual
             if self.show_date and (
                 self.period == "d1" or self.period == "w1" or self.period == "mn1"
@@ -57,7 +56,6 @@ class IntermediateView:
                         gap,
                         bar.high,
                         bar.low,
-                        bar.close,
                         bar.range,
                     )
                 )
@@ -72,7 +70,6 @@ class IntermediateView:
                         gap,
                         bar.high,
                         bar.low,
-                        bar.close,
                         bar.range,
                     )
                 )
@@ -86,7 +83,6 @@ class IntermediateView:
                         gap,
                         bar.high,
                         bar.low,
-                        bar.close,
                         bar.range,
                     )
                 )
