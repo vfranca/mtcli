@@ -5,6 +5,7 @@ Exibe a média móvel do indicador MA_TXT
 import click
 from mtcli.models import model_rates_ma
 from mtcli.models import model_mas
+from mtcli.views import view_ma
 from mtcli import conf
 
 
@@ -27,8 +28,9 @@ def ma(symbol, period, count):
     mas = model_mas.MasModel(rates)
     mas = mas.lista()
     mas = mas[-1:]  # limita à última linha
-    for ma in mas:
-        click.echo("%s %.2f" % (ma.inclinacao, ma.ma))
+    view = view_ma.MaView(mas)
+    view = view.view()
+    click.echo(view)
 
 
 if __name__ == "__main__":
