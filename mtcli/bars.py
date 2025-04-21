@@ -61,7 +61,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     elif view == "r":
         views = view_ranges.RangesView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "ohlc":
+    elif view == "oh":
         views = view_rates.RatesView(bars, count, period, date, numerator, show_date)
         views = views.views()
     elif view == "var":

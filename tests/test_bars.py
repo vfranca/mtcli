@@ -345,3 +345,8 @@ def test_exibe_view_no_h12():
         mt, ["bars", "btcusd", "--view", "ch", "--period", "h12", "--count", "1"]
     )
     assert res.output == "ASC 85738.73 83655.09\n"
+
+
+def test_exibe_view_ohlc():
+    res = run.invoke(mt, ["bars", "bbdc4", "--view", "oh", "--period", "d1", "--count", "1"])
+    assert res.output == "2025-02-27 11.55 11.62 11.43 11.45 19949\n"
