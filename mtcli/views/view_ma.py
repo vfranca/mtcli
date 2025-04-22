@@ -11,7 +11,6 @@ class MaView:
             if str(_ma.date) == self.date and not self.time:
                 ma = _ma.ma
                 inclinacao = _ma.inclinacao
-                break
             if str(_ma.date) == self.date and str(_ma.time) == self.time:
                 ma = _ma.ma
                 inclinacao = _ma.inclinacao

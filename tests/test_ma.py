@@ -18,7 +18,7 @@ def test_exibe_a_media_movel_de_uma_data():
     res = run.invoke(
         mt, ["ma", "spx500p", "--period", "m5", "--count", "20", "--date", "2025-04-21"]
     )
-    assert res.output == "down 5291.00\n"
+    assert res.output == "up 5146.00\n"
 
 
 def test_exibe_a_media_movel_de_uma_data_e_hora():
