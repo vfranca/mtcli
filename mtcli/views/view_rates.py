@@ -1,12 +1,16 @@
+"""Módulo da view das cotações OHLC."""
+
 from mtcli.models import model_chart
 from mtcli import conf
 
 
 class RatesView:
+    """Classe da view das cotações OHLC."""
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
+        """View das cotações OHLC."""
         self.count = count
         self.period = period
         self.date = date
@@ -16,6 +20,7 @@ class RatesView:
         self.bars = bars[-count:]
 
     def views(self):
+        """Lista das views de cotações OHLC."""
         views = []
         n = self.chart.get_n()
         for bar in self.bars:

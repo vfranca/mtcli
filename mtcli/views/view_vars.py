@@ -1,12 +1,16 @@
+"""Módulo da classe da view de variações percentuais."""
+
 from mtcli.models import model_chart
 from mtcli import conf
 
 
 class VarsView:
+    """Classe da view de variações percentuais."""
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
+        """View de variações percentuais."""
         self.count = count
         self.period = period
         self.date = date
@@ -16,6 +20,7 @@ class VarsView:
         self.bars = bars[-count:]
 
     def views(self):
+        """Lista das views de variações percentuais."""
         views = []
         n = self.chart.get_n()
         vars_fech, vars_max, vars_min = self.chart.get_vars()

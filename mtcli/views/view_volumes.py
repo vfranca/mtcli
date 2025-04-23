@@ -1,12 +1,16 @@
+"""Módulo da classe da view de volumes."""
+
 from mtcli.models import model_chart
 from mtcli import conf
 
 
 class VolumesView:
+    """Classe da view de volumes."""
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
+        """View de volumes."""
         self.count = count
         self.period = period
         self.date = date
@@ -16,6 +20,7 @@ class VolumesView:
         self.bars = bars[-count:]
 
     def views(self):
+        """Retorna a lista de views."""
         views = []
         n = self.chart.get_n()
         for bar in self.bars:

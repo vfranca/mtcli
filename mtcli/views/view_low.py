@@ -1,12 +1,16 @@
+"""Módulo da classe da view de mínimas."""
+
 from mtcli.models import model_chart
 from mtcli import conf
 
 
 class LowView:
+    """Classe da view das mínimas."""
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
+        """View das mínimas."""
         self.count = count
         self.period = period
         self.date = date
@@ -16,6 +20,7 @@ class LowView:
         self.bars = bars[-count:]
 
     def views(self):
+        """Lista das views das mínimas."""
         views = []
         n = self.chart.get_n()
         for bar in self.bars:

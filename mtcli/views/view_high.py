@@ -1,12 +1,16 @@
+"""Módulo da classe da view das máximas."""
+
 from mtcli.models import model_chart
 from mtcli import conf
 
 
 class HighView:
+    """Classe da view das máximas."""
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
+        """View das máximas."""
         self.count = count
         self.period = period
         self.date = date
@@ -16,6 +20,7 @@ class HighView:
         self.bars = bars[-count:]
 
     def views(self):
+        """Lista das views de máximas."""
         views = []
         n = self.chart.get_n()
         for bar in self.bars:

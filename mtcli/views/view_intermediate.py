@@ -1,13 +1,17 @@
+"""Módulo da classe da view intermediária."""
+
 from mtcli.models import model_paction
 from mtcli.models import model_chart
 from mtcli import conf
 
 
 class IntermediateView:
+    """Classe da view intermediária."""
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
+        """View intermediária."""
         self.count = count
         self.period = period
         self.date = date
@@ -17,6 +21,7 @@ class IntermediateView:
         self.bars = bars[-count:]
 
     def views(self):
+        """Lista das views intermediárias."""
         views = []
         n = self.chart.get_n()
         gaps, direcs = self.chart.get_padroes()
