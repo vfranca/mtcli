@@ -1,3 +1,6 @@
+from mtcli import conf
+
+
 class MaView:
 
     def __init__(self, mas, date, time):
@@ -20,4 +23,4 @@ class MaView:
             for _ma in mas:
                 ma = _ma.ma
                 inclinacao = _ma.inclinacao
-        return "%s %.2f" % (inclinacao, ma)
+        return "%s %.{0}f".format(conf.digitos) % (inclinacao, ma)

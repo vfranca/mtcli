@@ -8,7 +8,7 @@ run = CliRunner()
 
 def test_exibe_a_versao():
     res = run.invoke(mt, ["--version"])
-    assert res.output == "mtcli 1.5.1\n"
+    assert res.output == "mtcli 1.5.2\n"
 
 
 def test_exibe_msg_de_excecao_quando_um_arquivo_csv_nao_e_encontrado():
