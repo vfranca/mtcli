@@ -1,6 +1,4 @@
-"""
-Calcula a média móvel simples
-"""
+"""Calcula a média móvel simples."""
 
 import click
 from mtcli.models import model_rates

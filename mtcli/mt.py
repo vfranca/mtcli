@@ -1,5 +1,7 @@
 """
-Aplicativo CLI para exibir gráficos do MetaTrader 5
+Módulo principal do aplicativo.
+
+Frontcontroller do mtcli.
 """
 
 import click

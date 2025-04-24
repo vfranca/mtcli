@@ -1,6 +1,4 @@
-"""
-Exibe o gráfico de velas
-"""
+"""Exibe o gráfico de barras."""
 
 import click
 from mtcli.views import view_full
@@ -44,10 +42,10 @@ from mtcli.models import model_bars
     "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
 )
 @click.option("--date", "-d", help="Data para intraday, formato AAAA-MM-DD.")
-@click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao das velas.")
-@click.option("--show-date", "-sd", is_flag=True, help="Ativa a datacao das velas.")
+@click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao das barras.")
+@click.option("--show-date", "-sd", is_flag=True, help="Ativa a datacao das barras.")
 def bars(symbol, view, period, count, date, numerator, show_date):
-    """Exibe o grafico de velas."""
+    """Exibe o grafico de barras."""
     period = period.lower()
     view = view.lower()
     rates = model_rates.RatesModel(symbol, period)

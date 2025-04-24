@@ -1,6 +1,4 @@
-"""
-Gerencia configurações registradas no mtcli.ini
-"""
+"""Gerencia configurações registradas no mtcli.ini."""
 
 import click
 import dotenv

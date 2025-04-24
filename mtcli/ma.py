@@ -1,6 +1,4 @@
-"""
-Exibe a média móvel do indicador MA_TXT
-"""
+"""Exibe a média móvel do indicador MA_TXT."""
 
 import click
 from mtcli.models import model_rates_ma
