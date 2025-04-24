@@ -1,15 +1,20 @@
+"""Módulo da classe model do gráfico."""
+
 from mtcli.models import model_paction
 
 
 class ChartModel:
+    """Classe model do gráfico."""
 
     def __init__(self, bars, total_bars, count, date):
+        """Model do gráfico."""
         self.bars = bars
         self.total_bars = total_bars
         self.count = count
         self.date = date
 
     def get_n(self):
+        """Obtem o número inicial da numeração das barras."""
         n = 0
         if self.date:  # numerator para intraday
             n = self.total_bars - self.count
@@ -18,7 +23,7 @@ class ChartModel:
         return n
 
     def get_padroes(self):
-        """Retorna leituras de price action das barras."""
+        """Obtem listas de leituras de price action da sequência de duas barras."""
         gaps = []
         direcs = []
         corpo = []
@@ -49,7 +54,7 @@ class ChartModel:
         return [gaps, direcs]
 
     def get_vars(self):
-        """Calcula variações percentuais das barras."""
+        """Obtem a lista de variações percentuais entre os fechamentos das barras."""
         vars_fech = []
         vars_max = []
         vars_min = []
@@ -77,5 +82,5 @@ class ChartModel:
         return [vars_fech, vars_max, vars_min]
 
     def get_var(self, price1, price2):
-        """Calcula variação percentual de dois preços."""
+        """Calcula a variação percentual de dois fechamentos."""
         return round((price2 - price1) / price1 * 100, 2)

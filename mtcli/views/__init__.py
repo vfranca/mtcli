@@ -1,1 +1,1 @@
-"""Views."""
+"""Módulos da View do mtcli."""

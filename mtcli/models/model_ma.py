@@ -1,9 +1,14 @@
+"""Módulo da classe model da média móvel."""
+
 from mtcli import conf
 from datetime import datetime
 
 
 class MaModel:
+    """Classe model da média móvel."""
+
     def __init__(self, rate):
+        """Model da média móvel."""
         self.datetime = rate[0]
         self.date = self.__get_date()
         self.time = self.__get_time()
@@ -17,11 +22,11 @@ class MaModel:
         self.price = str(rate[8])
 
     def __get_date(self):
-        """Retorna a data da barra."""
+        """Obtem a data da média móvel no formato YYYY-MM-DD."""
         data = datetime.strptime(self.datetime, "%Y.%m.%d %H:%M:%S")
         return data.date()
 
     def __get_time(self):
-        """Retorna o horário da barra."""
+        """Obtem o horário da média móvel no formato HH:MM:SS."""
         hora = datetime.strptime(self.datetime, "%Y.%m.%d %H:%M:%S")
         return hora.time()

@@ -1,6 +1,4 @@
-"""
-Importa dados de CSV
-"""
+"""Módulo de importação de arquivo CSV."""
 
 import csv
 import pathlib

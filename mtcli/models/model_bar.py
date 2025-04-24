@@ -1,9 +1,14 @@
+"""Módulo da classe model da barra."""
+
 from mtcli import conf
 from datetime import datetime
 
 
-class BarModel(object):
+class BarModel:
+    """Classe do model da barra."""
+
     def __init__(self, rate):
+        """Model da barra."""
         self.datetime = rate[0]
         self.date = self.__get_date()
         self.time = self.__get_time()
@@ -22,28 +27,28 @@ class BarModel(object):
         self.medium_point = self.__get_medium_point()
 
     def __get_date(self):
-        """Retorna a data da barra."""
+        """Obtem a data da barra no formato YYYY-MM-DD."""
         data = datetime.strptime(self.datetime, "%Y.%m.%d %H:%M:%S")
         return data.date()
 
     def __get_time(self):
-        """Retorna o horário da barra."""
+        """Obtem o horário da barra no formato HH:MM:SS."""
         hora = datetime.strptime(self.datetime, "%Y.%m.%d %H:%M:%S")
         return hora.time()
 
     def __get_range(self):
-        """Retorna o range do candle."""
+        """Obtem o range da barra."""
         return self.high - self.low
 
     def __get_body(self):
-        """Retorna o tamanho  relativo do corpo real em porcentagem."""
+        """Calcula o   range relativo do corpo da barra em porcentagem."""
         if self.range == 0:
             return 0
 
         return round((self.close - self.open) / self.range * 100)
 
     def __get_top(self):
-        """Retorna o tamanho relativo da sombra superior em porcentagem."""
+        """Calcula o range relativo da sombra superior da barra em porcentagem."""
         high = self.high
         open = self.open
         close = self.close
@@ -60,7 +65,7 @@ class BarModel(object):
         return round(top / range * 100)
 
     def __get_bottom(self):
-        """Retorna o tamanho relativo da sombra inferior em porcentagem."""
+        """Obtem o range relativo da sombra inferior da barra em porcentagem."""
         low = self.low
         open = self.open
         close = self.close
@@ -77,11 +82,11 @@ class BarModel(object):
         return round(bottom / range * 100)
 
     def __get_body_range(self):
-        """Retorna o tamanho absoluto do corpo."""
+        """Calcula o range do corpo da barra."""
         return abs(self.close - self.open)
 
     def __get_trend(self):
-        """Retorna a tendência da barra."""
+        """Obtem a tendência da barra."""
         b = self.body
 
         if b > 0:
@@ -94,8 +99,5 @@ class BarModel(object):
         return trend
 
     def __get_medium_point(self):
-        """Retorna o ponto médio da barra."""
+        """Obtem o ponto médio da barra."""
         return round(self.low + self.range / 2, conf.digitos)
-
-    def __str__(self):
-        return "%s %.5f %.5f %.5f" % (self.body, self.high, self.low, self.close)
