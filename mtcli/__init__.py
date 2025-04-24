@@ -1,3 +1,3 @@
 """Aplicativo de linha de comando para exibir graficos do MetaTrader 5 em texto."""
 
-__version__ = "1.5.2"
+__version__ = "1.5.3"

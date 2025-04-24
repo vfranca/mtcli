@@ -13,7 +13,6 @@ from mtcli.views import view_open
 from mtcli.views import view_high
 from mtcli.views import view_low
 from mtcli.views import view_close
-from mtcli import views as _views
 from mtcli import conf
 from mtcli.models import model_rates
 from mtcli.models import model_bars
@@ -25,11 +24,11 @@ from mtcli.models import model_bars
     "--view",
     "-v",
     type=click.Choice(
-        ["ch", "f", "i", "r", "var", "vol", "oh", "o", "h", "l", "c"],
+        ["ch", "m", "f", "i", "r", "v", "va", "oh", "o", "h", "l", "c"],
         case_sensitive=False,
     ),
     default="f",
-    help="Forma de exibicao, default f. Opcoes: ch - minima; f - completa; i - intermediaria; r - ranges; -var - variacoes percentuais; vol - volumes; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
+    help="Forma de exibicao, default f. Opcoes: ch ou m - minima; f - completa; i - intermediaria; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
 )
 @click.option(
     "--period",
@@ -53,41 +52,41 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     bars = model_bars.BarsModel(rates, date)
     bars = bars.lista
     views = []
-    if view == "ch":
+    if view == "m" or view == "ch": # minimo
         views = view_min.MinView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "r":
+    elif view == "r": # ranges
         views = view_ranges.RangesView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "oh":
+    elif view == "oh": # OHLC
         views = view_rates.RatesView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "var":
+    elif view == "va": # variações percentuais
         views = view_vars.VarsView(bars, count, period, date, numerator, show_date)
         views = views.views()
     elif view == "o":  # abertura
         views = view_open.OpenView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "h":
+    elif view == "h": # máximas
         views = view_high.HighView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "l":
+    elif view == "l": # mínimas
         views = view_low.LowView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "c":
+    elif view == "c": # fechamentos
         views = view_close.CloseView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "vol":
+    elif view == "v": # volumes
         views = view_volumes.VolumesView(
             bars, count, period, date, numerator, show_date
         )
         views = views.views()
-    elif view == "i":
+    elif view == "i": # intermediário
         views = view_intermediate.IntermediateView(
             bars, count, period, date, numerator, show_date
         )
         views = views.views()
-    else:
+    else: # completo
         views = view_full.FullView(bars, count, period, date, numerator, show_date)
         views = views.views()
     if views:
