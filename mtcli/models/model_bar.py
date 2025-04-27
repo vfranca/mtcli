@@ -34,7 +34,8 @@ class BarModel:
     def __get_time(self):
         """Obtem o horário da barra no formato HH:MM:SS."""
         hora = datetime.strptime(self.datetime, "%Y.%m.%d %H:%M:%S")
-        return hora.time()
+        hora = hora.time()
+        return hora.strftime("%H:%M")
 
     def __get_range(self):
         """Obtem o range da barra."""

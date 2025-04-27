@@ -18,6 +18,10 @@ def test_retorna_a_data():
     assert str(bar.date) == "2015-04-01"
 
 
+def test_retorna_a_hora():
+    assert str(bar.time) == "12:40"
+
+
 def test_retorna_a_abertura():
     assert bar.open == 51187.0
 
