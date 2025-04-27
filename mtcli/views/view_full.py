@@ -39,10 +39,7 @@ class FullView:
                 tail = "%s%i" % (tail, bar.top)
             if tail == conf.sombra_inferior:
                 tail = "%s%i" % (tail, bar.bottom)
-            if self.numerator or (
-                self.show_date
-                and (self.period == "d1" or self.period == "w1" or self.period == "mn1")
-            ):  # numerador de barra ou data
+            if self.numerator or self.show_date:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
@@ -57,26 +54,43 @@ class FullView:
             view += " %." + str(conf.digitos) + "f"  # fechamento
             view += conf.ponto_medio + "%." + str(conf.digitos) + "f"  # ponto médio
             view += " R%." + str(conf.digitos) + "f"  # range, variação percentual
-            if self.show_date and (
-                self.period == "d1" or self.period == "w1" or self.period == "mn1"
-            ):
-                views.append(
-                    view
-                    % (
-                        bar.date,
-                        direc,
-                        breakout,
-                        trend,
-                        abs(bar.body),
-                        gap,
-                        tail,
-                        bar.high,
-                        bar.low,
-                        bar.close,
-                        bar.medium_point,
-                        bar.range,
+            if self.show_date:
+                if self.period == "d1" or self.period == "w1" or self.period == "mn1":
+                    views.append(
+                        view
+                        % (
+                            bar.date,
+                            direc,
+                            breakout,
+                            trend,
+                            abs(bar.body),
+                            gap,
+                            tail,
+                            bar.high,
+                            bar.low,
+                            bar.close,
+                            bar.medium_point,
+                            bar.range,
+                        )
                     )
-                )
+                else:
+                    views.append(
+                        view
+                        % (
+                            bar.time,
+                            direc,
+                            breakout,
+                            trend,
+                            abs(bar.body),
+                            gap,
+                            tail,
+                            bar.high,
+                            bar.low,
+                            bar.close,
+                            bar.medium_point,
+                            bar.range,
+                        )
+                    )
             elif self.numerator:
                 views.append(
                     view

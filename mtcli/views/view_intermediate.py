@@ -32,10 +32,7 @@ class IntermediateView:
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
             )  # padrões de 1 barra
             trend = pa.get_body()
-            if self.numerator or (
-                self.show_date
-                and (self.period == "d1" or self.period == "w1" or self.period == "mn1")
-            ):  # numerador de barra ou data
+            if self.numerator or self.show_date:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
@@ -43,21 +40,33 @@ class IntermediateView:
             view += " %." + str(conf.digitos) + "f"  # máxima
             view += " %." + str(conf.digitos) + "f"  # mínima
             view += " R%." + str(conf.digitos) + "f"  # range, variação percentual
-            if self.show_date and (
-                self.period == "d1" or self.period == "w1" or self.period == "mn1"
-            ):
-                views.append(
-                    view
-                    % (
-                        bar.date,
-                        direc,
-                        trend,
-                        abs(bar.body),
-                        bar.high,
-                        bar.low,
-                        bar.range,
+            if self.show_date:
+                if self.period == "d1" or self.period == "w1" or self.period == "mn1":
+                    views.append(
+                        view
+                        % (
+                            bar.date,
+                            direc,
+                            trend,
+                            abs(bar.body),
+                            bar.high,
+                            bar.low,
+                            bar.range,
+                        )
                     )
-                )
+                else:
+                    views.append(
+                        view
+                        % (
+                            bar.time,
+                            direc,
+                            trend,
+                            abs(bar.body),
+                            bar.high,
+                            bar.low,
+                            bar.range,
+                        )
+                    )
             elif self.numerator:
                 views.append(
                     view

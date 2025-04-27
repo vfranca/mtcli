@@ -52,41 +52,41 @@ def bars(symbol, view, period, count, date, numerator, show_date):
     bars = model_bars.BarsModel(rates, date)
     bars = bars.lista
     views = []
-    if view == "m" or view == "ch": # minimo
+    if view == "m" or view == "ch":  # minimo
         views = view_min.MinView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "r": # ranges
+    elif view == "r":  # ranges
         views = view_ranges.RangesView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "oh": # OHLC
+    elif view == "oh":  # OHLC
         views = view_rates.RatesView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "va": # variações percentuais
+    elif view == "va":  # variações percentuais
         views = view_vars.VarsView(bars, count, period, date, numerator, show_date)
         views = views.views()
     elif view == "o":  # abertura
         views = view_open.OpenView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "h": # máximas
+    elif view == "h":  # máximas
         views = view_high.HighView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "l": # mínimas
+    elif view == "l":  # mínimas
         views = view_low.LowView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "c": # fechamentos
+    elif view == "c":  # fechamentos
         views = view_close.CloseView(bars, count, period, date, numerator, show_date)
         views = views.views()
-    elif view == "v": # volumes
+    elif view == "v":  # volumes
         views = view_volumes.VolumesView(
             bars, count, period, date, numerator, show_date
         )
         views = views.views()
-    elif view == "i": # intermediário
+    elif view == "i":  # intermediário
         views = view_intermediate.IntermediateView(
             bars, count, period, date, numerator, show_date
         )
         views = views.views()
-    else: # completo
+    else:  # completo
         views = view_full.FullView(bars, count, period, date, numerator, show_date)
         views = views.views()
     if views:
