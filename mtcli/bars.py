@@ -18,8 +18,8 @@ from mtcli.views import (view_close, view_full, view_high, view_intermediate,
         ["ch", "m", "f", "i", "r", "v", "va", "oh", "o", "h", "l", "c"],
         case_sensitive=False,
     ),
-    default="f",
-    help="Forma de exibicao, default f. Opcoes: ch ou m - minima; f - completa; i - intermediaria; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
+    default="m",
+    help="Forma de exibicao, default m. Opcoes: ch ou m - minima; f - completa; i - intermediaria; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
 )
 @click.option(
     "--period",
