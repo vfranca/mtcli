@@ -1,21 +1,12 @@
 """Exibe o gráfico de barras."""
 
 import click
-from mtcli.views import view_full
-from mtcli.views import view_intermediate
-from mtcli.views import view_min
-from mtcli.views import view_ranges
-from mtcli.views import view_ranges
-from mtcli.views import view_volumes
-from mtcli.views import view_vars
-from mtcli.views import view_rates
-from mtcli.views import view_open
-from mtcli.views import view_high
-from mtcli.views import view_low
-from mtcli.views import view_close
+
 from mtcli import conf
-from mtcli.models import model_rates
-from mtcli.models import model_bars
+from mtcli.models import model_bars, model_rates
+from mtcli.views import (view_close, view_full, view_high, view_intermediate,
+                         view_low, view_min, view_open, view_ranges,
+                         view_rates, view_vars, view_volumes)
 
 
 @click.command()

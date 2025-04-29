@@ -1,7 +1,7 @@
 """Módulo do model da média móvel simples."""
 
-from mtcli.models import model_bar
 from mtcli import conf
+from mtcli.models import model_bar
 
 
 class MovingAverageModel:

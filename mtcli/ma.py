@@ -1,10 +1,10 @@
 """Exibe a média móvel do indicador MA_TXT."""
 
 import click
-from mtcli.models import model_rates_ma
-from mtcli.models import model_mas
-from mtcli.views import view_ma
+
 from mtcli import conf
+from mtcli.models import model_mas, model_rates_ma
+from mtcli.views import view_ma
 
 
 @click.command()

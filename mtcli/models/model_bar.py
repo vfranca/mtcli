@@ -1,7 +1,8 @@
 """Módulo da classe model da barra."""
 
-from mtcli import conf
 from datetime import datetime
+
+from mtcli import conf
 
 
 class BarModel:

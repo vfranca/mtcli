@@ -1,7 +1,8 @@
 """Módulo da classe model da média móvel."""
 
-from mtcli import conf
 from datetime import datetime
+
+from mtcli import conf
 
 
 class MaModel:

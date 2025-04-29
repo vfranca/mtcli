@@ -1,7 +1,7 @@
 """Módulo da classe da view mínima."""
 
-from mtcli.models import model_chart
 from mtcli import conf
+from mtcli.models import model_chart
 
 
 class MinView:

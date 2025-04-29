@@ -1,10 +1,10 @@
 """Gerencia configurações registradas no mtcli.ini."""
 
+import os
+
 import click
 import dotenv
-import os
 import MetaTrader5 as mt5
-
 
 fconf = "mtcli.ini"
 dotenv.load_dotenv(fconf)

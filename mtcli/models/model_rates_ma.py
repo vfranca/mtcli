@@ -1,7 +1,7 @@
 """Módulo da classe da lista de cotações da média móvel."""
 
-from mtcli.models import csv_data
 from mtcli import conf
+from mtcli.models import csv_data
 
 
 class RatesMaModel:

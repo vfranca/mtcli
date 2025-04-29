@@ -1,7 +1,7 @@
 """Módulo da classe da view de variações percentuais."""
 
-from mtcli.models import model_chart
 from mtcli import conf
+from mtcli.models import model_chart
 
 
 class VarsView:

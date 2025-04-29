@@ -1,9 +1,9 @@
 """Calcula o range médio das barras."""
 
 import click
-from mtcli.models import model_rates
-from mtcli.models import model_average_range
+
 from mtcli import conf
+from mtcli.models import model_average_range, model_rates
 
 
 @click.command()

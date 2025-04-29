@@ -1,8 +1,7 @@
 """Módulo da classe da view intermediária."""
 
-from mtcli.models import model_paction
-from mtcli.models import model_chart
 from mtcli import conf
+from mtcli.models import model_chart, model_paction
 
 
 class IntermediateView:

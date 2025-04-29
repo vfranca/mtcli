@@ -26,6 +26,7 @@ black = "^25.1.0"
 pytest-mock = "^3.14.0"
 mkdocs = "^1.6.1"
 pydocstyle = "^6.3.0"
+isort = "^6.0.1"
 
 [tool.poetry.scripts]
 mt = "mtcli.mt:mt"

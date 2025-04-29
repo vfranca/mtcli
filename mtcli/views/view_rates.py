@@ -1,7 +1,7 @@
 """Módulo da view das cotações OHLC."""
 
-from mtcli.models import model_chart
 from mtcli import conf
+from mtcli.models import model_chart
 
 
 class RatesView:

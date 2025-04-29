@@ -1,9 +1,9 @@
 """Calcula a média móvel simples."""
 
 import click
-from mtcli.models import model_rates
-from mtcli.models import model_moving_average
+
 from mtcli import conf
+from mtcli.models import model_moving_average, model_rates
 
 
 @click.command()

@@ -1,6 +1,6 @@
 """Módulo da classe model da lista de barras."""
 
-from .model_bar import BarModel
+from mtcli.models import model_bar
 
 
 class BarsModel:
@@ -16,7 +16,7 @@ class BarsModel:
         """Gera a lista das barras."""
         lista = []
         for rate in self.rates:
-            bar = BarModel(rate)
+            bar = model_bar.BarModel(rate)
             if (
                 self.date and str(bar.date) != self.date
             ):  # filtra por data para intraday
