@@ -1,7 +1,7 @@
 """Módulo da classe da view completa."""
 
 from mtcli import conf
-from mtcli.models import model_chart, model_paction, model_consecutive_bars
+from mtcli.models import model_chart, model_unconsecutive_bar, model_consecutive_bars
 
 
 class FullView:
@@ -28,12 +28,12 @@ class FullView:
         direcs = direcs[-self.count :]
         for bar, gap, direc in zip(self.bars, gaps, direcs):
             n += 1
-            pa = model_paction.BarModel(
+            unconsecutive = model_unconsecutive_bar.UnconsecutiveBarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
             )  # padrões de 1 barra
-            breakout = pa.get_breakout()
-            trend = pa.get_body()
-            tail = pa.get_tail()
+            breakout = unconsecutive.get_breakout()
+            trend = unconsecutive.get_body()
+            tail = unconsecutive.get_tail()
             if tail == conf.sombra_superior:
                 tail = "%s%i" % (tail, bar.top)
             if tail == conf.sombra_inferior:

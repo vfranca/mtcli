@@ -1,7 +1,7 @@
 """Módulo da classe da view intermediária."""
 
 from mtcli import conf
-from mtcli.models import model_chart, model_paction
+from mtcli.models import model_chart, model_unconsecutive_bar
 
 
 class IntermediateView:
@@ -27,10 +27,10 @@ class IntermediateView:
         direcs = direcs[-self.count :]
         for bar, direc in zip(self.bars, direcs):
             n += 1
-            pa = model_paction.BarModel(
+            unconsecutive = model_unconsecutive_bar.UnconsecutiveBarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
-            )  # padrões de 1 barra
-            trend = pa.get_body()
+            )  # leituras de uma barra não consecutiva
+            trend = unconsecutive.get_body()
             if self.numerator or self.show_date:
                 view = "%s "  # numerador ou data
             else:

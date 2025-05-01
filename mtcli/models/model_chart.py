@@ -1,6 +1,6 @@
 """Módulo da classe model do gráfico."""
 
-from mtcli.models import model_paction, model_consecutive_bars
+from mtcli.models import model_consecutive_bars
 
 
 class ChartModel:
