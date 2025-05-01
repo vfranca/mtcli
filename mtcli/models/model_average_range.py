@@ -11,10 +11,11 @@ class AverageRangeModel:
         """Model do range médio."""
         self.rates = rates
         self.count = count
-        self.lista = self.__lista()
-        self.ar = self.__ar()
+        self.list = self.__list()
 
-    def __lista(self):
+    #         self.ar = self.__ar()
+
+    def __list(self):
         """Lista de ranges."""
         lista = []
         for rate in self.rates:
@@ -24,7 +25,7 @@ class AverageRangeModel:
             lista.append(bar.high - bar.low)
         return lista
 
-    def __ar(self):
+    def average(self):
         """Calcula o range médio."""
-        ranges = self.lista[-self.count :]
+        ranges = self.list[-self.count :]
         return round(sum(ranges) / len(ranges), conf.digitos)

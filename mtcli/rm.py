@@ -20,9 +20,9 @@ def rm(symbol, period, count):
     """Calcula o range medio das barras."""
     rates = model_rates.RatesModel(symbol, period)
     rates = rates.lista
-    ar = model_average_range.AverageRangeModel(rates, count)
-    ar = ar.ar
-    click.echo(ar)
+    rm = model_average_range.AverageRangeModel(rates, count)
+    rm = rm.average()
+    click.echo(rm)
 
 
 if __name__ == "__main__":
