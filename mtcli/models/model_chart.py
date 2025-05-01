@@ -22,7 +22,7 @@ class ChartModel:
             n = 0
         return n
 
-    def get_padroes(self):
+    def get_paction(self):
         """Obtem listas de leituras de price action da sequência de duas barras."""
         gaps = []
         direcs = []

@@ -29,7 +29,7 @@ class VolumesView:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
-            view += "%i"  # fechamento
+            view += "%i"  # volume tick
             if self.show_date:
                 if self.period == "d1" or self.period == "w1" or self.period == "mn1":
                     views.append(view % (bar.date, bar.volume))

@@ -1,7 +1,7 @@
 """Módulo da classe da view completa."""
 
 from mtcli import conf
-from mtcli.models import model_chart, model_paction
+from mtcli.models import model_chart, model_paction, model_consecutive_bars
 
 
 class FullView:
@@ -23,7 +23,7 @@ class FullView:
         """Lista das views completas."""
         views = []
         n = self.chart.get_n()
-        gaps, direcs = self.chart.get_padroes()
+        gaps, direcs = self.chart.get_paction()
         gaps = gaps[-self.count :]
         direcs = direcs[-self.count :]
         for bar, gap, direc in zip(self.bars, gaps, direcs):

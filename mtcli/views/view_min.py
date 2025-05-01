@@ -23,7 +23,7 @@ class MinView:
         """Lista das views mínimas."""
         views = []
         n = self.chart.get_n()
-        gaps, direcs = self.chart.get_padroes()
+        gaps, direcs = self.chart.get_paction()
         direcs = direcs[-self.count :]
         for bar, direc in zip(self.bars, direcs):
             n += 1
