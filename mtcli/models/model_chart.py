@@ -1,6 +1,6 @@
 """Módulo da classe model do gráfico."""
 
-from mtcli.models import model_paction
+from mtcli.models import model_paction, model_consecutive_bars
 
 
 class ChartModel:
@@ -38,9 +38,11 @@ class ChartModel:
             max.append(bar.high)
             min.append(bar.low)
             if len(min) == 2:
-                pa = model_paction.TwoBarsModel(corpo, abert, fech, max, min)
-                gap = pa.get_gap()
-                direc = pa.get_trend()
+                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
+                    corpo, abert, fech, max, min
+                )
+                gap = consecutive.get_gap()
+                direc = consecutive.get_trend()
                 corpo.pop(0)
                 abert.pop(0)
                 fech.pop(0)

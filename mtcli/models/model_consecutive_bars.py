@@ -6,7 +6,7 @@ from mtcli import conf
 class ConsecutiveBarsModel:
     """Classe model da leitura de barras consecutivas."""
 
-    def __init__(self, body, open, close, high, low, volume = []):
+    def __init__(self, body, open, close, high, low, volume=[]):
         """Model da leitura de barras consecutivas."""
         self.body = body
         self.open = open
