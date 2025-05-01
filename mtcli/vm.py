@@ -21,7 +21,7 @@ from mtcli.models import model_volume_medio, model_rates
     "-t",
     type=click.Choice(["tick", "real"], case_sensitive=False),
     default="tick",
-    help="Tipo de volume; Opções: tick ou real. Default tick.",
+    help="Tipo de volume, default tick.",
 )
 def vm(symbol, period, count, type):
     """Calcula o volume medio das barras."""
