@@ -23,7 +23,7 @@ class FullView:
         """Lista das views completas."""
         views = []
         n = self.chart.get_n()
-        gaps, direcs = self.chart.get_paction()
+        gaps, direcs = self.chart.consecutive_paction()
         gaps = gaps[-self.count :]
         direcs = direcs[-self.count :]
         for bar, gap, direc in zip(self.bars, gaps, direcs):

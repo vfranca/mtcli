@@ -23,7 +23,7 @@ class IntermediateView:
         """Lista das views intermediárias."""
         views = []
         n = self.chart.get_n()
-        gaps, direcs = self.chart.get_padroes()
+        gaps, direcs = self.chart.consecutive_paction()
         direcs = direcs[-self.count :]
         for bar, direc in zip(self.bars, direcs):
             n += 1

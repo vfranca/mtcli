@@ -23,7 +23,7 @@ class VarsView:
         """Lista das views de variações percentuais."""
         views = []
         n = self.chart.get_n()
-        vars_fech, vars_max, vars_min = self.chart.get_vars()
+        vars_fech, vars_max, vars_min = self.chart.consecutive_vars()
         vars_fech = vars_fech[-self.count :]  # filtra quantidade de barras
         vars_max = vars_max[-self.count :]  # filtra quantidade de barras
         vars_min = vars_min[-self.count :]  # filtra quantidade de barras

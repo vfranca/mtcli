@@ -22,7 +22,7 @@ class ChartModel:
             n = 0
         return n
 
-    def get_paction(self):
+    def consecutive_paction(self):
         """Obtem listas de leituras de price action da sequência de duas barras."""
         gaps = []
         direcs = []
@@ -53,7 +53,7 @@ class ChartModel:
             direcs.append(direc)
         return [gaps, direcs]
 
-    def get_vars(self):
+    def consecutive_vars(self):
         """Obtem a lista de variações percentuais entre os fechamentos das barras."""
         vars_fech = []
         vars_max = []
@@ -66,9 +66,9 @@ class ChartModel:
             max.append(bar.high)
             min.append(bar.low)
             if len(min) == 2:
-                var_fech = float(self.get_var(fech[0], fech[1]))
-                var_max = float(self.get_var(fech[0], max[1]))
-                var_min = float(self.get_var(fech[0], min[1]))
+                var_fech = float(self._var_percent(fech[0], fech[1]))
+                var_max = float(self._var_percent(fech[0], max[1]))
+                var_min = float(self._var_percent(fech[0], min[1]))
                 fech.pop(0)
                 max.pop(0)
                 min.pop(0)
@@ -81,6 +81,6 @@ class ChartModel:
             vars_min.append(var_min)
         return [vars_fech, vars_max, vars_min]
 
-    def get_var(self, price1, price2):
+    def _var_percent(self, price1, price2):
         """Calcula a variação percentual de dois fechamentos."""
         return round((price2 - price1) / price1 * 100, 2)
