@@ -3,7 +3,7 @@
 import click
 
 from mtcli import conf
-from mtcli.models import model_volume_medio, model_rates
+from mtcli.models import model_average_volume, model_rates
 
 
 @click.command()
@@ -27,8 +27,8 @@ def vm(symbol, period, count, type):
     """Calcula o volume medio das barras."""
     rates = model_rates.RatesModel(symbol, period)
     rates = rates.lista
-    vm = model_volume_medio.VolumeMedioModel(rates, count, type)
-    vm = vm.media()
+    vm = model_average_volume.AverageVolumeModel(rates, count, type)
+    vm = vm.average()
     click.echo(vm)
 
 

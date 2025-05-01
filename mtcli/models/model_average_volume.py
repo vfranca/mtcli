@@ -4,7 +4,7 @@ from mtcli import conf
 from mtcli.models import model_bar
 
 
-class VolumeMedioModel:
+class AverageVolumeModel:
     """Classe model do volume médio."""
 
     def __init__(self, rates, count, type):
@@ -25,7 +25,7 @@ class VolumeMedioModel:
                 list.append(bar.volume_real)
         return list
 
-    def media(self):
+    def average(self):
         """Calcula o volume médio."""
         volumes = self.list[-self.count :]
         return round(sum(volumes) / len(volumes), conf.digitos)
