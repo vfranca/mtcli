@@ -1,5 +1,4 @@
 from click.testing import CliRunner
-from pytest import mark
 from mtcli.mt import mt
 
 

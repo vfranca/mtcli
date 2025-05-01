@@ -11,19 +11,19 @@ class MovingAverageModel:
         """Model da média móvel simples."""
         self.rates = rates
         self.count = count
-        self.lista = self.__lista()
-        self.sma = self.__sma()
+        self.list = self.__list()
 
-    def __lista(self):
+    #         self.sma = self.__sma()
+
+    def __list(self):
         """Gera a lista das médias móveis simples."""
-        lista = []
+        list = []
         for rate in self.rates:
             bar = model_bar.BarModel(rate)
-            lista.append(bar.close)
-            lista.append(bar.high - bar.low)
-        return lista
+            list.append(bar.close)
+        return list
 
-    def __sma(self):
+    def average(self):
         """Calcula a média móvel simples."""
-        prices = self.lista[-self.count :]
+        prices = self.list[-self.count :]
         return round(sum(prices) / len(prices), conf.digitos)

@@ -21,8 +21,8 @@ def mm(symbol, period, count):
     rates = model_rates.RatesModel(symbol, period)
     rates = rates.lista
     ma = model_moving_average.MovingAverageModel(rates, count)
-    sma = ma.sma
-    click.echo(sma)
+    ma = ma.average()
+    click.echo(ma)
 
 
 if __name__ == "__main__":
