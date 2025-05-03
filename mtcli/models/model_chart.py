@@ -26,34 +26,98 @@ class ChartModel:
         """Obtem listas de leituras de price action da sequência de duas barras."""
         gaps = []
         direcs = []
-        corpo = []
-        abert = []
-        fech = []
-        max = []
-        min = []
+        bodys = []
+        opens = []
+        closes = []
+        highs = []
+        lows = []
         for bar in self.bars:
-            corpo.append(bar.body)
-            abert.append(bar.open)
-            fech.append(bar.close)
-            max.append(bar.high)
-            min.append(bar.low)
-            if len(min) == 2:
+            bodys.append(bar.body)
+            opens.append(bar.open)
+            closes.append(bar.close)
+            highs.append(bar.high)
+            lows.append(bar.low)
+            if len(lows) == 2:
                 consecutive = model_consecutive_bars.ConsecutiveBarsModel(
-                    corpo, abert, fech, max, min
+                    bodys, opens, closes, highs, lows
                 )
-                gap = consecutive.get_gap()
-                direc = consecutive.get_trend()
-                corpo.pop(0)
-                abert.pop(0)
-                fech.pop(0)
-                max.pop(0)
-                min.pop(0)
+                gap = consecutive.gap()
+                direc = consecutive.sequencia()
+                bodys.pop(0)
+                opens.pop(0)
+                closes.pop(0)
+                highs.pop(0)
+                lows.pop(0)
             else:
                 gap = ""
                 direc = ""
             gaps.append(gap)
             direcs.append(direc)
         return [gaps, direcs]
+
+    def consecutive_sequencias(self):
+        """Obtem listas de leituras da sequência de barras."""
+        sequencias = []
+        bodys = []
+        opens = []
+        closes = []
+        highs = []
+        lows = []
+        volumes = []
+        for bar in self.bars:
+            bodys.append(bar.body)
+            opens.append(bar.open)
+            closes.append(bar.close)
+            highs.append(bar.high)
+            lows.append(bar.low)
+            volumes.append(bar.volume)
+            if len(lows) == 2:
+                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
+                    bodys, opens, closes, highs, lows, volumes
+                )
+                sequencia = consecutive.sequencia()
+                bodys.pop(0)
+                opens.pop(0)
+                closes.pop(0)
+                highs.pop(0)
+                lows.pop(0)
+                volumes.pop(0)
+            else:
+                sequencia = ""
+            sequencias.append(sequencia)
+        return sequencias
+
+    def consecutive_volumes(self):
+        """Obtem listas de leituras da sequência de volumes."""
+        sequencias = []
+        bodys = []
+        opens = []
+        closes = []
+        highs = []
+        lows = []
+        volumes = []
+        for bar in self.bars:
+            bodys.append(bar.body)
+            opens.append(bar.open)
+            closes.append(bar.close)
+            highs.append(bar.high)
+            lows.append(bar.low)
+            volumes.append(bar.volume)
+            if len(lows) == 2:
+                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
+                    bodys, opens, closes, highs, lows, volumes
+                )
+                sequencia = consecutive.volume()
+                bodys.pop(0)
+                opens.pop(0)
+                closes.pop(0)
+                highs.pop(0)
+                lows.pop(0)
+                volumes.pop(0)
+            else:
+                sequencia = ""
+            sequencias.append(sequencia)
+        return sequencias
 
     def consecutive_vars(self):
         """Obtem a lista de variações percentuais entre os fechamentos das barras."""

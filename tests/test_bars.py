@@ -52,7 +52,7 @@ def test_exibe_a_view_de_volume():
     res = run.invoke(
         mt, ["bars", "abev3", "--period", "d1", "--count", "1", "--view", "v"]
     )
-    assert res.output == "16466\n"
+    assert res.output == "ASC VERMELHO 16466\n"
 
 
 def test_exibe_a_view_de_ranges():
@@ -144,7 +144,7 @@ def test_exibe_view_volume_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "v", "--count", "1", "--show-date"]
     )
-    assert res.output == "2025-02-27 19949\n"
+    assert res.output == "2025-02-27 DESC VERMELHO 19949\n"
 
 
 def test_exibe_view_aberturas_com_data():

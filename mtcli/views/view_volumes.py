@@ -23,20 +23,30 @@ class VolumesView:
         """Retorna a lista de views."""
         views = []
         n = self.chart.get_n()
-        for bar in self.bars:
+        sequencias = self.chart.consecutive_sequencias()
+        sequencias = sequencias[-self.count :]
+        sequencias_volume = self.chart.consecutive_volumes()
+        sequencias_volume = sequencias_volume[-self.count :]
+        for bar, sequencia, sequencia_volume in zip(
+            self.bars, sequencias, sequencias_volume
+        ):
             n += 1
             if self.numerator or self.show_date:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
-            view += "%i"  # volume tick
+            view += "%s %s %i"  # volume tick
             if self.show_date:
                 if self.period == "d1" or self.period == "w1" or self.period == "mn1":
-                    views.append(view % (bar.date, bar.volume))
+                    views.append(
+                        view % (bar.date, sequencia, sequencia_volume, bar.volume)
+                    )
                 else:
-                    views.append(view % (bar.time, bar.volume))
+                    views.append(
+                        view % (bar.time, sequencia, sequencia_volume, bar.volume)
+                    )
             elif self.numerator:
-                views.append(view % (n, bar.volume))
+                views.append(view % (n, sequencia, sequencia_volume, bar.volume))
             else:
-                views.append(view % (bar.volume))
+                views.append(view % (sequencia, sequencia_volume, bar.volume))
         return views
