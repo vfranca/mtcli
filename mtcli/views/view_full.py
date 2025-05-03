@@ -23,10 +23,11 @@ class FullView:
         """Lista das views completas."""
         views = []
         n = self.chart.get_n()
-        gaps, direcs = self.chart.consecutive_paction()
+        gaps = self.chart.consecutive_gaps()
+        sequencias = self.chart.consecutive_sequencias()
         gaps = gaps[-self.count :]
-        direcs = direcs[-self.count :]
-        for bar, gap, direc in zip(self.bars, gaps, direcs):
+        sequencias = sequencias[-self.count :]
+        for bar, gap, sequencia in zip(self.bars, gaps, sequencias):
             n += 1
             unconsecutive = model_unconsecutive_bar.UnconsecutiveBarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
@@ -59,7 +60,7 @@ class FullView:
                         view
                         % (
                             bar.date,
-                            direc,
+                            sequencia,
                             breakout,
                             trend,
                             abs(bar.body),
@@ -77,7 +78,7 @@ class FullView:
                         view
                         % (
                             bar.time,
-                            direc,
+                            sequencia,
                             breakout,
                             trend,
                             abs(bar.body),
@@ -95,7 +96,7 @@ class FullView:
                     view
                     % (
                         n,
-                        direc,
+                        sequencia,
                         breakout,
                         trend,
                         abs(bar.body),
@@ -112,7 +113,7 @@ class FullView:
                 views.append(
                     view
                     % (
-                        direc,
+                        sequencia,
                         breakout,
                         trend,
                         abs(bar.body),

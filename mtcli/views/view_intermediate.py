@@ -23,9 +23,9 @@ class IntermediateView:
         """Lista das views intermediárias."""
         views = []
         n = self.chart.get_n()
-        gaps, direcs = self.chart.consecutive_paction()
-        direcs = direcs[-self.count :]
-        for bar, direc in zip(self.bars, direcs):
+        sequencias = self.chart.consecutive_sequencias()
+        sequencias = sequencias[-self.count :]
+        for bar, sequencia in zip(self.bars, sequencias):
             n += 1
             unconsecutive = model_unconsecutive_bar.UnconsecutiveBarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
@@ -35,7 +35,7 @@ class IntermediateView:
                 view = "%s "  # numerador ou data
             else:
                 view = ""
-            view += "%s %s %i"  # direcao, tendencia, corpo
+            view += "%s %s %i"  # sequenciaao, tendencia, corpo
             view += " %." + str(conf.digitos) + "f"  # máxima
             view += " %." + str(conf.digitos) + "f"  # mínima
             view += " R%." + str(conf.digitos) + "f"  # range, variação percentual
@@ -45,7 +45,7 @@ class IntermediateView:
                         view
                         % (
                             bar.date,
-                            direc,
+                            sequencia,
                             trend,
                             abs(bar.body),
                             bar.high,
@@ -58,7 +58,7 @@ class IntermediateView:
                         view
                         % (
                             bar.time,
-                            direc,
+                            sequencia,
                             trend,
                             abs(bar.body),
                             bar.high,
@@ -71,7 +71,7 @@ class IntermediateView:
                     view
                     % (
                         n,
-                        direc,
+                        sequencia,
                         trend,
                         abs(bar.body),
                         bar.high,
@@ -83,7 +83,7 @@ class IntermediateView:
                 views.append(
                     view
                     % (
-                        direc,
+                        sequencia,
                         trend,
                         abs(bar.body),
                         bar.high,

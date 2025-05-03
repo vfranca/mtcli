@@ -22,41 +22,8 @@ class ChartModel:
             n = 0
         return n
 
-    def consecutive_paction(self):
-        """Obtem listas de leituras de price action da sequência de duas barras."""
-        gaps = []
-        direcs = []
-        bodys = []
-        opens = []
-        closes = []
-        highs = []
-        lows = []
-        for bar in self.bars:
-            bodys.append(bar.body)
-            opens.append(bar.open)
-            closes.append(bar.close)
-            highs.append(bar.high)
-            lows.append(bar.low)
-            if len(lows) == 2:
-                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
-                    bodys, opens, closes, highs, lows
-                )
-                gap = consecutive.gap()
-                direc = consecutive.sequencia()
-                bodys.pop(0)
-                opens.pop(0)
-                closes.pop(0)
-                highs.pop(0)
-                lows.pop(0)
-            else:
-                gap = ""
-                direc = ""
-            gaps.append(gap)
-            direcs.append(direc)
-        return [gaps, direcs]
-
     def consecutive_sequencias(self):
-        """Obtem listas de leituras da sequência de barras."""
+        """Obtem lista da sequência de barras a partir da lista de barras."""
         sequencias = []
         bodys = []
         opens = []
@@ -86,6 +53,38 @@ class ChartModel:
                 sequencia = ""
             sequencias.append(sequencia)
         return sequencias
+
+    def consecutive_gaps(self):
+        """Obtem lista de gaps a partir da lista de barras."""
+        gaps = []
+        bodys = []
+        opens = []
+        closes = []
+        highs = []
+        lows = []
+        volumes = []
+        for bar in self.bars:
+            bodys.append(bar.body)
+            opens.append(bar.open)
+            closes.append(bar.close)
+            highs.append(bar.high)
+            lows.append(bar.low)
+            volumes.append(bar.volume)
+            if len(lows) == 2:
+                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
+                    bodys, opens, closes, highs, lows, volumes
+                )
+                gap = consecutive.gap()
+                bodys.pop(0)
+                opens.pop(0)
+                closes.pop(0)
+                highs.pop(0)
+                lows.pop(0)
+                volumes.pop(0)
+            else:
+                gap = ""
+            gaps.append(gap)
+        return gaps
 
     def consecutive_volumes(self):
         """Obtem listas de leituras da sequência de volumes."""
