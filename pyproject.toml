@@ -11,7 +11,7 @@ keywords = ["MetaTrader 5", "trading", "CLI"]
 packages = [{include = "mtcli"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.9"
 click = "^8.0.3"
 python-dotenv = "^0.19"
 numpy = "^1.24"
