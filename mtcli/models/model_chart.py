@@ -86,7 +86,7 @@ class ChartModel:
             gaps.append(gap)
         return gaps
 
-    def consecutive_volumes(self):
+    def consecutive_volumes(self, volume = "tick"):
         """Obtem listas de leituras da sequência de volumes."""
         sequencias = []
         bodys = []
@@ -101,7 +101,7 @@ class ChartModel:
             closes.append(bar.close)
             highs.append(bar.high)
             lows.append(bar.low)
-            volumes.append(bar.volume)
+            volumes.append(bar.volume) if volume == "tick" else volumes.append(bar.volume_real)
             if len(lows) == 2:
                 consecutive = model_consecutive_bars.ConsecutiveBarsModel(
                     bodys, opens, closes, highs, lows, volumes

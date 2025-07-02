@@ -8,7 +8,7 @@ class VolumesView:
     """Classe da view de volumes."""
 
     def __init__(
-        self, bars, count, period="d1", date="", numerator=False, show_date=False
+        self, bars, count, period="d1", date="", numerator=False, show_date=False, volume = "tick"
     ):
         """View de volumes."""
         self.count = count
@@ -16,6 +16,7 @@ class VolumesView:
         self.date = date
         self.numerator = numerator
         self.show_date = show_date
+        self.volume = volume
         self.chart = model_chart.ChartModel(bars, len(bars), count, date)
         self.bars = bars[-count:]
 
@@ -25,7 +26,7 @@ class VolumesView:
         n = self.chart.get_n()
         sequencias = self.chart.consecutive_sequencias()
         sequencias = sequencias[-self.count :]
-        sequencias_volume = self.chart.consecutive_volumes()
+        sequencias_volume = self.chart.consecutive_volumes(self.volume)
         sequencias_volume = sequencias_volume[-self.count :]
         for bar, sequencia, sequencia_volume in zip(
             self.bars, sequencias, sequencias_volume

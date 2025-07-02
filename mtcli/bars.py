@@ -44,7 +44,14 @@ from mtcli.views import (
 @click.option("--date", "-d", help="Data para intraday, formato AAAA-MM-DD.")
 @click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao das barras.")
 @click.option("--show-date", "-sd", is_flag=True, help="Ativa a datacao das barras.")
-def bars(symbol, view, period, count, date, numerator, show_date):
+@click.option(
+    "--volume",
+    "-vo",
+    type=click.Choice(["tick", "real"], case_sensitive=False),
+    default="tick",
+    help="Tipo de volume, default tick.",
+)
+def bars(symbol, view, period, count, date, numerator, show_date, volume):
     """Exibe o grafico de barras."""
     period = period.lower()
     view = view.lower()
@@ -79,7 +86,7 @@ def bars(symbol, view, period, count, date, numerator, show_date):
         views = views.views()
     elif view == "v":  # volumes
         views = view_volumes.VolumesView(
-            bars, count, period, date, numerator, show_date
+            bars, count, period, date, numerator, show_date, volume
         )
         views = views.views()
     elif view == "i":  # intermediário
