@@ -32,6 +32,7 @@ class VolumesView:
             self.bars, sequencias, sequencias_volume
         ):
             n += 1
+            volume = bar.volume if self.volume == "tick" else bar.volume_real
             if self.numerator or self.show_date:
                 view = "%s "  # numerador ou data
             else:
@@ -40,14 +41,14 @@ class VolumesView:
             if self.show_date:
                 if self.period == "d1" or self.period == "w1" or self.period == "mn1":
                     views.append(
-                        view % (bar.date, sequencia, sequencia_volume, bar.volume)
+                        view % (bar.date, sequencia, sequencia_volume, volume)
                     )
                 else:
                     views.append(
-                        view % (bar.time, sequencia, sequencia_volume, bar.volume)
+                        view % (bar.time, sequencia, sequencia_volume, volume)
                     )
             elif self.numerator:
-                views.append(view % (n, sequencia, sequencia_volume, bar.volume))
+                views.append(view % (n, sequencia, sequencia_volume, volume))
             else:
-                views.append(view % (sequencia, sequencia_volume, bar.volume))
+                views.append(view % (sequencia, sequencia_volume, volume))
         return views
