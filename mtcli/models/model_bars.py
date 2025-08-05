@@ -6,7 +6,7 @@ from mtcli.models import model_bar
 class BarsModel:
     """Classe model da lista de barras."""
 
-    def __init__(self, rates, date):
+    def __init__(self, rates, date=""):
         """Model da lista de barras."""
         self.rates = rates
         self.date = date

@@ -12,6 +12,7 @@ from mtcli.conf import conf
 from mtcli.ma import ma
 from mtcli.mm import mm
 from mtcli.rm import rm
+from mtcli.sa import sa
 from mtcli.vm import vm
 
 
@@ -30,6 +31,7 @@ mt.add_command(rm)
 mt.add_command(conf)
 mt.add_command(ma)
 mt.add_command(vm)
+mt.add_command(sa)
 
 
 if __name__ == "__main__":

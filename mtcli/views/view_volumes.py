@@ -8,7 +8,14 @@ class VolumesView:
     """Classe da view de volumes."""
 
     def __init__(
-        self, bars, count, period="d1", date="", numerator=False, show_date=False, volume = "tick"
+        self,
+        bars,
+        count,
+        period="d1",
+        date="",
+        numerator=False,
+        show_date=False,
+        volume="tick",
     ):
         """View de volumes."""
         self.count = count
@@ -40,13 +47,9 @@ class VolumesView:
             view += "%s %s %i"  # volume tick
             if self.show_date:
                 if self.period == "d1" or self.period == "w1" or self.period == "mn1":
-                    views.append(
-                        view % (bar.date, sequencia, sequencia_volume, volume)
-                    )
+                    views.append(view % (bar.date, sequencia, sequencia_volume, volume))
                 else:
-                    views.append(
-                        view % (bar.time, sequencia, sequencia_volume, volume)
-                    )
+                    views.append(view % (bar.time, sequencia, sequencia_volume, volume))
             elif self.numerator:
                 views.append(view % (n, sequencia, sequencia_volume, volume))
             else:

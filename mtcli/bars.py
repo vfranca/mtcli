@@ -4,19 +4,9 @@ import click
 
 from mtcli import conf
 from mtcli.models import model_bars, model_rates
-from mtcli.views import (
-    view_close,
-    view_full,
-    view_high,
-    view_intermediate,
-    view_low,
-    view_min,
-    view_open,
-    view_ranges,
-    view_rates,
-    view_vars,
-    view_volumes,
-)
+from mtcli.views import (view_close, view_full, view_high, view_intermediate,
+                         view_low, view_min, view_open, view_ranges,
+                         view_rates, view_vars, view_volumes)
 
 
 @click.command()
