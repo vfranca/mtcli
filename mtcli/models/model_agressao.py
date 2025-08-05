@@ -18,7 +18,7 @@ class AgressaoModel:
         """Obtem o volume comprador."""
         volume = 0
         for bar in self.bars:
-            if (bar.trend == conf.alta and bar.body > 50) or bar.top > 50:
+            if (bar.trend == conf.alta and bar.body > 50) or bar.bottom > 50:
                 volume += bar.volume if self.type == "tick" else bar.volume_real
         return volume
 
@@ -26,10 +26,14 @@ class AgressaoModel:
         """Obtem o volume vendedor."""
         volume = 0
         for bar in self.bars:
-            if (bar.trend == conf.baixa and bar.body > 50) or bar.bottom > 50:
+            if (bar.trend == conf.baixa and bar.body > 50) or bar.top > 50:
                 volume += bar.volume if self.type == "tick" else bar.volume_real
         return volume
 
     def get_saldo(self):
         """Calcula o saldo da agressão."""
-        return self.volume_comprador - self.volume_vendedor
+        return (
+            self.volume_comprador,
+            self.volume_vendedor,
+            self.volume_comprador - self.volume_vendedor,
+        )

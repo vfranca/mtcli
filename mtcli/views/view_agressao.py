@@ -12,4 +12,4 @@ class AgressaoView:
 
     def view(self):
         """View do saldo da agressão."""
-        return "%i" % self.agressao
+        return "%i %i %i" % (self.agressao[0], self.agressao[1], self.agressao[2])
