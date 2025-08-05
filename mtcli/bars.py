@@ -4,9 +4,18 @@ import click
 
 from mtcli import conf
 from mtcli.models import model_bars, model_rates
-from mtcli.views import (view_close, view_full, view_high, view_intermediate,
-                         view_low, view_min, view_open, view_ranges,
-                         view_rates, view_vars, view_volumes)
+from mtcli.views import (
+    view_close,
+    view_full,
+    view_high,
+    view_low,
+    view_min,
+    view_open,
+    view_ranges,
+    view_rates,
+    view_vars,
+    view_volumes,
+)
 
 
 @click.command()
@@ -15,11 +24,11 @@ from mtcli.views import (view_close, view_full, view_high, view_intermediate,
     "--view",
     "-v",
     type=click.Choice(
-        ["ch", "m", "f", "i", "r", "v", "va", "oh", "o", "h", "l", "c"],
+        ["ch", "m", "f", "r", "v", "va", "oh", "o", "h", "l", "c"],
         case_sensitive=False,
     ),
     default="m",
-    help="Forma de exibicao, default m. Opcoes: ch ou m - minima; f - completa; i - intermediaria; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
+    help="Forma de exibicao, default m. Opcoes: ch ou m - minima; f - completa; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
 )
 @click.option(
     "--period",
@@ -77,11 +86,6 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     elif view == "v":  # volumes
         views = view_volumes.VolumesView(
             bars, count, period, date, numerator, show_date, volume
-        )
-        views = views.views()
-    elif view == "i":  # intermediário
-        views = view_intermediate.IntermediateView(
-            bars, count, period, date, numerator, show_date
         )
         views = views.views()
     else:  # completo
