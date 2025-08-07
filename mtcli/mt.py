@@ -10,10 +10,10 @@ from mtcli import __version__
 from mtcli.extensions import agressao
 from mtcli.extensions import volume_medio
 from mtcli.extensions import media_movel
+from mtcli.extensions import range_medio
 from mtcli.bars import bars
 from mtcli.conf import conf
 from mtcli.ma import ma
-from mtcli.rm import rm
 
 
 @click.group(invoke_without_command=True)
@@ -27,7 +27,7 @@ def mt(version):
 
 mt.add_command(bars)
 mt.add_command(media_movel.mm)
-mt.add_command(rm)
+mt.add_command(range_medio.rm)
 mt.add_command(conf)
 mt.add_command(ma)
 mt.add_command(volume_medio.vm)

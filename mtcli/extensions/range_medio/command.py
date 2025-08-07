@@ -2,8 +2,9 @@
 
 import click
 
-from mtcli import conf
-from mtcli.models import model_average_range, model_rates
+from . import conf
+from mtcli.models import model_rates
+from .models import model_average_range
 
 
 @click.command()
