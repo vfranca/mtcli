@@ -1,4 +1,4 @@
-from mtcli.models import model_ma
+from mtcli.extensions.moving_average.models import model_ma
 
 
 rate = [

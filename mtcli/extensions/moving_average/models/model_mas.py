@@ -1,6 +1,6 @@
 """Módulo do model da média móvel."""
 
-from mtcli.models import model_ma
+from . import model_ma
 
 
 class MasModel:

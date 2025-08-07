@@ -2,9 +2,9 @@
 
 import click
 
-from mtcli import conf
-from mtcli.models import model_mas, model_rates_ma
-from mtcli.views import view_ma
+from . import conf
+from .models import model_mas, model_rates
+from .views import view_ma
 
 
 @click.command()
@@ -23,7 +23,7 @@ from mtcli.views import view_ma
 @click.option("--time", "-t", help="Horário no formato HH:MM")
 def ma(symbol, period, count, date, time):
     """Exibe as medias moveis do indicador MA_TXT."""
-    rates = model_rates_ma.RatesMaModel(symbol, period, count)
+    rates = model_rates.RatesModel(symbol, period, count)
     rates = rates.lista()
     mas = model_mas.MasModel(rates)
     mas = mas.lista()

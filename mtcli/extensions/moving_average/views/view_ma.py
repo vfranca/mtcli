@@ -1,6 +1,6 @@
 """Módulo da classe da view da média móvel."""
 
-from mtcli import conf
+from mtcli.extensions.moving_average import conf
 
 
 class MaView:

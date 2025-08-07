@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from mtcli import conf
+from mtcli.extensions.moving_average import conf
 
 
 class MaModel:

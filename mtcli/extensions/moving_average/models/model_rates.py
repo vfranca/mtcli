@@ -1,10 +1,10 @@
 """Módulo da classe da lista de cotações da média móvel."""
 
-from mtcli import conf
+from mtcli.extensions.moving_average import conf
 from mtcli.models import csv_data
 
 
-class RatesMaModel:
+class RatesModel:
     """Classe model da lista das cotações da média móvel."""
 
     def __init__(self, symbol, period, count):
