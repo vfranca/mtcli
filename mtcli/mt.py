@@ -9,10 +9,10 @@ import click
 from mtcli import __version__
 from mtcli.extensions import agressao
 from mtcli.extensions import volume_medio
+from mtcli.extensions import media_movel
 from mtcli.bars import bars
 from mtcli.conf import conf
 from mtcli.ma import ma
-from mtcli.mm import mm
 from mtcli.rm import rm
 
 
@@ -26,7 +26,7 @@ def mt(version):
 
 
 mt.add_command(bars)
-mt.add_command(mm)
+mt.add_command(media_movel.mm)
 mt.add_command(rm)
 mt.add_command(conf)
 mt.add_command(ma)

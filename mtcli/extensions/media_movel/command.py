@@ -2,8 +2,9 @@
 
 import click
 
-from mtcli import conf
-from mtcli.models import model_moving_average, model_rates
+from . import conf
+from mtcli.models import model_rates
+from .models import model_moving_average
 
 
 @click.command()
