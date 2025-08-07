@@ -2,9 +2,10 @@
 
 import click
 
-from mtcli import conf
-from mtcli.models import model_agressao, model_bars, model_rates
-from mtcli.views import view_agressao
+from . import conf
+from mtcli.models import model_bars, model_rates
+from .models import model_agressao
+from .views import view_agressao
 
 
 @click.command()
