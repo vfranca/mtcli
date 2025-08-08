@@ -1,23 +1,18 @@
-"""Módulo da classe módel das cotações."""
+"""Módulo do model rates."""
 
-from mtcli import conf
-from mtcli import csv_data
+from mtcli.data import CsvDataSource, SqliteDataSource, MT5DataSource
 
 
 class RatesModel:
-    """Classe módel das cotações."""
+    """Classe do model rates."""
 
-    def __init__(self, symbol, period):
-        """Model das cotações."""
+    def __init__(self, symbol, period, source=None):
+        """Construtor da classe model rates."""
         self.symbol = symbol
         self.period = period
-        self.file = self.__file()
-        self.lista = self.__lista()
+        self.source = source or CsvDataSource()
+        self.lista = self.__get_data()
 
-    def __file(self):
-        """Obtem o nome e caminho do arquivo CSV das cotações."""
-        return conf.csv_path + self.symbol + self.period + ".csv"
-
-    def __lista(self):
-        """Gera a lista das cotações."""
-        return csv_data.get_data(self.file)
+    def __get_data(self):
+        """Obtem a lista das cotações."""
+        return self.source.get_data(self.symbol, self.period)

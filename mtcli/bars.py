@@ -54,10 +54,8 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     """Exibe o grafico de barras."""
     period = period.lower()
     view = view.lower()
-    rates = model_rates.RatesModel(symbol, period)
-    rates = rates.lista
-    bars = model_bars.BarsModel(rates, date)
-    bars = bars.lista
+    rates = model_rates.RatesModel(symbol, period).lista
+    bars = model_bars.BarsModel(rates, date).lista
     views = []
     if view == "m" or view == "ch":  # minimo
         views = view_min.MinView(bars, count, period, date, numerator, show_date)
