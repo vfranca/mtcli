@@ -1,4 +1,7 @@
+"""Módulo fonte de dados via CSV."""
+
 import os
+import csv
 from mtcli import csv_data, conf
 from .base import DataSourceBase
 
@@ -8,4 +11,12 @@ class CsvDataSource(DataSourceBase):
 
     def get_data(self, symbol, period):
         file_path = os.path.join(conf.csv_path, f"{symbol}{period}.csv")
-        return csv_data.get_data(file_path)
+        csv_data = []
+        try:
+            with open(file_path, encoding="utf-16", newline="") as f:
+                lines = csv.reader(f, delimiter=",", quotechar="'")
+                for line in lines:
+                    csv_data.append(line)
+        except:
+            print("%s nao encontrado! Tente novamente" % file_path)
+        return csv_data
