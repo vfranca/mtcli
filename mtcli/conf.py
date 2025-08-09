@@ -23,7 +23,7 @@ gap = os.getenv("GAP", "G")
 sombra_superior = os.getenv("SOMBRA_SUPERIOR", "TOP")
 sombra_inferior = os.getenv("SOMBRA_INFERIOR", "BOT")
 ponto_medio = os.getenv("PONTO_MEDIO", "MP")
-data_source = os.getenv("DADOS", "CSV").upper()
+data_source = os.getenv("DADOS", "MT5").upper()
 csv_path = os.getenv("MT5_PASTA", "")
 
 
