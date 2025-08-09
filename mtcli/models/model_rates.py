@@ -1,6 +1,6 @@
 """Módulo do model rates."""
 
-from mtcli.data import CsvDataSource, SqliteDataSource, MT5DataSource
+from mtcli.data import CsvDataSource, MT5DataSource
 
 
 class RatesModel:
