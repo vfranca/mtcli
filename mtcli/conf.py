@@ -1,7 +1,6 @@
 """Gerencia configurações registradas no mtcli.ini."""
 
 import os
-
 import click
 import dotenv
 import MetaTrader5 as mt5
@@ -24,7 +23,19 @@ gap = os.getenv("GAP", "G")
 sombra_superior = os.getenv("SOMBRA_SUPERIOR", "TOP")
 sombra_inferior = os.getenv("SOMBRA_INFERIOR", "BOT")
 ponto_medio = os.getenv("PONTO_MEDIO", "MP")
+data_source = os.getenv("FONTE_DADOS", "CSV")
 csv_path = os.getenv("MT5_PASTA", "")
+
+
+def get_data_source():
+    from mtcli.data import CsvDataSource, MT5DataSource
+
+    if data_source == "CSV":
+        return CsvDataSource()
+    elif data_source == "MT5":
+        return MT5DataSource()
+    else:
+        raise ValueError(f"Fonte de dados desconhecida: {data_source}")
 
 
 if not csv_path:

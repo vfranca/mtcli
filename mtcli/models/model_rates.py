@@ -1,16 +1,16 @@
-"""Módulo do model rates."""
+"""Módulo do model para obtenção das cotações."""
 
-from mtcli.data import CsvDataSource, MT5DataSource
+from mtcli import conf
 
 
 class RatesModel:
-    """Classe do model rates."""
+    """Classe do model para obtenção das cotações."""
 
-    def __init__(self, symbol, period, source=CsvDataSource()):
+    def __init__(self, symbol, period):
         """Construtor da classe model rates."""
         self.symbol = symbol.upper()
         self.period = period.upper()
-        self.source = source
+        self.source = conf.get_data_source()
         self.lista = self.__get_data()
 
     def __get_data(self):

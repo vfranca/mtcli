@@ -4,7 +4,6 @@ import click
 
 from mtcli import conf
 from mtcli.models import model_bars, model_rates
-from mtcli.data import CsvDataSource, MT5DataSource
 from mtcli.views import (
     view_close,
     view_full,
@@ -55,7 +54,7 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     """Exibe o grafico de barras."""
     period = period.lower()
     view = view.lower()
-    rates = model_rates.RatesModel(symbol, period, CsvDataSource()).lista
+    rates = model_rates.RatesModel(symbol, period).lista
     bars = model_bars.BarsModel(rates, date).lista
     views = []
     if view == "m" or view == "ch":  # minimo
