@@ -23,7 +23,7 @@ gap = os.getenv("GAP", "G")
 sombra_superior = os.getenv("SOMBRA_SUPERIOR", "TOP")
 sombra_inferior = os.getenv("SOMBRA_INFERIOR", "BOT")
 ponto_medio = os.getenv("PONTO_MEDIO", "MP")
-data_source = os.getenv("FONTE_DADOS", "CSV")
+data_source = os.getenv("DADOS", "CSV").upper()
 csv_path = os.getenv("MT5_PASTA", "")
 
 
@@ -94,6 +94,7 @@ timeframes = [
     "-pr",
     help="Percentual do corpo da barra de rompimento, default 50.",
 )
+@click.option("--dados", "-da", help="Fonte dos dados.")
 @click.option("--mt5-pasta", "-mp", help="Caminho da pasta do MetaTrader 5.")
 def conf(**kwargs):
     """Gerencia configuracoes registradas no mtcli.ini."""
@@ -141,6 +142,9 @@ def conf(**kwargs):
         res = dotenv.set_key(
             fconf, "PERCENTUAL_ROMPIMENTO", kwargs["percentual_rompimento"]
         )
+    # fonte dos dados
+    if kwargs["dados"]:
+        res = dotenv.set_key(fconf, "DADOS", kwargs["dados"])
     # caminho da pasta do MT5
     if kwargs["mt5_pasta"]:
         res = dotenv.set_key(fconf, "MT5_PASTA", kwargs["mt5_pasta"])
