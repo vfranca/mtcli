@@ -1,3 +1,5 @@
+"""Módulo fonte de dados via API do MetaTrader 5."""
+
 import MetaTrader5 as mt5
 from .base import DataSourceBase
 from datetime import datetime
@@ -7,6 +9,7 @@ class MT5DataSource(DataSourceBase):
     """Fonte de dados via API do MetaTrader 5."""
 
     def get_data(self, symbol, period):
+        """Retorna uma lista de lista de cotações do MetaTrader."""
         tf_map = {
             "M1": mt5.TIMEFRAME_M1,
             "M5": mt5.TIMEFRAME_M5,
@@ -31,15 +34,19 @@ class MT5DataSource(DataSourceBase):
 
         result = []
         for r in rates:
+            dt_str = (
+                r["time"].astype("datetime64[s]").item().strftime("%Y.%m.%d %H:%M:%S")
+            )
             result.append(
-                {
-                    "time": datetime.fromtimestamp(r["time"]),
-                    "open": r["open"],
-                    "high": r["high"],
-                    "low": r["low"],
-                    "close": r["close"],
-                    "volume": r["tick_volume"],
-                }
+                [
+                    dt_str,
+                    r["open"],
+                    r["high"],
+                    r["low"],
+                    r["close"],
+                    r["tick_volume"],
+                    r["real_volume"],
+                ]
             )
 
         return result
