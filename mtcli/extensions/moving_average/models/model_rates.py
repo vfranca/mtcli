@@ -1,25 +1,19 @@
-"""Módulo da classe da lista de cotações da média móvel."""
+"""Módulo do model rates."""
 
-from mtcli.extensions.moving_average import conf
-from mtcli import csv_data
+from mtcli.extensions.moving_average.data import CsvDataSource
 
 
 class RatesModel:
-    """Classe model da lista das cotações da média móvel."""
+    """Classe do model rates."""
 
-    def __init__(self, symbol, period, count):
-        """Model da lista das cotações da média móvel."""
+    def __init__(self, symbol, period, count, source=None):
+        """Construtor da classe model rates."""
         self.symbol = symbol
         self.period = period
         self.count = count
-        self.file = self.__file()
+        self.source = source or CsvDataSource()
+        self.lista = self.__get_data()
 
-    def __file(self):
-        """Obtem o nome e o caminho do arquivo CSV das cotações da média móvel."""
-        return (
-            conf.csv_path + self.symbol + self.period + "-MA" + str(self.count) + ".csv"
-        )
-
-    def lista(self):
-        """Gera a lista das cotações da média móvel."""
-        return csv_data.get_data(self.file)
+    def __get_data(self):
+        """Obtem a lista das cotações."""
+        return self.source.get_data(self.symbol, self.period, self.count)

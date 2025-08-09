@@ -2,9 +2,10 @@
 
 from . import models
 from . import views
-from . import extensions
+from . import data
+
 from . import bars
 from . import conf
-from . import csv_data
+from .extensions import range_medio, media_movel, moving_average, volume_medio, agressao
 
 __version__ = "1.11.0"

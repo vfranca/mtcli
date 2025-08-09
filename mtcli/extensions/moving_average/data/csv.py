@@ -3,14 +3,14 @@
 import os
 import csv
 from mtcli import conf
-from .base import DataSourceBase
+from mtcli.data.base import DataSourceBase
 
 
 class CsvDataSource(DataSourceBase):
     """Fonte de dados via CSV."""
 
-    def get_data(self, symbol, period):
-        file_path = os.path.join(conf.csv_path, f"{symbol}{period}.csv")
+    def get_data(self, symbol, period, count):
+        file_path = os.path.join(conf.csv_path, f"{symbol}{period}-ma{count}.csv")
         csv_data = []
         try:
             with open(file_path, encoding="utf-16", newline="") as f:

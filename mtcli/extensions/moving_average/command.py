@@ -23,8 +23,7 @@ from .views import view_ma
 @click.option("--time", "-t", help="Horário no formato HH:MM")
 def ma(symbol, period, count, date, time):
     """Exibe as medias moveis do indicador MA_TXT."""
-    rates = model_rates.RatesModel(symbol, period, count)
-    rates = rates.lista()
+    rates = model_rates.RatesModel(symbol, period, count).lista
     mas = model_mas.MasModel(rates)
     mas = mas.lista()
     view = view_ma.MaView(mas, date, time)
