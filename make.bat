@@ -1,5 +1,5 @@
 @echo off
-set version=1.11.0
+set version=1.12.0
 set dist=mtcli
 
 if /i "%1" == "build" (
