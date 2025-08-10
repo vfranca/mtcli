@@ -9,4 +9,4 @@ from . import conf
 from . import logger
 from .extensions import range_medio, media_movel, moving_average, volume_medio, agressao
 
-__version__ = "1.12.3"
+__version__ = "1.13.0"
