@@ -3,6 +3,7 @@
 import click
 
 from mtcli import conf
+from mtcli.logger import logger
 from mtcli.models import model_bars, model_rates
 from mtcli.views import (
     view_close,
@@ -51,9 +52,12 @@ from mtcli.views import (
     help="Tipo de volume, default tick.",
 )
 def bars(symbol, view, period, count, date, numerator, show_date, volume):
-    """Exibe o grafico de barras."""
+    """Exibe o grafico do MetaTrader 5."""
     period = period.lower()
     view = view.lower()
+    logger.info(
+        f"Iniciando exibição do gráfico MT5: {symbol} view {view} no {period} data {date} numerador {numerator} data {show_date} volume {volume}."
+    )
     rates = model_rates.RatesModel(symbol, period).lista
     bars = model_bars.BarsModel(rates, date).lista
     views = []
@@ -92,6 +96,7 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     if views:
         for view in views:
             click.echo(view)
+    logger.info("Exibição do gráfico MT5 finalizada.")
 
 
 if __name__ == "__main__":
