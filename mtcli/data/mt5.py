@@ -1,6 +1,7 @@
 """Módulo fonte de dados via API do MetaTrader 5."""
 
 import MetaTrader5 as mt5
+from mtcli.logger import logger
 from .base import DataSourceBase
 from datetime import datetime
 
@@ -10,6 +11,9 @@ class MT5DataSource(DataSourceBase):
 
     def get_data(self, symbol, period):
         """Retorna uma lista de lista de cotações do MetaTrader."""
+        logger.info(
+            f"Iniciando coleta de dados via API MT5: {symbol} no período {period}."
+        )
         tf_map = {
             "M1": mt5.TIMEFRAME_M1,
             "M2": mt5.TIMEFRAME_M2,
@@ -35,17 +39,22 @@ class MT5DataSource(DataSourceBase):
         }
 
         if period not in tf_map:
+            logger.error(f"Timeframe inválido: {period}.")
             raise ValueError(f"Timeframe '{period}' inválido.")
 
         if not mt5.initialize():
+            err = mt5.last_error()
+            logger.error(f"Erro ao conectar ao MetaTrader 5: {err}.")
             raise ConnectionError(
                 f"Erro ao conectar ao MetaTrader 5: {mt5.last_error()}"
             )
+        logger.info("Conectado ao MetaTrader 5 con sucesso.")
 
         rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, 500)
         mt5.shutdown()
 
         if rates is None:
+            logger.warning("Nenum dado retornado da API MT5.")
             raise ValueError("Nenhum dado retornado da API MT5.")
 
         result = []
@@ -65,4 +74,5 @@ class MT5DataSource(DataSourceBase):
                 ]
             )
 
+        logger.info("Coleta de dados via API MT5 finalizada.")
         return result
