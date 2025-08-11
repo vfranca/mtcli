@@ -3,6 +3,7 @@
 import click
 
 from . import conf
+from mtcli.logger import logger
 from mtcli.models.model_rates import RatesModel
 from .models import model_media_movel
 from .views import view_media_movel
@@ -46,11 +47,15 @@ def mm(symbol, period, periodos, tipo, limit):
     """
     Calcula a média móvel (SMA ou EMA) do ativo SYMBOL no período PERIOD.
     """
+    logger.info(
+        f"Iniciando cálculo da média móvel: ativo {symbol} período {period} períodos {periodos} tipo {tipo} limite de exibição {limit} linhas."
+    )
     rates = RatesModel(symbol, period).lista
     closes = [r[4] for r in rates]
     datas = [r[0] for r in rates]
 
     if len(closes) < periodos:
+        logger.warning("Dados insuficientes para calcular a média.")
         click.echo("Dados insuficientes para calcular a média.")
         return
 
