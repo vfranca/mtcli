@@ -30,7 +30,7 @@ def calcular_ema(closes, window):
 @click.command()
 @click.argument("symbol")
 @click.option("--period", "-p", default="D1", help="Tempo gráfico.")
-@click.option("--window", type=int, default=20, help="Tamanho da janela da média.")
+@click.option("--barras", type=int, default=20, help="Quantidade de barras da média.")
 @click.option(
     "--tipo",
     default="sma",
@@ -40,7 +40,7 @@ def calcular_ema(closes, window):
 @click.option(
     "--limit", type=int, default=5, help="Limita a quantidade de linhas exibidas."
 )
-def mm(symbol, period, window, tipo, limit):
+def mm(symbol, period, barras, tipo, limit):
     """
     Calcula a média móvel (SMA ou EMA) do ativo SYMBOL no período PERIOD.
     """
@@ -48,16 +48,16 @@ def mm(symbol, period, window, tipo, limit):
     closes = [r[4] for r in rates]
     datas = [r[0] for r in rates]
 
-    if len(closes) < window:
+    if len(closes) < barras:
         click.echo("Dados insuficientes para calcular a média.")
         return
 
     if tipo == "sma":
-        media = calcular_sma(closes, window)
-        datas = datas[window - 1 :]
+        media = calcular_sma(closes, barras)
+        datas = datas[barras - 1 :]
     else:
-        media = calcular_ema(closes, window)
-        datas = datas[window - 1 :]
+        media = calcular_ema(closes, barras)
+        datas = datas[barras - 1 :]
 
     linhas = zip(datas, media)
     if limit > 0:
