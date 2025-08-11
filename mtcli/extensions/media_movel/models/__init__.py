@@ -1,1 +1,1 @@
-from . import model_moving_average
+from . import model_media_movel
