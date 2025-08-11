@@ -9,7 +9,7 @@ class RatesModel:
     def __init__(self, symbol, period):
         """Construtor da classe model rates."""
         self.symbol = symbol
-        self.period = period.upper()
+        self.period = period
         self.source = conf.get_data_source()
         self.lista = self.__get_data()
 

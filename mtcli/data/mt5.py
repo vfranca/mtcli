@@ -11,6 +11,7 @@ class MT5DataSource(DataSourceBase):
 
     def get_data(self, symbol, period):
         """Retorna uma lista de lista de cotações do MetaTrader."""
+        period = period.upper()
         logger.info(
             f"Iniciando coleta de dados via API MT5: {symbol} no período {period}."
         )
@@ -38,7 +39,7 @@ class MT5DataSource(DataSourceBase):
             "MN1": mt5.TIMEFRAME_MN1,
         }
 
-        if period not in tf_map:
+        if period.upper() not in tf_map:
             logger.error(f"Timeframe inválido: {period}.")
             raise ValueError(f"Timeframe '{period}' inválido.")
 
@@ -49,6 +50,26 @@ class MT5DataSource(DataSourceBase):
                 f"Erro ao conectar ao MetaTrader 5: {mt5.last_error()}"
             )
         logger.info("Conectado ao MetaTrader 5 con sucesso.")
+
+        # Verifica corretoras B3 e aplica tratamento a symbol
+        corretoras_b3 = [
+            "clear",
+            "xp",
+            "rico",
+            "modal",
+            "terra",
+            "btg",
+            "toro",
+        ]
+        for corretora in corretoras_b3:
+            symbol = (
+                symbol.upper()
+                if corretora in mt5.account_info().company.lower()
+                else symbol
+            )
+        logger.info(
+            f"Finalizada verificação da corretora para tratar symbol: {symbol}."
+        )
 
         rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, 500)
         mt5.shutdown()
