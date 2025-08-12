@@ -1,8 +1,7 @@
 """Módulo da classe da view completa."""
 
 from mtcli import conf
-from mtcli.models import (model_chart, model_consecutive_bars,
-                          model_unconsecutive_bar)
+from mtcli.models import model_chart, model_consecutive_bars, model_unconsecutive_bar
 
 
 class FullView:

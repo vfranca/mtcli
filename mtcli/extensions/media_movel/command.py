@@ -31,22 +31,31 @@ def calcular_ema(closes, window):
 
 @click.command()
 @click.argument("symbol")
-@click.option("--period", "-p", default="D1", help="Tempo gráfico.")
 @click.option(
-    "--periodos", type=int, default=20, help="Quantidade de períodos da média."
+    "--period",
+    "-p",
+    type=click.Choice(conf.timeframes, case_sensitive=False),
+    default="D1",
+    help="Tempo grafico, default D1.",
+)
+@click.option(
+    "--periodos", "-pe", default=14, help="Quantidade de períodos da média, default 14."
 )
 @click.option(
     "--tipo",
     default="sma",
     type=click.Choice(["sma", "ema"]),
-    help="Tipo de média: sma ou ema.",
+    help="Tipo de média sma ou ema; default sma.",
 )
 @click.option(
-    "--limit", type=int, default=5, help="Limita a quantidade de linhas exibidas."
+    "--limit",
+    type=int,
+    default=5,
+    help="Limita a quantidade de linhas exibidas; default: 5.",
 )
 def mm(symbol, period, periodos, tipo, limit):
     """
-    Calcula a média móvel (SMA ou EMA) do ativo SYMBOL no período PERIOD.
+    Calcula a média móvel (SMA ou EMA) do ativo SYMBOL.
     """
     logger.info(
         f"Iniciando cálculo da média móvel: ativo {symbol} período {period} períodos {periodos} tipo {tipo} limite de exibição {limit} linhas."

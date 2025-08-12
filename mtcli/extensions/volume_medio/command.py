@@ -17,19 +17,20 @@ from .models import model_average_volume
     default="D1",
     help="Tempo grafico, default D1.",
 )
-@click.option("--count", "-c", default=10, help="Quantidade de barras, default 10.")
 @click.option(
-    "--type",
+    "--periodos", "-pe", default=14, help="Quantidade de períodos da média, default 14."
+)
+@click.option(
+    "--tipo",
     "-t",
     type=click.Choice(["tick", "real"], case_sensitive=False),
     default="tick",
-    help="Tipo de volume, default tick.",
+    help="Tipo de volume tick ou real, default tick.",
 )
-def vm(symbol, period, count, type):
-    """Calcula o volume medio das barras."""
-    rates = model_rates.RatesModel(symbol, period)
-    rates = rates.lista
-    vm = model_average_volume.AverageVolumeModel(rates, count, type)
+def vm(symbol, period, periodos, tipo):
+    """Calcula o volume médio (tick ou real) do ativo symbol."""
+    rates = model_rates.RatesModel(symbol, period).lista
+    vm = model_average_volume.AverageVolumeModel(rates, periodos, tipo)
     vm = vm.average()
     click.echo(vm)
 
