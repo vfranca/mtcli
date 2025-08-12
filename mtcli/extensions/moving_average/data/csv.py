@@ -1,7 +1,8 @@
 """Módulo fonte de dados via CSV."""
 
-import os
 import csv
+import os
+
 from mtcli import conf
 from mtcli.data.base import DataSourceBase
 

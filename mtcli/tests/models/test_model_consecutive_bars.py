@@ -1,5 +1,5 @@
-from mtcli.models import model_consecutive_bars
 from mtcli import conf
+from mtcli.models import model_consecutive_bars
 
 consecutive = model_consecutive_bars.ConsecutiveBarsModel(
     [50, 60], [10, 20], [40, 50], [60, 80], [5, 15], [500, 700]

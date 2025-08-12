@@ -1,9 +1,12 @@
 """Módulo fonte de dados via API do MetaTrader 5."""
 
-import MetaTrader5 as mt5
-from mtcli.logger import logger
-from .base import DataSourceBase
 from datetime import datetime
+
+import MetaTrader5 as mt5
+
+from mtcli.logger import logger
+
+from .base import DataSourceBase
 
 
 class MT5DataSource(DataSourceBase):

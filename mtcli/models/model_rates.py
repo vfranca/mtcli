@@ -1,7 +1,8 @@
 """Módulo do model para obtenção das cotações."""
 
-from mtcli import conf
 from datetime import datetime
+
+from mtcli import conf
 
 
 class RatesModel:

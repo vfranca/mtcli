@@ -1,6 +1,7 @@
 """Gerencia configurações registradas no mtcli.ini."""
 
 import os
+
 import click
 import dotenv
 import MetaTrader5 as mt5

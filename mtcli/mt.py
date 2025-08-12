@@ -6,14 +6,11 @@ Frontcontroller do mtcli.
 
 import click
 
+from mtcli import __version__
 from mtcli.bars import bars
 from mtcli.conf import conf
-from mtcli.extensions import agressao
-from mtcli.extensions import volume_medio
-from mtcli.extensions import media_movel
-from mtcli.extensions import range_medio
-from mtcli.extensions import moving_average
-from mtcli import __version__
+from mtcli.extensions import (agressao, media_movel, moving_average,
+                              range_medio, volume_medio)
 
 
 @click.group(invoke_without_command=True)

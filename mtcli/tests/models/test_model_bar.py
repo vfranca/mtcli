@@ -1,6 +1,5 @@
 from mtcli.models import model_bar as bar
 
-
 rate = [
     "2015.04.01 12:40:00",
     "51187.00000",

@@ -1,4 +1,3 @@
-from .models import model_average_volume
-from . import conf
-from . import command
+from . import command, conf
 from .command import vm
+from .models import model_average_volume

@@ -2,9 +2,10 @@
 
 import click
 
-from . import conf
 from mtcli.logger import logger
 from mtcli.models.model_rates import RatesModel
+
+from . import conf
 from .models import model_media_movel
 from .views import view_media_movel
 

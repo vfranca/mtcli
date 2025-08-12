@@ -1,6 +1,7 @@
 import unittest
-from mtcli.models import model_unconsecutive_bar
+
 from mtcli import conf
+from mtcli.models import model_unconsecutive_bar
 
 
 class TestUnconsecutiveBarModel(unittest.TestCase):

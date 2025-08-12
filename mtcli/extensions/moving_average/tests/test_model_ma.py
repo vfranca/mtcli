@@ -1,6 +1,5 @@
 from mtcli.extensions.moving_average.models import model_ma
 
-
 rate = [
     "2024.11.11 13:55:00",
     "5853.5",
