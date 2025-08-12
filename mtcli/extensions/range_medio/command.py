@@ -17,12 +17,11 @@ from .models import model_average_range
     default="D1",
     help="Tempo grafico, default D1.",
 )
-@click.option("--count", "-c", default=10, help="Quantidade de barras, default 10.")
-def rm(symbol, period, count):
-    """Calcula o range medio das barras."""
-    rates = model_rates.RatesModel(symbol, period)
-    rates = rates.lista
-    rm = model_average_range.AverageRangeModel(rates, count)
+@click.option("--periodos", "-pe", default=14, help="Quantidade de periodos; default 14.")
+def rm(symbol, period, periodos):
+    """Calcula o range medio do ativo symbol."""
+    rates = model_rates.RatesModel(symbol, period).lista
+    rm = model_average_range.AverageRangeModel(rates, periodos)
     rm = rm.average()
     click.echo(rm)
 
