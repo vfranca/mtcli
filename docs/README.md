@@ -1,65 +1,94 @@
-# mtcli  
+# mtcli
+
+Aplicativo CLI acessível para leitura de gráficos do MetaTrader 5 em formato de texto.  
   
-Aplicativo CLI para exibir o gráfico de barras do MetaTrader 5 em texto.  
-O formato texto pode ser lido pelo leitor de telas NVDA.  
-O mtcli é uma aplicação feita por um deficiente visual para deficientes visuais.
+O mtcli foi desenvolvido por uma pessoa com deficiência visual, com foco em acessibilidade e autonomia. Permite a leitura de cotações e indicadores via terminal, com formatação adequada para leitores de tela como o NVDA.
   
-## Pré-requisitos  
-
-* Plataforma de negociação MetaTrader 5.  
-* Leitor de tela NVDA.  
-
-obs.: O mtcli não foi testado com outros leitores de tela além do NVDA.  
-    
-
-## Instalação  
-
-### Executável
-
-[Clique aqui para baixar o executável](https://bit.ly/mtcli)
+---
   
-Descompacte  a pasta e execute:  
-```
+## Pré-requisitos
+
+- Plataforma de negociação MetaTrader 5 instalada.
+- Leitor de tela NVDA (não testado com outros leitores).
+  
+---
+  
+## Instalação
+  
+### Versão portable
+  
+[▶ Clique aqui para baixar o executável](https://bit.ly/mtcli)
+  
+Descompacte a pasta baixada e execute os comandos abaixo:
+  
+```cmd
 cd mtcli
 mt --version
 ```
-deverá exibir algo como mtcli 0.31.2
-
-A pasta contem dois aplicativos do MetaTrader 5: Mtcli.ex5 e MA_TXT.ex5.  
-
-* O Mtcli.ex5 exporta as cotações em CSV, e é necessário para que os comandos do mtcli possam ser executados
-* O MA_TXT.ex5 exporta as médias móveis em CSV, e é necessário para que o comando mt ma possa ser executado
   
-Eles deverão ser anexados ao gráfico do MetaTrader 5 para que o mtcli possa ler esses dados
+A saída deverá ser algo como:  
+mtcli 1.14.1  
   
-Digite mt --help para obter uma ajuda rápida e uma  lista de subcomandos disponíveis:
-```
+A pasta também contem o indicador *Mtcli.ex5*: exporta as cotações em CSV, necessário para comandos como `mt bars`.
+Deve ser adicionado ao gráfico no MetaTrader 5 para que o mtcli no modo CSV funcione corretamente.  
+  
+Para ajuda geral:  
+
+```cmd
 mt --help
 ```
-Para uma ajuda para cada subcomando execute mt <subcomando> --help
-
-### Python
-
-Outra forma de obter o mtcli é pelo índice de pacotes do python (PyPI).  
-Se você tiver o python instalado e disponível no prompt de comando execute o seguinte comando para instalar o mtcli:  
+  
+Para ajuda específica:  
+  
+```cmd
+mt <subcomando> --help
 ```
+  
+---
+  
+### Python (via PyPI)
+  
+Você também pode instalar o mtcli com pip:
+  
+```cmd
 pip install mtcli
 ```
-
-## Comandos  
   
-| Comando | Descrição | Exemplo |
+---
+  
+## Comandos
+  
+| Comando       | Descrição                                      | Exemplo       |
+|---------------|------------------------------------------------|---------------|
+| [mt bars](bars.md) | Exibe o gráfico de barras em texto             | mt bars IBOV |
+| mt conf     | Gerencia configurações do mtcli                 | mt conf      |
+  
+---
+  
+## Comandos extras
+  
+  | Comando | Descrição | Exemplo |
 | :----- | :------ | :---- |
-| [mt bars](bars.md) | Exibe o gráfico de barras em texto. | mt bars IBOV |
-| [mt mm](mm.md) | Calcula a média móvel simples. | mt mm IBOV |
-| [mt rm](rm.md) | Calcula o tamanho médio das barras.| mt rm IBOV |
-| mt conf | Gerencia configurações do mtcli | mt conf |
+| [mt mm](mm.md) | Calcula a média móvel (tipo sma ou ema). | mt mm WINQ25 --tipo ema |
+| [mt rm](rm.md) | Calcula a média móvel do range.| mt rm WINQ25 |
+| [mt vm](vm.md) | Calcula a média móvel do volume (tipo tick ou real). | mt vm WINQ25 --tipo real |
   
-## abreviaturas  
-
-[Clique aqui para ver uma lista de abreviaturas exibidas nas barras](abreviaturas.md)  
-
-## Agradecimentos  
+---
   
-Ao @MaiconBaggio fornecedor do primeiro EA exportador das cotações para CSV.  
-Ao Claudio Garini que transferiu a exportação das cotações para um indicador.  
+## Abreviaturas
+
+[▶ Clique aqui para ver a lista de abreviaturas exibidas nas barras](abreviaturas.md)
+  
+---
+  
+## Acessibilidade
+  
+O mtcli é totalmente compatível com leitores de tela. A saída é formatada para facilitar a leitura por voz, permitindo análise técnica básica sem uso de interfaces gráficas.
+  
+---
+  
+## Agradecimentos
+  
+- Ao @MaiconBaggio, criador do primeiro EA exportador de cotações em CSV.
+- Ao Claudio Garini, que transferiu a exportação para um indicador, melhorando a integração.
+  
