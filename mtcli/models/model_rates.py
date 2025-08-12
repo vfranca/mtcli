@@ -1,18 +1,40 @@
 """Módulo do model para obtenção das cotações."""
 
 from mtcli import conf
+from datetime import datetime
 
 
 class RatesModel:
     """Classe do model para obtenção das cotações."""
 
-    def __init__(self, symbol, period):
+    def __init__(self, symbol, period, start=None, end=None, limit=None):
         """Construtor da classe model rates."""
         self.symbol = symbol
         self.period = period
+        self.start = start
+        self.end = end
+        self.limit = limit
         self.source = conf.get_data_source()
         self.lista = self.__get_data()
 
     def __get_data(self):
-        """Obtem a lista das cotações."""
-        return self.source.get_data(self.symbol, self.period)
+        """Obtém a lista das cotações com filtros opcionais."""
+        data = self.source.get_data(self.symbol, self.period)
+
+        # Filtro por data
+        if self.start or self.end:
+
+            def filtrar(linha):
+                datahora = datetime.strptime(linha[0], "%Y.%m.%d %H:%M:%S")
+                if self.start and datahora < self.start:
+                    return False
+                if self.end and datahora > self.end:
+                    return False
+                return True
+
+            data = list(filter(filtrar, data))
+        # Limite de linhas
+        if self.limit:
+            data = data[-self.limit :]
+
+        return data
