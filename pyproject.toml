@@ -37,3 +37,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project.scripts]
 mt = "mtcli.mt:mt"
+
+[project.optional-dependencies]
+build = ["pyinstaller"]
+
