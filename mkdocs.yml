@@ -1,2 +1,42 @@
 site_name: mtcli
-theme: readthedocs
+site_description: CLI acessível para leitura de gráficos do MetaTrader 5
+site_author: Valmir França
+repo_url: https://github.com/vfranca/mtcli
+repo_name: vfranca/mtcli
+site_url: https://vfranca.github.io/mtcli/
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+
+nav:
+  - Início: README.md
+  - Comandos:
+      - Barras (bars): bars.md
+      - Média móvel (mm): mm.md
+      - Média de range (rm): rm.md
+      - Volume médio (vm): vm.md
+      - Configurações (conf): conf.md
+  - Abreviaturas: abreviaturas.md
+  - Instalação: instalacao.md
+  - Agradecimentos: agradecimentos.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - footnotes
+  - attr_list
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/vfranca/mtcli
