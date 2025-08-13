@@ -1,5 +1,5 @@
 # mtcli
-
+  
 Aplicativo CLI acessível para leitura de gráficos do MetaTrader 5 em formato de texto.  
   
 O mtcli foi desenvolvido por uma pessoa com deficiência visual, com foco em acessibilidade e autonomia. Permite a leitura de cotações e indicadores via terminal, com formatação adequada para leitores de tela como o NVDA.
@@ -7,13 +7,27 @@ O mtcli foi desenvolvido por uma pessoa com deficiência visual, com foco em ace
 ---
   
 ## Pré-requisitos
-
+  
 - Plataforma de negociação MetaTrader 5 instalada.
 - Leitor de tela NVDA (não testado com outros leitores).
   
 ---
   
 ## Instalação
+  
+---
+  
+### Python (via PyPI)
+  
+Instale o mtcli com o pip (necessário ter o Python instalado  e disponível no path):  
+  
+```cmd
+pip install mtcli
+```
+  
+Para atualizar: `pip install --upgrade mtcli`  
+  
+---
   
 ### Versão portable
   
@@ -32,6 +46,8 @@ mtcli 1.14.1
 A pasta também contem o indicador *Mtcli.ex5*: exporta as cotações em CSV, necessário para comandos como `mt bars`.
 Deve ser adicionado ao gráfico no MetaTrader 5 para que o mtcli no modo CSV funcione corretamente.  
   
+---
+  
 Para ajuda geral:  
 
 ```cmd
@@ -42,16 +58,6 @@ Para ajuda específica:
   
 ```cmd
 mt <subcomando> --help
-```
-  
----
-  
-### Python (via PyPI)
-  
-Você também pode instalar o mtcli com pip:
-  
-```cmd
-pip install mtcli
 ```
   
 ---
@@ -71,7 +77,7 @@ pip install mtcli
 | :----- | :------ | :---- |
 | [mt mm](mm.md) | Calcula a média móvel (tipo sma ou ema). | mt mm WINQ25 --tipo ema |
 | [mt rm](rm.md) | Calcula a média móvel do range.| mt rm WINQ25 |
-| [mt vm](vm.md) | Calcula a média móvel do volume (tipo tick ou real). | mt vm WINQ25 --tipo real |
+| mt vm | Calcula a média móvel do volume (tipo tick ou real). | mt vm WINQ25 --tipo real |
   
 ---
   
