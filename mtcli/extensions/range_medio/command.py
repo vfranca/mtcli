@@ -17,7 +17,9 @@ from .models import model_average_range
     default="D1",
     help="Tempo grafico, default D1.",
 )
-@click.option("--periodos", "-pe", default=14, help="Quantidade de periodos; default 14.")
+@click.option(
+    "--periodos", "-pe", default=14, help="Quantidade de periodos; default 14."
+)
 def rm(symbol, period, periodos):
     """Calcula o range medio do ativo symbol."""
     rates = model_rates.RatesModel(symbol, period).lista
