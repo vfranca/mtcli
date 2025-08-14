@@ -41,15 +41,13 @@ def get_data_source():
 
 if not csv_path:
     if not mt5.initialize():
-        raise RuntimeError(f"Erro ao inicializar o MetaTrader 5: {mt5.last_error()}")
+        raise RuntimeError(f"Erro ao inicializar o MT5: {mt5.last_error()}")
 
-    info = mt5.account_info()
-    if info is None:
-        raise RuntimeError(
-            "Não foi possível obter as informações da conta MetaTrader 5."
-        )
+    terminal_info = mt5.terminal_info()
+    if terminal_info is None:
+        raise RuntimeError("Não foi possível obter as informações do terminal.")
 
-    csv_path = info.data_path + "/MQL5/Files"
+    csv_path = terminal_info.data_path + "/MQL5/Files"
     mt5.shutdown()
 
 csv_path = csv_path.replace("\\", "/")
