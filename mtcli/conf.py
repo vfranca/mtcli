@@ -9,45 +9,47 @@ import MetaTrader5 as mt5
 fconf = "mtcli.ini"
 dotenv.load_dotenv(fconf)
 
-padroes = {
-    "DIGITOS": "2",
-    "LATERAL": "DOJI",
-    "ALTA": "VERDE",
-    "BAIXA": "VERMELHO",
-    "ROMPIMENTO_ALTA": "C",
-    "ROMPIMENTO_BAIXA": "V",
-    "PERCENTUAL_ROMPIMENTO": "50",
-    "PERCENTUAL_DOJI": "10",
-    "UP_BAR": "ASC",
-    "DOWN_BAR": "DESC",
-    "INSIDE_BAR": "IB",
-    "OUTSIDE_BAR": "OB",
-    "SOMBRA_SUPERIOR": "TOP",
-    "SOMBRA_INFERIOR": "BOT",
-    "GAP": "G",
-    "PONTO_MEDIO": "MP",
-    "DADOS": "MT5",
-    "CSV_PATH": "",
+default = {
+    "digitos": "2",
+    "lateral": "DOJI",
+    "alta": "VERDE",
+    "baixa": "VERMELHO",
+    "rompimento_alta": "C",
+    "rompimento_baixa": "V",
+    "percentual_rompimento": "50",
+    "percentual_doji": "10",
+    "up_bar": "ASC",
+    "down_bar": "DESC",
+    "inside_bar": "IB",
+    "outside_bar": "OB",
+    "sombra_superior": "TOP",
+    "sombra_inferior": "BOT",
+    "gap": "G",
+    "ponto_medio": "M",
+    "dados": "MT5",
+    "mt5_pasta": "",
 }
 
-digitos = int(os.getenv("DIGITOS", 2))
-lateral = os.getenv("LATERAL", "DOJI")
-alta = os.getenv("ALTA", "VERDE")
-baixa = os.getenv("BAIXA", "VERMELHO")
-rompimento_alta = os.getenv("ROMPIMENTO_ALTA", "C")
-rompimento_baixa = os.getenv("ROMPIMENTO_BAIXA", "V")
-percentual_doji = int(os.getenv("PERCENTUAL_DOJI", 10))
-percentual_rompimento = int(os.getenv("PERCENTUAL_ROMPIMENTO", 50))
-up_bar = os.getenv("UP_BAR", "ASC")
-down_bar = os.getenv("DOWN_BAR", "DESC")
-inside_bar = os.getenv("INSIDE_BAR", "IB")
-outside_bar = os.getenv("OUTSIDE_BAR", "OB")
-gap = os.getenv("GAP", "G")
-sombra_superior = os.getenv("SOMBRA_SUPERIOR", "TOP")
-sombra_inferior = os.getenv("SOMBRA_INFERIOR", "BOT")
-ponto_medio = os.getenv("PONTO_MEDIO", "MP")
-data_source = os.getenv("DADOS", "MT5").upper()
-csv_path = os.getenv("MT5_PASTA", "")
+digitos = int(os.getenv("DIGITOS", default["digitos"]))
+lateral = os.getenv("LATERAL", default["lateral"])
+alta = os.getenv("ALTA", default["alta"])
+baixa = os.getenv("BAIXA", default["baixa"])
+rompimento_alta = os.getenv("ROMPIMENTO_ALTA", default["rompimento_alta"])
+rompimento_baixa = os.getenv("ROMPIMENTO_BAIXA", default["rompimento_baixa"])
+percentual_rompimento = int(
+    os.getenv("PERCENTUAL_ROMPIMENTO", default["percentual_rompimento"])
+)
+percentual_doji = int(os.getenv("PERCENTUAL_DOJI", default["percentual_doji"]))
+up_bar = os.getenv("UP_BAR", default["up_bar"])
+down_bar = os.getenv("DOWN_BAR", default["down_bar"])
+inside_bar = os.getenv("INSIDE_BAR", default["inside_bar"])
+outside_bar = os.getenv("OUTSIDE_BAR", default["outside_bar"])
+gap = os.getenv("GAP", default["gap"])
+sombra_superior = os.getenv("SOMBRA_SUPERIOR", default["sombra_superior"])
+sombra_inferior = os.getenv("SOMBRA_INFERIOR", default["sombra_inferior"])
+ponto_medio = os.getenv("PONTO_MEDIO", default["ponto_medio"])
+data_source = os.getenv("DADOS", default["dados"]).upper()
+csv_path = os.getenv("MT5_PASTA", default["mt5_pasta"])
 
 
 def get_data_source():
@@ -183,8 +185,8 @@ def conf(**kwargs):
     # Verifica se o arquivo de configuração existe
     if not os.path.exists(fconf):
         # cria o arquivo e define as variáveis padrão
-        for chave, valor in padroes.items():
-            dotenv.set_key(fconf, chave, os.getenv(chave, valor))
+        for chave, valor in default.items():
+            dotenv.set_key(fconf, chave.upper(), os.getenv(chave.upper(), valor))
 
     # Lista as variáveis disponíveis
     vars = dotenv.dotenv_values(fconf)
