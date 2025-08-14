@@ -8,6 +8,28 @@ import MetaTrader5 as mt5
 
 fconf = "mtcli.ini"
 dotenv.load_dotenv(fconf)
+
+padroes = {
+    "DIGITOS": "2",
+    "LATERAL": "DOJI",
+    "ALTA": "VERDE",
+    "BAIXA": "VERMELHO",
+    "ROMPIMENTO_ALTA": "C",
+    "ROMPIMENTO_BAIXA": "V",
+    "PERCENTUAL_ROMPIMENTO": "50",
+    "PERCENTUAL_DOJI": "10",
+    "UP_BAR": "ASC",
+    "DOWN_BAR": "DESC",
+    "INSIDE_BAR": "IB",
+    "OUTSIDE_BAR": "OB",
+    "SOMBRA_SUPERIOR": "TOP",
+    "SOMBRA_INFERIOR": "BOT",
+    "GAP": "G",
+    "PONTO_MEDIO": "MP",
+    "DADOS": "MT5",
+    "CSV_PATH": "",
+}
+
 digitos = int(os.getenv("DIGITOS", 2))
 lateral = os.getenv("LATERAL", "DOJI")
 alta = os.getenv("ALTA", "VERDE")
@@ -150,13 +172,20 @@ def conf(**kwargs):
         )
     # fonte dos dados
     if kwargs["dados"]:
-        res = dotenv.set_key(fconf, "DADOS", kwargs["dados"])
+        res = dotenv.set_key(fconf, "DADOS", kwargs["dados"].upper())
     # caminho da pasta do MT5
     if kwargs["mt5_pasta"]:
         res = dotenv.set_key(fconf, "MT5_PASTA", kwargs["mt5_pasta"])
     if res:
         click.echo("%s=%s" % (res[1], res[2]))
-        return 0
+        return
+
+    # Verifica se o arquivo de configuração existe
+    if not os.path.exists(fconf):
+        # cria o arquivo e define as variáveis padrão
+        for chave, valor in padroes.items():
+            dotenv.set_key(fconf, chave, os.getenv(chave, valor))
+
     # Lista as variáveis disponíveis
     vars = dotenv.dotenv_values(fconf)
     for var in vars.items():
