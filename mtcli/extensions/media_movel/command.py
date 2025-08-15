@@ -1,7 +1,7 @@
 """Comando da médiamóvel."""
 
 import click
-
+from datetime import datetime
 from mtcli.logger import logger
 from mtcli.models.model_rates import RatesModel
 
@@ -19,7 +19,7 @@ def calcular_sma(closes, window):
 
 
 def calcular_ema(closes, window):
-    closes = [float(c) for c in closes]  # Garante que são números
+    closes = [float(c) for c in closes]
     ema = []
     k = 2 / (window + 1)
     sma = sum(closes[:window]) / window
@@ -36,7 +36,7 @@ def calcular_ema(closes, window):
     "-p",
     type=click.Choice(conf.timeframes, case_sensitive=False),
     default="D1",
-    help="Tempo grafico, default D1.",
+    help="Tempo gráfico, default D1.",
 )
 @click.option(
     "--periodos", "-pe", default=14, help="Quantidade de períodos da média, default 14."
@@ -53,13 +53,22 @@ def calcular_ema(closes, window):
     default=5,
     help="Limita a quantidade de linhas exibidas; default: 5.",
 )
-def mm(symbol, period, periodos, tipo, limit):
+@click.option(
+    "--inicio",
+    type=str,
+    help="Data/hora inicial no formato YYYY-MM-DD ou YYYY-MM-DD HH:MM.",
+)
+@click.option(
+    "--fim", type=str, help="Data/hora final no formato YYYY-MM-DD ou YYYY-MM-DD HH:MM."
+)
+def mm(symbol, period, periodos, tipo, limit, inicio, fim):
     """
     Calcula a média móvel (SMA ou EMA) do ativo SYMBOL.
     """
     logger.info(
-        f"Iniciando cálculo da média móvel: ativo {symbol} período {period} períodos {periodos} tipo {tipo} limite de exibição {limit} linhas."
+        f"Iniciando cálculo da média móvel: ativo {symbol} período {period} períodos {periodos} tipo {tipo} limite {limit}"
     )
+
     rates = RatesModel(symbol, period).lista
     closes = [r[4] for r in rates]
     datas = [r[0] for r in rates]
@@ -71,14 +80,30 @@ def mm(symbol, period, periodos, tipo, limit):
 
     if tipo == "sma":
         media = calcular_sma(closes, periodos)
-        datas = datas[periodos - 1 :]
     else:
         media = calcular_ema(closes, periodos)
-        datas = datas[periodos - 1 :]
 
-    linhas = zip(datas, media)
+    datas = datas[periodos - 1 :]
+
+    # Filtro por data/hora
+    dt_inicio = datetime.fromisoformat(inicio) if inicio else None
+    dt_fim = datetime.fromisoformat(fim) if fim else None
+
+    # formato compatível com '2023.08.31 00:00:00'
+    formato = "%Y.%m.%d %H:%M:%S"
+
+    filtrado = []
+    for d, m in zip(datas, media):
+        dt = datetime.strptime(d, formato)
+        if (not dt_inicio or dt >= dt_inicio) and (not dt_fim or dt <= dt_fim):
+            filtrado.append((d, m))
+
+    if not filtrado:
+        click.echo("Nenhum dado no intervalo especificado.")
+        return
+
     if limit > 0:
-        linhas = list(linhas)[-limit:]
+        filtrado = filtrado[-limit:]
 
-    for dt, valor in linhas:
+    for dt, valor in filtrado:
         click.echo(f"{round(valor, conf.digitos)}    {dt}")
