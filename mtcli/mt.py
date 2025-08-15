@@ -31,9 +31,9 @@ mt.add_command(bars)
 mt.add_command(conf)
 mt.add_command(media_movel.mm)
 mt.add_command(range_medio.rm)
-mt.add_command(moving_average.ma)
+# mt.add_command(moving_average.ma)
 mt.add_command(volume_medio.vm)
-mt.add_command(agressao.sa)
+# mt.add_command(agressao.sa)
 
 
 if __name__ == "__main__":
