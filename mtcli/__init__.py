@@ -9,4 +9,4 @@ from .extensions import volume_medio
 # from .extensions import agressao
 
 
-__version__ = "1.15.0"
+__version__ = "1.16.0"
