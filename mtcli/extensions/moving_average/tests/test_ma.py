@@ -1,3 +1,4 @@
+import pytest
 from click.testing import CliRunner
 from pytest import mark
 from mtcli.mt import mt
@@ -6,6 +7,7 @@ from mtcli.mt import mt
 run = CliRunner()
 
 
+@pytest.mark.skip(reason="extensão desativada")
 def test_exibe_a_ultima_media_movel():
     res = run.invoke(mt, ["ma", "bbdc4", "--period", "D1", "--count", "20"])
     assert res.output == "flat 12.36\n"
@@ -14,6 +16,7 @@ def test_exibe_a_ultima_media_movel():
     assert res.output == "flat 5148.00\n"
 
 
+@pytest.mark.skip(reason="extensão desativada")
 def test_exibe_a_media_movel_de_uma_data():
     res = run.invoke(
         mt, ["ma", "spx500p", "--period", "m5", "--count", "20", "--date", "2025-04-21"]
@@ -21,6 +24,7 @@ def test_exibe_a_media_movel_de_uma_data():
     assert res.output == "up 5146.00\n"
 
 
+@pytest.mark.skip(reason="extensão desativada")
 def test_exibe_a_media_movel_de_uma_data_e_hora():
     res = run.invoke(
         mt,
