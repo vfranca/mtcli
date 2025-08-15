@@ -1,6 +1,6 @@
 [project]
 name = "mtcli"
-version = "1.14.6"
+version = "1.15.0"
 description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
 authors = [
     {name = "Valmir França",email = "vfranca3@gmail.com"}
