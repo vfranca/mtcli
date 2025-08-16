@@ -10,7 +10,7 @@ from mtcli import __version__
 from mtcli.bars import bars
 from mtcli.conf import conf
 from mtcli.extensions import (
-    media_movel,  # agressao,; moving_average,
+    media_movel,  # agressao,;
     range_medio,
     volume_medio,
 )
@@ -29,7 +29,6 @@ mt.add_command(bars, name="bars")
 mt.add_command(conf, name="conf")
 mt.add_command(media_movel.mm, name="mm")
 mt.add_command(range_medio.rm, name="rm")
-# mt.add_command(moving_average.ma)
 mt.add_command(volume_medio.vm, name="vm")
 # mt.add_command(agressao.sa)
 
