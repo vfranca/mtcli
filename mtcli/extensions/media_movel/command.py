@@ -9,7 +9,6 @@ from mtcli.models.model_rates import RatesModel
 
 from . import conf
 from .models.model_media_movel import MediaMovelModel
-from .views.view_media_movel import MediaMovelView
 
 
 @click.command()
