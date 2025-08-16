@@ -10,9 +10,7 @@ from mtcli import __version__
 from mtcli.bars import bars
 from mtcli.conf import conf
 from mtcli.extensions import (
-    #     agressao,
-    media_movel,
-    #     moving_average,
+    media_movel,  # agressao,; moving_average,
     range_medio,
     volume_medio,
 )

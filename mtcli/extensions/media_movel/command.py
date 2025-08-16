@@ -1,13 +1,15 @@
 """Comando da médiamóvel."""
 
-import click
 from datetime import datetime
+
+import click
+
 from mtcli.logger import logger
 from mtcli.models.model_rates import RatesModel
 
 from . import conf
 from .models.model_media_movel import MediaMovelModel
-from .views import view_media_movel
+from .views.view_media_movel import MediaMovelView
 
 
 @click.command()
@@ -20,7 +22,10 @@ from .views import view_media_movel
     help="Tempo gráfico, default D1.",
 )
 @click.option(
-    "--periodos", "-pe", default=14, help="Quantidade de períodos da média, default 14."
+    "--periodos",
+    "-pe",
+    default=conf.periodos,
+    help="Quantidade de períodos da média, default 14.",
 )
 @click.option(
     "--tipo",
@@ -31,7 +36,7 @@ from .views import view_media_movel
 @click.option(
     "--limit",
     type=int,
-    default=5,
+    default=conf.limite_linhas,
     help="Limita a quantidade de linhas exibidas; default: 5.",
 )
 @click.option(

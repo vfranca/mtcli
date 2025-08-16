@@ -1,4 +1,5 @@
 import pytest
+
 from mtcli.extensions.moving_average.models import model_ma
 
 rate = [
