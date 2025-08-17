@@ -25,24 +25,17 @@ class RatesView:
         n = self.chart.get_n()
         for bar in self.bars:
             n += 1
-            if self.numerator:
-                view = "%s "
-            else:
-                view = ""
-            view += "%s"  # data
-            view += " %." + str(conf.digitos) + "f"  # abertura
-            view += " %." + str(conf.digitos) + "f"  # máxima
-            view += " %." + str(conf.digitos) + "f"  # mínima
-            view += " %." + str(conf.digitos) + "f"  # fechamento
-            view += " %i"  # volume
-            if self.numerator:
-                views.append(
-                    view
-                    % (n, bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
-                )
-            else:
-                views.append(
-                    view
-                    % (bar.date, bar.open, bar.high, bar.low, bar.close, bar.volume)
-                )
+            prefixo = f"{n} " if self.numerator else ""
+            linha = (
+                f"{prefixo}"
+                f"{bar.date} "
+                f"{bar.open:.{conf.digitos}f} "
+                f"{bar.high:.{conf.digitos}f} "
+                f"{bar.low:.{conf.digitos}f} "
+                f"{bar.close:.{conf.digitos}f} "
+                f"{bar.volume} "
+                f"{bar.volume_real}"
+            )
+            views.append(linha)
+
         return views

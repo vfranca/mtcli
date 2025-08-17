@@ -351,4 +351,4 @@ def test_exibe_view_ohlc():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "oh", "--period", "d1", "--count", "1"]
     )
-    assert res.output == "2025-02-27 11.55 11.62 11.43 11.45 19949\n"
+    assert res.output == "2025-02-27 11.55 11.62 11.43 11.45 19949 37525900\n"
