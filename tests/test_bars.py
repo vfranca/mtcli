@@ -122,7 +122,7 @@ def test_exibe_view_completa_com_data_ativada():
     )
     assert (
         res.output
-        == "2025-02-27 DESC V VERMELHO53 G0.03 TOP37 11.62 11.43 11.45M11.52 R0.19\n"
+        == "DESC V VERMELHO53 G0.03 TOP37 11.62 11.43 11.45M11.52 R0.19 2025-02-27\n"
     )
 
 
