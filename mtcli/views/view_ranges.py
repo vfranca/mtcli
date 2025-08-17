@@ -27,18 +27,17 @@ class RangesView:
         sequencias = sequencias[-self.count :]
         for bar, sequencia in zip(self.bars, sequencias):
             n += 1
-            if self.numerator or self.show_date:
-                view = "%s "  # numerador ou data
-            else:
-                view = ""
-            view += "%s %s %." + str(conf.digitos) + "f"  # range
+            prefixo = f"{n} " if self.numerator else ""
+            sufixo = ""
             if self.show_date:
-                if self.period == "d1" or self.period == "w1" or self.period == "mn1":
-                    views.append(view % (bar.date, sequencia, bar.trend, bar.range))
-                else:
-                    views.append(view % (bar.time, sequencia, bar.trend, bar.range))
-            elif self.numerator:
-                views.append(view % (n, sequencia, bar.trend, bar.range))
-            else:
-                views.append(view % (sequencia, bar.trend, bar.range))
+                data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
+                sufixo = f" {data}"
+
+            linha = (
+                f"{prefixo}{sequencia} "
+                f"{bar.trend} {bar.range:.{conf.digitos}f}"
+                f"{sufixo}"
+            )
+            views.append(linha)
+
         return views
