@@ -144,35 +144,35 @@ def test_exibe_view_volume_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "v", "--count", "1", "--show-date"]
     )
-    assert res.output == "2025-02-27 DESC VERMELHO 19949\n"
+    assert res.output == "DESC VERMELHO 19949 2025-02-27\n"
 
 
 def test_exibe_view_aberturas_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "o", "--count", "1", "--show-date"]
     )
-    assert res.output == "2025-02-27 11.55\n"
+    assert res.output == "11.55 2025-02-27\n"
 
 
 def test_exibe_view_maximas_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "h", "--count", "1", "--show-date"]
     )
-    assert res.output == "2025-02-27 11.62\n"
+    assert res.output == "11.62 2025-02-27\n"
 
 
 def test_exibe_view_minimas_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "l", "--count", "1", "--show-date"]
     )
-    assert res.output == "2025-02-27 11.43\n"
+    assert res.output == "11.43 2025-02-27\n"
 
 
 def test_exibe_view_fechamentos_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "c", "--count", "1", "--show-date"]
     )
-    assert res.output == "2025-02-27 11.45\n"
+    assert res.output == "11.45 2025-02-27\n"
 
 
 def test_exibe_intraday_com_numerador_desativado():

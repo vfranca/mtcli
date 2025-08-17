@@ -25,18 +25,17 @@ class CloseView:
         n = self.chart.get_n()
         for bar in self.bars:
             n += 1
-            if self.numerator or self.show_date:
-                view = "%s "  # numerador ou data
-            else:
-                view = ""
-            view += "%." + str(conf.digitos) + "f"  # máxima
+            prefixo = f"{n} " if self.numerator else ""
+            sufixo = ""
             if self.show_date:
-                if self.period == "d1" or self.period == "w1" or self.period == "mn1":
-                    views.append(view % (bar.date, bar.close))
-                else:
-                    views.append(view % (bar.time, bar.close))
-            elif self.numerator:
-                views.append(view % (n, bar.close))
-            else:
-                views.append(view % (bar.close))
+                data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
+                sufixo = f" {data}"
+
+            linha = (
+                f"{prefixo}"
+                f"{bar.close:.{conf.digitos}f}"
+                f"{sufixo}"
+            )
+            views.append(linha)
+
         return views
