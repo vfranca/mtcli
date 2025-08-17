@@ -6,4 +6,4 @@ from .extensions import media_movel, range_medio, volume_medio
 # from .extensions import agressao
 
 
-__version__ = "1.16.0"
+__version__ = "1.17.0"
