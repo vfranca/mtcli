@@ -10,7 +10,6 @@ class MinView:
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
-        """View mínima."""
         self.count = count
         self.period = period
         self.date = date
@@ -20,26 +19,24 @@ class MinView:
         self.bars = bars[-count:]
 
     def views(self):
-        """Lista das views mínimas."""
         views = []
         n = self.chart.get_n()
-        sequencias = self.chart.consecutive_sequencias()
-        sequencias = sequencias[-self.count :]
-        for bar, sequencia in zip(self.bars, sequencias):
+        sequencias = self.chart.consecutive_sequencias()[-self.count :]
+
+        for i, (bar, sequencia) in enumerate(zip(self.bars, sequencias), start=1):
             n += 1
-            if self.numerator or self.show_date:
-                view = "%s "  # numerador ou data
-            else:
-                view = ""
-            view += "%s %." + str(conf.digitos) + "f"  # máxima
-            view += " %." + str(conf.digitos) + "f"  # mínima
+            prefixo = ""
             if self.show_date:
-                if self.period == "d1" or self.period == "w1" or self.period == "mn1":
-                    views.append(view % (bar.date, sequencia, bar.high, bar.low))
-                else:
-                    views.append(view % (bar.time, sequencia, bar.high, bar.low))
+                data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
+                prefixo = f"{data} "
             elif self.numerator:
-                views.append(view % (n, sequencia, bar.high, bar.low))
-            else:
-                views.append(view % (sequencia, bar.high, bar.low))
+                prefixo = f"{n} "
+
+            linha = (
+                f"{prefixo}{sequencia} "
+                f"{bar.high:.{conf.digitos}f} "
+                f"{bar.low:.{conf.digitos}f}"
+            )
+            views.append(linha)
+
         return views
