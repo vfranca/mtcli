@@ -1,3 +1,5 @@
+"""Módulo da view completa."""
+
 from mtcli import conf
 from mtcli.models import model_chart, model_unconsecutive_bar
 
