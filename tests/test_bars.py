@@ -73,7 +73,7 @@ def test_exibe_view_minima_com_data():
     res = run.invoke(
         mt, ["bars", "bbdc4", "--view", "ch", "--show-date", "--count", "1"]
     )
-    assert res.output == "2025-02-27 DESC 11.62 11.43\n"
+    assert res.output == "DESC 11.62 11.43 2025-02-27\n"
 
 
 def test_exibe_view_minima_com_data_e_numerador_ativados():
@@ -81,7 +81,7 @@ def test_exibe_view_minima_com_data_e_numerador_ativados():
         mt,
         ["bars", "bbdc4", "--view", "ch", "--show-date", "--numerator", "--count", "1"],
     )
-    assert res.output == "2025-02-27 DESC 11.62 11.43\n"
+    assert res.output == "1 DESC 11.62 11.43 2025-02-27\n"
     res = run.invoke(
         mt,
         [
@@ -97,7 +97,7 @@ def test_exibe_view_minima_com_data_e_numerador_ativados():
             "w1",
         ],
     )
-    assert res.output == "2025-03-09 ASC 12.20 11.27\n"
+    assert res.output == "1 ASC 12.20 11.27 2025-03-09\n"
     res = run.invoke(
         mt,
         [
@@ -113,7 +113,7 @@ def test_exibe_view_minima_com_data_e_numerador_ativados():
             "mn1",
         ],
     )
-    assert res.output == "2025-03-01 IB 12.20 11.22\n"
+    assert res.output == "1 IB 12.20 11.22 2025-03-01\n"
 
 
 def test_exibe_view_completa_com_data_ativada():

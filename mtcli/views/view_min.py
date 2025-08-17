@@ -25,17 +25,17 @@ class MinView:
 
         for i, (bar, sequencia) in enumerate(zip(self.bars, sequencias), start=1):
             n += 1
-            prefixo = ""
+            prefixo = f"{n} " if self.numerator else ""
+            sufixo = ""
             if self.show_date:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
-                prefixo = f"{data} "
-            elif self.numerator:
-                prefixo = f"{n} "
+                sufixo = f" {data}"
 
             linha = (
                 f"{prefixo}{sequencia} "
                 f"{bar.high:.{conf.digitos}f} "
                 f"{bar.low:.{conf.digitos}f}"
+                f"{sufixo}"
             )
             views.append(linha)
 
