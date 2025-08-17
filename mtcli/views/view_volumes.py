@@ -46,10 +46,7 @@ class VolumesView:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
                 sufixo = f" {data}"
 
-            linha = (
-                f"{prefixo}{sequencia} {sequencia_volume} {volume}"
-                f"{sufixo}"
-            )
+            linha = f"{prefixo}{sequencia} {sequencia_volume} {volume}" f"{sufixo}"
             views.append(linha)
 
         return views

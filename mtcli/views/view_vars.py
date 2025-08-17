@@ -31,28 +31,23 @@ class VarsView:
             self.bars, vars_fech, vars_max, vars_min
         ):
             n += 1
-            if self.numerator or self.show_date:
-                view = "%s "  # numerador ou data
-            else:
-                view = ""
-            view += "%.2f%% "  # variação percentual máxima
-            view += "%.2f%% "  # variação percentual mínima
-            view += "%.2f%%"  # variação percentual do fechamento
+            var_max = float(var_max)
+            var_min = float(var_min)
+            var_fech = float(var_fech)
+
+            prefixo = f"{n} " if self.numerator else ""
+            sufixo = ""
             if self.show_date:
-                if self.period == "d1" or self.period == "w1" or self.period == "mn1":
-                    views.append(
-                        view
-                        % (bar.date, float(var_max), float(var_min), float(var_fech))
-                    )
-                else:
-                    views.append(
-                        view
-                        % (bar.time, float(var_max), float(var_min), float(var_fech))
-                    )
-            elif self.numerator:
-                views.append(
-                    view % (n, float(var_max), float(var_min), float(var_fech))
-                )
-            else:
-                views.append(view % (float(var_max), float(var_min), float(var_fech)))
+                data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
+                sufixo = f" {data}"
+
+            linha = (
+                f"{prefixo}"
+                f"{var_max:.2f}% "
+                f"{var_min:.2f}% "
+                f"{var_fech:.2f}%"
+                f"{sufixo}"
+            )
+            views.append(linha)
+
         return views
