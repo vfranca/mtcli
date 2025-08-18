@@ -62,37 +62,45 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     bars = model_bars.BarsModel(rates, date).lista
     views = []
     if view == "m" or view == "ch":  # minimo
-        views = view_min.MinView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_min.MinView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "r":  # ranges
-        views = view_ranges.RangesView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_ranges.RangesView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "oh":  # OHLC
-        views = view_rates.RatesView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_rates.RatesView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "va":  # variações percentuais
-        views = view_vars.VarsView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_vars.VarsView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "o":  # abertura
-        views = view_open.OpenView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_open.OpenView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "h":  # máximas
-        views = view_high.HighView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_high.HighView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "l":  # mínimas
-        views = view_low.LowView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_low.LowView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "c":  # fechamentos
-        views = view_close.CloseView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_close.CloseView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     elif view == "v":  # volumes
         views = view_volumes.VolumesView(
             bars, count, period, date, numerator, show_date, volume
-        )
-        views = views.views()
+        ).views()
     else:  # completo
-        views = view_full.FullView(bars, count, period, date, numerator, show_date)
-        views = views.views()
+        views = view_full.FullView(
+            bars, count, period, date, numerator, show_date
+        ).views()
     if views:
         for view in views:
             click.echo(view)
