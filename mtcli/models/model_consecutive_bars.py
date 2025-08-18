@@ -57,3 +57,21 @@ class ConsecutiveBarsModel:
         if posterior < anterior:
             sequencia = conf.baixa
         return sequencia
+
+    def continuacao(self):
+        """Verifica se há continuação de movimento com corpo na mesma direção."""
+        return self.bodys[0] * self.bodys[1] > 0 and abs(self.bodys[1]) > abs(
+            self.bodys[0]
+        )
+
+    def reversao(self):
+        """Verifica reversão pelo corpo oposto com maior intensidade."""
+        return self.bodys[0] * self.bodys[1] < 0 and abs(self.bodys[1]) > abs(
+            self.bodys[0]
+        )
+
+    def volume_spike(self, fator=2):
+        """Detecta clímax de volume (volume da segunda barra bem maior)."""
+        if len(self.volumes) < 2:
+            return False
+        return self.volumes[1] > self.volumes[0] * fator
