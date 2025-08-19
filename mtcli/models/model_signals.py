@@ -44,11 +44,11 @@ class SignalsModel:
 
         return sinais
 
-    def get_sequencia(self, entradas):
-        h1 = entradas[0].high
-        h2 = entradas[1].high
-        l1 = entradas[0].low
-        l2 = entradas[1].low
+    def get_sequencia(self, bars):
+        h1 = bars[0].high
+        h2 = bars[1].high
+        l1 = bars[0].low
+        l2 = bars[1].low
         if h2 > h1 and l2 > l1:
             return "ascendente"
         elif h2 < h1 and l2 < l1:
