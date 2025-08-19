@@ -20,13 +20,11 @@ bars = [
 ]
 
 
-def test_obtem_lista_de_sinais_de_uma_barra():
-    sinais = SignalsModel(bars).get_sinais_de_uma_barra()
+def test_obtem_lista_de_sinais():
+    sinais = SignalsModel(bars).get_sinais()
     result = [(sinal) for sinal in sinais]
-    assert result[:3] == ["rompimento", "doji", "doji"]
-
-
-def test_obtem_lista_de_sinais_de_duas_barras():
-    sinais = SignalsModel(bars).get_sinais_de_duas_barras()
-    result = [(sinal) for sinal in sinais]
-    assert result[:5] == [None, "ascendente", "descendente", "interna", "externa"]
+    assert result[:3] == [
+        ["rompimento"],
+        ["doji", "ascendente"],
+        ["doji", "descendente"],
+    ]

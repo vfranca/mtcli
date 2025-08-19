@@ -1,4 +1,4 @@
-"""Lê sinais das barras."""
+"""Lê os sinais gráficos nas barras."""
 
 from mtcli import conf
 
@@ -7,48 +7,46 @@ class SignalsModel:
     """Lê sinais das barras."""
 
     def __init__(self, bars):
-        """Construtor da classe."""
         self.bars = bars
 
-    def get_sinais_de_uma_barra(self):
-        """Retorna uma lista de sinais de 1 barra."""
+    def get_sinais(self):
+        """Retorna lista com todos os sinais por barra."""
         sinais = []
+        entradas = []
 
-        for bar in self.bars:
+        for i, bar in enumerate(self.bars):
+            sinais_barra = []
+
+            # Sinais de 1 barra
             if self.is_rompimento(bar):
-                sinais.append("rompimento")
+                sinais_barra.append("rompimento")
             if self.is_doji(bar):
-                sinais.append("doji")
+                sinais_barra.append("doji")
+
+            # Sinais de 2 barras
+            entradas.append(bar)
+            if len(entradas) == 2:
+                sequencia = self.get_sequencia(entradas)
+                if sequencia:
+                    sinais_barra.append(sequencia)
+                gap = self.get_gap(entradas)
+                if gap:
+                    sinais_barra.append(gap)
+                entradas.pop(0)
+
+            sinais.append(sinais_barra or None)
 
         return sinais
 
     def is_rompimento(self, bar):
-        """Verifica se é barra de rompimento."""
-        return True if bar.body > 50 else False
+        return bar.body > 50
 
     def is_doji(self, bar):
-        """Verifica se é barra doji."""
-        return True if bar.body <= 10 else False
-
-    def get_sinais_de_duas_barras(self):
-        """Retorna uma lista de sinais de 2 barras."""
-        entradas = []
-        sinais = []
-        sinal = None
-        for bar in self.bars:
-            entradas.append(bar)
-            if len(entradas) == 2:
-                sinal = self.get_sequencia(entradas)
-                entradas.pop(0)
-            sinais.append(sinal) if sinal else sinais.append(None)
-
-        return sinais
+        return bar.body <= 10
 
     def get_sequencia(self, bars):
-        h1 = bars[0].high
-        h2 = bars[1].high
-        l1 = bars[0].low
-        l2 = bars[1].low
+        h1, h2 = bars[0].high, bars[1].high
+        l1, l2 = bars[0].low, bars[1].low
         if h2 > h1 and l2 > l1:
             return "ascendente"
         elif h2 < h1 and l2 < l1:
@@ -57,8 +55,12 @@ class SignalsModel:
             return "interna"
         elif h2 > h1 and l2 < l1:
             return "externa"
-        else:
-            return None
+        return None
 
-    def get_gap(self, entradas):
-        return "gap"
+    def get_gap(self, bars):
+        bar1, bar2 = bars
+        if bar2.body > 0 and bar2.low > bar1.high:
+            return "gap de alta"
+        elif bar2.body < 0 and bar2.high < bar1.low:
+            return "gap de baixa"
+        return None
