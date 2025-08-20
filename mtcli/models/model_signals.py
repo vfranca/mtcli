@@ -30,9 +30,12 @@ class SignalsModel:
                 continuacao = self.continuacao(inputs)
                 if continuacao:
                     lista_sinais.append(continuacao)
-                gap = self.gap(inputs)
-                if gap:
-                    lista_sinais.append(gap)
+                gap_barra = self.gap_barra(inputs)
+                if gap_barra:
+                    lista_sinais.append(gap_barra)
+                gap_rompimento = self.gap_rompimento(inputs)
+                if gap_rompimento:
+                    lista_sinais.append(gap_rompimento)
                 inputs.pop(0)
 
             sinais.append(lista_sinais or None)
@@ -61,7 +64,7 @@ class SignalsModel:
             return "externa"
         return None
 
-    def gap(self, bars):
+    def gap_barra(self, bars):
         """Lê gap de barra (gap de alta/gap de baixa)."""
         bar1, bar2 = bars
         if bar2.body > 0 and bar2.low > bar1.high:
@@ -69,3 +72,14 @@ class SignalsModel:
         elif bar2.body < 0 and bar2.high < bar1.low:
             return "gap de baixa"
         return None
+
+    def gap_rompimento(self, bars):
+        """Retorna gap de rompimento (gap de alta/gap de baixa)."""
+        h1, l1 = bars[0].high, bars[0].low
+        c2, t2 = bars[1].close, bars[1].trend.lower()
+        if t2 == "verde" and c2 > h1:
+            return "gap de alta"
+        elif t2 == "vermelho" and c2 < l1:
+            return "gap de baixa"
+        else:
+            return None
