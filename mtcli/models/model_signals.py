@@ -10,41 +10,45 @@ class SignalsModel:
         self.bars = bars
 
     def get_sinais(self):
-        """Retorna lista com todos os sinais por barra."""
+        """Retorna lista com sinais gráficos."""
         sinais = []
-        entradas = []
+        inputs = []
 
-        for i, bar in enumerate(self.bars):
-            sinais_barra = []
+        for bar in self.bars:
+            lista_sinais = []
 
             # Sinais de 1 barra
-            if self.is_rompimento(bar):
-                sinais_barra.append("rompimento")
-            if self.is_doji(bar):
-                sinais_barra.append("doji")
+            tipo = self.tipo(bar)
+            if tipo:
+                lista_sinais.append(tipo)
+            else:
+                lista_sinais.append(None)
 
             # Sinais de 2 barras
-            entradas.append(bar)
-            if len(entradas) == 2:
-                sequencia = self.get_sequencia(entradas)
-                if sequencia:
-                    sinais_barra.append(sequencia)
-                gap = self.get_gap(entradas)
+            inputs.append(bar)
+            if len(inputs) == 2:
+                continuacao = self.continuacao(inputs)
+                if continuacao:
+                    lista_sinais.append(continuacao)
+                gap = self.gap(inputs)
                 if gap:
-                    sinais_barra.append(gap)
-                entradas.pop(0)
+                    lista_sinais.append(gap)
+                inputs.pop(0)
 
-            sinais.append(sinais_barra or None)
+            sinais.append(lista_sinais or None)
 
         return sinais
 
-    def is_rompimento(self, bar):
-        return bar.body > 50
+    def tipo(self, bar):
+        """Retorna o tipo da barra (rompimento/doji)."""
+        if bar.body > 50:
+            return "rompimento"
+        elif bar.body <= 10:
+            return "doji"
+        else:
+            return None
 
-    def is_doji(self, bar):
-        return bar.body <= 10
-
-    def get_sequencia(self, bars):
+    def continuacao(self, bars):
         h1, h2 = bars[0].high, bars[1].high
         l1, l2 = bars[0].low, bars[1].low
         if h2 > h1 and l2 > l1:
@@ -57,7 +61,8 @@ class SignalsModel:
             return "externa"
         return None
 
-    def get_gap(self, bars):
+    def gap(self, bars):
+        """Lê gap de barra (gap de alta/gap de baixa)."""
         bar1, bar2 = bars
         if bar2.body > 0 and bar2.low > bar1.high:
             return "gap de alta"
