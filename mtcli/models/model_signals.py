@@ -21,8 +21,6 @@ class SignalsModel:
             tipo = self.tipo(bar)
             if tipo:
                 lista_sinais.append(tipo)
-            else:
-                lista_sinais.append(None)
 
             # Sinais de 2 barras
             inputs.append(bar)
@@ -38,7 +36,7 @@ class SignalsModel:
                     lista_sinais.append(gap_rompimento)
                 inputs.pop(0)
 
-            sinais.append(lista_sinais or None)
+            sinais.append(lista_sinais or "")
 
         return sinais
 
