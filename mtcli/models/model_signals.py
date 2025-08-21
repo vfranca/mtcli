@@ -6,8 +6,9 @@ from mtcli import conf
 class SignalsModel:
     """Lê sinais das barras."""
 
-    def __init__(self, bars):
+    def __init__(self, bars, volume="tick"):
         self.bars = bars
+        self.volume = volume
 
     def get_sinais(self):
         """Retorna lista com sinais gráficos."""
@@ -18,25 +19,23 @@ class SignalsModel:
             lista_sinais = []
 
             # Sinais de 1 barra
-            tipo = self.tipo(bar)
-            if tipo:
-                lista_sinais.append(tipo)
+            lista_sinais.append(self.tipo(bar) or "")
 
             # Sinais de 2 barras
             inputs.append(bar)
             if len(inputs) == 2:
-                continuacao = self.continuacao(inputs)
-                if continuacao:
-                    lista_sinais.append(continuacao)
-                gap_barra = self.gap_barra(inputs)
-                if gap_barra:
-                    lista_sinais.append(gap_barra)
-                gap_rompimento = self.gap_rompimento(inputs)
-                if gap_rompimento:
-                    lista_sinais.append(gap_rompimento)
+                lista_sinais.append(self.continuacao(inputs) or "")
+                lista_sinais.append(self.gap_rompimento(inputs) or "")
+                lista_sinais.append(self.gap_barra(inputs) or "")
+                lista_sinais.append(self.volume_relativo(inputs) or "")
                 inputs.pop(0)
+            else:
+                lista_sinais.append("")
+                lista_sinais.append("")
+                lista_sinais.append("")
+                lista_sinais.append("")
 
-            sinais.append(lista_sinais or "")
+            sinais.append(lista_sinais)
 
         return sinais
 
@@ -79,5 +78,25 @@ class SignalsModel:
             return "gap de alta"
         elif t2 == "vermelho" and c2 < l1:
             return "gap de baixa"
+        else:
+            return None
+
+    def volume_relativo(self, bars):
+        """Retorna o volume relativo (ascendente/descendente."""
+        v1, v2 = (
+            (
+                bars[0].volume,
+                bars[1].volume,
+            )
+            if self.volume == "tick"
+            else (
+                bars[0].volume_real,
+                bars[1].volume_real,
+            )
+        )
+        if v2 > v1:
+            return "volume ascendente"
+        elif v2 < v1:
+            return "volume descendente"
         else:
             return None
