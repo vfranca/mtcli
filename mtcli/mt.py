@@ -2,7 +2,6 @@
 
 import click
 
-from mtcli import __version__
 from mtcli.bars import bars
 from mtcli.conf import conf
 
@@ -13,13 +12,11 @@ except ImportError:
     from importlib_metadata import entry_points  # Para Python < 3.8
 
 
-@click.group(invoke_without_command=True)
-@click.option("--version", "-v", is_flag=True, help="Exibe a versao do mtcli.")
-def mt(version):
+@click.group()
+@click.version_option(package_name="mtcli")
+def mt():
     """Exibe o grafico do MetaTrader 5 em texto."""
-    if version:
-        click.echo("mtcli %s" % __version__)
-        return
+    pass
 
 
 mt.add_command(bars, name="bars")
