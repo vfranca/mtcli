@@ -1,6 +1,6 @@
 [project]
 name = "mtcli"
-version = "1.18.0"
+version = "1.18.1"
 description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
 authors = [
     {name = "Valmir França",email = "vfranca3@gmail.com"}
@@ -10,7 +10,7 @@ readme = "docs/README.md"
 documentation = "https://vfranca.github.io/mtcli/"
 repository = "https://github.com/vfranca/mtcli"
 keywords = ["MetaTrader 5", "trading", "CLI"]
-requires-python = ">=3.11,<3.13"
+requires-python = ">=3.11,<4"
 dependencies = [
     "click (>=8.2.0,<9.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
