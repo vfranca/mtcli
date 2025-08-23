@@ -43,3 +43,7 @@ mt = "mtcli.mt:mt"
 [project.optional-dependencies]
 build = ["pyinstaller"]
 
+[tool.poetry.plugins."mtcli.plugins"]
+media_movel = "mtcli.plugins.media_movel:mm"
+range_medio = "mtcli.plugins.range_medio:rm"
+volume_medio = "mtcli.plugins.volume_medio:vm"
