@@ -3,7 +3,6 @@
 import click
 
 from mtcli import conf
-from mtcli.logger import logger
 from mtcli.models import model_bars, model_rates
 from mtcli.views import (
     view_close,
@@ -17,6 +16,9 @@ from mtcli.views import (
     view_vars,
     view_volumes,
 )
+from mtcli.logger import setup_logger
+
+logger = setup_logger("mtcli")  # Cria o logger
 
 
 @click.command()

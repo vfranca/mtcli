@@ -4,11 +4,13 @@ from datetime import datetime
 
 import click
 
-from mtcli.logger import logger
+from mtcli.logger import setup_logger
 from mtcli.models.model_rates import RatesModel
 
 from . import conf
 from .models.model_media_movel import MediaMovelModel
+
+logger = setup_logger()
 
 
 @click.command()

@@ -4,9 +4,11 @@ import csv
 import os
 
 from mtcli import conf
-from mtcli.logger import logger
+from mtcli.logger import setup_logger
 
 from .base import DataSourceBase
+
+logger = setup_logger()
 
 
 class CsvDataSource(DataSourceBase):

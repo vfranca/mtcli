@@ -4,9 +4,11 @@ from datetime import datetime
 
 import MetaTrader5 as mt5
 
-from mtcli.logger import logger
+from mtcli.logger import setup_logger
 
 from .base import DataSourceBase
+
+logger = setup_logger()
 
 
 class MT5DataSource(DataSourceBase):
