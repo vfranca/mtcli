@@ -1180,5 +1180,5 @@ build = ["pyinstaller"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.11,<3.13"
-content-hash = "56a884ec62862a0874c0808f57f708cb07b26bee5c9a04354ec577aaa4621a7d"
+python-versions = ">=3.11,<3.14.0"
+content-hash = "c97cb5e8df7dd47a65fa051ad8acaeef346495bfc97d36670a1803c5fa98b058"
