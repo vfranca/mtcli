@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-VERSION = '1.18.2'
+VERSION = '1.18.3'
 included_files = []
 a = Analysis(
     ['mtcli\\mt.py'],
