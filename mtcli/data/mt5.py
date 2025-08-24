@@ -5,6 +5,7 @@ from datetime import datetime
 import MetaTrader5 as mt5
 
 from mtcli.logger import setup_logger
+from mtcli.conecta import conectar, shutdown
 
 from .base import DataSourceBase
 
@@ -48,7 +49,7 @@ class MT5DataSource(DataSourceBase):
             logger.error(f"Timeframe inválido: {period}.")
             raise ValueError(f"Timeframe '{period}' inválido.")
 
-        conecta()
+        conectar()
 
         # Verifica corretoras B3 e aplica tratamento a symbol
         corretoras_b3 = [
