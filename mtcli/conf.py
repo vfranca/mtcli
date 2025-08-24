@@ -5,6 +5,8 @@ import os
 import click
 import dotenv
 import MetaTrader5 as mt5
+from mtcli.conecta import conectar, shutdown
+
 
 fconf = "mtcli.ini"
 dotenv.load_dotenv(fconf)
@@ -64,15 +66,13 @@ def get_data_source():
 
 
 if not csv_path:
-    if not mt5.initialize():
-        raise RuntimeError(f"Erro ao inicializar o MT5: {mt5.last_error()}")
-
+    conectar()
     terminal_info = mt5.terminal_info()
     if terminal_info is None:
         raise RuntimeError("Não foi possível obter as informações do terminal.")
 
     csv_path = terminal_info.data_path + "/MQL5/Files"
-    mt5.shutdown()
+    shutdown()
 
 csv_path = csv_path.replace("\\", "/")
 csv_path += "/"

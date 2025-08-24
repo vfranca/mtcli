@@ -48,13 +48,7 @@ class MT5DataSource(DataSourceBase):
             logger.error(f"Timeframe inválido: {period}.")
             raise ValueError(f"Timeframe '{period}' inválido.")
 
-        if not mt5.initialize():
-            err = mt5.last_error()
-            logger.error(f"Erro ao conectar ao MetaTrader 5: {err}.")
-            raise ConnectionError(
-                f"Erro ao conectar ao MetaTrader 5: {mt5.last_error()}"
-            )
-        logger.info("Conectado ao MetaTrader 5 con sucesso.")
+        conecta()
 
         # Verifica corretoras B3 e aplica tratamento a symbol
         corretoras_b3 = [
@@ -77,7 +71,7 @@ class MT5DataSource(DataSourceBase):
         )
 
         rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, 500)
-        mt5.shutdown()
+        shutdown()
 
         if rates is None:
             logger.warning("Nenum dado retornado da API MT5.")
