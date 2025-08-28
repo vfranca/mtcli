@@ -1,5 +1,5 @@
 @echo off
-set version=1.19.1
+set version=1.19.2
 set dist=mtcli
 
 if /i "%1" == "build" (
@@ -22,7 +22,7 @@ set distpath=dist\pyinstaller\mtcli-%version%\
 set fzip=mtcli-%version%.zip
 pyinstaller --distpath dist/pyinstaller -y mt.spec
 copy %buildpath%%mtcli% %distpath%%mtcli%
-copy %buildpath%%ma_txt% %distpath%%ma_txt%
+rem copy %buildpath%%ma_txt% %distpath%%ma_txt%
 copy docs\%readme% %distpath%%readme%
 copy %license% %distpath%%license%
 cd %distpath%
@@ -30,7 +30,7 @@ call zip -r %fzip% *.*
 move %fzip% ..\%fzip%
 cd ..\..\..
 rd /s /q %distpath%
-poetry build
+rem poetry build
 goto :eof
 
 :publish
@@ -40,5 +40,5 @@ set mtcliws="C:\Users\Administrador\cli\mtcli-ws\mtcli-ws\BIN"
 copy %distpath%\%dist%-%version%.zip %mtcliws%\%dist%.zip
 copy %distpath%\%dist%-%version%.zip %drive%\%dist%.zip
 copy %distpath%\%dist%-%version%.zip %drive%\%dist%-%version%.zip
-poetry publish
+rem poetry publish
 goto :eof

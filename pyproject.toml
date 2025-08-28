@@ -1,16 +1,15 @@
 [project]
 name = "mtcli"
-version = "1.19.1"
+version = "1.19.2"
 description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
 authors = [
     {name = "Valmir França da Silva",email = "vfranca3@gmail.com"}
 ]
 license = "GPL-3.0"
 readme = "docs/README.md"
-documentation = "https://vfranca.github.io/mtcli/"
-repository = "https://github.com/vfranca/mtcli"
 keywords = ["MetaTrader 5", "trading", "CLI"]
 requires-python = ">=3.11,<3.14.0"
+packages = [{include = "mtcli"}]
 dependencies = [
     "click (>=8.2.0,<9.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
@@ -18,9 +17,22 @@ dependencies = [
     "numpy (>=2.2.5,<3.0.0)",
 ]
 
-[tool.poetry]
-packages = [{include = "mtcli"}]
+[project.urls]
+homepage = "https://github.com/vfranca/mtcli"
+repository = "https://github.com/vfranca/mtcli"
+documentation = "https://vfranca.github.io/mtcli/"
+issues = "https://github.com/vfranca/mtcli/issues"
 
+[project.scripts]
+mt = "mtcli.mt:mt"
+
+[project.entry-points."mtcli.plugins"]
+media_movel = "mtcli.plugins.media_movel:mm"
+range_medio = "mtcli.plugins.range_medio:rm"
+volume_medio = "mtcli.plugins.volume_medio:vm"
+
+[project.optional-dependencies]
+build = ["pyinstaller"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
@@ -37,13 +49,4 @@ mkdocs-material = "^9.6.16"
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[project.scripts]
-mt = "mtcli.mt:mt"
 
-[project.optional-dependencies]
-build = ["pyinstaller"]
-
-[tool.poetry.plugins."mtcli.plugins"]
-media_movel = "mtcli.plugins.media_movel:mm"
-range_medio = "mtcli.plugins.range_medio:rm"
-volume_medio = "mtcli.plugins.volume_medio:vm"
