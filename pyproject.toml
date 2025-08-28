@@ -18,9 +18,9 @@ dependencies = [
 ]
 
 [project.urls]
-homepage = "https://github.com/vfranca/mtcli"
+homepage = "https://pypi.org/project/mtcli"
 repository = "https://github.com/vfranca/mtcli"
-documentation = "https://vfranca.github.io/mtcli/"
+documentation = "https://vfranca.github.io/mtcli"
 issues = "https://github.com/vfranca/mtcli/issues"
 
 [project.scripts]
