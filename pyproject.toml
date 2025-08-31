@@ -49,4 +49,19 @@ mkdocs-material = "^9.6.16"
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-
+[tool.pytest.ini_options]
+addopts = "--cov=mtcli --cov-report=html -ra -q"
+env = [
+    "DIGITOS=2",
+    "LATERAL=DOJI",
+    "ALTA=VERDE",
+    "BAIXA=VERMELHO",
+    "ROMPIMENTO_ALTA=C",
+    "ROMPIMENTO_BAIXA=V",
+    "SOMBRA_SUPERIOR=TOP",
+    "SOMBRA_INFERIOR=BOTTOM",
+    "PONTO_MEDIO=M",
+    "PERCENTUAL_DOJI=10",
+    "PERCENTUAL_ROMPIMENTO=50",
+    "MT5_PASTA=C:/Users/Administrador/cli/mtcli/tests/fixtures/Files"
+]
