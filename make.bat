@@ -1,14 +1,18 @@
 @echo off
-set version=1.19.2
+set version=1.19.4
 set dist=mtcli
 
 if /i "%1" == "build" (
-goto :build
+	echo Executando o build %version%...
+	goto :build
 )
+
 if /i "%1" == "publish" (
-goto :publish
+	echo Publicando %version%...
+	goto :publish
 ) else (
-echo escolha build ou publish
+	echo Comando invalido
+	echo Uso: make [build] [publish]
 goto :eof
 )
 
@@ -20,7 +24,7 @@ set license=LICENSE
 set buildpath=build\
 set distpath=dist\pyinstaller\mtcli-%version%\
 set fzip=mtcli-%version%.zip
-pyinstaller --distpath dist/pyinstaller -y mt.spec
+poetry run pyinstaller --distpath dist/pyinstaller -y mt.spec
 copy %buildpath%%mtcli% %distpath%%mtcli%
 rem copy %buildpath%%ma_txt% %distpath%%ma_txt%
 copy docs\%readme% %distpath%%readme%
@@ -30,7 +34,6 @@ call zip -r %fzip% *.*
 move %fzip% ..\%fzip%
 cd ..\..\..
 rd /s /q %distpath%
-rem poetry build
 goto :eof
 
 :publish
@@ -40,5 +43,4 @@ set mtcliws="C:\Users\Administrador\cli\mtcli-ws\mtcli-ws\BIN"
 copy %distpath%\%dist%-%version%.zip %mtcliws%\%dist%.zip
 copy %distpath%\%dist%-%version%.zip %drive%\%dist%.zip
 copy %distpath%\%dist%-%version%.zip %drive%\%dist%-%version%.zip
-rem poetry publish
 goto :eof
