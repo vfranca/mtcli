@@ -8,7 +8,7 @@ authors = [
 license = "GPL-3.0"
 readme = "docs/README.md"
 keywords = ["MetaTrader 5", "trading", "CLI"]
-requires-python = ">=3.11,<3.14.0"
+requires-python = ">=3.10,<3.14.0"
 packages = [{include = "mtcli"}]
 dependencies = [
     "click (>=8.2.0,<9.0.0)",
