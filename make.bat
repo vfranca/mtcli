@@ -1,20 +1,40 @@
 @echo off
 set version=1.19.4
 set dist=mtcli
+set cmd=%1
 
-if /i "%1" == "build" (
+if /i "%cmd%" == "test" (
+	echo Executando testes
+	goto :test
+)
+
+if /i "%cmd%" == "format" (
+	echo Formatando o codigo com black...
+	goto :format
+)
+
+if /i "%cmd%" == "build" (
 	echo Executando o build %version%...
 	goto :build
 )
 
-if /i "%1" == "publish" (
+if /i "%cmd%" == "publish" (
 	echo Publicando %version%...
 	goto :publish
-) else (
-	echo Comando invalido
-	echo Uso: make [build] [publish]
-goto :eof
 )
+
+echo Comando invalido: %cmd%
+echo Uso: make [test] [format] [build] [publish]
+goto :eof
+
+:test
+	poetry run mt conf --dados csv
+poetry run pytest -v
+goto :EOF
+
+:format
+poetry run black mtcli tests
+goto :EOF
 
 :build
 set mtcli=Mtcli.ex5
