@@ -400,24 +400,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#via-pypi-python" class="md-nav__link">
-    <span class="md-ellipsis">
-      Via PyPI (Python)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#versao-executavel-portable" class="md-nav__link">
-    <span class="md-ellipsis">
-      Versão Executável (Portable)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#ajuda" class="md-nav__link">
     <span class="md-ellipsis">
       Ajuda
@@ -727,33 +709,21 @@
 
 <h1 id="mtcli">mtcli<a class="headerlink" href="#mtcli" title="Permanent link">&para;</a></h1>
 <p>Aplicativo CLI acessível para leitura de gráficos do MetaTrader 5 em formato de texto.  </p>
-<p>Desenvolvido por uma pessoa com deficiência visual, o <code>mtcli</code> foca em acessibilidade e autonomia, permitindo a leitura de cotações e indicadores diretamente no terminal, com formatação compatível com leitores de tela como o NVDA.  </p>
+<p>Desenvolvido por um deficiente visual, o <code>mtcli</code> foca em acessibilidade e autonomia, permitindo a leitura de cotações e indicadores diretamente no terminal, com formatação compatível com leitores de tela como o NVDA.  </p>
 <hr />
 <h2 id="pre-requisitos">Pré-requisitos<a class="headerlink" href="#pre-requisitos" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Plataforma MetaTrader 5 instalada.</li>
+<li>Plataforma MetaTrader 5.</li>
 <li>Python disponível no prompt de comando.</li>
 <li>Leitor de tela NVDA (não testado com outros).</li>
 </ul>
 <hr />
 <h2 id="instalacao">Instalação<a class="headerlink" href="#instalacao" title="Permanent link">&para;</a></h2>
-<h3 id="via-pypi-python">Via PyPI (Python)<a class="headerlink" href="#via-pypi-python" title="Permanent link">&para;</a></h3>
-<p>Se tiver o Python instalado:</p>
 <div class="highlight"><pre><span></span><code>pip install mtcli
 </code></pre></div>
 <p>Para atualizar:</p>
 <div class="highlight"><pre><span></span><code>pip install --upgrade mtcli
 </code></pre></div>
-<hr />
-<h3 id="versao-executavel-portable">Versão Executável (Portable)<a class="headerlink" href="#versao-executavel-portable" title="Permanent link">&para;</a></h3>
-<p><a href="https://bit.ly/mtcli">Download do executável</a>
-Após extrair a pasta:</p>
-<div class="highlight"><pre><span></span><code>cd mtcli
-mt --version
-</code></pre></div>
-<p>Saída esperada:</p>
-<p>mtcli 1.14.1</p>
-<p>Observação: A pasta contém o indicador Mtcli.ex5, que exporta cotações em CSV. Ele deve ser anexado ao gráfico no MetaTrader 5.</p>
 <hr />
 <h3 id="ajuda">Ajuda<a class="headerlink" href="#ajuda" title="Permanent link">&para;</a></h3>
 <p>Ajuda geral:</p>
@@ -775,7 +745,7 @@ mt --version
 <tbody>
 <tr>
 <td><a href="bars/">mt bars</a></td>
-<td>Exibe gráfico de barras em texto</td>
+<td>Exibe o gráfico do MetaTrader 5 em texto</td>
 <td>mt bars IBOV</td>
 </tr>
 <tr>
