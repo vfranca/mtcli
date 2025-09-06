@@ -9,7 +9,6 @@ license = "GPL-3.0"
 readme = "docs/README.md"
 keywords = ["MetaTrader 5", "trading", "CLI"]
 requires-python = ">=3.10,<3.14.0"
-packages = [{include = "mtcli"}]
 dependencies = [
     "click (>=8.2.0,<9.0.0)",
     "python-dotenv (>=1.1.0,<2.0.0)",
@@ -43,11 +42,14 @@ pydocstyle = "^6.3.0"
 isort = "^6.0.1"
 pyinstaller = "^6.14.1"
 pymdown-extensions = "^10.16.1"
-mkdocs-material = "^9.6.16"
+
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.6.1"
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
 addopts = "--cov=mtcli --cov-report=html -ra -q"

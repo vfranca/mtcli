@@ -6,7 +6,7 @@ repo_name: vfranca/mtcli
 site_url: https://vfranca.github.io/mtcli/
 
 theme:
-  name: material
+  name: readthedocs
   features:
     - navigation.tabs
     - navigation.sections
