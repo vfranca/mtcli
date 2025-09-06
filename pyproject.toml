@@ -6,20 +6,19 @@ authors = [
     {name = "Valmir França da Silva",email = "vfranca3@gmail.com"}
 ]
 license = "GPL-3.0"
-readme = "docs/README.md"
+readme = "README.md"
 keywords = ["MetaTrader 5", "trading", "CLI"]
 requires-python = ">=3.10,<3.14.0"
 dependencies = [
-    "click (>=8.2.0,<9.0.0)",
-    "python-dotenv (>=1.1.0,<2.0.0)",
-    "metatrader5 (>=5.0.4993,<6.0.0)",
-    "numpy (>=2.2.5,<3.0.0)",
+    "click (>=8.2.1,<9.0.0)",
+    "metatrader5 (>=5.0.5260,<6.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)"
 ]
 
 [project.urls]
 homepage = "https://pypi.org/project/mtcli"
 repository = "https://github.com/vfranca/mtcli"
-documentation = "https://vfranca.github.io/mtcli"
+documentation = "https://mtcli.readthedocs.io/pt-br/latest"
 issues = "https://github.com/vfranca/mtcli/issues"
 
 [project.scripts]
@@ -32,20 +31,6 @@ volume_medio = "mtcli.plugins.volume_medio:vm"
 
 [project.optional-dependencies]
 build = ["pyinstaller"]
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.5"
-black = "^25.1.0"
-pytest-cov = "^6.1.1"
-pytest-env = "^1.1.5"
-pydocstyle = "^6.3.0"
-isort = "^6.0.1"
-pyinstaller = "^6.14.1"
-pymdown-extensions = "^10.16.1"
-
-
-[tool.poetry.group.docs.dependencies]
-mkdocs = "^1.6.1"
 
 [build-system]
 requires = ["setuptools>=42"]
@@ -67,3 +52,16 @@ env = [
     "PERCENTUAL_ROMPIMENTO=50",
     "MT5_PASTA=C:/Users/Administrador/cli/mtcli/tests/fixtures/Files"
 ]
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = "^1.6.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.2"
+pytest-env = "^1.1.5"
+pytest-cov = "^6.3.0"
+black = "^25.1.0"
+isort = "^6.0.1"
+pydocstyle = "^6.3.0"
+

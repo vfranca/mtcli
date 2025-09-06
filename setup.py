@@ -4,7 +4,7 @@ setup(
     name="mtcli",
     version="1.19.4",
     description="Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas",
-    long_description=open("docs/README.md", encoding="utf-8").read(),
+    long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     author="Valmir França da Silva",
     author_email="vfranca3@gmail.com",
