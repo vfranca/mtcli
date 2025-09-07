@@ -1,34 +1,16 @@
-Como Usar
-
-
-
+# Como Usar
+  
 Execute o comando principal:
-
-
-
-bash
-
+  
+```bash
 mt
-
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 Isso listará os plugins disponíveis.
-
+  
 Exemplo:
-
-bash
-mt media_movel --ativo WIN$ --periodo 14
-
-
+  
+```bash
+mt mm  WIN$N --period D1 --periodos 14
+```
+O comando acima exibe a média móvel simples do WIN$N dos últimos 14 períodos do diário
