@@ -1,41 +1,78 @@
-Subcomando conf
+\# `Subcomando conf`
+
+&nbsp; 
 
 O subcomando conf gerencia as configurações do mtcli, como preferências de ativo, período padrão e layout.
 
-Sintaxe
+&nbsp; 
 
-bash
-mt conf [OPERAÇÃO] [OPÇÕES]
+\## Sintaxe
 
+&nbsp; 
 
-Operações disponíveis
+```bash
+mt conf \[OPERAÇÃO] \[OPÇÕES]
 
-- set: Define ou altera uma configuração
-- get: Exibe o valor atual de uma configuração
-- list: Lista todas as configurações atuais
-- reset: Restaura os valores padrão
+```
 
-Exemplos
+&nbsp; 
+
+\### Operações disponíveis
+
+&nbsp; 
+
+* set: Define ou altera uma configuração
+* get: Exibe o valor atual de uma configuração
+* list: Lista todas as configurações atuais
+* reset: Restaura os valores padrão
+
+&nbsp; 
+
+\## Exemplos
+
+&nbsp; 
 
 Definir ativo padrão
 
-bash
+&nbsp; 
+
+```bash
 mt conf set ativo WIN$
 
+```
+
+&nbsp; 
 
 Ver ativo configurado
 
-bash
+&nbsp; 
+
+```bash
 mt conf get ativo
 
+```
+
+&nbsp; 
 
 Listar tudo
 
-bash
+&nbsp; 
+
+```bash
 mt conf list
 
+```
+
+&nbsp; 
 
 Restaurar padrão
 
-bash
+&nbsp; 
+
+```bash
 mt conf reset
+
+```
+
+
+

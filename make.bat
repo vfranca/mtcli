@@ -4,22 +4,18 @@ set dist=mtcli
 set cmd=%1
 
 if /i "%cmd%" == "test" (
-	echo Executando testes
 	goto :test
 )
 
 if /i "%cmd%" == "format" (
-	echo Formatando o codigo com black...
 	goto :format
 )
 
 if /i "%cmd%" == "build" (
-	echo Executando o build %version%...
 	goto :build
 )
 
 if /i "%cmd%" == "publish" (
-	echo Publicando %version%...
 	goto :publish
 )
 
@@ -28,15 +24,18 @@ echo Uso: make [test] [format] [build] [publish]
 goto :eof
 
 :test
+echo Executando testes...
 	poetry run mt conf --dados csv
-poetry run pytest -v
+poetry run pytest
 goto :EOF
 
 :format
+echo Formatando o codigo com black...
 poetry run black mtcli tests
 goto :EOF
 
 :build
+echo Executando build com pyinstaller...
 set mtcli=Mtcli.ex5
 set ma_txt=MA_TXT.ex5
 set readme=readme.md
@@ -57,6 +56,7 @@ rd /s /q %distpath%
 goto :eof
 
 :publish
+echo Publicando o portável no google drive...
 set distpath="C:\Users\Administrador\cli\mtcli\dist\pyinstaller"
 set drive="G:\Meu Drive"
 set mtcliws="C:\Users\Administrador\cli\mtcli-ws\mtcli-ws\BIN"
