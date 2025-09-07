@@ -60,7 +60,7 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     logger.info(
         f"Iniciando exibição do gráfico MT5: {symbol} view {view} no {period} data {date} numerador {numerator} data {show_date} volume {volume}."
     )
-    rates = model_rates.RatesModel(symbol, period).lista
+    rates = model_rates.RatesModel(symbol, period, count).lista
     bars = model_bars.BarsModel(rates, date).lista
     views = []
     if view == "m" or view == "ch":  # minimo

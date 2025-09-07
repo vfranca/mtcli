@@ -15,7 +15,7 @@ logger = setup_logger()
 class MT5DataSource(DataSourceBase):
     """Fonte de dados via API do MetaTrader 5."""
 
-    def get_data(self, symbol, period):
+    def get_data(self, symbol, period, count = 100):
         """Retorna uma lista de lista de cotações do MetaTrader."""
         period = period.upper()
         logger.info(
@@ -71,7 +71,7 @@ class MT5DataSource(DataSourceBase):
             f"Finalizada verificação da corretora para tratar symbol: {symbol}."
         )
 
-        rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, 99999)
+        rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, count)
         shutdown()
 
         if rates is None:
