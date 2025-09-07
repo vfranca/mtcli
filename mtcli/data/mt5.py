@@ -71,7 +71,7 @@ class MT5DataSource(DataSourceBase):
             f"Finalizada verificação da corretora para tratar symbol: {symbol}."
         )
 
-        rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, 500)
+        rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, 99999)
         shutdown()
 
         if rates is None:

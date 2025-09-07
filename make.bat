@@ -1,5 +1,5 @@
 @echo off
-set version=1.19.4
+set version=1.20.0
 set dist=mtcli
 set cmd=%1
 
