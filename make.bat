@@ -1,5 +1,5 @@
 @echo off
-set version=1.20.0
+set version=2.0.0
 set dist=mtcli
 set cmd=%1
 
@@ -25,7 +25,6 @@ goto :eof
 
 :test
 echo Executando testes...
-	poetry run mt conf --set dados csv
 poetry run pytest
 goto :EOF
 

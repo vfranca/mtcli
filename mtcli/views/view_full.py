@@ -40,7 +40,7 @@ class FullView:
             elif sombra == conf.sombra_inferior:
                 sombra = f"{sombra}{bar.bottom}"
 
-            gap_str = f"{conf.gap}{gap:.{conf.digitos}f}" if gap else ""
+            gap_str = f"g{gap:.{conf.digitos}f}" if gap else ""
             corpo = abs(bar.body)
 
             prefixo = f"{n} " if self.numerator else ""
@@ -56,7 +56,7 @@ class FullView:
                 f"{bar.high:.{conf.digitos}f} "
                 f"{bar.low:.{conf.digitos}f} "
                 f"{bar.close:.{conf.digitos}f}"
-                f"{conf.ponto_medio}{bar.medium_point:.{conf.digitos}f} "
+                f"m{bar.medium_point:.{conf.digitos}f} "
                 f"R{bar.range:.{conf.digitos}f}{sufixo}"
             )
             views.append(linha.upper())

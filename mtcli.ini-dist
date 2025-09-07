@@ -1,18 +1,18 @@
-DIGITOS='2'
-LATERAL='DOJI'
-ALTA='VERDE'
-BAIXA='VERMELHO'
-ROMPIMENTO_ALTA='C'
-ROMPIMENTO_BAIXA='V'
-PERCENTUAL_ROMPIMENTO='50'
-PERCENTUAL_DOJI='10'
-UP_BAR='ASC'
-DOWN_BAR='DESC'
-INSIDE_BAR='IB'
-OUTSIDE_BAR='OB'
-SOMBRA_SUPERIOR='TOP'
-SOMBRA_INFERIOR='BOTTOM'
-GAP='G'
-PONTO_MEDIO='M'
-DADOS='MT5'
-MT5_PASTA='C:\Users\Administrador\cli\mtcli\tests\fixtures\Files'
+[DEFAULT]
+digitos = 2
+lateral = doji
+alta = verde
+baixa = vermelho
+rompimento_alta = c
+rompimento_baixa = v
+percentual_rompimento = 50
+percentual_doji = 10
+up_bar = asc
+down_bar = desc
+inside_bar = ib
+outside_bar = ob
+sombra_superior = top
+sombra_inferior = bottom
+dados = csv
+mt5_pasta = C:\Users\Administrador\cli\mtcli\tests\fixtures\Files
+

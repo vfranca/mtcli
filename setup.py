@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="mtcli",
-    version="2.0.0",
+    version="2.1.0",
     description="Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
@@ -13,10 +13,8 @@ setup(
     python_requires=">=3.10,<3.14.0",
     packages=find_packages(),
     install_requires=[
-        "click>=8.2.0,<9.0.0",
-        "python-dotenv>=1.1.0,<2.0.0",
-        "metatrader5>=5.0.4993,<6.0.0",
-        "numpy>=2.2.5,<3.0.0",
+        "click (>=8.2.1,<9.0.0)",
+        "metatrader5 (>=5.0.5260,<6.0.0)",
     ],
     extras_require={
         "build": ["pyinstaller"]
