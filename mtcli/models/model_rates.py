@@ -8,7 +8,7 @@ from mtcli import conf
 class RatesModel:
     """Classe do model para obtenção das cotações."""
 
-    def __init__(self, symbol, period, count = 100, start=None, end=None, limit=None):
+    def __init__(self, symbol, period, count=100, start=None, end=None, limit=None):
         """Construtor da classe model rates."""
         self.symbol = symbol
         self.period = period

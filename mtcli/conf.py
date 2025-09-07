@@ -1,7 +1,7 @@
 """Gerencia configurações registradas no mtcli.ini."""
 
 import os
-
+import configparser
 import click
 import dotenv
 import MetaTrader5 as mt5
@@ -102,97 +102,55 @@ timeframes = [
 ]
 
 
+CONFIG_PATH = os.path.abspath("mtcli.ini")
+
+
+def carregar_config():
+    config = configparser.ConfigParser()
+    if os.path.exists(CONFIG_PATH):
+        config.read(CONFIG_PATH)
+    else:
+        config["DEFAULT"] = {}
+    return config
+
+
+def salvar_config(config):
+    with open(CONFIG_PATH, "w") as f:
+        config.write(f)
+
+
 @click.command()
-@click.option("--digitos", "-d", help="Digitos da moeda, default 2.")
-@click.option("--lateral", "-l", help="Nome da barra doji, default DOJI.")
-@click.option("--alta", "-a", help="Nome da barra de alta, default VERDE.")
-@click.option("--baixa", "-b", help="Nome da barra de baixa, default VERMELHO.")
-@click.option(
-    "--rompimento-alta", "-ra", help="Barra de rompimento de alta, default C."
-)
-@click.option(
-    "--rompimento-baixa", "-rb", help="Barra de rompimento de baixa, default V."
-)
-@click.option("--sombra_superior", "-ss", help="Sombra superior, default TOP.")
-@click.option("--sombra_inferior", "-si", help="Sombra inferior, default BOTTOM.")
-@click.option("--ponto_medio", "-pm", help="Ponto medio da barra, default M.")
-@click.option(
-    "--percentual-doji", "-pd", help="Percentual do corpo da barra doji, default 10."
-)
-@click.option(
-    "--percentual-rompimento",
-    "-pr",
-    help="Percentual do corpo da barra de rompimento, default 50.",
-)
-@click.option("--dados", "-da", help="Fonte dos dados.")
-@click.option("--mt5-pasta", "-mp", help="Caminho da pasta do MetaTrader 5.")
-def conf(**kwargs):
-    """Gerencia configuracoes registradas no mtcli.ini."""
-    res = False
-    # dígitos da moeda
-    if kwargs["digitos"]:
-        res = dotenv.set_key(fconf, "DIGITOS", kwargs["digitos"])
-    # nome da barra lateral
-    if kwargs["lateral"]:
-        res = dotenv.set_key(fconf, "LATERAL", kwargs["lateral"].upper())
-    # nome da barra de alta
-    if kwargs["alta"]:
-        res = dotenv.set_key(fconf, "ALTA", kwargs["alta"].upper())
-    # nome da barra de baixa
-    if kwargs["baixa"]:
-        res = dotenv.set_key(fconf, "BAIXA", kwargs["baixa"].upper())
-    # abreviatura da barra de rompimento de alta
-    if kwargs["rompimento_alta"]:
-        res = dotenv.set_key(
-            fconf, "ROMPIMENTO_ALTA", kwargs["rompimento_alta"].upper()
-        )
-    # abreviatura da barra de rompimento de baixa
-    if kwargs["rompimento_baixa"]:
-        res = dotenv.set_key(
-            fconf, "ROMPIMENTO_BAIXA", kwargs["rompimento_baixa"].upper()
-        )
-    # sombra superior
-    if kwargs["sombra_superior"]:
-        res = dotenv.set_key(
-            fconf, "SOMBRA_SUPERIOR", kwargs["sombra_superior"].upper()
-        )
-    # sombra inferior
-    if kwargs["sombra_inferior"]:
-        res = dotenv.set_key(
-            fconf, "SOMBRA_INFERIOR", kwargs["sombra_inferior"].upper()
-        )
-    # ponto médio
-    if kwargs["ponto_medio"]:
-        res = dotenv.set_key(fconf, "PONTO_MEDIO", kwargs["ponto_medio"].upper())
-    # percentual do corpo da barra doji
-    if kwargs["percentual_doji"]:
-        res = dotenv.set_key(fconf, "PERCENTUAL_DOJI", kwargs["percentual_doji"])
-    # percentual do corpo da barra de rompimento
-    if kwargs["percentual_rompimento"]:
-        res = dotenv.set_key(
-            fconf, "PERCENTUAL_ROMPIMENTO", kwargs["percentual_rompimento"]
-        )
-    # fonte dos dados
-    if kwargs["dados"]:
-        res = dotenv.set_key(fconf, "DADOS", kwargs["dados"].upper())
-    # caminho da pasta do MT5
-    if kwargs["mt5_pasta"]:
-        res = dotenv.set_key(fconf, "MT5_PASTA", kwargs["mt5_pasta"])
-    if res:
-        click.echo("%s=%s" % (res[1], res[2]))
-        return
+@click.option("--list", "list_", is_flag=True, help="Lista todas as configurações.")
+@click.option("--set", "set_", nargs=2, help="Define o valor de uma configuração.")
+@click.option("--get", help="Exibe o valor de uma configuração.")
+@click.option("--reset", is_flag=True, help="Redefine as configurações padrão.")
+def conf(list_, set_, get, reset):
+    """Gerencia configurações registradas no mtcli.ini."""
+    config = carregar_config()
 
-    # Verifica se o arquivo de configuração existe
-    if not os.path.exists(fconf):
-        # cria o arquivo e define as variáveis padrão
-        for chave, valor in default.items():
-            dotenv.set_key(fconf, chave.upper(), os.getenv(chave.upper(), valor))
+    if list_:
+        for key in config["DEFAULT"]:
+            click.echo(f"{key} = {config['DEFAULT'][key]}")
 
-    # Lista as variáveis disponíveis
-    vars = dotenv.dotenv_values(fconf)
-    for var in vars.items():
-        click.echo("%s=%s" % (var[0], var[1]))
+    elif set_:
+        chave, valor = set_
+        config["DEFAULT"][chave] = valor
+        salvar_config(config)
+        click.echo(f"Configuração '{chave}' definida como '{valor}'.")
 
+    elif get:
+        valor = config["DEFAULT"].get(get)
+        if valor is not None:
+            click.echo(f"{get} = {valor}")
+        else:
+            click.echo(f"Configuração '{get}' não encontrada.")
 
-if __name__ == "__main__":
-    conf()
+    elif reset:
+        config["DEFAULT"].clear()
+        salvar_config(config)
+        click.echo("Configurações redefinidas.")
+
+    else:
+        click.echo(
+            "Nenhuma opção fornecida. Use --help para ver as opções disponíveis."
+        )

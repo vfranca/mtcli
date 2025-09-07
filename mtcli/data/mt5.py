@@ -15,7 +15,7 @@ logger = setup_logger()
 class MT5DataSource(DataSourceBase):
     """Fonte de dados via API do MetaTrader 5."""
 
-    def get_data(self, symbol, period, count = 100):
+    def get_data(self, symbol, period, count=100):
         """Retorna uma lista de lista de cotações do MetaTrader."""
         period = period.upper()
         logger.info(

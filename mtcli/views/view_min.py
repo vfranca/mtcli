@@ -37,6 +37,6 @@ class MinView:
                 f"{bar.low:.{conf.digitos}f}"
                 f"{sufixo}"
             )
-            views.append(linha)
+            views.append(linha.upper())
 
         return views

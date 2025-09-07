@@ -25,7 +25,7 @@ goto :eof
 
 :test
 echo Executando testes...
-	poetry run mt conf --dados csv
+	poetry run mt conf --set dados csv
 poetry run pytest
 goto :EOF
 

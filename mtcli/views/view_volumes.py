@@ -47,6 +47,6 @@ class VolumesView:
                 sufixo = f" {data}"
 
             linha = f"{prefixo}{sequencia} {sequencia_volume} {volume}" f"{sufixo}"
-            views.append(linha)
+            views.append(linha.upper())
 
         return views

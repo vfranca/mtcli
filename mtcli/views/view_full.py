@@ -59,6 +59,6 @@ class FullView:
                 f"{conf.ponto_medio}{bar.medium_point:.{conf.digitos}f} "
                 f"R{bar.range:.{conf.digitos}f}{sufixo}"
             )
-            views.append(linha)
+            views.append(linha.upper())
 
         return views

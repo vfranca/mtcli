@@ -48,6 +48,6 @@ class VarsView:
                 f"{var_fech:.2f}%"
                 f"{sufixo}"
             )
-            views.append(linha)
+            views.append(linha.upper())
 
         return views

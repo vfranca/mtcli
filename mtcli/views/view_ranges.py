@@ -38,6 +38,6 @@ class RangesView:
                 f"{bar.trend} {bar.range:.{conf.digitos}f}"
                 f"{sufixo}"
             )
-            views.append(linha)
+            views.append(linha.upper())
 
         return views
