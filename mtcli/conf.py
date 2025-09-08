@@ -2,6 +2,7 @@
 
 import os
 import configparser
+from configparser import MissingSectionHeaderError
 import click
 import MetaTrader5 as mt5
 from mtcli.conecta import conectar, shutdown
@@ -13,7 +14,13 @@ CONFIG_PATH = os.path.abspath("mtcli.ini")
 def carregar_config():
     config = configparser.ConfigParser()
     if os.path.exists(CONFIG_PATH):
-        config.read(CONFIG_PATH)
+        try:
+            config.read(CONFIG_PATH)
+        except MissingSectionHeaderError as e:
+            print(f"Erro: o arquivo '{CONFIG_PATH}' não contém seções válidas.")
+            print("Certifique-se de que ele está no formato correto:")
+            print("[padrao]\nCHAVE=valor")
+            exit(1)
     else:
         config["DEFAULT"] = {}
     return config
