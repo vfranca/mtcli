@@ -28,12 +28,9 @@ media_movel = "mtcli.plugins.media_movel:mm"
 range_medio = "mtcli.plugins.range_medio:rm"
 volume_medio = "mtcli.plugins.volume_medio:vm"
 
-[project.optional-dependencies]
-build = ["pyinstaller"]
-
 [build-system]
-requires = ["setuptools>=42"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "--cov=mtcli --cov-report=html -ra -q"
