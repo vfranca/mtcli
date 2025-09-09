@@ -33,7 +33,16 @@ def salvar_config(config):
 
 config = carregar_config()
 section = "DEFAULT"
+symbol = os.getenv("SYMBOL", config[section].get("symbol", fallback="WIN$N"))
 digitos = int(os.getenv("DIGITOS", config[section].getint("digitos", fallback=2)))
+period = os.getenv("PERIOD", config[section].get("period", fallback="D1"))
+periodos = count = int(
+    os.getenv("COUNT", config[section].getint("count", fallback=999))
+)
+view = os.getenv("VIEW", config[section].get("view", fallback="ch"))
+volume = os.getenv("VOLUME", config[section].get("volume", fallback="tick"))
+date = os.getenv("DATE", config[section].get("date", fallback=""))
+
 lateral = os.getenv("LATERAL", config[section].get("lateral", fallback="doji"))
 alta = os.getenv("ALTA", config[section].get("alta", fallback="verde"))
 baixa = os.getenv("BAIXA", config[section].get("baixa", fallback="vermelho"))

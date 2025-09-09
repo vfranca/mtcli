@@ -30,27 +30,33 @@ logger = setup_logger("mtcli")  # Cria o logger
         ["ch", "m", "f", "r", "v", "va", "oh", "o", "h", "l", "c"],
         case_sensitive=False,
     ),
-    default="m",
-    help="Forma de exibicao, default m. Opcoes: ch ou m - minima; f - completa; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
+    default=conf.view,
+    help="Formato de exibicao, default m. Opcoes: ch ou m - minima; f - completa; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
 )
 @click.option(
     "--period",
     "-p",
     type=click.Choice(conf.timeframes, case_sensitive=False),
-    default="d1",
+    default=conf.period,
     help="Tempo grafico, default D1.",
 )
 @click.option(
-    "--count", "-c", type=int, default=20, help="Quantidade de barras, default 20."
+    "--count",
+    "-c",
+    type=int,
+    default=conf.periodos,
+    help="Quantidade de barras, default 20.",
 )
-@click.option("--date", "-d", help="Data para intraday, formato AAAA-MM-DD.")
+@click.option(
+    "--date", "-d", default=conf.date, help="Data para intraday, formato AAAA-MM-DD."
+)
 @click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao das barras.")
 @click.option("--show-date", "-sd", is_flag=True, help="Ativa a datacao das barras.")
 @click.option(
     "--volume",
     "-vo",
     type=click.Choice(["tick", "real"], case_sensitive=False),
-    default="tick",
+    default=conf.volume,
     help="Tipo de volume, default tick.",
 )
 def bars(symbol, view, period, count, date, numerator, show_date, volume):
