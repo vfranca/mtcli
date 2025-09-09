@@ -33,7 +33,7 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--cov=mtcli --cov-report=html -ra -q"
+addopts = "--cov=mtcli --cov-report=term -ra -q"
 env = [
     "DIGITOS=2",
     "LATERAL=DOJI",
