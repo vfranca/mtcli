@@ -1,37 +1,14 @@
 """Gerencia configurações registradas no mtcli.ini."""
 
 import os
-import configparser
-from configparser import MissingSectionHeaderError
 import click
 import MetaTrader5 as mt5
 from mtcli.conecta import conectar, shutdown
+from mtcli.models.model_conf import ConfModel
 
 
-CONFIG_PATH = os.path.abspath("mtcli.ini")
+config = ConfModel("mtcli.ini").carregar()
 
-
-def carregar_config():
-    config = configparser.ConfigParser()
-    if os.path.exists(CONFIG_PATH):
-        try:
-            config.read(CONFIG_PATH)
-        except MissingSectionHeaderError as e:
-            print(f"Erro: o arquivo '{CONFIG_PATH}' não contém seções válidas.")
-            print("Certifique-se de que ele está no formato correto:")
-            print("[padrao]\nCHAVE=valor")
-            exit(1)
-    else:
-        config["DEFAULT"] = {}
-    return config
-
-
-def salvar_config(config):
-    with open(CONFIG_PATH, "w") as f:
-        config.write(f)
-
-
-config = carregar_config()
 section = "DEFAULT"
 symbol = os.getenv("SYMBOL", config[section].get("symbol", fallback="WIN$N"))
 digitos = int(os.getenv("DIGITOS", config[section].getint("digitos", fallback=2)))
@@ -134,7 +111,8 @@ timeframes = [
 @click.option("--reset", is_flag=True, help="Redefine as configurações padrão.")
 def conf(list_, set_, get, reset):
     """Gerencia configurações registradas no mtcli.ini."""
-    config = carregar_config()
+    conf = ConfModel("mtcli.ini")
+    config = conf.carregar()
 
     if list_:
         for key in config["DEFAULT"]:
@@ -143,7 +121,7 @@ def conf(list_, set_, get, reset):
     elif set_:
         chave, valor = set_
         config["DEFAULT"][chave] = valor
-        salvar_config(config)
+        conf.salvar(config)
         click.echo(f"Configuração '{chave}' definida como '{valor}'.")
 
     elif get:
@@ -155,10 +133,14 @@ def conf(list_, set_, get, reset):
 
     elif reset:
         config["DEFAULT"].clear()
-        salvar_config(config)
+        conf.salvar(config)
         click.echo("Configurações redefinidas.")
 
     else:
         click.echo(
             "Nenhuma opção fornecida. Use --help para ver as opções disponíveis."
         )
+
+
+if __name__ == "__main__":
+    conf()
