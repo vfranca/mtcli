@@ -1,15 +1,29 @@
 site_name: mtcli
 repo_url: https://github.com/vfranca/mtcli
-site_url: https://vfranca.github.io/mtcli
+repo_name: vfranca/mtcli
+
 theme:
-  name: readthedocs
+  name: mkdocs
+  locale: pt_BR
+
 nav:
   - Início: index.md
   - Instalação: install.md
   - Como Usar: usage.md
   - Subcomandos:
-      - Gráficos (bars): bars.md
-      - Configurações (conf): conf.md
+    - bars (gráficos): bars.md
+    - conf (configurações): conf.md
   - Plugins: plugins.md
   - Contribuindo: contribute.md
 
+markdown_extensions:
+  - toc:
+      permalink: true
+  - tables
+  - admonition
+  - codehilite
+  - footnotes
+  - def_list
+  - pymdownx.extra
+  - pymdownx.highlight
+  - pymdownx.superfences
