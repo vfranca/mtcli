@@ -1,340 +1,212 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Valmir França" /><link rel="canonical" href="https://vfranca.github.io/mtcli/bars/" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Barras (bars) - mtcli</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
-    
-      <script>
-        // Current page data
-        var mkdocs_page_name = "Barras (bars)";
-        var mkdocs_page_input_path = "bars.md";
-        var mkdocs_page_url = "/mtcli/bars/";
-      </script>
-    
-    <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
-    <![endif]-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-      <script>hljs.highlightAll();</script> 
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> mtcli
-        </a><div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
-
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Início</a>
-                </li>
-              </ul>
-              <p class="caption"><span class="caption-text">Comandos</span></p>
-              <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Barras (bars)</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#sintaxe">Sintaxe</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#opcoes">Opções</a>
-    </li>
-        </ul>
-    </li>
-    </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../mm/">Média móvel (mm)</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../rm/">Média de range (rm)</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../vm/">Volume médio (vm)</a>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../conf/">Configurações (conf)</a>
-                  </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../abreviaturas/">Abreviaturas</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../instalacao/">Instalação</a>
-                </li>
-              </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../agradecimentos/">Agradecimentos</a>
-                </li>
-              </ul>
-      </div>
-    </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">mtcli</a>
+<html lang="pt_BR" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-      </nav>
-      <div class="wy-nav-content">
-        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-          <li class="breadcrumb-item">Comandos</li>
-      <li class="breadcrumb-item active">Barras (bars)</li>
-    <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/vfranca/mtcli/edit/master/docs/bars.md">Edit on vfranca/mtcli</a>
-    </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div class="section" itemprop="articleBody">
-              
-                <h1 id="bars">bars<a class="headerlink" href="#bars" title="Permanent link">&para;</a></h1>
-<p>Exibe o gráfico da plataforma de negociação.  </p>
-<hr />
-<h2 id="sintaxe">Sintaxe<a class="headerlink" href="#sintaxe" title="Permanent link">&para;</a></h2>
-<pre class="highlight"><code class="language-cmd">mt bars [--period &lt;período&gt;] [--count &lt;quantidade_de_períodos&gt;] [--view &lt;formato_de_exibição&gt;] [--date &lt;data_intraday&gt;] [--volume &lt;tipo_de_volume&gt;] [--show date] [--numerator] &lt;símbolo&gt;</code></pre>
-<hr />
-<h3 id="opcoes">Opções<a class="headerlink" href="#opcoes" title="Permanent link">&para;</a></h3>
-<p><code>--period</code>, <code>-p</code></p>
-<p>Define o timeframe (período gráfico).</p>
-<table>
-<thead>
-<tr>
-<th>Valor</th>
-<th>Descrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>M1</td>
-<td>1 minuto</td>
-</tr>
-<tr>
-<td>M2</td>
-<td>2 minutos</td>
-</tr>
-<tr>
-<td>M3</td>
-<td>3 minutos</td>
-</tr>
-<tr>
-<td>M4</td>
-<td>4 minutos</td>
-</tr>
-<tr>
-<td>M5</td>
-<td>5 minutos</td>
-</tr>
-<tr>
-<td>M6</td>
-<td>6 minutos</td>
-</tr>
-<tr>
-<td>M10</td>
-<td>10 minutos</td>
-</tr>
-<tr>
-<td>M12</td>
-<td>12 minutos</td>
-</tr>
-<tr>
-<td>M15</td>
-<td>15 minutos</td>
-</tr>
-<tr>
-<td>M20</td>
-<td>20 minutos</td>
-</tr>
-<tr>
-<td>M30</td>
-<td>30 minutos</td>
-</tr>
-<tr>
-<td>H1</td>
-<td>1 hora</td>
-</tr>
-<tr>
-<td>H2</td>
-<td>2 horas</td>
-</tr>
-<tr>
-<td>H3</td>
-<td>3 horas</td>
-</tr>
-<tr>
-<td>H4</td>
-<td>4 horas</td>
-</tr>
-<tr>
-<td>H6</td>
-<td>6 horas</td>
-</tr>
-<tr>
-<td>H8</td>
-<td>8 horas</td>
-</tr>
-<tr>
-<td>H12</td>
-<td>12 horas</td>
-</tr>
-<tr>
-<td>D1</td>
-<td>Diário</td>
-</tr>
-<tr>
-<td>W1</td>
-<td>Semanal</td>
-</tr>
-<tr>
-<td>MN1</td>
-<td>Mensal</td>
-</tr>
-</tbody>
-</table>
-<p><em>Exemplo:</em></p>
-<pre class="highlight"><code class="language-cmd">mt bars --period D1 WINQ25</code></pre>
-<hr />
-<p><code>--count</code>, <code>-c</code></p>
-<p>Define a quantidade de períodos a serem exibidos.  </p>
-<p><em>Exemplo:</em></p>
-<pre class="highlight"><code class="language-cmd">mt bars --count 100WINQ25</code></pre>
-<hr />
-<p><code>--view</code>, <code>-v</code></p>
-<p>Define o formato de exibição dos períodos.</p>
-<table>
-<thead>
-<tr>
-<th>Valor</th>
-<th>Descrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>f</td>
-<td>Completo</td>
-</tr>
-<tr>
-<td>m ou ch      (padrão)</td>
-<td>Mínimo</td>
-</tr>
-<tr>
-<td>r</td>
-<td>Ranges</td>
-</tr>
-<tr>
-<td>v</td>
-<td>volumes</td>
-</tr>
-<tr>
-<td>c</td>
-<td>Fechamentos</td>
-</tr>
-<tr>
-<td>l</td>
-<td>Mínimas</td>
-</tr>
-<tr>
-<td>h</td>
-<td>Máximas</td>
-</tr>
-<tr>
-<td>a</td>
-<td>aberturas</td>
-</tr>
-<tr>
-<td>va</td>
-<td>Variação percentual</td>
-</tr>
-<tr>
-<td>oh</td>
-<td>OHLC</td>
-</tr>
-</tbody>
-</table>
-<p><em>Exemplo:</em></p>
-<pre class="highlight"><code class="language-cmd">mt bars --view m WINQ25</code></pre>
-<hr />
-<p><code>--date</code>, <code>-d</code></p>
-<p>Filtra os períodos de um pregão específico  (no formato AAAA-MM-DD).</p>
-<p><em>Exemplo:</em></p>
-<pre class="highlight"><code class="language-cmd">mt bars --date 2025-08-01 WINQ25</code></pre>
-<hr />
-<p><code>--show-date</code>, <code>-sd</code></p>
-<p>Ativa a exibição da data/hora.  </p>
-<p><em>Exemplo:</em></p>
-<pre class="highlight"><code class="language-cmd">mt bars --show-date WINQ25</code></pre>
-<hr />
-<p><code>--volume</code>, <code>-vo</code></p>
-<p>Define o tipo de volume exibido na view volume (tick ou real).  </p>
-<p><em>Exemplo:</em></p>
-<pre class="highlight"><code class="language-cmd">mt bars --view v --volume real WINQ25</code></pre>
-<hr />
-<p><code>--numerator</code>, <code>-n</code></p>
-<p>Ativa a numeração dos períodos.    </p>
-<p><em>Exemplo:</em></p>
-<pre class="highlight"><code class="language-cmd">mt bars --numerator WINQ25</code></pre>
-              
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>bars (gráficos) - mtcli</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">mtcli</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Início</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../install/" class="nav-link">Instalação</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../usage/" class="nav-link">Como Usar</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Subcomandos</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">bars (gráficos)</a>
+</li>
+                                    
+<li>
+    <a href="../conf/" class="dropdown-item">conf (configurações)</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../plugins/" class="nav-link">Plugins</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../contribute/" class="nav-link">Contribuindo</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../usage/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../conf/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/vfranca/mtcli/edit/master/docs/bars.md" class="nav-link">Edit on vfranca/mtcli
+                                    </a>
+                            </li>
+                    </ul>
+                </div>
             </div>
-          </div><footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href=".." class="btn btn-neutral float-left" title="Início"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../mm/" class="btn btn-neutral float-right" title="Média móvel (mm)">Next <span class="icon icon-circle-arrow-right"></span></a>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
     </div>
 
-  <hr/>
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#subcomandobars" class="nav-link">Subcomandobars`</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#sintaxe" class="nav-link">Sintaxe</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
 
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-  </div>
-
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
-          
+<h1 id="subcomandobars"><code>Subcomando</code>bars`<a class="headerlink" href="#subcomandobars" title="Permanent link">&para;</a></h1>
+<p>O subcomando <code>bars</code> é o coração do <code>mtcli</code>, responsável por exibir gráficos do MetaTrader 5 no terminal, de forma acessível.</p>
+<h2 id="sintaxe">Sintaxe<a class="headerlink" href="#sintaxe" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>mt<span class="w"> </span>bars<span class="w"> </span><span class="o">[</span>OPÇÕES<span class="o">]</span>
+</code></pre></div>
+<p>Opções principais</p>
+<ul>
+<li><code>symbol</code> ou <code>-a</code>: Símbolo do ativo (ex: WIN, PETR4)</li>
+<li><code>--period</code> ou <code>-p</code>: Período dos candles (ex: M1, H1, D1)</li>
+<li><code>--view</code> ou <code>-v</code>: Formato de saída (<code>f</code> full, <code>m</code> min, <code>r</code> range, etc.)</li>
+<li><code>--inicio</code> e <code>--fim</code>: Intervalo de datas</li>
+<li><code>--count</code> ou <code>-c</code>: Número de candles</li>
+</ul>
+<p>Exemplo</p>
+<p><div class="highlight"><pre><span></span><code>mt<span class="w"> </span>bars<span class="w"> </span>WIN<span class="nv">$N</span><span class="w"> </span>--period<span class="w"> </span>M5<span class="w"> </span>--count<span class="w"> </span><span class="m">10</span><span class="w"> </span>--view<span class="w"> </span>f
+</code></pre></div>
+Exibe os 10 últimos candles do mini-índice em formato completo.</p></div>
+            </div>
         </div>
-      </div>
 
-    </section>
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
 
-  </div>
-
-  <div class="rst-versions" role="note" aria-label="Versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-        <span>
-          <a href="https://github.com/vfranca/mtcli" class="fa fa-code-fork" style="color: #fcfcfc"> vfranca/mtcli</a>
-        </span>
-    
-    
-      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../mm/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = "..";</script>
-    <script src="../js/theme_extra.js"></script>
-    <script src="../js/theme.js"></script>
-      <script src="../search/main.js"></script>
-    <script>
-        jQuery(function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        });
-    </script>
 
-</body>
+    </body>
 </html>
