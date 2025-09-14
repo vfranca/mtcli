@@ -1,6 +1,6 @@
 [project]
 name = "mtcli"
-version = "2.2.0"
+version = "2.3.0"
 description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
 authors = [
     {name = "Valmir França da Silva",email = "vfranca3@gmail.com"}
@@ -33,7 +33,6 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--cov=mtcli --cov-report=term -ra -q"
 env = [
     "DIGITOS=2",
     "LATERAL=DOJI",

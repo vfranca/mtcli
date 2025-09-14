@@ -4,6 +4,7 @@ import click
 
 from mtcli.bars import bars
 from mtcli.conf import conf
+from mtcli.logs import logs
 
 
 try:
@@ -21,6 +22,7 @@ def mt():
 
 mt.add_command(bars, name="bars")
 mt.add_command(conf, name="conf")
+mt.add_command(logs, name="logs")
 
 
 def load_plugins():
