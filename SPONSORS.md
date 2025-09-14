@@ -20,3 +20,28 @@ Financial support is an optional way to encourage and sustain the maintenance an
 ---
 
 ❤ [Clique aqui para apoiar no GitHub Sponsors](https://github.com/sponsors/vfranca)
+
+
+
+
+
+
+
+
+Aqui está um trecho reduzido para adicionar ao final do seu README.md, com link para o SPONSORS.md:
+
+---
+
+markdown
+💖 Apoie este projeto
+
+Se você gosta do `mtcli` e quer incentivar seu desenvolvimento contínuo, considere apoiar via [GitHub Sponsors](https://github.com/sponsors/vfranca).
+
+> As contribuições são voluntárias e ajudam a manter o projeto ativo.  
+> Para mais detalhes, veja [como funciona o apoio](SPONSORS.md).
+
+
+---
+
+Esse bloco informa de forma simples e clara sobre o apoio, sem comprometer o foco técnico do README.md. Deseja também que isso apareça na página inicial do seu site gerado com Pelican?
+
