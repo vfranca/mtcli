@@ -1,54 +1,26 @@
-\# Contribuindo
-
-&nbsp; 
-
-Contribuições são bem-vindas!
-
-&nbsp; 
-
-1\. Clone o repositório
-
-&nbsp; 
-
-```bash
-
+# Contribuindo
+  
+  Contribuições são bem-vindas!
+  
+  1. Clone o repositório
+  
+  ```bash
 git clone https://github.com/vfranca/mtcli.git
-
 cd mtcli
-
 ```
-
-&nbsp; 
-
-2\. Instale dependências de desenvolvimento
-
-&nbsp; 
-
-```bash
-
-pip install -e ".\[dev]"
-
+  
+  2. Instale dependências de desenvolvimento
+  
+  ```bash
+pip install -e ".[dev]"
 ```
-
-&nbsp; 
-
-3\. Testes
-
-&nbsp; 
-
-```bash
-
+  
+  3. Testes
+  
+  ```bash
 pytest
-
 ```
-
-&nbsp; 
-
-4\. Estilo
-
-&nbsp; 
-
-\- Use black, pydocstyle e isort
-
-
-
+  
+  4. Estilo
+  
+  - Use black, pydocstyle e isort
