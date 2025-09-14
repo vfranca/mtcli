@@ -143,4 +143,3 @@ GitHub: [@vfranca](https://github.com/vfranca)
 ## Licença
   
 Distribuído sob a licença GPL-3.0. Veja `LICENSE` para mais informações.
-  
