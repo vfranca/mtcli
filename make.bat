@@ -25,7 +25,7 @@ goto :eof
 
 :test
 echo Executando testes...
-poetry run pytest --cov=mtcli --cov-report=term
+poetry run pytest --cov=mtcli --cov-report=html
 goto :EOF
 
 :format
