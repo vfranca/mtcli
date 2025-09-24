@@ -21,7 +21,7 @@ def setup_logger(name="mtcli"):
     handler.setFormatter(formatter)
 
     logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
     if not logger.handlers:
         logger.addHandler(handler)
     logger.propagate = False
