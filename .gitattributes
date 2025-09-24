@@ -1,5 +1,31 @@
-* text=auto
-*.sh text eol=lf
+# Normaliza finais de linha para LF (Linux/macOS style)
 *.py text eol=lf
 *.md text eol=lf
-*.css text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.csv text eol=lf
+
+# Trata arquivos binários corretamente
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.ico binary
+
+# Ignora arquivos minificados e de terceiros para análise de linguagem no GitHub
+*.min.js linguist-vendored
+*.min.css linguist-vendored
+venv/* linguist-vendored
+docs/* linguist-documentation
+
+# Define arquivos lock como preferindo nossa versão em merges
+poetry.lock merge=ours
+
+# Exclui arquivos gerados ou temporários de contagem de linguagens
+build/* linguist-generated
+dist/* linguist-generated
+*.pyc linguist-generated
+_pycache_/* linguist-generated
