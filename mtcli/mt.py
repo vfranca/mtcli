@@ -32,9 +32,20 @@ def load_plugins():
         if hasattr(eps, "select")
         else eps.get("mtcli.plugins", [])
     )
+
     for ep in plugins:
-        cmd = ep.load()
-        mt.add_command(cmd)
+        plugin = ep.load()
+
+        # Caso seja uma função register(cli)
+        if callable(plugin) and not isinstance(plugin, click.Command):
+            plugin(mt)  # chama register(cli)
+        # Caso seja um comando Click diretamente
+        elif isinstance(plugin, click.Command):
+            mt.add_command(plugin)
+        else:
+            raise TypeError(
+                f"Plugin {ep.name} inválido: não é um comando nem função register."
+            )
 
 
 load_plugins()
