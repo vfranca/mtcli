@@ -5,7 +5,7 @@ import click
 from mtcli.logger import setup_logger
 
 
-@click.command("logs")
+@click.command("logs", help="Exibe ou limpa os logs de execução do mtcli.")
 @click.option("--clear", is_flag=True, help="Limpa o arquivo de log.")
 @click.option("--tail", default=0, type=int, help="Mostra apenas as últimas N linhas.")
 @click.option("--grep", default="", help="Filtra o log por uma palavra-chave.")

@@ -7,7 +7,10 @@ from mtcli.conecta import conectar, shutdown
 from mtcli.models.model_conf import ConfModel
 
 
-@click.command()
+@click.command(
+    "conf",
+    help="Gerencia as configurações salvas no arquivo mtcli.ini (adicionar, editar, listar).",
+)
 @click.option("--list", "list_", is_flag=True, help="Lista todas as configurações.")
 @click.option("--set", "set_", nargs=2, help="Define o valor de uma configuração.")
 @click.option("--get", help="Exibe o valor de uma configuração.")

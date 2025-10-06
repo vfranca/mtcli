@@ -8,7 +8,7 @@ except ImportError:
     from importlib_metadata import entry_points  # Para Python < 3.8
 
 
-@click.group()
+@click.group(context_settings={"max_content_width": 120})
 @click.version_option(package_name="mtcli")
 def mt():
     """Exibe o grafico do MetaTrader 5 em texto."""

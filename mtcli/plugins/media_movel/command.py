@@ -13,7 +13,9 @@ from .models.model_media_movel import MediaMovelModel
 logger = setup_logger()
 
 
-@click.command()
+@click.command(
+    "mm", help="Calcula a média móvel (SMA ou EMA) para o ativo e período especificado."
+)
 @click.argument("symbol")
 @click.option(
     "--period",

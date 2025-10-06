@@ -8,7 +8,9 @@ from . import conf
 from .models import model_average_range
 
 
-@click.command()
+@click.command(
+    "rm", help="Calcula o range médio de preços do ativo em um determinado período."
+)
 @click.argument("symbol")
 @click.option(
     "--period",

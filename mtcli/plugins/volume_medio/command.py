@@ -8,7 +8,10 @@ from . import conf
 from .models import model_average_volume
 
 
-@click.command()
+@click.command(
+    "vm",
+    help="Calcula o volume médio (em ticks ou financeiro) do ativo em determinado período.",
+)
 @click.argument("symbol")
 @click.option(
     "--period",

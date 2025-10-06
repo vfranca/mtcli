@@ -21,7 +21,10 @@ from mtcli.logger import setup_logger
 logger = setup_logger("mtcli")  # Cria o logger
 
 
-@click.command()
+@click.command(
+    "bars",
+    help="Mostra o gráfico de candles em texto para o ativo e período especificados.",
+)
 @click.argument("symbol")
 @click.option(
     "--view",
