@@ -1,4 +1,4 @@
-from mtcli.models import model_bar as bar
+from mtcli.models.bar_model import BarModel
 
 rate = [
     "2015.04.01 12:40:00",
@@ -10,7 +10,7 @@ rate = [
     "8158109400",
 ]
 
-bar = bar.BarModel(rate)
+bar = BarModel(rate)
 
 
 def test_retorna_a_data():

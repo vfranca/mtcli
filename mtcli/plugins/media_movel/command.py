@@ -5,7 +5,7 @@ from datetime import datetime
 import click
 
 from mtcli.logger import setup_logger
-from mtcli.models.model_rates import RatesModel
+from mtcli.models.rates_model import RatesModel
 
 from . import conf
 from .models.model_media_movel import MediaMovelModel
@@ -58,7 +58,7 @@ def mm(symbol, period, periodos, tipo, limit, inicio, fim):
         f"Iniciando cálculo da média móvel: ativo {symbol} período {period} períodos {periodos} tipo {tipo} limite {limit}"
     )
 
-    rates = RatesModel(symbol, period).lista
+    rates = RatesModel(symbol, period).get_data()
     closes = [r[4] for r in rates]
     datas = [r[0] for r in rates]
 

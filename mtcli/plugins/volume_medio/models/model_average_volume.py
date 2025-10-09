@@ -1,7 +1,7 @@
 """Módulo da classe model para volume médio."""
 
 from mtcli import conf
-from mtcli.models import model_bar
+from mtcli.models.bar_model import BarModel
 
 
 class AverageVolumeModel:
@@ -12,13 +12,13 @@ class AverageVolumeModel:
         self.rates = rates
         self.count = count
         self.type = type
-        self.list = self.__list()
+        self.volumes = self.__get_volumes()
 
-    def __list(self):
+    def __get_volumes(self):
         """Lista dos volumes."""
         list = []
         for rate in self.rates:
-            bar = model_bar.BarModel(rate)
+            bar = BarModel(rate)
             if self.type == "tick":
                 list.append(bar.volume)
             if self.type == "real":
@@ -27,5 +27,5 @@ class AverageVolumeModel:
 
     def average(self):
         """Calcula o volume médio."""
-        volumes = self.list[-self.count :]
+        volumes = self.volumes[-self.count :]
         return round(sum(volumes) / len(volumes), conf.digitos)

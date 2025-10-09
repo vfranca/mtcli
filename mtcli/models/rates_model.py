@@ -17,9 +17,8 @@ class RatesModel:
         self.end = end
         self.limit = limit
         self.source = conf.get_data_source()
-        self.lista = self.__get_data()
 
-    def __get_data(self):
+    def get_data(self):
         """Obtém a lista das cotações com filtros opcionais."""
         data = self.source.get_data(self.symbol, self.period, self.count)
 

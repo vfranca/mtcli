@@ -2,7 +2,7 @@
 
 import click
 
-from mtcli.models import model_rates
+from mtcli.models.rates_model import RatesModel
 
 from . import conf
 from .models import model_average_volume
@@ -32,7 +32,7 @@ from .models import model_average_volume
 )
 def vm(symbol, period, periodos, tipo):
     """Calcula o volume médio (tick ou real) do ativo symbol."""
-    rates = model_rates.RatesModel(symbol, period).lista
+    rates = RatesModel(symbol, period).get_data()
     vm = model_average_volume.AverageVolumeModel(rates, periodos, tipo)
     vm = vm.average()
     click.echo(vm)

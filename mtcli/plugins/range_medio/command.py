@@ -2,10 +2,9 @@
 
 import click
 
-from mtcli.models import model_rates
-
+from mtcli.models.rates_model import RatesModel
 from . import conf
-from .models import model_average_range
+from .models.average_range_model import AverageRangeModel
 
 
 @click.command(
@@ -24,9 +23,8 @@ from .models import model_average_range
 )
 def rm(symbol, period, periodos):
     """Calcula o range medio do ativo symbol."""
-    rates = model_rates.RatesModel(symbol, period).lista
-    rm = model_average_range.AverageRangeModel(rates, periodos)
-    rm = rm.average()
+    rates = RatesModel(symbol, period).get_data()
+    rm = AverageRangeModel(rates, periodos).average()
     click.echo(rm)
 
 

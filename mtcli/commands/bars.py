@@ -3,7 +3,8 @@
 import click
 
 from mtcli import conf
-from mtcli.models import model_bars, model_rates
+from mtcli.models.rates_model import RatesModel
+from mtcli.models.bars_model import BarsModel
 from mtcli.views import (
     view_close,
     view_full,
@@ -91,8 +92,8 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     logger.info(
         f"Iniciando exibição do gráfico MT5: {symbol} view {view} no {period} data {date} numerador {numerator} data {show_date} volume {volume}."
     )
-    rates = model_rates.RatesModel(symbol, period, count).lista
-    bars = model_bars.BarsModel(rates, date).lista
+    rates = RatesModel(symbol, period, count).get_data()
+    bars = BarsModel(rates, date).get_bars()
     views = []
     if view in ["m", "ch", "hl"]:  # máximas e mínimas
         views = view_min.MinView(
