@@ -1,6 +1,6 @@
 """Módulo da classe model do gráfico."""
 
-from mtcli.models import model_consecutive_bars
+from mtcli.models.consecutive_bars_model import ConsecutiveBarsModel
 
 
 class ChartModel:
@@ -39,7 +39,7 @@ class ChartModel:
             lows.append(bar.low)
             volumes.append(bar.volume)
             if len(lows) == 2:
-                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
+                consecutive = ConsecutiveBarsModel(
                     bodys, opens, closes, highs, lows, volumes
                 )
                 sequencia = consecutive.sequencia()
@@ -71,7 +71,7 @@ class ChartModel:
             lows.append(bar.low)
             volumes.append(bar.volume)
             if len(lows) == 2:
-                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
+                consecutive = ConsecutiveBarsModel(
                     bodys, opens, closes, highs, lows, volumes
                 )
                 gap = consecutive.gap()
@@ -107,7 +107,7 @@ class ChartModel:
                 else volumes.append(bar.volume_real)
             )
             if len(lows) == 2:
-                consecutive = model_consecutive_bars.ConsecutiveBarsModel(
+                consecutive = ConsecutiveBarsModel(
                     bodys, opens, closes, highs, lows, volumes
                 )
                 sequencia = consecutive.volume()

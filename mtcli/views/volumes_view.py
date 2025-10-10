@@ -1,7 +1,7 @@
 """Módulo da classe da view de volumes."""
 
 from mtcli import conf
-from mtcli.models import model_chart
+from mtcli.models.chart_model import ChartModel
 
 
 class VolumesView:
@@ -24,7 +24,7 @@ class VolumesView:
         self.numerator = numerator
         self.show_date = show_date
         self.volume = volume
-        self.chart = model_chart.ChartModel(bars, len(bars), count, date)
+        self.chart = ChartModel(bars, len(bars), count, date)
         self.bars = bars[-count:]
 
     def views(self):

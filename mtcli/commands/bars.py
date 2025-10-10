@@ -5,19 +5,18 @@ import click
 from mtcli import conf
 from mtcli.models.rates_model import RatesModel
 from mtcli.models.bars_model import BarsModel
-from mtcli.views import (
-    view_close,
-    view_full,
-    view_high,
-    view_low,
-    view_min,
-    view_open,
-    view_ranges,
-    view_rates,
-    view_vars,
-    view_volumes,
-)
+from mtcli.views.full_view import FullView
+from mtcli.views.min_view import MinView
+from mtcli.views.ranges_view import RangesView
+from mtcli.views.volumes_view import VolumesView
+from mtcli.views.vars_view import VarsView
+from mtcli.views.rates_view import RatesView
+from mtcli.views.open_view import OpenView
+from mtcli.views.high_view import HighView
+from mtcli.views.low_view import LowView
+from mtcli.views.close_view import CloseView
 from mtcli.logger import setup_logger
+
 
 logger = setup_logger("mtcli")  # Cria o logger
 
@@ -96,45 +95,27 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     bars = BarsModel(rates, date).get_bars()
     views = []
     if view in ["m", "ch", "hl"]:  # máximas e mínimas
-        views = view_min.MinView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = MinView(bars, count, period, date, numerator, show_date).views()
     elif view in ["r", "range"]:  # ranges
-        views = view_ranges.RangesView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = RangesView(bars, count, period, date, numerator, show_date).views()
     elif view in ["oh", "ohlc"]:  # OHLC
-        views = view_rates.RatesView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = RatesView(bars, count, period, date, numerator, show_date).views()
     elif view in ["va", "percentual"]:  # variações percentuais
-        views = view_vars.VarsView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = VarsView(bars, count, period, date, numerator, show_date).views()
     elif view in ["o", "open"]:  # abertura
-        views = view_open.OpenView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = OpenView(bars, count, period, date, numerator, show_date).views()
     elif view in ["h", "high"]:  # máximas
-        views = view_high.HighView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = HighView(bars, count, period, date, numerator, show_date).views()
     elif view in ["l", "low"]:  # mínimas
-        views = view_low.LowView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = LowView(bars, count, period, date, numerator, show_date).views()
     elif view in ["c", "close"]:  # fechamentos
-        views = view_close.CloseView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = CloseView(bars, count, period, date, numerator, show_date).views()
     elif view in ["v", "volume"]:  # volumes
-        views = view_volumes.VolumesView(
+        views = VolumesView(
             bars, count, period, date, numerator, show_date, volume
         ).views()
     else:  # completo
-        views = view_full.FullView(
-            bars, count, period, date, numerator, show_date
-        ).views()
+        views = FullView(bars, count, period, date, numerator, show_date).views()
     if views:
         for view in views:
             click.echo(view)

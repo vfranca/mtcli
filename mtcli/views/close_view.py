@@ -1,26 +1,26 @@
-"""Módulo da classe da view de mínimas."""
+"""Módulo da classe da view dos fechamentos."""
 
 from mtcli import conf
-from mtcli.models import model_chart
+from mtcli.models.chart_model import ChartModel
 
 
-class LowView:
-    """Classe da view das mínimas."""
+class CloseView:
+    """Classe da view dos fechamentos."""
 
     def __init__(
         self, bars, count, period="d1", date="", numerator=False, show_date=False
     ):
-        """View das mínimas."""
+        """View dos fechamentos."""
         self.count = count
         self.period = period
         self.date = date
         self.numerator = numerator
         self.show_date = show_date
-        self.chart = model_chart.ChartModel(bars, len(bars), count, date)
+        self.chart = ChartModel(bars, len(bars), count, date)
         self.bars = bars[-count:]
 
     def views(self):
-        """Lista das views das mínimas."""
+        """Lista das views de fechamento."""
         views = []
         n = self.chart.get_n()
         for bar in self.bars:
@@ -31,7 +31,7 @@ class LowView:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
                 sufixo = f" {data}"
 
-            linha = f"{prefixo}" f"{bar.low:.{conf.digitos}f}" f"{sufixo}"
+            linha = f"{prefixo}" f"{bar.close:.{conf.digitos}f}" f"{sufixo}"
             views.append(linha)
 
         return views

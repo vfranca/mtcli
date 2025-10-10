@@ -1,7 +1,7 @@
 """Módulo da classe da view de variações percentuais."""
 
 from mtcli import conf
-from mtcli.models import model_chart
+from mtcli.models.chart_model import ChartModel
 
 
 class VarsView:
@@ -16,7 +16,7 @@ class VarsView:
         self.date = date
         self.numerator = numerator
         self.show_date = show_date
-        self.chart = model_chart.ChartModel(bars, len(bars), count, date)
+        self.chart = ChartModel(bars, len(bars), count, date)
         self.bars = bars[-count:]
 
     def views(self):

@@ -1,7 +1,8 @@
 """Módulo da view completa."""
 
 from mtcli import conf
-from mtcli.models import model_chart, model_unconsecutive_bar
+from mtcli.models.chart_model import ChartModel
+from mtcli.models.unconsecutive_bar_model import UnconsecutiveBarModel
 
 
 class FullView:
@@ -15,7 +16,7 @@ class FullView:
         self.date = date
         self.numerator = numerator
         self.show_date = show_date
-        self.chart = model_chart.ChartModel(bars, len(bars), count, date)
+        self.chart = ChartModel(bars, len(bars), count, date)
         self.bars = bars[-count:]
 
     def views(self):
@@ -28,7 +29,7 @@ class FullView:
             zip(self.bars, gaps, sequencias), start=1
         ):
             n += 1
-            barra = model_unconsecutive_bar.UnconsecutiveBarModel(
+            barra = UnconsecutiveBarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
             )
             rompimento = barra.get_breakout()

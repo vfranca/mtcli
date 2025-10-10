@@ -1,7 +1,7 @@
 """Módulo da classe da view dos ranges."""
 
 from mtcli import conf
-from mtcli.models import model_chart
+from mtcli.models.chart_model import ChartModel
 
 
 class RangesView:
@@ -16,7 +16,7 @@ class RangesView:
         self.date = date
         self.numerator = numerator
         self.show_date = show_date
-        self.chart = model_chart.ChartModel(bars, len(bars), count, date)
+        self.chart = ChartModel(bars, len(bars), count, date)
         self.bars = bars[-count:]
 
     def views(self):
