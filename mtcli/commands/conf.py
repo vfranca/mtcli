@@ -2,9 +2,7 @@
 
 import os
 import click
-import MetaTrader5 as mt5
-from mtcli.conecta import conectar, shutdown
-from mtcli.models.model_conf import ConfModel
+from mtcli.models.conf_model import ConfModel
 
 
 @click.command(

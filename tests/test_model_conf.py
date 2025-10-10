@@ -8,7 +8,7 @@ testes:
 import os
 import tempfile
 import pytest
-from mtcli.models.model_conf import ConfModel, ConfigFormatError
+from mtcli.models.conf_model import ConfModel, ConfigFormatError
 import configparser
 
 
