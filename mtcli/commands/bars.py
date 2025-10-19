@@ -15,10 +15,6 @@ from mtcli.views.open_view import OpenView
 from mtcli.views.high_view import HighView
 from mtcli.views.low_view import LowView
 from mtcli.views.close_view import CloseView
-from mtcli.logger import setup_logger
-
-
-logger = setup_logger("mtcli")  # Cria o logger
 
 
 @click.command(
@@ -88,9 +84,6 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     """Exibe o grafico do MetaTrader 5."""
     period = period.lower()
     view = view.lower()
-    logger.info(
-        f"Iniciando exibição do gráfico MT5: {symbol} view {view} no {period} data {date} numerador {numerator} data {show_date} volume {volume}."
-    )
     rates = RatesModel(symbol, period, count).get_data()
     bars = BarsModel(rates, date).get_bars()
     views = []
@@ -119,7 +112,6 @@ def bars(symbol, view, period, count, date, numerator, show_date, volume):
     if views:
         for view in views:
             click.echo(view)
-    logger.info("Exibição do gráfico MT5 finalizada.")
 
 
 if __name__ == "__main__":

@@ -5,11 +5,11 @@ from datetime import datetime
 import MetaTrader5 as mt5
 
 from mtcli.logger import setup_logger
-from mtcli.conecta import conectar, shutdown
+from mtcli.mt5_context import mt5_conexao
 
 from .base import DataSourceBase
 
-logger = setup_logger()
+log = setup_logger()
 
 
 class MT5DataSource(DataSourceBase):
@@ -18,8 +18,8 @@ class MT5DataSource(DataSourceBase):
     def get_data(self, symbol, period, count=100):
         """Retorna uma lista de lista de cotações do MetaTrader."""
         period = period.upper()
-        logger.info(
-            f"Iniciando coleta de dados via API MT5: {symbol} no período {period}."
+        log.info(
+            f"Iniciando coleta de dados via API MT5: {symbol} no timeframe {period}"
         )
         tf_map = {
             "M1": mt5.TIMEFRAME_M1,
@@ -46,12 +46,9 @@ class MT5DataSource(DataSourceBase):
         }
 
         if period.upper() not in tf_map:
-            logger.error(f"Timeframe inválido: {period}.")
+            log.error(f"Timeframe inválido: {period}.")
             raise ValueError(f"Timeframe '{period}' inválido.")
 
-        conectar()
-
-        # Verifica corretoras B3 e aplica tratamento a symbol
         corretoras_b3 = [
             "clear",
             "xp",
@@ -61,21 +58,22 @@ class MT5DataSource(DataSourceBase):
             "btg",
             "toro",
         ]
-        for corretora in corretoras_b3:
-            symbol = (
-                symbol.upper()
-                if corretora in mt5.account_info().company.lower()
-                else symbol
-            )
-        logger.info(
-            f"Finalizada verificação da corretora para tratar symbol: {symbol}."
-        )
 
-        rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, count)
-        shutdown()
+        with mt5_conexao():
+            for corretora in corretoras_b3:
+                symbol = (
+                    symbol.upper()
+                    if corretora in mt5.account_info().company.lower()
+                    else symbol
+                )
+            log.info(
+                f"Finalizada verificacao da corretora para tratar symbol: {symbol}."
+            )
+
+            rates = mt5.copy_rates_from_pos(symbol, tf_map[period], 0, count)
 
         if rates is None:
-            logger.warning("Nenum dado retornado da API MT5.")
+            log.warning("Nenum dado retornado da API MT5.")
             raise ValueError("Nenhum dado retornado da API MT5.")
 
         result = []
@@ -95,5 +93,5 @@ class MT5DataSource(DataSourceBase):
                 ]
             )
 
-        logger.info("Coleta de dados via API MT5 finalizada.")
+        log.info("Coleta de dados via API MT5 finalizada.")
         return result

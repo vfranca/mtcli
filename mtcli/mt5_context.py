@@ -19,7 +19,7 @@ def mt5_conexao():
     - Loga falhas e garante fechamento seguro.
     """
     try:
-        log.debug("Inicializando conexão com MetaTrader 5...")
+        log.debug("Inicializando conexao com MetaTrader 5...")
         conectar()
         yield
     except Exception as e:
@@ -28,6 +28,6 @@ def mt5_conexao():
     finally:
         try:
             shutdown()
-            log.debug("Conexão com MetaTrader 5 encerrada.")
+            log.debug("Conexao com MetaTrader 5 encerrada.")
         except Exception as e:
-            log.error(f"Erro ao encerrar conexão MT5: {e}")
+            log.error(f"Erro ao encerrar conexao MT5: {e}")

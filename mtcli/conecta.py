@@ -19,14 +19,14 @@ def conectar() -> bool:
     Levanta:
         ConnectionError: se a inicialização do MT5 falhar.
     """
-    log.debug("Tentando inicializar conexão com MetaTrader 5...")
+    log.debug("Tentando inicializar conexao com MetaTrader 5...")
 
     if not mt5.initialize():
         erro = mt5.last_error()
         log.error(f"Erro ao conectar ao MetaTrader 5: {erro}")
         raise ConnectionError(f"Falha ao conectar ao MetaTrader 5: {erro}")
 
-    log.info("Conexão com MetaTrader 5 estabelecida com sucesso.")
+    log.info("Conexao com MetaTrader 5 estabelecida com sucesso.")
     return True
 
 
@@ -36,6 +36,6 @@ def shutdown():
     """
     try:
         mt5.shutdown()
-        log.debug("Conexão com MetaTrader 5 encerrada.")
+        log.debug("Conexao com MetaTrader 5 encerrada.")
     except Exception as e:
-        log.error(f"Erro ao encerrar conexão com MetaTrader 5: {e}")
+        log.error(f"Erro ao encerrar conexao com MetaTrader 5: {e}")
