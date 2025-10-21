@@ -2,7 +2,6 @@
 
 import click
 
-from mtcli import conf
 from mtcli.models.rates_model import RatesModel
 from mtcli.models.bars_model import BarsModel
 from mtcli.views.full_view import FullView
@@ -15,6 +14,14 @@ from mtcli.views.open_view import OpenView
 from mtcli.views.high_view import HighView
 from mtcli.views.low_view import LowView
 from mtcli.views.close_view import CloseView
+from mtcli.conf import (
+    VIEW,
+    PERIOD,
+    BARS,
+    DATE,
+    VOLUME,
+    TIMEFRAMES,
+)
 
 
 @click.command(
@@ -51,34 +58,56 @@ from mtcli.views.close_view import CloseView
         ],
         case_sensitive=False,
     ),
-    default=conf.view,
-    help="Formato de exibicao, default m. Opcoes: ch ou m - minima; f - completa; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos",
+    default=VIEW,
+    show_default=True,
+    help="Formato de exibicao. Opcoes: minima ou HL - minima; f - completa; r - ranges; v - volumes; va - variações percentuais; oh - OHLC; o - aberturas; h - maximas; l - minimas; c - fechamentos.",
 )
 @click.option(
     "--period",
     "-p",
-    type=click.Choice(conf.timeframes, case_sensitive=False),
-    default=conf.period,
-    help="Tempo grafico, default D1.",
+    type=click.Choice(TIMEFRAMES, case_sensitive=False),
+    default=PERIOD,
+    show_default=True,
+    help="Timeframe das barras.",
 )
 @click.option(
     "--count",
     "-c",
     type=int,
-    default=conf.periodos,
-    help="Quantidade de barras, default 20.",
+    default=BARS,
+    show_default=True,
+    help="Numero de barras.",
 )
 @click.option(
-    "--date", "-d", default=conf.date, help="Data para intraday, formato AAAA-MM-DD."
+    "--date",
+    "-d",
+    default=DATE,
+    show_default=True,
+    help="Data para intraday, formato AAAA-MM-DD.",
 )
-@click.option("--numerator", "-n", is_flag=True, help="Ativa a numeracao das barras.")
-@click.option("--show-date", "-sd", is_flag=True, help="Ativa a datacao das barras.")
+@click.option(
+    "--numerator",
+    "-n",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Ativa a numeracao das barras.",
+)
+@click.option(
+    "--show-date",
+    "-sd",
+    is_flag=True,
+    default=False,
+    show_default=True,
+    help="Ativa a datacao das barras.",
+)
 @click.option(
     "--volume",
     "-vo",
     type=click.Choice(["tick", "real"], case_sensitive=False),
-    default=conf.volume,
-    help="Tipo de volume, default tick.",
+    default=VOLUME,
+    show_default=True,
+    help="Tipo de volume.",
 )
 def bars(symbol, view, period, count, date, numerator, show_date, volume):
     """Exibe o grafico do MetaTrader 5."""
