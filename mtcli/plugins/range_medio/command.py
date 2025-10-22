@@ -3,6 +3,7 @@
 import click
 
 from mtcli.models.rates_model import RatesModel
+
 from . import conf
 from .models.average_range_model import AverageRangeModel
 

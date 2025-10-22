@@ -1,7 +1,7 @@
 """Gerencia configurações registradas no mtcli.ini."""
 
-import os
 import click
+
 from mtcli.models.conf_model import ConfModel
 
 

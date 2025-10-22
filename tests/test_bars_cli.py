@@ -1,7 +1,6 @@
-import pytest
 from click.testing import CliRunner
-from mtcli.mt import mt
 
+from mtcli.mt import mt
 
 run = CliRunner()
 

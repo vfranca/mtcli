@@ -1,7 +1,5 @@
 """Lê os sinais gráficos nas barras."""
 
-from mtcli import conf
-
 
 class SignalsModel:
     """Lê sinais das barras."""

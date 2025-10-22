@@ -4,8 +4,9 @@ Fornece o contexto 'mt5_conexao' para uso seguro em blocos with.
 """
 
 from contextlib import contextmanager
-from mtcli.logger import setup_logger
+
 from mtcli.conecta import conectar, shutdown
+from mtcli.logger import setup_logger
 
 log = setup_logger()
 

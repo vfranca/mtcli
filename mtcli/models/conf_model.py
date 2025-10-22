@@ -1,8 +1,8 @@
 """Modelo de configurações."""
 
-import os
 import configparser
 from configparser import MissingSectionHeaderError
+import os
 
 
 class ConfigFormatError(Exception):
@@ -10,7 +10,6 @@ class ConfigFormatError(Exception):
 
 
 class ConfModel:
-
     def __init__(self, configuracoes):
         self.CONFIG_PATH = os.path.abspath(configuracoes)
 

@@ -1,6 +1,5 @@
 """Módulo da classe da view de variações percentuais."""
 
-from mtcli import conf
 from mtcli.models.chart_model import ChartModel
 
 
@@ -41,13 +40,7 @@ class VarsView:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
                 sufixo = f" {data}"
 
-            linha = (
-                f"{prefixo}"
-                f"{var_max:.2f}% "
-                f"{var_min:.2f}% "
-                f"{var_fech:.2f}%"
-                f"{sufixo}"
-            )
+            linha = f"{prefixo}{var_max:.2f}% {var_min:.2f}% {var_fech:.2f}%{sufixo}"
             views.append(linha.upper())
 
         return views

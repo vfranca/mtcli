@@ -5,11 +5,13 @@ testes:
 3. Salvamento de config
 """
 
+import configparser
 import os
 import tempfile
+
 import pytest
-from mtcli.models.conf_model import ConfModel, ConfigFormatError
-import configparser
+
+from mtcli.models.conf_model import ConfigFormatError, ConfModel
 
 
 def test_carregar_config_valido():

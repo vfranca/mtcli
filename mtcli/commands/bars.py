@@ -2,26 +2,26 @@
 
 import click
 
-from mtcli.models.rates_model import RatesModel
-from mtcli.models.bars_model import BarsModel
-from mtcli.views.full_view import FullView
-from mtcli.views.min_view import MinView
-from mtcli.views.ranges_view import RangesView
-from mtcli.views.volumes_view import VolumesView
-from mtcli.views.vars_view import VarsView
-from mtcli.views.rates_view import RatesView
-from mtcli.views.open_view import OpenView
-from mtcli.views.high_view import HighView
-from mtcli.views.low_view import LowView
-from mtcli.views.close_view import CloseView
 from mtcli.conf import (
-    VIEW,
-    PERIOD,
     BARS,
     DATE,
-    VOLUME,
+    PERIOD,
     TIMEFRAMES,
+    VIEW,
+    VOLUME,
 )
+from mtcli.models.bars_model import BarsModel
+from mtcli.models.rates_model import RatesModel
+from mtcli.views.close_view import CloseView
+from mtcli.views.full_view import FullView
+from mtcli.views.high_view import HighView
+from mtcli.views.low_view import LowView
+from mtcli.views.min_view import MinView
+from mtcli.views.open_view import OpenView
+from mtcli.views.ranges_view import RangesView
+from mtcli.views.rates_view import RatesView
+from mtcli.views.vars_view import VarsView
+from mtcli.views.volumes_view import VolumesView
 
 
 @click.command(

@@ -1,10 +1,7 @@
 """Modulo da classe model da media movel."""
 
-from .. import conf
-
 
 class MediaMovelModel:
-
     def __init__(self, closes, periodos=14):
         self.closes = [float(c) for c in closes]
         self.periodos = periodos

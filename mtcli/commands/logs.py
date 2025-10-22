@@ -1,7 +1,9 @@
 """Comando logs para exibição dos logs."""
 
 import os
+
 import click
+
 from mtcli.logger import setup_logger
 
 

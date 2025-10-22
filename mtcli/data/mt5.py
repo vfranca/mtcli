@@ -1,7 +1,5 @@
 """Módulo fonte de dados via API do MetaTrader 5."""
 
-from datetime import datetime
-
 import MetaTrader5 as mt5
 
 from mtcli.logger import setup_logger

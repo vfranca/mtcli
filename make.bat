@@ -11,6 +11,14 @@ if /i "%cmd%" == "format" (
 	goto :format
 )
 
+if /i "%cmd%" == "lint" (
+	goto :lint
+)
+
+if /i "%cmd%" == "check" (
+	goto :check
+)
+
 if /i "%cmd%" == "build" (
 	goto :build
 )
@@ -29,8 +37,18 @@ poetry run pytest --cov=mtcli --cov-report=html
 goto :EOF
 
 :format
-echo Formatando o codigo com black...
-poetry run black mtcli tests
+echo Formatando o codigo com ruff...
+poetry run ruff format .
+goto :EOF
+
+:lint
+echo Executando linter com ruff...
+poetry run ruff check --fix .
+goto :EOF
+
+:check
+echo Verificando o codigo com ruff...
+poetry run ruff check .
 goto :EOF
 
 :build

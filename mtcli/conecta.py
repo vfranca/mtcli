@@ -4,6 +4,7 @@ Usado internamente pelo contexto mt5_conexao().
 """
 
 import MetaTrader5 as mt5
+
 from mtcli.logger import setup_logger
 
 log = setup_logger()

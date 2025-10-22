@@ -58,7 +58,32 @@ pymdown-extensions = "^10.16.1"
 pytest = "^8.4.2"
 pytest-env = "^1.1.5"
 pytest-cov = "^6.3.0"
-black = "^25.1.0"
-isort = "^6.0.1"
 pydocstyle = "^6.3.0"
+ruff = "^0.14.1"
+pytest-mock = "^3.15.1"
 
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+  "E",    # Estilo
+  "F",    # Lógica
+  "B",    # Boas práticas
+  "I",    # Imports
+  "UP",   # Upgrade
+  "N",    # Naming
+]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["mtcli"]
+combine-as-imports = true
+force-sort-within-sections = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+skip-magic-trailing-comma = false
