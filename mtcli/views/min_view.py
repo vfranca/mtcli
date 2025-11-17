@@ -1,7 +1,9 @@
 """Módulo da classe da view mínima."""
 
-from mtcli import conf
+from mtcli.conf import DIGITOS
 from mtcli.models.chart_model import ChartModel
+
+from .utils import converte_nome
 
 
 class MinView:
@@ -25,6 +27,7 @@ class MinView:
 
         for i, (bar, sequencia) in enumerate(zip(self.bars, sequencias), start=1):
             n += 1
+            ft = converte_nome(sequencia)
             prefixo = f"{n} " if self.numerator else ""
             sufixo = ""
             if self.show_date:
@@ -32,10 +35,7 @@ class MinView:
                 sufixo = f" {data}"
 
             linha = (
-                f"{prefixo}{sequencia} "
-                f"{bar.high:.{conf.digitos}f} "
-                f"{bar.low:.{conf.digitos}f}"
-                f"{sufixo}"
+                f"{prefixo}{ft} {bar.high:.{DIGITOS}f} {bar.low:.{DIGITOS}f}{sufixo}"
             )
             views.append(linha.upper())
 

@@ -1,6 +1,6 @@
 """Módulo da classe model para range médio."""
 
-from mtcli import conf
+from mtcli.conf import DIGITOS
 from mtcli.models.bar_model import BarModel
 
 
@@ -26,4 +26,4 @@ class AverageRangeModel:
     def average(self):
         """Calcula o range médio."""
         ranges = self.ranges[-self.count :]
-        return round(sum(ranges) / len(ranges), conf.digitos)
+        return round(sum(ranges) / len(ranges), DIGITOS)

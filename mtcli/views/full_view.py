@@ -1,8 +1,10 @@
 """Módulo da view completa."""
 
-from mtcli import conf
+from mtcli.conf import BOTTOMTAIL, DIGITOS, TOPTAIL
 from mtcli.models.chart_model import ChartModel
 from mtcli.models.unconsecutive_bar_model import UnconsecutiveBarModel
+
+from .utils import converte_nome
 
 
 class FullView:
@@ -29,19 +31,21 @@ class FullView:
             zip(self.bars, gaps, sequencias), start=1
         ):
             n += 1
-            barra = UnconsecutiveBarModel(
+            ft_str = converte_nome(sequencia)
+            ubar = UnconsecutiveBarModel(
                 bar.body, bar.top, bar.bottom, bar.close, bar.medium_point
             )
-            rompimento = barra.get_breakout()
-            tendencia = barra.get_body()
-            sombra = barra.get_tail()
+            bo_str = converte_nome(ubar.get_breakout())
+            trend_str = converte_nome(ubar.get_body())
+            tail = ubar.get_tail()
 
-            if sombra == conf.sombra_superior:
-                sombra = f"{sombra}{bar.top}"
-            elif sombra == conf.sombra_inferior:
-                sombra = f"{sombra}{bar.bottom}"
+            tail_str = ""
+            if tail.lower() == "top tail":
+                tail_str = f"{TOPTAIL}{bar.top}"
+            elif tail.lower() == "bottom tail":
+                tail_str = f"{BOTTOMTAIL}{bar.bottom}"
 
-            gap_str = f"g{gap:.{conf.digitos}f}" if gap else ""
+            gap_str = f"g{gap:.{DIGITOS}f}" if gap else ""
             corpo = abs(bar.body)
 
             prefixo = f"{n} " if self.numerator else ""
@@ -51,14 +55,14 @@ class FullView:
                 sufixo = f" {data}"
 
             linha = (
-                f"{prefixo}{sequencia} "
-                f"{rompimento} {tendencia}{corpo} "
-                f"{gap_str} {sombra} "
-                f"{bar.high:.{conf.digitos}f} "
-                f"{bar.low:.{conf.digitos}f} "
-                f"{bar.close:.{conf.digitos}f}"
-                f"m{bar.medium_point:.{conf.digitos}f} "
-                f"R{bar.range:.{conf.digitos}f}{sufixo}"
+                f"{prefixo}{ft_str} "
+                f"{bo_str} {trend_str}{corpo} "
+                f"{gap_str} {tail_str} "
+                f"{bar.high:.{DIGITOS}f} "
+                f"{bar.low:.{DIGITOS}f} "
+                f"{bar.close:.{DIGITOS}f}"
+                f"m{bar.medium_point:.{DIGITOS}f} "
+                f"R{bar.range:.{DIGITOS}f}{sufixo}"
             )
             views.append(linha.upper())
 

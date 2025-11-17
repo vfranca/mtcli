@@ -62,4 +62,4 @@ def test_retorna_o_tamanho_do_corpo():
 
 
 def test_retorna_a_tendencia():
-    assert bar.trend == "VERDE"
+    assert bar.trend == "bull"

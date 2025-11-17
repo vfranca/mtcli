@@ -1,13 +1,13 @@
 """Módulo da classe model das leituras de barra não consecutivas."""
 
-from mtcli import conf
+from mtcli.conf import PERCENTUAL_BREAKOUT, PERCENTUAL_DOJI
 
 
 class UnconsecutiveBarModel:
     """Classe model das leituras de barra única."""
 
-    body_doji_max = conf.percentual_doji
-    body_trend_min = conf.percentual_rompimento
+    body_doji_max = PERCENTUAL_DOJI
+    body_trend_min = PERCENTUAL_BREAKOUT
 
     def __init__(self, body, top, bottom, close, retracement):
         """Model das leituras de barra única."""
@@ -20,26 +20,26 @@ class UnconsecutiveBarModel:
     def get_body(self):
         """Leitura da tendência do corpo: alta/baixa/doji."""
         if abs(self.body) <= int(self.body_doji_max):
-            return conf.lateral
+            return "doji"
         if self.body > 0:
-            return conf.alta
+            return "bull"
         if self.body < 0:
-            return conf.baixa
+            return "bear"
 
     def get_tail(self):
         """Leitura da maior sombra: superior/inferior."""
         if self.top > self.bottom:
-            return conf.sombra_superior
+            return "top tail"
         if self.bottom > self.top:
-            return conf.sombra_inferior
+            return "bottom tail"
         return ""
 
     def get_breakout(self):
         """Leitura da barra de rompimento."""
         if self.__is_bull_breakout():
-            return conf.rompimento_alta
+            return "bull breakout"
         if self.__is_bear_breakout():
-            return conf.rompimento_baixa
+            return "bear breakout"
         return ""
 
     def __is_bull_breakout(self):

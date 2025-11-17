@@ -2,7 +2,6 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 
-
 base_dir = os.getenv("APPDATA", os.path.expanduser("~"))
 LOG_DIR = os.path.join(base_dir, "mtcli", "logs")
 os.makedirs(LOG_DIR, exist_ok=True)

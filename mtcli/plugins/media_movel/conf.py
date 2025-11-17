@@ -1,4 +1,4 @@
 from mtcli.conf import *
 
-periodos = 14
-limite_linhas = 5
+PERIODOS = 14
+LIMITE_LINHAS = 5

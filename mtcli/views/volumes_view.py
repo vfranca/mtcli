@@ -2,6 +2,8 @@
 
 from mtcli.models.chart_model import ChartModel
 
+from .utils import converte_nome
+
 
 class VolumesView:
     """Classe da view de volumes."""
@@ -38,6 +40,8 @@ class VolumesView:
             self.bars, sequencias, sequencias_volume
         ):
             n += 1
+            ft_str = converte_nome(sequencia)
+            ft_vol_str = converte_nome(sequencia_volume)
             volume = bar.volume if self.volume == "tick" else bar.volume_real
             prefixo = f"{n} " if self.numerator else ""
             sufixo = ""
@@ -45,7 +49,7 @@ class VolumesView:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
                 sufixo = f" {data}"
 
-            linha = f"{prefixo}{sequencia} {sequencia_volume} {volume}{sufixo}"
+            linha = f"{prefixo}{ft_str} {ft_vol_str} {volume}{sufixo}"
             views.append(linha.upper())
 
         return views

@@ -4,14 +4,18 @@ Fornece o contexto 'mt5_conexao' para uso seguro em blocos with.
 """
 
 from contextlib import contextmanager
+
 import MetaTrader5 as mt5
+
 from mtcli.logger import setup_logger
 
 log = setup_logger()
 
 
 @contextmanager
-def mt5_conexao(login: int | None = None, password: str | None = None, server: str | None = None):
+def mt5_conexao(
+    login: int | None = None, password: str | None = None, server: str | None = None
+):
     """
     Context manager para conexão direta com o MetaTrader 5.
 

@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from mtcli import conf
+from mtcli.conf import DIGITOS
 
 
 class BarModel:
@@ -92,14 +92,14 @@ class BarModel:
         b = self.body
 
         if b > 0:
-            trend = conf.alta
+            trend = "bull"
         elif b < 0:
-            trend = conf.baixa
+            trend = "bear"
         else:
-            trend = conf.lateral
+            trend = "doji"
 
         return trend
 
     def __get_medium_point(self):
         """Obtem o ponto médio da barra."""
-        return round(self.low + self.range / 2, conf.digitos)
+        return round(self.low + self.range / 2, DIGITOS)

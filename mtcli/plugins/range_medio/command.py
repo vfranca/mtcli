@@ -4,7 +4,7 @@ import click
 
 from mtcli.models.rates_model import RatesModel
 
-from . import conf
+from .conf import TIMEFRAMES
 from .models.average_range_model import AverageRangeModel
 
 
@@ -15,7 +15,7 @@ from .models.average_range_model import AverageRangeModel
 @click.option(
     "--period",
     "-p",
-    type=click.Choice(conf.timeframes, case_sensitive=False),
+    type=click.Choice(TIMEFRAMES, case_sensitive=False),
     default="D1",
     help="Tempo grafico, default D1.",
 )

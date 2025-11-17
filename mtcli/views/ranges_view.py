@@ -1,7 +1,9 @@
 """Módulo da classe da view dos ranges."""
 
-from mtcli import conf
+from mtcli.conf import DIGITOS
 from mtcli.models.chart_model import ChartModel
+
+from .utils import converte_nome
 
 
 class RangesView:
@@ -27,15 +29,15 @@ class RangesView:
         sequencias = sequencias[-self.count :]
         for bar, sequencia in zip(self.bars, sequencias):
             n += 1
+            ft_str = converte_nome(sequencia)
+            trend_str = converte_nome(bar.trend)
             prefixo = f"{n} " if self.numerator else ""
             sufixo = ""
             if self.show_date:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
                 sufixo = f" {data}"
 
-            linha = (
-                f"{prefixo}{sequencia} {bar.trend} {bar.range:.{conf.digitos}f}{sufixo}"
-            )
+            linha = f"{prefixo}{ft_str} {trend_str} {bar.range:.{DIGITOS}f}{sufixo}"
             views.append(linha.upper())
 
         return views

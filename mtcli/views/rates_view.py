@@ -1,6 +1,6 @@
 """Módulo da view das cotações OHLC."""
 
-from mtcli import conf
+from mtcli.conf import DIGITOS
 from mtcli.models.chart_model import ChartModel
 
 
@@ -29,10 +29,10 @@ class RatesView:
             linha = (
                 f"{prefixo}"
                 f"{bar.date} "
-                f"{bar.open:.{conf.digitos}f} "
-                f"{bar.high:.{conf.digitos}f} "
-                f"{bar.low:.{conf.digitos}f} "
-                f"{bar.close:.{conf.digitos}f} "
+                f"{bar.open:.{DIGITOS}f} "
+                f"{bar.high:.{DIGITOS}f} "
+                f"{bar.low:.{DIGITOS}f} "
+                f"{bar.close:.{DIGITOS}f} "
                 f"{bar.volume} "
                 f"{bar.volume_real}"
             )

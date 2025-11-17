@@ -1,7 +1,5 @@
 """Módulo da classe model de leituras de barras consecutivas."""
 
-from mtcli import conf
-
 
 class ConsecutiveBarsModel:
     """Classe model da leitura de barras consecutivas."""
@@ -38,13 +36,13 @@ class ConsecutiveBarsModel:
     def sequencia(self):
         """Leitura da tendência da sequência de duas barras."""
         if self.highs[1] > self.highs[0] and self.lows[1] > self.lows[0]:
-            return conf.up_bar
+            return "up bar"
         if self.highs[1] < self.highs[0] and self.lows[1] < self.lows[0]:
-            return conf.down_bar
+            return "down bar"
         if self.highs[1] <= self.highs[0] and self.lows[1] >= self.lows[0]:
-            return conf.inside_bar
+            return "inside bar"
         if self.highs[1] > self.highs[0] and self.lows[1] < self.lows[0]:
-            return conf.outside_bar
+            return "outside bar"
         return ""
 
     def volume(self):
@@ -53,9 +51,9 @@ class ConsecutiveBarsModel:
         anterior = self.volumes[0]
         posterior = self.volumes[1]
         if posterior > anterior:
-            sequencia = conf.alta
+            sequencia = "volume ascendente"
         if posterior < anterior:
-            sequencia = conf.baixa
+            sequencia = "volume descendente"
         return sequencia
 
     def continuacao(self):

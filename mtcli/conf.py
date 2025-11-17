@@ -8,45 +8,39 @@ from mtcli.models.conf_model import ConfModel
 config = ConfModel("mtcli.ini").carregar()
 
 section = "DEFAULT"
-symbol = os.getenv("SYMBOL", config[section].get("symbol", fallback="WIN$N"))
-digitos = int(os.getenv("DIGITOS", config[section].getint("digitos", fallback=2)))
+SYMBOL = os.getenv("SYMBOL", config[section].get("symbol", fallback="WIN$N"))
+DIGITOS = int(os.getenv("DIGITOS", config[section].getint("digitos", fallback=2)))
 PERIOD = period = os.getenv("PERIOD", config[section].get("period", fallback="D1"))
-BARS = periodos = count = int(
-    os.getenv("COUNT", config[section].getint("count", fallback=999))
-)
+PERIODOS = int(os.getenv("COUNT", config[section].getint("count", fallback=999)))
 VIEW = view = os.getenv("VIEW", config[section].get("view", fallback="ch"))
 VOLUME = volume = os.getenv("VOLUME", config[section].get("volume", fallback="tick"))
 DATE = date = os.getenv("DATE", config[section].get("date", fallback=""))
 
-lateral = os.getenv("LATERAL", config[section].get("lateral", fallback="doji"))
-alta = os.getenv("ALTA", config[section].get("alta", fallback="verde"))
-baixa = os.getenv("BAIXA", config[section].get("baixa", fallback="vermelho"))
-rompimento_alta = os.getenv(
-    "ROMPIMENTO_ALTA", config[section].get("rompimento_alta", fallback="c")
+DOJI = os.getenv("LATERAL", config[section].get("lateral", fallback="doji"))
+BULL = os.getenv("BULL", config[section].get("bull", fallback="verde"))
+BEAR = os.getenv("BEAR", config[section].get("bear", fallback="vermelho"))
+BULLBREAKOUT = os.getenv(
+    "BULLBREAKOUT", config[section].get("bullbreakout", fallback="c")
 )
-rompimento_baixa = os.getenv(
-    "ROMPIMENTO_BAIXA", config[section].get("rompimento_baixa", fallback="v")
+BEARBREAKOUT = os.getenv(
+    "BEARBREAKOUT", config[section].get("bearbreakout", fallback="v")
 )
-percentual_rompimento = int(
+PERCENTUAL_BREAKOUT = int(
     os.getenv(
-        "PERCENTUAL_ROMPIMENTO",
-        config[section].getint("percentual_rompimento", fallback=50),
+        "PERCENTUAL_BREAKOUT",
+        config[section].getint("percentual_breakout", fallback=50),
     )
 )
-percentual_doji = int(
+PERCENTUAL_DOJI = int(
     os.getenv("PERCENTUAL_DOJI", config[section].getint("percentual_doji", fallback=10))
 )
-up_bar = os.getenv("UP_BAR", config[section].get("up_bar", fallback="asc"))
-down_bar = os.getenv("DOWN_BAR", config[section].get("down_bar", fallback="desc"))
-inside_bar = os.getenv("INSIDE_BAR", config[section].get("inside_bar", fallback="ib"))
-outside_bar = os.getenv(
-    "OUTSIDE_BAR", config[section].get("outside_bar", fallback="ob")
-)
-sombra_superior = os.getenv(
-    "SOMBRA_SUPERIOR", config[section].get("sombra_superior", fallback="top")
-)
-sombra_inferior = os.getenv(
-    "SOMBRA_INFERIOR", config[section].get("sombra_inferior", fallback="bottom")
+UPBAR = os.getenv("UPBAR", config[section].get("upbar", fallback="asc"))
+DOWNBAR = os.getenv("DOWNBAR", config[section].get("downbar", fallback="desc"))
+INSIDEBAR = os.getenv("INSIDEBAR", config[section].get("insidebar", fallback="ib"))
+OUTSIDEBAR = os.getenv("OUTSIDEBAR", config[section].get("outsidebar", fallback="ob"))
+TOPTAIL = os.getenv("TOPTAIL", config[section].get("toptail", fallback="top"))
+BOTTOMTAIL = os.getenv(
+    "BOTTOMTAIL", config[section].get("bottomtail", fallback="bottom")
 )
 data_source = dados = os.getenv("DADOS", config[section].get("dados", fallback="mt5"))
 csv_path = mt5_pasta = os.getenv(

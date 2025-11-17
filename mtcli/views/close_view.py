@@ -1,6 +1,6 @@
 """Módulo da classe da view dos fechamentos."""
 
-from mtcli import conf
+from mtcli.conf import DIGITOS
 from mtcli.models.chart_model import ChartModel
 
 
@@ -31,7 +31,7 @@ class CloseView:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
                 sufixo = f" {data}"
 
-            linha = f"{prefixo}{bar.close:.{conf.digitos}f}{sufixo}"
+            linha = f"{prefixo}{bar.close:.{DIGITOS}f}{sufixo}"
             views.append(linha)
 
         return views

@@ -7,7 +7,7 @@ import click
 from mtcli.logger import setup_logger
 from mtcli.models.rates_model import RatesModel
 
-from . import conf
+from .conf import DIGITOS, LIMITE_LINHAS, PERIODOS, TIMEFRAMES
 from .models.model_media_movel import MediaMovelModel
 
 logger = setup_logger()
@@ -20,14 +20,14 @@ logger = setup_logger()
 @click.option(
     "--period",
     "-p",
-    type=click.Choice(conf.timeframes, case_sensitive=False),
+    type=click.Choice(TIMEFRAMES, case_sensitive=False),
     default="D1",
     help="Tempo gráfico, default D1.",
 )
 @click.option(
     "--periodos",
     "-pe",
-    default=conf.periodos,
+    default=PERIODOS,
     help="Quantidade de períodos da média, default 14.",
 )
 @click.option(
@@ -39,7 +39,7 @@ logger = setup_logger()
 @click.option(
     "--limit",
     type=int,
-    default=conf.limite_linhas,
+    default=LIMITE_LINHAS,
     help="Limita a quantidade de linhas exibidas; default: 5.",
 )
 @click.option(
@@ -96,4 +96,4 @@ def mm(symbol, period, periodos, tipo, limit, inicio, fim):
         filtrado = filtrado[-limit:]
 
     for dt, valor in filtrado:
-        click.echo(f"{round(valor, conf.digitos)}    {dt}")
+        click.echo(f"{round(valor, DIGITOS)}    {dt}")

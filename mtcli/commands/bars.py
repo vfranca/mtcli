@@ -3,9 +3,10 @@
 import click
 
 from mtcli.conf import (
-    BARS,
     DATE,
     PERIOD,
+    PERIODOS,
+    SYMBOL,
     TIMEFRAMES,
     VIEW,
     VOLUME,
@@ -25,10 +26,15 @@ from mtcli.views.volumes_view import VolumesView
 
 
 @click.command(
-    "bars",
     help="Mostra o gráfico de candles em texto para o ativo e período especificados.",
 )
-@click.argument("symbol")
+@click.option(
+    "--symbol",
+    "-s",
+    default=SYMBOL,
+    show_default=True,
+    help="Codigo ou ticker do ativo.",
+)
 @click.option(
     "--view",
     "-v",
@@ -68,15 +74,15 @@ from mtcli.views.volumes_view import VolumesView
     type=click.Choice(TIMEFRAMES, case_sensitive=False),
     default=PERIOD,
     show_default=True,
-    help="Timeframe das barras.",
+    help="Timeframe do grafico.",
 )
 @click.option(
     "--count",
     "-c",
     type=int,
-    default=BARS,
+    default=PERIODOS,
     show_default=True,
-    help="Numero de barras.",
+    help="Quantidade de periodos a serem exibidos.",
 )
 @click.option(
     "--date",

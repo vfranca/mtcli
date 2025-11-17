@@ -1,6 +1,6 @@
 """Módulo da classe model para volume médio."""
 
-from mtcli import conf
+from mtcli.conf import DIGITOS
 from mtcli.models.bar_model import BarModel
 
 
@@ -28,4 +28,4 @@ class AverageVolumeModel:
     def average(self):
         """Calcula o volume médio."""
         volumes = self.volumes[-self.count :]
-        return round(sum(volumes) / len(volumes), conf.digitos)
+        return round(sum(volumes) / len(volumes), DIGITOS)
