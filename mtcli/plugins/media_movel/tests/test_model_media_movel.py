@@ -1,4 +1,4 @@
-from ..models.model_media_movel import MediaMovelModel
+from ..model import MediaMovelModel
 
 
 def test_sma():
