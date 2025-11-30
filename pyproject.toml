@@ -25,9 +25,6 @@ mt = "mtcli.mt:mt"
 
 [project.entry-points."mtcli.plugins"]
 mtcli = "mtcli.plugin:register"
-media_movel = "mtcli.plugins.media_movel:mm"
-range_medio = "mtcli.plugins.range_medio:rm"
-volume_medio = "mtcli.plugins.volume_medio:vm"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

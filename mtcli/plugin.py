@@ -1,9 +1,9 @@
-from mtcli.commands.bars import bars
-from mtcli.commands.conf import conf
-from mtcli.commands.logs import logs
+from .plugins.media_movel.cli import mm
+from .plugins.range_medio.cli import rm
+from .plugins.volume_medio.cli import vm
 
 
 def register(cli):
-    cli.add_command(bars)
-    cli.add_command(conf)
-    cli.add_command(logs)
+    cli.add_command(mm, name="mm")
+    cli.add_command(rm, name="rm")
+    cli.add_command(vm, name="vm")

@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from mtcli import conf
+from mtcli.conf import get_data_source
 
 
 class RatesModel:
@@ -16,7 +16,7 @@ class RatesModel:
         self.start = start
         self.end = end
         self.limit = limit
-        self.source = conf.get_data_source()
+        self.source = get_data_source()
 
     def get_data(self):
         """Obtém a lista das cotações com filtros opcionais."""
