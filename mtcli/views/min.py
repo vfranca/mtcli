@@ -1,16 +1,31 @@
-from mtcli.views.base import BaseView
+# mtcli/views/min.py
 
+class MinView:
+    """
+    View mínima de barras.
 
-class MinView(BaseView):
-    """View compacta (OHLC resumido)."""
+    Exibe:
+    - horário
+    - fechamento
+    - estrutura do candle
+    """
+
+    def __init__(self, bars, period, show_date=False, **_):
+        self.bars = bars
+        self.show_date = show_date
 
     def render(self) -> list[str]:
-        lines = []
-        for i, bar in enumerate(self.bars, start=1):
+        lines: list[str] = []
+
+        for bar in self.bars:
+            ts_fmt = "%Y-%m-%d %H:%M" if self.show_date else "%H:%M"
+            ts = bar.timestamp.strftime(ts_fmt)
+
             line = (
-                f"{self.prefix(i)}"
-                f"{bar.open:.0f} {bar.high:.0f} {bar.low:.0f} {bar.close:.0f}"
-                f"{self.suffix(bar)}"
+                f"{ts} "
+                f"C:{bar.close:.0f} "
+                f"{bar.structure_symbol}"
             )
             lines.append(line)
+
         return lines

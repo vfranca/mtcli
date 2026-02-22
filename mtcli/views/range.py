@@ -1,18 +1,25 @@
-from mtcli.views.base import BaseView
+# mtcli/views/range.py
 
+class RangeView:
+    """
+    View focada em range e estrutura.
+    """
 
-class RangeView(BaseView):
-    """View focada em range e sombras do candle."""
+    def __init__(self, bars, period, **_):
+        self.bars = bars
+        self.period = period
 
     def render(self) -> list[str]:
-        lines = []
-        for i, bar in enumerate(self.bars, start=1):
+        lines: list[str] = []
+
+        for bar in self.bars:
+            ts = bar.timestamp.strftime("%H:%M")
             line = (
-                f"{self.prefix(i)}"
+                f"{ts} "
                 f"R:{bar.range:.0f} "
-                f"U:{bar.upper_tail:.0f} "
-                f"L:{bar.lower_tail:.0f}"
-                f"{self.suffix(bar)}"
+                f"B:{bar.body:.0f} "
+                f"{bar.structure_symbol}"
             )
             lines.append(line)
+
         return lines

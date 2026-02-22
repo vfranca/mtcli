@@ -1,17 +1,33 @@
-from mtcli.views.base import BaseView
+# mtcli/views/volume.py
 
+class VolumeView:
+    """
+    View focada em volume e estrutura do candle.
+    """
 
-class VolumeView(BaseView):
-    """View focada em volume negociado."""
+    def __init__(self, bars, period, volume=None, **_):
+        self.bars = bars
+        self.volume_mode = volume
 
     def render(self) -> list[str]:
-        lines = []
-        for i, bar in enumerate(self.bars, start=1):
-            vol = bar.volume or 0
+        lines: list[str] = []
+
+        for bar in self.bars:
+            ts = bar.timestamp.strftime("%H:%M")
+
+            vol = (
+                bar.real_volume
+                if self.volume_mode == "real"
+                else bar.tick_volume
+            )
+
+            vol_str = f"V:{vol}" if vol is not None else "V:-"
+
             line = (
-                f"{self.prefix(i)}"
-                f"C:{bar.close:.0f} V:{vol}"
-                f"{self.suffix(bar)}"
+                f"{ts} "
+                f"{vol_str} "
+                f"{bar.structure_symbol}"
             )
             lines.append(line)
+
         return lines
