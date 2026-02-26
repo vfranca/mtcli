@@ -11,7 +11,7 @@ except ImportError:
 @click.group(context_settings={"max_content_width": 120})
 @click.version_option(package_name="mtcli")
 def mt():
-    """Exibe o grafico do MetaTrader 5 em texto."""
+    """Exibe o grafico candlestick screen reader friendly."""
     pass
 
 
