@@ -1,21 +1,43 @@
 [project]
 name = "mtcli"
-version = "3.5.0"
-description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
+version = "3.5.0.dev0"
+description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 screen reader friendly"
 authors = [
     {name = "Valmir França da Silva",email = "vfranca3@gmail.com"}
 ]
-license = "GPL-3.0"
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
-keywords = ["MetaTrader 5", "trading", "CLI"]
 requires-python = ">=3.10,<3.14.0"
+
+keywords = [
+    "trading",
+    "candlestick",
+    "metatrader5",
+    "mt5",
+    "cli",
+    "price-action"
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
 dependencies = [
     "click (>=8.2.1,<9.0.0)",
     "metatrader5 (>=5.0.5260,<6.0.0)",
 ]
 
 [project.urls]
-homepage = "https://pypi.org/project/mtcli"
+homepage = "https://github.com:vfranca/mtcli"
 repository = "https://github.com/vfranca/mtcli"
 documentation = "https://mtcli.readthedocs.io/pt-br/latest"
 issues = "https://github.com/vfranca/mtcli/issues"
