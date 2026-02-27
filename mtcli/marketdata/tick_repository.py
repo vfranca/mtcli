@@ -2,8 +2,8 @@
 TickRepository centralizado.
 
 Responsável por:
-- Sincronizar com MT5
-- Persistir ticks
+- Sincronizar com MT5 via mt5_conexao
+- Persistir ticks corretamente (structured array numpy)
 - Fornecer ticks para modelos
 """
 
@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 
 from ..database import get_connection
 from .tick_cache import TickCache
+from mtcli.mt5_context import mt5_conexao
 
 
 class TickRepository:
@@ -20,9 +21,9 @@ class TickRepository:
         self.conn = get_connection()
         self.cache = TickCache()
 
-    # =========================
+    # ============================================================
     # SINCRONIZAÇÃO INCREMENTAL
-    # =========================
+    # ============================================================
 
     def sync(self, symbol: str, days_back: int = 1):
         """
@@ -31,44 +32,53 @@ class TickRepository:
         Busca apenas ticks após o último armazenado.
         """
 
-        last_time = self._get_last_tick_time(symbol)
+        with mt5_conexao():
 
-        if last_time:
-            start = datetime.fromtimestamp(last_time)
-        else:
-            start = datetime.now() - timedelta(days=days_back)
+            last_time = self._get_last_tick_time(symbol)
 
-        ticks = mt5.copy_ticks_from(
-            symbol,
-            start,
-            100000,
-            mt5.COPY_TICKS_ALL,
-        )
+            if last_time:
+                start = datetime.fromtimestamp(last_time)
+            else:
+                start = datetime.now() - timedelta(days=days_back)
 
-        if ticks is None or len(ticks) == 0:
-            return 0
+            ticks = mt5.copy_ticks_from(
+                symbol,
+                start,
+                200000,
+                mt5.COPY_TICKS_ALL,
+            )
 
-        inserted = self._insert_ticks(symbol, ticks)
-        self.cache.add_many(ticks)
+            if ticks is None or len(ticks) == 0:
+                return 0
 
-        return inserted
+            inserted = self._insert_ticks(symbol, ticks)
+            self.cache.add_many(ticks)
 
-    # =========================
+            return inserted
+
+    # ============================================================
     # INSERÇÃO
-    # =========================
+    # ============================================================
 
     def _insert_ticks(self, symbol, ticks):
+        """
+        Insere ticks no SQLite.
+
+        O retorno do MT5 é numpy structured array.
+        Acesso deve ser por campo: t["time"], t["last"], etc.
+        """
+
         cursor = self.conn.cursor()
 
         data = [
             (
                 symbol,
-                int(t.time),
-                float(t.bid),
-                float(t.ask),
-                float(t.last),
-                float(t.volume),
-                int(t.flags),
+                int(t["time"]),
+                float(t["bid"]),
+                float(t["ask"]),
+                float(t["last"]),
+                float(t["volume"]),
+                int(t["flags"]),
             )
             for t in ticks
         ]
@@ -84,9 +94,9 @@ class TickRepository:
         self.conn.commit()
         return cursor.rowcount
 
-    # =========================
+    # ============================================================
     # CONSULTAS
-    # =========================
+    # ============================================================
 
     def get_ticks_between(self, symbol, start_ts, end_ts):
         cursor = self.conn.cursor()
