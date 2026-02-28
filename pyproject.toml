@@ -1,29 +1,58 @@
 [project]
 name = "mtcli"
 version = "4.0.0.dev1"
-description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 em texto acessível ao leitor de telas"
-authors = [
-    {name = "Valmir França da Silva",email = "vfranca3@gmail.com"}
-]
-license = "GPL-3.0"
+description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 screen reader friendly"
 readme = "README.md"
-keywords = ["MetaTrader 5", "trading", "CLI"]
-requires-python = ">=3.10,<3.14.0"
+requires-python = ">=3.10,<3.14"
+
+authors = [
+    { name = "Valmir França da Silva", email = "vfranca3@gmail.com" }
+]
+
+license = "MIT"
+
+keywords = [
+    "trading",
+    "price-action",
+    "candlestick",
+    "metatrader5",
+    "mt5",
+    "cli",
+    "terminal",
+    "accessibility",
+    "screen-reader"
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Utilities"
+]
+
 dependencies = [
-    "click (>=8.2.1,<9.0.0)",
-    "metatrader5 (>=5.0.5260,<6.0.0)",
+    "click>=8.2.1,<9.0.0",
+    "MetaTrader5>=5.0.5260,<6.0.0"
 ]
 
 [project.urls]
-homepage = "https://pypi.org/project/mtcli"
-repository = "https://github.com/vfranca/mtcli"
-documentation = "https://mtcli.readthedocs.io/pt-br/latest"
-issues = "https://github.com/vfranca/mtcli/issues"
+Homepage = "https://github.com/vfranca/mtcli"
+Repository = "https://github.com/vfranca/mtcli"
+Documentation = "https://mtcli.readthedocs.io/pt-br/latest"
+Issues = "https://github.com/vfranca/mtcli/issues"
 
 [project.scripts]
 mt = "mtcli.mt:mt"
 
-[project.entry-points."mtcli.plugins"]
+[project."entry-points"."mtcli.plugins"]
 mtcli = "mtcli.plugin:register"
 
 [build-system]
@@ -34,14 +63,13 @@ build-backend = "poetry.core.masonry.api"
 mkdocs = "^1.6.1"
 pymdown-extensions = "^10.16.1"
 
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.2"
 pytest-env = "^1.1.5"
 pytest-cov = "^6.3.0"
+pytest-mock = "^3.15.1"
 pydocstyle = "^6.3.0"
 ruff = "^0.14.1"
-pytest-mock = "^3.15.1"
 
 [tool.pytest.ini_options]
 env = [
@@ -61,16 +89,16 @@ env = [
 
 [tool.ruff]
 line-length = 88
-target-version = "py311"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = [
-  "E",    # Estilo
-  "F",    # Lógica
-  "B",    # Boas práticas
-  "I",    # Imports
-  "UP",   # Upgrade
-  "N",    # Naming
+  "E",
+  "F",
+  "B",
+  "I",
+  "UP",
+  "N",
 ]
 ignore = ["E501"]
 
