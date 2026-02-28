@@ -1,10 +1,10 @@
 """
-TickRepository centralizado.
+TickRepository profissional com:
 
-Responsável por:
-- Sincronizar com MT5 via mt5_conexao
-- Persistir ticks corretamente (structured array numpy)
-- Fornecer ticks para modelos
+- Paginação automática
+- Sincronização incremental robusta
+- Integração com mt5_conexao
+- Proteção contra loops infinitos
 """
 
 import MetaTrader5 as mt5
@@ -17,56 +17,72 @@ from mtcli.mt5_context import mt5_conexao
 
 class TickRepository:
 
+    BATCH_SIZE = 200000  # tamanho seguro por lote
+
     def __init__(self):
         self.conn = get_connection()
         self.cache = TickCache()
 
     # ============================================================
-    # SINCRONIZAÇÃO INCREMENTAL
+    # SINCRONIZAÇÃO COM PAGINAÇÃO
     # ============================================================
 
     def sync(self, symbol: str, days_back: int = 1):
         """
-        Sincroniza banco com MT5.
+        Sincroniza banco com MT5 usando paginação.
 
-        Busca apenas ticks após o último armazenado.
+        Busca todos os ticks disponíveis desde o último timestamp.
         """
+
+        total_inserted = 0
 
         with mt5_conexao():
 
             last_time = self._get_last_tick_time(symbol)
 
             if last_time:
-                start = datetime.fromtimestamp(last_time)
+                start = datetime.fromtimestamp(last_time + 1)
             else:
                 start = datetime.now() - timedelta(days=days_back)
 
-            ticks = mt5.copy_ticks_from(
-                symbol,
-                start,
-                200000,
-                mt5.COPY_TICKS_ALL,
-            )
+            while True:
 
-            if ticks is None or len(ticks) == 0:
-                return 0
+                ticks = mt5.copy_ticks_from(
+                    symbol,
+                    start,
+                    self.BATCH_SIZE,
+                    mt5.COPY_TICKS_ALL,
+                )
 
-            inserted = self._insert_ticks(symbol, ticks)
-            self.cache.add_many(ticks)
+                if ticks is None or len(ticks) == 0:
+                    break
 
-            return inserted
+                inserted = self._insert_ticks(symbol, ticks)
+                total_inserted += inserted
+
+                self.cache.add_many(ticks)
+
+                # Atualiza início para próximo tick
+                ultimo_timestamp = int(ticks[-1]["time"])
+                novo_start = datetime.fromtimestamp(ultimo_timestamp + 1)
+
+                # Proteção contra loop infinito
+                if novo_start <= start:
+                    break
+
+                start = novo_start
+
+                # Se retornou menos que o batch, acabou histórico
+                if len(ticks) < self.BATCH_SIZE:
+                    break
+
+        return total_inserted
 
     # ============================================================
     # INSERÇÃO
     # ============================================================
 
     def _insert_ticks(self, symbol, ticks):
-        """
-        Insere ticks no SQLite.
-
-        O retorno do MT5 é numpy structured array.
-        Acesso deve ser por campo: t["time"], t["last"], etc.
-        """
 
         cursor = self.conn.cursor()
 
