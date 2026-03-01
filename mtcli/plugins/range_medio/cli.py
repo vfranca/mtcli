@@ -15,7 +15,6 @@ from .models.average_range_model import AverageRangeModel
 @click.option(
     "--period",
     "-p",
-    type=click.Choice(TIMEFRAMES, case_sensitive=False),
     default="D1",
     help="Tempo grafico, default D1.",
 )

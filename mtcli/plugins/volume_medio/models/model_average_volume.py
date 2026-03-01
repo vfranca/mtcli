@@ -28,4 +28,8 @@ class AverageVolumeModel:
     def average(self):
         """Calcula o volume médio."""
         volumes = self.volumes[-self.count :]
+<<<<<<< HEAD
         return round(sum(volumes) / len(volumes), DIGITOS)
+=======
+        return round(sum(volumes) / len(volumes), conf.DIGITOS)
+>>>>>>> master

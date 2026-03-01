@@ -16,7 +16,7 @@ class CsvDataSource(DataSourceBase):
 
     def get_data(self, symbol, period, count=100):
         """Retorna dados CSV em uma lista de lista."""
-        file_path = os.path.join(conf.csv_path, f"{symbol}{period}.csv")
+        file_path = os.path.join(conf._INITIAL_CSV_PATH, f"{symbol}{period}.csv")
         logger.info(f"Iniciando coleta de dados via CSV: {file_path}.")
         csv_data = []
         try:
