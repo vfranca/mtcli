@@ -1,39 +1,68 @@
 """
-Módulo responsável pelo carregamento de plugins do mtcli.
+Sistema de carregamento de plugins do mtcli.
 
-Carrega plugins internos (via mtcli.plugin.register) e plugins externos
-registrados via entry points (`mtcli.plugins`).
+Este módulo carrega automaticamente:
+
+1. Plugins internos localizados em `mtcli.plugins`
+2. Plugins externos registrados via entry points `mtcli.plugins`
+
+Plugins devem expor uma função:
+
+    register(cli)
+
+onde `cli` é o grupo principal do Click.
 """
+
+import importlib
+import pkgutil
 
 import click
 
 try:
     from importlib.metadata import entry_points
-except ImportError:
-    from importlib_metadata import entry_points  # Para Python < 3.8
+except ImportError:  # Python < 3.10
+    from importlib_metadata import entry_points
 
-from mtcli import plugin as internal_plugin
+import mtcli.plugins
 
 
-def load_plugins(cli: click.Group):
+def load_internal_plugins(cli: click.Group) -> None:
     """
-    Carrega todos os plugins (internos e externos) e registra-os no CLI.
+    Carrega plugins internos do pacote `mtcli.plugins`.
+
+    Cada módulo encontrado deve expor a função:
+
+        register(cli)
 
     Args:
-        cli (click.Group): grupo Click principal (ex.: `mt`).
-
-    Comportamento:
-        - Plugins internos são registrados via `mtcli.plugin.register(cli)`.
-        - Plugins externos são carregados via entry points `mtcli.plugins`.
-          - Se o entry point for uma função, chama `plugin(cli)`.
-          - Se for um `click.Command`, adiciona diretamente com `cli.add_command()`.
-          - Caso contrário, lança TypeError.
+        cli: grupo principal do Click.
     """
-    # --- Carrega plugins internos ---
-    internal_plugin.register(cli)
 
-    # --- Carrega plugins externos via entry points ---
+    for module_info in pkgutil.iter_modules(mtcli.plugins.__path__):
+
+        module_name = f"mtcli.plugins.{module_info.name}"
+
+        module = importlib.import_module(module_name)
+
+        if hasattr(module, "register"):
+            module.register(cli)
+
+
+def load_external_plugins(cli: click.Group) -> None:
+    """
+    Carrega plugins externos instalados via entry points.
+
+    Os plugins devem declarar no pyproject.toml:
+
+        [project.entry-points."mtcli.plugins"]
+        nome = "pacote.plugin:register"
+
+    Args:
+        cli: grupo principal do Click.
+    """
+
     eps = entry_points()
+
     plugins = (
         eps.select(group="mtcli.plugins")
         if hasattr(eps, "select")
@@ -41,17 +70,28 @@ def load_plugins(cli: click.Group):
     )
 
     for ep in plugins:
-        try:
-            plugin_obj = ep.load()
-        except Exception as e:
-            raise RuntimeError(f"Falha ao carregar plugin {ep.name}: {e}") from e
 
-        if callable(plugin_obj) and not isinstance(plugin_obj, click.Command):
-            # função register(cli)
-            plugin_obj(cli)
-        elif isinstance(plugin_obj, click.Command):
-            cli.add_command(plugin_obj)
+        plugin = ep.load()
+
+        if callable(plugin) and not isinstance(plugin, click.Command):
+            plugin(cli)
+
+        elif isinstance(plugin, click.Command):
+            cli.add_command(plugin)
+
         else:
             raise TypeError(
-                f"Plugin {ep.name} inválido: não é um comando nem função register."
+                f"Plugin {ep.name} inválido: deve ser um comando Click ou função register."
             )
+
+
+def load_plugins(cli: click.Group) -> None:
+    """
+    Carrega todos os plugins (internos e externos).
+
+    Args:
+        cli: grupo principal do Click.
+    """
+
+    load_internal_plugins(cli)
+    load_external_plugins(cli)

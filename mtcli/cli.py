@@ -1,32 +1,34 @@
 """
-Comando principal do mtcli.
+CLI principal do mtcli.
+
+Este módulo define o grupo principal `mt`
+e inicializa o carregamento de plugins.
 """
 
 import click
-from mtcli.plugin_loader import load_plugins
 
-# --- CLI principal ---
+from mtcli.plugin_loader import load_plugins
+from .commands.bars import bars
+
+
 @click.group(context_settings={"max_content_width": 120})
 @click.version_option(package_name="mtcli")
 def mt():
     """
-    MTCLI - CLI para gráficos candlestick screen reader friendly.
+    CLI principal do mtcli.
 
-    Comandos disponíveis:
-        - Subcomandos (bars, conf, logs)
-        - Plugins internos e externos
+    Exibe gráficos e informações de mercado
+    em formato textual compatível com leitores de tela.
     """
     pass
 
-# --- Carrega subcomandos do mt e plugins ---
-# Os comandos do diretório commands são registrados aqui diretamente
-from mtcli.commands import bars
 
-mt.add_command(bars.bars, name="bars")
+mt.add_command(bars, name="bars")
 
-# --- Carrega plugins internos e externos via plugin_loader ---
+
+# Carrega plugins automaticamente
 load_plugins(mt)
 
-# --- Entry point para execução direta ---
+
 if __name__ == "__main__":
     mt()

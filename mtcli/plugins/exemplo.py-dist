@@ -1,0 +1,30 @@
+"""
+Plugin interno de exemplo.
+
+Este módulo demonstra como criar um plugin interno
+para o mtcli utilizando a função `register`.
+"""
+
+import click
+
+
+@click.command()
+def exemplo():
+    """
+    Comando simples de demonstração.
+    """
+
+    click.echo("")
+    click.echo("Plugin interno funcionando.")
+    click.echo("Este é apenas um exemplo.")
+
+
+def _register(cli):
+    """
+    Registra o comando no CLI principal.
+
+    Args:
+        cli: grupo principal do Click.
+    """
+
+    cli.add_command(exemplo)
