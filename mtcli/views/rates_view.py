@@ -29,10 +29,10 @@ class RatesView:
             linha = (
                 f"{prefixo}"
                 f"{bar.date} "
-                f"{bar.open:.{conf.digitos}f} "
-                f"{bar.high:.{conf.digitos}f} "
-                f"{bar.low:.{conf.digitos}f} "
-                f"{bar.close:.{conf.digitos}f} "
+                f"{bar.open:.{conf.DIGITOS}f} "
+                f"{bar.high:.{conf.DIGITOS}f} "
+                f"{bar.low:.{conf.DIGITOS}f} "
+                f"{bar.close:.{conf.DIGITOS}f} "
                 f"{bar.volume} "
                 f"{bar.volume_real}"
             )

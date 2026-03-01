@@ -36,12 +36,12 @@ class FullView:
             tendencia = barra.get_body()
             sombra = barra.get_tail()
 
-            if sombra == conf.sombra_superior:
+            if sombra == conf.SOMBRA_SUPERIOR:
                 sombra = f"{sombra}{bar.top}"
-            elif sombra == conf.sombra_inferior:
+            elif sombra == conf.SOMBRA_INFERIOR:
                 sombra = f"{sombra}{bar.bottom}"
 
-            gap_str = f"g{gap:.{conf.digitos}f}" if gap else ""
+            gap_str = f"g{gap:.{conf.DIGITOS}f}" if gap else ""
             corpo = abs(bar.body)
 
             prefixo = f"{n} " if self.numerator else ""
@@ -54,11 +54,11 @@ class FullView:
                 f"{prefixo}{sequencia} "
                 f"{rompimento} {tendencia}{corpo} "
                 f"{gap_str} {sombra} "
-                f"{bar.high:.{conf.digitos}f} "
-                f"{bar.low:.{conf.digitos}f} "
-                f"{bar.close:.{conf.digitos}f}"
-                f"m{bar.medium_point:.{conf.digitos}f} "
-                f"R{bar.range:.{conf.digitos}f}{sufixo}"
+                f"{bar.high:.{conf.DIGITOS}f} "
+                f"{bar.low:.{conf.DIGITOS}f} "
+                f"{bar.close:.{conf.DIGITOS}f}"
+                f"m{bar.medium_point:.{conf.DIGITOS}f} "
+                f"R{bar.range:.{conf.DIGITOS}f}{sufixo}"
             )
             views.append(linha.upper())
 

@@ -33,8 +33,8 @@ class MinView:
 
             linha = (
                 f"{prefixo}{sequencia} "
-                f"{bar.high:.{conf.digitos}f} "
-                f"{bar.low:.{conf.digitos}f}"
+                f"{bar.high:.{conf.DIGITOS}f} "
+                f"{bar.low:.{conf.DIGITOS}f}"
                 f"{sufixo}"
             )
             views.append(linha.upper())

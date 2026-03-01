@@ -6,8 +6,8 @@ from mtcli import conf
 class UnconsecutiveBarModel:
     """Classe model das leituras de barra única."""
 
-    body_doji_max = conf.percentual_doji
-    body_trend_min = conf.percentual_rompimento
+    body_doji_max = conf.PERCENTUAL_DOJI
+    body_trend_min = conf.PERCENTUAL_ROMPIMENTO
 
     def __init__(self, body, top, bottom, close, retracement):
         """Model das leituras de barra única."""
@@ -20,26 +20,26 @@ class UnconsecutiveBarModel:
     def get_body(self):
         """Leitura da tendência do corpo: alta/baixa/doji."""
         if abs(self.body) <= int(self.body_doji_max):
-            return conf.lateral
+            return conf.LATERAL
         if self.body > 0:
-            return conf.alta
+            return conf.ALTA
         if self.body < 0:
-            return conf.baixa
+            return conf.BAIXA
 
     def get_tail(self):
         """Leitura da maior sombra: superior/inferior."""
         if self.top > self.bottom:
-            return conf.sombra_superior
+            return conf.SOMBRA_SUPERIOR
         if self.bottom > self.top:
-            return conf.sombra_inferior
+            return conf.SOMBRA_INFERIOR
         return ""
 
     def get_breakout(self):
         """Leitura da barra de rompimento."""
         if self.__is_bull_breakout():
-            return conf.rompimento_alta
+            return conf.ROMPIMENTO_ALTA
         if self.__is_bear_breakout():
-            return conf.rompimento_baixa
+            return conf.ROMPIMENTO_BAIXA
         return ""
 
     def __is_bull_breakout(self):

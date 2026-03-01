@@ -26,4 +26,4 @@ class AverageRangeModel:
     def average(self):
         """Calcula o range médio."""
         ranges = self.ranges[-self.count :]
-        return round(sum(ranges) / len(ranges), conf.digitos)
+        return round(sum(ranges) / len(ranges), conf.DIGITOS)

@@ -20,7 +20,6 @@ logger = setup_logger()
 @click.option(
     "--period",
     "-p",
-    type=click.Choice(conf.timeframes, case_sensitive=False),
     default="D1",
     help="Tempo gráfico, default D1.",
 )
@@ -96,4 +95,4 @@ def mm(symbol, period, periodos, tipo, limit, inicio, fim):
         filtrado = filtrado[-limit:]
 
     for dt, valor in filtrado:
-        click.echo(f"{round(valor, conf.digitos)}    {dt}")
+        click.echo(f"{round(valor, conf.DIGITOS)}    {dt}")

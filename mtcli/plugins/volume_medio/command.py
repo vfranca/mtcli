@@ -16,7 +16,6 @@ from .models import model_average_volume
 @click.option(
     "--period",
     "-p",
-    type=click.Choice(conf.timeframes, case_sensitive=False),
     default="D1",
     help="Tempo grafico, default D1.",
 )

@@ -38,13 +38,13 @@ class ConsecutiveBarsModel:
     def sequencia(self):
         """Leitura da tendência da sequência de duas barras."""
         if self.highs[1] > self.highs[0] and self.lows[1] > self.lows[0]:
-            return conf.up_bar
+            return conf.UP_BAR
         if self.highs[1] < self.highs[0] and self.lows[1] < self.lows[0]:
-            return conf.down_bar
+            return conf.DOWN_BAR
         if self.highs[1] <= self.highs[0] and self.lows[1] >= self.lows[0]:
-            return conf.inside_bar
+            return conf.INSIDE_BAR
         if self.highs[1] > self.highs[0] and self.lows[1] < self.lows[0]:
-            return conf.outside_bar
+            return conf.OUTSIDE_BAR
         return ""
 
     def volume(self):
@@ -53,9 +53,9 @@ class ConsecutiveBarsModel:
         anterior = self.volumes[0]
         posterior = self.volumes[1]
         if posterior > anterior:
-            sequencia = conf.alta
+            sequencia = conf.ALTA
         if posterior < anterior:
-            sequencia = conf.baixa
+            sequencia = conf.BAIXA
         return sequencia
 
     def continuacao(self):

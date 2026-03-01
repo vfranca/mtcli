@@ -1,6 +1,6 @@
 [project]
 name = "mtcli"
-version = "3.5.1"
+version = "3.6.0.dev0"
 description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 screen reader friendly"
 authors = [
     {name = "Valmir França da Silva",email = "vfranca3@gmail.com"}
@@ -20,7 +20,7 @@ keywords = [
 ]
 
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Financial and Insurance Industry",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -43,7 +43,8 @@ documentation = "https://mtcli.readthedocs.io/pt-br/latest"
 issues = "https://github.com/vfranca/mtcli/issues"
 
 [project.scripts]
-mt = "mtcli.mt:mt"
+mtcli = "mtcli.cli:mt"
+mt = "mtcli.cli:mt"
 
 [project.entry-points."mtcli.plugins"]
 mtcli = "mtcli.plugin:register"

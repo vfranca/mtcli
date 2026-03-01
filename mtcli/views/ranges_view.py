@@ -34,7 +34,7 @@ class RangesView:
                 sufixo = f" {data}"
 
             linha = (
-                f"{prefixo}{sequencia} {bar.trend} {bar.range:.{conf.digitos}f}{sufixo}"
+                f"{prefixo}{sequencia} {bar.trend} {bar.range:.{conf.DIGITOS}f}{sufixo}"
             )
             views.append(linha.upper())
 

@@ -14,4 +14,4 @@ def test_retorna_gap_de_fechamento():
 
 
 def test_exibe_alteracao_no_volume():
-    assert consecutive.volume() == conf.alta
+    assert consecutive.volume() == conf.ALTA

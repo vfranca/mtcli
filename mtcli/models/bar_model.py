@@ -92,14 +92,14 @@ class BarModel:
         b = self.body
 
         if b > 0:
-            trend = conf.alta
+            trend = conf.ALTA
         elif b < 0:
-            trend = conf.baixa
+            trend = conf.BAIXA
         else:
-            trend = conf.lateral
+            trend = conf.LATERAL
 
         return trend
 
     def __get_medium_point(self):
         """Obtem o ponto médio da barra."""
-        return round(self.low + self.range / 2, conf.digitos)
+        return round(self.low + self.range / 2, conf.DIGITOS)

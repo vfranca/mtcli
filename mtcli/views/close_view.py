@@ -31,7 +31,7 @@ class CloseView:
                 data = bar.date if self.period in {"d1", "w1", "mn1"} else bar.time
                 sufixo = f" {data}"
 
-            linha = f"{prefixo}{bar.close:.{conf.digitos}f}{sufixo}"
+            linha = f"{prefixo}{bar.close:.{conf.DIGITOS}f}{sufixo}"
             views.append(linha)
 
         return views
