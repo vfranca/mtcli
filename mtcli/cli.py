@@ -23,7 +23,6 @@ def mt():
 from mtcli.commands import bars
 
 mt.add_command(bars.bars, name="bars")
-mt.add_command(bars.bars, name="candles")
 
 # --- Carrega plugins internos e externos via plugin_loader ---
 load_plugins(mt)

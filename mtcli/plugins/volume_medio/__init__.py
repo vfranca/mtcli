@@ -1,3 +1,5 @@
-from . import command, conf
-from .command import vm
-from .models import model_average_volume
+from .cli import vm
+
+
+def register(cli):
+    cli.add_command(vm, name="vm")

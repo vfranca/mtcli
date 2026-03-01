@@ -1,3 +1,5 @@
-from . import command, conf
-from .command import mm
-from .models.model_media_movel import MediaMovelModel
+from .cli import mm
+
+
+def register(cli):
+    cli.add_command(mm, name="mm")
