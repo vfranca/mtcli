@@ -6,7 +6,6 @@ from .conf import (
     LIMIT,
     LINHAS,
     PERIOD,
-    TIMEFRAMES,
     TIPO_MM,
 )
 from .controller import obter_media_movel
@@ -20,7 +19,6 @@ from .view import exibir_media_movel
 @click.option(
     "--period",
     "-p",
-    type=click.Choice(TIMEFRAMES, case_sensitive=False),
     default=PERIOD,
     show_default=True,
     help="Timeframe da media movel.",

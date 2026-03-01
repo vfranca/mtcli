@@ -27,53 +27,11 @@ from mtcli.mt5_context import mt5_conexao
 # Carregamento do arquivo de configuração
 # ---------------------------------------------------------
 
-<<<<<<< HEAD
-section = "DEFAULT"
-SYMBOL = os.getenv("SYMBOL", config[section].get("symbol", fallback="WIN$N"))
-DIGITOS = int(os.getenv("DIGITOS", config[section].getint("digitos", fallback=2)))
-PERIOD = period = os.getenv("PERIOD", config[section].get("period", fallback="D1"))
-PERIODOS = int(os.getenv("COUNT", config[section].getint("count", fallback=999)))
-VIEW = view = os.getenv("VIEW", config[section].get("view", fallback="ch"))
-VOLUME = volume = os.getenv("VOLUME", config[section].get("volume", fallback="tick"))
-DATE = date = os.getenv("DATE", config[section].get("date", fallback=""))
-
-DOJI = os.getenv("LATERAL", config[section].get("lateral", fallback="doji"))
-BULL = os.getenv("BULL", config[section].get("bull", fallback="verde"))
-BEAR = os.getenv("BEAR", config[section].get("bear", fallback="vermelho"))
-BULLBREAKOUT = os.getenv(
-    "BULLBREAKOUT", config[section].get("bullbreakout", fallback="c")
-)
-BEARBREAKOUT = os.getenv(
-    "BEARBREAKOUT", config[section].get("bearbreakout", fallback="v")
-)
-PERCENTUAL_BREAKOUT = int(
-    os.getenv(
-        "PERCENTUAL_BREAKOUT",
-        config[section].getint("percentual_breakout", fallback=50),
-    )
-)
-PERCENTUAL_DOJI = int(
-    os.getenv("PERCENTUAL_DOJI", config[section].getint("percentual_doji", fallback=10))
-)
-UPBAR = os.getenv("UPBAR", config[section].get("upbar", fallback="asc"))
-DOWNBAR = os.getenv("DOWNBAR", config[section].get("downbar", fallback="desc"))
-INSIDEBAR = os.getenv("INSIDEBAR", config[section].get("insidebar", fallback="ib"))
-OUTSIDEBAR = os.getenv("OUTSIDEBAR", config[section].get("outsidebar", fallback="ob"))
-TOPTAIL = os.getenv("TOPTAIL", config[section].get("toptail", fallback="top"))
-BOTTOMTAIL = os.getenv(
-    "BOTTOMTAIL", config[section].get("bottomtail", fallback="bottom")
-)
-data_source = dados = os.getenv("DADOS", config[section].get("dados", fallback="mt5"))
-csv_path = mt5_pasta = os.getenv(
-    "MT5_PASTA", config[section].get("mt5_pasta", fallback="")
-)
-=======
 CONFIG_FILE = "mtcli.ini"
 SECTION = "DEFAULT"
 
 config = configparser.ConfigParser()
 config.read(CONFIG_FILE)
->>>>>>> master
 
 
 def get_config_value(key: str, cast=None, fallback=None):
@@ -132,15 +90,15 @@ DATE = get_config_value("date", fallback="")
 # Configurações de leitura de candles
 # ---------------------------------------------------------
 
-LATERAL = get_config_value("lateral", fallback="doji")
-ALTA = get_config_value("alta", fallback="verde")
-BAIXA = get_config_value("baixa", fallback="vermelho")
+DOJI = get_config_value("lateral", fallback="doji")
+BULL = get_config_value("bull", fallback="verde")
+BEAR = get_config_value("bear", fallback="vermelho")
 
-ROMPIMENTO_ALTA = get_config_value("rompimento_alta", fallback="c")
-ROMPIMENTO_BAIXA = get_config_value("rompimento_baixa", fallback="v")
+BULLBREAKOUT = get_config_value("bullbreakout", fallback="c")
+BEARBREAKOUT = get_config_value("bearbreakout", fallback="v")
 
-PERCENTUAL_ROMPIMENTO = get_config_value(
-    "percentual_rompimento", cast=int, fallback=50
+PERCENTUAL_BREAKOUT = get_config_value(
+    "percentual_breakout", cast=int, fallback=50
 )
 
 PERCENTUAL_DOJI = get_config_value(
@@ -151,14 +109,14 @@ PERCENTUAL_DOJI = get_config_value(
 # Configurações de padrões de barra
 # ---------------------------------------------------------
 
-UP_BAR = get_config_value("up_bar", fallback="asc")
-DOWN_BAR = get_config_value("down_bar", fallback="desc")
+UPBAR = get_config_value("upbar", fallback="asc")
+DOWNBAR = get_config_value("downbar", fallback="desc")
 
-INSIDE_BAR = get_config_value("inside_bar", fallback="ib")
-OUTSIDE_BAR = get_config_value("outside_bar", fallback="ob")
+INSIDEBAR = get_config_value("insidebar", fallback="ib")
+OUTSIDEBAR = get_config_value("outsidebar", fallback="ob")
 
-SOMBRA_SUPERIOR = get_config_value("sombra_superior", fallback="top")
-SOMBRA_INFERIOR = get_config_value("sombra_inferior", fallback="bottom")
+TOPTAIL = get_config_value("toptail", fallback="top")
+BOTTOMTAIL = get_config_value("bottomtail", fallback="bottom")
 
 # ---------------------------------------------------------
 # Fonte de dados
