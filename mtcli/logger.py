@@ -7,36 +7,26 @@ o ecossistema de plugins do mtcli para configurar logging consistente.
 Características principais
 --------------------------
 
- Arquivo de log rotativo em:
+✔ Arquivo de log rotativo em:
   %APPDATA%/mtcli/logs/mtcli.log
 
- Rotação automática:
+✔ Rotação automática:
   - tamanho máximo: 2 MB
   - até 3 arquivos de backup
 
- Saída simultânea para:
-  - arquivo
-  - console (stdout)
-
- Compatível com pytest (caplog)
-
- Proteção contra duplicação de handlers quando plugins
+✔ Proteção contra duplicação de handlers quando plugins
   inicializam o logger múltiplas vezes.
 
- Encoding UTF-8 garantido (evita problemas de acentuação
+✔ Encoding UTF-8 garantido (evita problemas de acentuação
   no Windows).
 
-Uso típico
+✔ Compatível com pytest (caplog).
+
+Observação
 ----------
 
-    from mtcli.logger import setup_logger
-
-    log = setup_logger(__name__)
-
-    log.info("Mensagem de log")
-
-Plugins devem sempre usar `setup_logger(__name__)`
-para manter consistência nos logs.
+Os logs **não são exibidos no console**.
+Toda saída é direcionada exclusivamente para o arquivo de log.
 """
 
 import logging
@@ -65,13 +55,8 @@ def setup_logger(name: str = "mtcli") -> logging.Logger:
     """
     Cria ou retorna um logger configurado para o mtcli.
 
-    Este logger utiliza dois handlers:
-
-    1️⃣ RotatingFileHandler
-        Grava logs em arquivo com rotação automática.
-
-    2️⃣ StreamHandler
-        Exibe logs no console.
+    O logger utiliza **apenas um handler de arquivo rotativo**.
+    Nenhuma saída é enviada ao console.
 
     A função é **idempotente**, ou seja, pode ser chamada
     múltiplas vezes sem duplicar handlers.
@@ -89,7 +74,6 @@ def setup_logger(name: str = "mtcli") -> logging.Logger:
 
     logger = logging.getLogger(name)
 
-    # nível global
     logger.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(
@@ -98,7 +82,15 @@ def setup_logger(name: str = "mtcli") -> logging.Logger:
     )
 
     # ======================================================
-    # FILE HANDLER (ROTATING)
+    # REMOVE STREAM HANDLERS (garante silêncio no console)
+    # ======================================================
+
+    for handler in list(logger.handlers):
+        if isinstance(handler, logging.StreamHandler) and not isinstance(handler, RotatingFileHandler):
+            logger.removeHandler(handler)
+
+    # ======================================================
+    # FILE HANDLER ROTATIVO
     # ======================================================
 
     file_handler_exists = any(
@@ -111,30 +103,13 @@ def setup_logger(name: str = "mtcli") -> logging.Logger:
             LOG_FILE,
             maxBytes=2_000_000,
             backupCount=3,
-            encoding="utf-8",  # evita problema de acentuação no Windows
-            delay=True,        # abre o arquivo apenas quando necessário
+            encoding="utf-8",
+            delay=True,
         )
 
         file_handler.setFormatter(formatter)
 
         logger.addHandler(file_handler)
-
-    # ======================================================
-    # CONSOLE HANDLER
-    # ======================================================
-
-    console_handler_exists = any(
-        isinstance(h, logging.StreamHandler) and not isinstance(h, RotatingFileHandler)
-        for h in logger.handlers
-    )
-
-    if not console_handler_exists:
-
-        console_handler = logging.StreamHandler()
-
-        console_handler.setFormatter(formatter)
-
-        logger.addHandler(console_handler)
 
     # ======================================================
     # PROPAGATION
