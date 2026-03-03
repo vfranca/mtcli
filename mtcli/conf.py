@@ -1,19 +1,18 @@
 """
-Configurações principais do mtcli.
+Sistema central de configuração do mtcli.
 
-Este módulo centraliza a leitura de configurações provenientes de:
+Fornece leitura de configuração a partir de:
 
 1. Variáveis de ambiente
 2. Arquivo mtcli.ini
+3. Valores default
 
-As variáveis de ambiente sempre têm prioridade sobre o arquivo INI.
+Também oferece utilidades usadas por plugins como:
 
-Também fornece utilidades para obter o caminho de arquivos do
-terminal MetaTrader5 e selecionar a fonte de dados (CSV ou MT5).
+- descoberta do diretório MQL5/Files
+- seleção da fonte de dados (CSV ou MT5)
 
-O acesso ao terminal MT5 é realizado apenas sob demanda para evitar
-efeitos colaterais durante a importação do módulo (import side effects),
-facilitando testes automatizados e execução em ambientes CI/CD.
+Plugins devem acessar a configuração através do objeto global `conf`.
 """
 
 import os
@@ -23,170 +22,147 @@ import MetaTrader5 as mt5
 
 from mtcli.mt5_context import mt5_conexao
 
-# ---------------------------------------------------------
-# Carregamento do arquivo de configuração
-# ---------------------------------------------------------
 
-CONFIG_FILE = "mtcli.ini"
-SECTION = "DEFAULT"
-
-config = configparser.ConfigParser()
-config.read(CONFIG_FILE)
-
-
-def get_config_value(key: str, cast=None, fallback=None):
+class Config:
     """
-    Retorna um valor de configuração.
-
-    A prioridade de leitura é:
-    1. Variável de ambiente
-    2. Arquivo mtcli.ini
-    3. Valor fallback
-
-    Args:
-        key (str): Nome da chave de configuração.
-        cast (type | None): Tipo de conversão (ex: int, float).
-        fallback (Any): Valor padrão caso não encontrado.
-
-    Returns:
-        Any: valor convertido ou fallback.
+    Gerenciador central de configurações do mtcli.
     """
-    value = os.getenv(key)
 
-    if value is None:
-        try:
-            if cast == int:
-                value = config.getint(SECTION, key, fallback=fallback)
-            elif cast == float:
-                value = config.getfloat(SECTION, key, fallback=fallback)
+    def __init__(self, filename="mtcli.ini"):
+        self.config = configparser.ConfigParser()
+        self.config.read(filename)
+
+    # ---------------------------------------------------------
+    # leitura de valores
+    # ---------------------------------------------------------
+
+    def get(self, key, section="DEFAULT", cast=None, default=None):
+        """
+        Retorna um valor de configuração.
+
+        Prioridade:
+
+        1. Variável de ambiente SECTION_KEY
+        2. Variável de ambiente KEY
+        3. mtcli.ini [section]
+        4. mtcli.ini [DEFAULT]
+        5. default
+
+        Args:
+            key (str)
+            section (str)
+            cast (type | None)
+            default (Any)
+
+        Returns:
+            Any
+        """
+
+        env_key = f"{section.upper()}_{key.upper()}"
+
+        value = os.getenv(env_key) or os.getenv(key.upper())
+
+        if value is None:
+
+            if self.config.has_option(section, key):
+                value = self.config.get(section, key)
+
+            elif self.config.has_option("DEFAULT", key):
+                value = self.config.get("DEFAULT", key)
+
             else:
-                value = config.get(SECTION, key, fallback=fallback)
-        except (configparser.NoOptionError, ValueError):
-            value = fallback
-    else:
-        if cast:
+                value = default
+
+        if cast and value is not None:
+
             try:
-                value = cast(value)
+
+                if cast is bool:
+                    value = str(value).lower() in ("1", "true", "yes")
+
+                else:
+                    value = cast(value)
+
             except ValueError:
-                value = fallback
+                value = default
 
-    return value
+        return value
 
+    # ---------------------------------------------------------
+    # seção helper
+    # ---------------------------------------------------------
 
-# ---------------------------------------------------------
-# Configurações gerais
-# ---------------------------------------------------------
+    def section(self, section):
+        """
+        Retorna um helper para acessar uma seção específica.
+        """
 
-SYMBOL = get_config_value("symbol", fallback="WIN$N")
-DIGITOS = get_config_value("digitos", cast=int, fallback=2)
-PERIOD = get_config_value("period", fallback="D1")
-BARS = get_config_value("count", cast=int, fallback=999)
+        class Section:
 
-VIEW = get_config_value("view", fallback="ch")
-VOLUME = get_config_value("volume", fallback="tick")
-DATE = get_config_value("date", fallback="")
+            def __init__(self, parent, section):
+                self.parent = parent
+                self.section = section
 
-# ---------------------------------------------------------
-# Configurações de leitura de candles
-# ---------------------------------------------------------
+            def get(self, key, cast=None, default=None):
+                return self.parent.get(key, self.section, cast, default)
 
-LATERAL = get_config_value("lateral", fallback="doji")
-ALTA = get_config_value("alta", fallback="verde")
-BAIXA = get_config_value("baixa", fallback="vermelho")
+        return Section(self, section)
 
-ROMPIMENTO_ALTA = get_config_value("rompimento_alta", fallback="c")
-ROMPIMENTO_BAIXA = get_config_value("rompimento_baixa", fallback="v")
+    # ---------------------------------------------------------
+    # caminho MT5
+    # ---------------------------------------------------------
 
-PERCENTUAL_ROMPIMENTO = get_config_value(
-    "percentual_rompimento", cast=int, fallback=50
-)
+    def get_csv_path(self):
+        """
+        Retorna o caminho da pasta MQL5/Files.
+        """
 
-PERCENTUAL_DOJI = get_config_value(
-    "percentual_doji", cast=int, fallback=10
-)
+        path = self.get("mt5_pasta")
 
-# ---------------------------------------------------------
-# Configurações de padrões de barra
-# ---------------------------------------------------------
+        if path:
+            return os.path.normpath(path) + os.sep
 
-UP_BAR = get_config_value("up_bar", fallback="asc")
-DOWN_BAR = get_config_value("down_bar", fallback="desc")
-
-INSIDE_BAR = get_config_value("inside_bar", fallback="ib")
-OUTSIDE_BAR = get_config_value("outside_bar", fallback="ob")
-
-SOMBRA_SUPERIOR = get_config_value("sombra_superior", fallback="top")
-SOMBRA_INFERIOR = get_config_value("sombra_inferior", fallback="bottom")
-
-# ---------------------------------------------------------
-# Fonte de dados
-# ---------------------------------------------------------
-
-DATA_SOURCE = get_config_value("dados", fallback="mt5").lower()
-
-# caminho inicial (pode vir do ini/env)
-_INITIAL_CSV_PATH = get_config_value("mt5_pasta", fallback="")
-
-
-def get_csv_path():
-    """
-    Retorna o caminho da pasta de arquivos do MT5 ou CSV.
-
-    Se o caminho não estiver definido no mtcli.ini ou nas
-    variáveis de ambiente, o terminal MT5 é consultado para
-    descobrir automaticamente a pasta MQL5/Files.
-
-    Returns:
-        str: caminho normalizado da pasta de arquivos.
-    """
-    if _INITIAL_CSV_PATH:
-        path = _INITIAL_CSV_PATH
-    else:
         with mt5_conexao():
-            terminal_info = mt5.terminal_info()
 
-            if terminal_info is None:
+            info = mt5.terminal_info()
+
+            if info is None:
                 raise RuntimeError(
-                    "Não foi possível obter as informações do terminal MT5."
+                    "Não foi possível obter informações do terminal MT5."
                 )
 
-        path = os.path.join(terminal_info.data_path, "MQL5", "Files")
+        path = os.path.join(info.data_path, "MQL5", "Files")
 
-    return os.path.normpath(path) + os.sep
+        return os.path.normpath(path) + os.sep
+
+    # ---------------------------------------------------------
+    # data source
+    # ---------------------------------------------------------
+
+    def get_data_source(self, source=None):
+        """
+        Retorna a fonte de dados configurada.
+        """
+
+        from mtcli.data import CsvDataSource, MT5DataSource
+
+        src = (source or self.get("dados", default="mt5")).lower()
+
+        if src == "csv":
+            return CsvDataSource()
+
+        if src == "mt5":
+            return MT5DataSource()
+
+        raise ValueError(f"Fonte de dados desconhecida: {src}")
 
 
-# ---------------------------------------------------------
-# Factory de DataSource
-# ---------------------------------------------------------
-
-def get_data_source(source=None):
-    """
-    Retorna a fonte de dados configurada.
-
-    Args:
-        source (str | None): sobrescreve DATA_SOURCE se fornecido.
-
-    Returns:
-        CsvDataSource | MT5DataSource
-
-    Raises:
-        ValueError: se a fonte de dados não for reconhecida.
-    """
-    from mtcli.data import CsvDataSource, MT5DataSource
-
-    src = source.lower() if source else DATA_SOURCE
-
-    if src == "csv":
-        return CsvDataSource()
-
-    if src == "mt5":
-        return MT5DataSource()
-
-    raise ValueError(f"Fonte de dados desconhecida: {src}")
+# instância global usada por todo o sistema
+conf = Config()
 
 
 # ---------------------------------------------------------
-# Timeframes suportados
+# timeframes suportados
 # ---------------------------------------------------------
 
 _HOURS = [12, 8, 6, 4, 3, 2, 1]
@@ -197,3 +173,61 @@ TIMEFRAMES = (
     + [f"h{i}" for i in _HOURS]
     + [f"m{i}" for i in _MINUTES]
 )
+
+
+# ---------------------------------------------------------
+# Configurações gerais
+# ---------------------------------------------------------
+
+SYMBOL = conf.get("symbol", default="WIN$N")
+DIGITOS = conf.get("digitos", cast=int, default=2)
+PERIOD = conf.get("period", default="D1")
+BARS = conf.get("count", cast=int, default=999)
+
+VIEW = conf.get("view", default="ch")
+VOLUME = conf.get("volume", default="tick")
+DATE = conf.get("date", default="")
+
+# ---------------------------------------------------------
+# Configurações de leitura de candles
+# ---------------------------------------------------------
+
+LATERAL = conf.get("lateral", default="doji")
+ALTA = conf.get("alta", default="verde")
+BAIXA = conf.get("baixa", default="vermelho")
+
+ROMPIMENTO_ALTA = conf.get("rompimento_alta", default="c")
+ROMPIMENTO_BAIXA = conf.get("rompimento_baixa", default="v")
+
+PERCENTUAL_ROMPIMENTO = conf.get(
+    "percentual_rompimento", cast=int, default=50
+)
+
+PERCENTUAL_DOJI = conf.get(
+    "percentual_doji", cast=int, default=10
+)
+
+# ---------------------------------------------------------
+# Configurações de padrões de barra
+# ---------------------------------------------------------
+
+UP_BAR = conf.get("up_bar", default="asc")
+DOWN_BAR = conf.get("down_bar", default="desc")
+
+INSIDE_BAR = conf.get("inside_bar", default="ib")
+OUTSIDE_BAR = conf.get("outside_bar", default="ob")
+
+SOMBRA_SUPERIOR = conf.get("sombra_superior", default="top")
+SOMBRA_INFERIOR = conf.get("sombra_inferior", default="bottom")
+
+# ---------------------------------------------------------
+# Fonte de dados
+# ---------------------------------------------------------
+
+DATA_SOURCE = conf.get_data_source()
+
+# ---------------------------------------------------------
+# caminho inicial do CSV (pode vir do ini/env)
+# ---------------------------------------------------------
+
+_INITIAL_CSV_PATH = conf.get_csv_path()

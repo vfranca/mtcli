@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from mtcli import conf
+from mtcli.conf import conf
 
 
 class RatesModel:
