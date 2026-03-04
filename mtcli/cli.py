@@ -32,6 +32,7 @@ def mt():
 # Comandos internos
 # ---------------------------------------------------------
 
+mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
 mt.add_command(doctor, name="dr")
 
