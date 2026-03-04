@@ -12,7 +12,21 @@ Também oferece utilidades usadas por plugins como:
 - descoberta do diretório MQL5/Files
 - seleção da fonte de dados (CSV ou MT5)
 
-Plugins devem acessar a configuração através do objeto global `conf`.
+Plugins novos devem acessar a configuração através do objeto global `conf`.
+
+Compatibilidade retroativa:
+---------------------------
+Plugins antigos utilizavam:
+
+    from mtcli.conf import config
+
+onde `config` era um objeto `configparser.ConfigParser`.
+
+Para manter compatibilidade com plugins já publicados,
+o objeto `config` continua sendo exposto.
+
+Essa API é considerada **deprecated** e poderá ser removida
+em versões futuras do mtcli.
 """
 
 import os
@@ -26,6 +40,17 @@ from mtcli.mt5_context import mt5_conexao
 class Config:
     """
     Gerenciador central de configurações do mtcli.
+
+    Permite acessar valores a partir de:
+
+    - variáveis de ambiente
+    - arquivo mtcli.ini
+    - valores default
+
+    Plugins devem preferencialmente usar:
+
+        from mtcli.conf import conf
+        conf.get(...)
     """
 
     def __init__(self, filename="mtcli.ini"):
@@ -49,10 +74,17 @@ class Config:
         5. default
 
         Args:
-            key (str)
-            section (str)
-            cast (type | None)
-            default (Any)
+            key (str):
+                Nome da configuração.
+
+            section (str):
+                Seção do arquivo mtcli.ini.
+
+            cast (type | None):
+                Tipo para conversão do valor.
+
+            default (Any):
+                Valor padrão.
 
         Returns:
             Any
@@ -95,10 +127,14 @@ class Config:
     def section(self, section):
         """
         Retorna um helper para acessar uma seção específica.
+
+        Example:
+
+            renko = conf.section("renko")
+            brick = renko.get("brick", cast=int, default=10)
         """
 
         class Section:
-
             def __init__(self, parent, section):
                 self.parent = parent
                 self.section = section
@@ -114,7 +150,15 @@ class Config:
 
     def get_csv_path(self):
         """
-        Retorna o caminho da pasta MQL5/Files.
+        Retorna o caminho da pasta MQL5/Files do MetaTrader 5.
+
+        A prioridade é:
+
+        1. mtcli.ini -> mt5_pasta
+        2. descoberta automática via MT5
+
+        Returns:
+            str: caminho normalizado da pasta Files.
         """
 
         path = self.get("mt5_pasta")
@@ -142,6 +186,13 @@ class Config:
     def get_data_source(self, source=None):
         """
         Retorna a fonte de dados configurada.
+
+        Args:
+            source (str | None):
+                Fonte explícita ("csv" ou "mt5").
+
+        Returns:
+            DataSource
         """
 
         from mtcli.data import CsvDataSource, MT5DataSource
@@ -157,8 +208,29 @@ class Config:
         raise ValueError(f"Fonte de dados desconhecida: {src}")
 
 
+# ---------------------------------------------------------
 # instância global usada por todo o sistema
+# ---------------------------------------------------------
+
 conf = Config()
+
+# ---------------------------------------------------------
+# compatibilidade com plugins antigos
+# ---------------------------------------------------------
+#
+# Plugins antigos utilizam:
+#
+#     from mtcli.conf import config
+#
+# onde `config` era um ConfigParser.
+#
+# Mantemos esse objeto apontando para o ConfigParser interno
+# para evitar quebra de compatibilidade.
+#
+# API DEPRECATED – usar `conf.get()` em novos plugins.
+#
+
+config = conf.config
 
 
 # ---------------------------------------------------------
@@ -173,7 +245,6 @@ TIMEFRAMES = (
     + [f"h{i}" for i in _HOURS]
     + [f"m{i}" for i in _MINUTES]
 )
-
 
 # ---------------------------------------------------------
 # Configurações gerais
@@ -200,11 +271,15 @@ ROMPIMENTO_ALTA = conf.get("rompimento_alta", default="c")
 ROMPIMENTO_BAIXA = conf.get("rompimento_baixa", default="v")
 
 PERCENTUAL_ROMPIMENTO = conf.get(
-    "percentual_rompimento", cast=int, default=50
+    "percentual_rompimento",
+    cast=int,
+    default=50,
 )
 
 PERCENTUAL_DOJI = conf.get(
-    "percentual_doji", cast=int, default=10
+    "percentual_doji",
+    cast=int,
+    default=10,
 )
 
 # ---------------------------------------------------------
