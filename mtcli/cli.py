@@ -11,7 +11,7 @@ from mtcli.plugin_loader import load_plugins
 from mtcli.logger import setup_logger
 
 from .commands.bars import bars
-
+from .commands.doctor import doctor
 
 logger = setup_logger(__name__)
 
@@ -33,6 +33,7 @@ def mt():
 # ---------------------------------------------------------
 
 mt.add_command(bars, name="bars")
+mt.add_command(doctor, name="dr")
 
 
 # ---------------------------------------------------------

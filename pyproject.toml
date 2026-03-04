@@ -47,7 +47,7 @@ mtcli = "mtcli.cli:mt"
 mt = "mtcli.cli:mt"
 
 [project.entry-points."mtcli.plugins"]
-mtcli = "mtcli.plugin:register"
+internos = "mtcli.plugin:register"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -224,6 +224,7 @@ SOMBRA_INFERIOR = conf.get("sombra_inferior", default="bottom")
 # Fonte de dados
 # ---------------------------------------------------------
 
+DATA_SOURCE_NAME = conf.get("dados", default="mt5").lower()
 DATA_SOURCE = conf.get_data_source()
 
 # ---------------------------------------------------------
