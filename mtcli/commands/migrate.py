@@ -1,4 +1,5 @@
 import click
+
 from mtcli.database import get_connection
 from mtcli.migrations.runner import run_migrations
 
@@ -9,5 +10,3 @@ def migrate():
     conn = get_connection()
 
     run_migrations(conn)
-
-    print("Migrations concluídas.")
