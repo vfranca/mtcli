@@ -3,7 +3,7 @@ name = "mtcli"
 version = "4.0.0.dev1"
 description = "Aplicativo CLI para exibir gráficos do MetaTrader 5 screen reader friendly"
 authors = [
-    {name = "Valmir França da Silva",email = "vfranca3@gmail.com"}
+    {name = "Valmir França",email = "vfranca3@gmail.com"}
 ]
 license = "MIT"
 license-files = ["LICENSE"]
@@ -20,7 +20,7 @@ keywords = [
 ]
 
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Financial and Insurance Industry",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -47,7 +47,7 @@ mtcli = "mtcli.cli:mt"
 mt = "mtcli.cli:mt"
 
 [project.entry-points."mtcli.plugins"]
-mtcli = "mtcli.plugin:register"
+internals = "mtcli.plugin:register"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
