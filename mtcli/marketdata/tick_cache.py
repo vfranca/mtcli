@@ -14,11 +14,25 @@ class TickCache:
         self.buffer = deque(maxlen=max_size)
 
     def add_many(self, ticks):
+
         for t in ticks:
             self.buffer.append(t)
 
+    def add(self, tick):
+
+        self.buffer.append(tick)
+
     def get_all(self):
+
         return list(self.buffer)
 
+    def get_last(self):
+
+        if self.buffer:
+            return self.buffer[-1]
+
+        return None
+
     def clear(self):
+
         self.buffer.clear()

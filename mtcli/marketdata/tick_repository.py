@@ -1,86 +1,90 @@
 """
-TickRepository profissional com:
+TickRepository profissional.
 
-- Paginação automática
-- Sincronização incremental robusta
-- Integração com mt5_conexao
-- Proteção contra loops infinitos
+Responsável por:
+
+- Persistir ticks no SQLite
+- Sincronizar histórico inicial
 """
 
 import MetaTrader5 as mt5
 from datetime import datetime, timedelta
 
-from ..database import get_connection
+from ..database import get_connection, wal_checkpoint, backup_database
 from .tick_cache import TickCache
 from mtcli.mt5_context import mt5_conexao
 
 
 class TickRepository:
 
-    BATCH_SIZE = 200000  # tamanho seguro por lote
+    BATCH_SIZE = 200000
 
     def __init__(self):
+
         self.conn = get_connection()
         self.cache = TickCache()
 
-    # ============================================================
-    # SINCRONIZAÇÃO COM PAGINAÇÃO
-    # ============================================================
+        self.insert_counter = 0
+        self.last_backup_day = None
+
+    # ==========================================================
+    # SINCRONIZAÇÃO HISTÓRICA
+    # ==========================================================
 
     def sync(self, symbol: str, days_back: int = 1):
-        """
-        Sincroniza banco com MT5 usando paginação.
-
-        Busca todos os ticks disponíveis desde o último timestamp.
-        """
 
         total_inserted = 0
 
         with mt5_conexao():
 
-            last_time = self._get_last_tick_time(symbol)
+            last_msc = self._get_last_tick_msc(symbol)
 
-            if last_time:
-                start = datetime.fromtimestamp(last_time + 1)
+            if last_msc:
+                start = datetime.fromtimestamp(last_msc / 1000)
             else:
                 start = datetime.now() - timedelta(days=days_back)
 
-            while True:
+            self.conn.execute("BEGIN")
 
-                ticks = mt5.copy_ticks_from(
-                    symbol,
-                    start,
-                    self.BATCH_SIZE,
-                    mt5.COPY_TICKS_ALL,
-                )
+            try:
 
-                if ticks is None or len(ticks) == 0:
-                    break
+                while True:
 
-                inserted = self._insert_ticks(symbol, ticks)
-                total_inserted += inserted
+                    ticks = mt5.copy_ticks_from(
+                        symbol,
+                        start,
+                        self.BATCH_SIZE,
+                        mt5.COPY_TICKS_ALL,
+                    )
 
-                self.cache.add_many(ticks)
+                    if ticks is None or len(ticks) == 0:
+                        break
 
-                # Atualiza início para próximo tick
-                ultimo_timestamp = int(ticks[-1]["time"])
-                novo_start = datetime.fromtimestamp(ultimo_timestamp + 1)
+                    inserted = self._insert_ticks(symbol, ticks)
 
-                # Proteção contra loop infinito
-                if novo_start <= start:
-                    break
+                    total_inserted += inserted
 
-                start = novo_start
+                    self.cache.add_many(ticks)
 
-                # Se retornou menos que o batch, acabou histórico
-                if len(ticks) < self.BATCH_SIZE:
-                    break
+                    last_msc = int(ticks[-1]["time_msc"])
+
+                    start = datetime.fromtimestamp(last_msc / 1000)
+
+                    if len(ticks) < self.BATCH_SIZE:
+                        break
+
+                self.conn.commit()
+
+            except Exception:
+
+                self.conn.rollback()
+                raise
 
         return total_inserted
 
-    # ============================================================
+    # ==========================================================
     # INSERÇÃO
-    # ============================================================
+    # ==========================================================
 
     def _insert_ticks(self, symbol, ticks):
 
@@ -90,6 +94,7 @@ class TickRepository:
             (
                 symbol,
                 int(t["time"]),
+                int(t["time_msc"]),
                 float(t["bid"]),
                 float(t["ask"]),
                 float(t["last"]),
@@ -102,41 +107,69 @@ class TickRepository:
         cursor.executemany(
             """
             INSERT OR IGNORE INTO ticks
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """,
             data,
         )
 
-        self.conn.commit()
-        return cursor.rowcount
+        inserted = cursor.rowcount
 
-    # ============================================================
+        self.insert_counter += inserted
+
+        # checkpoint periódico
+        if self.insert_counter >= 200000:
+
+            wal_checkpoint(self.conn)
+            self.insert_counter = 0
+
+        # backup diário
+        today = datetime.now().date()
+
+        if self.last_backup_day != today:
+
+            backup_database(self.conn)
+            self.last_backup_day = today
+
+        return inserted
+
+    # ==========================================================
     # CONSULTAS
-    # ============================================================
+    # ==========================================================
 
-    def get_ticks_between(self, symbol, start_ts, end_ts):
+    def get_ticks_between(self, symbol, start_msc, end_msc):
+
         cursor = self.conn.cursor()
+
         cursor.execute(
             """
-            SELECT time, bid, ask, last, volume, flags
+            SELECT time_msc, bid, ask, last, volume, flags
             FROM ticks
             WHERE symbol = ?
-            AND time BETWEEN ? AND ?
-            ORDER BY time ASC
+            AND time_msc BETWEEN ? AND ?
+            ORDER BY time_msc ASC
             """,
-            (symbol, start_ts, end_ts),
+            (symbol, start_msc, end_msc),
         )
+
         return cursor.fetchall()
 
-    def _get_last_tick_time(self, symbol):
+    # ==========================================================
+    # UTILITÁRIOS
+    # ==========================================================
+
+    def _get_last_tick_msc(self, symbol):
+
         cursor = self.conn.cursor()
+
         cursor.execute(
             """
-            SELECT MAX(time)
+            SELECT MAX(time_msc)
             FROM ticks
             WHERE symbol = ?
             """,
             (symbol,),
         )
+
         result = cursor.fetchone()
+
         return result[0] if result and result[0] else None
