@@ -1,11 +1,5 @@
 """
 CLI principal do mtcli.
-
-Este módulo define o grupo principal `mt`
-e inicializa o carregamento de plugins.
-
-Também inicia a captura contínua de ticks para manter
-um histórico próprio independente do broker.
 """
 
 import os
@@ -23,11 +17,6 @@ from .commands.migrate import migrate
 
 logger = setup_logger(__name__)
 
-
-# ---------------------------------------------------------
-# Configuração de captura de ticks
-# ---------------------------------------------------------
-
 _tick_streamer = None
 
 
@@ -35,7 +24,7 @@ def start_tick_capture():
     """
     Inicia captura contínua de ticks em background.
 
-    O símbolo pode ser configurado via variável de ambiente:
+    O símbolo deve ser definido via variável:
 
         MTCLI_SYMBOL=WINJ26
     """
@@ -45,7 +34,7 @@ def start_tick_capture():
     if _tick_streamer:
         return
 
-    symbol = os.getenv("SYMBOL")
+    symbol = os.getenv("MTCLI_SYMBOL")
 
     if not symbol:
         logger.info("Captura de ticks desativada (MTCLI_SYMBOL não definido).")
@@ -53,22 +42,24 @@ def start_tick_capture():
 
     logger.info("Iniciando captura contínua de ticks para %s", symbol)
 
-    _tick_streamer = TickStreamer(symbol)
+    try:
 
-    thread = threading.Thread(
-        target=_tick_streamer.start,
-        daemon=True,
-        name="mtcli-tick-streamer",
-    )
+        _tick_streamer = TickStreamer(symbol)
 
-    thread.start()
+        thread = threading.Thread(
+            target=_tick_streamer.start,
+            daemon=True,
+            name="mtcli-tick-streamer",
+        )
 
-    logger.info("Captura de ticks iniciada em background.")
+        thread.start()
 
+        logger.info("Captura de ticks iniciada em background.")
 
-# ---------------------------------------------------------
-# CLI principal
-# ---------------------------------------------------------
+    except Exception:
+
+        logger.exception("Falha ao iniciar captura de ticks")
+
 
 @click.group(context_settings={"max_content_width": 120}, invoke_without_command=True)
 @click.version_option(package_name="mtcli")
@@ -76,45 +67,28 @@ def start_tick_capture():
 def mt(ctx):
     """
     CLI principal do mtcli.
-
-    Exibe gráficos e informações de mercado
-    em formato textual compatível com leitores de tela.
     """
 
-    # inicia captura de ticks
     start_tick_capture()
 
     if ctx.invoked_subcommand is None:
         click.echo(ctx.get_help())
 
 
-# ---------------------------------------------------------
-# Comandos internos
-# ---------------------------------------------------------
-
 mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
 mt.add_command(doctor, name="dr")
 mt.add_command(migrate)
-
-
-# ---------------------------------------------------------
-# Carregamento de plugins
-# ---------------------------------------------------------
 
 loaded_plugins = load_plugins(mt)
 
 logger.info("Plugins carregados: %s", loaded_plugins)
 
 
-# ---------------------------------------------------------
-# Comando utilitário: listar plugins
-# ---------------------------------------------------------
-
 @mt.command(name="plugins")
 def list_plugins():
     """
-    Lista os plugins atualmente carregados no mtcli.
+    Lista os plugins carregados.
     """
 
     if not loaded_plugins:
@@ -126,10 +100,6 @@ def list_plugins():
     for name in loaded_plugins:
         click.echo(f"  {name}")
 
-
-# ---------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------
 
 if __name__ == "__main__":
     mt()

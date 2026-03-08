@@ -1,10 +1,11 @@
 """
-TickRepository profissional.
+TickRepository.
 
 Responsável por:
 
 - Persistir ticks no SQLite
 - Sincronizar histórico inicial
+- Consultas rápidas para engines (Renko etc)
 """
 
 import MetaTrader5 as mt5
@@ -32,6 +33,9 @@ class TickRepository:
     # ==========================================================
 
     def sync(self, symbol: str, days_back: int = 1):
+        """
+        Sincroniza histórico de ticks a partir do broker.
+        """
 
         total_inserted = 0
 
@@ -40,7 +44,7 @@ class TickRepository:
             last_msc = self._get_last_tick_msc(symbol)
 
             if last_msc:
-                start = datetime.fromtimestamp(last_msc / 1000)
+                start = datetime.fromtimestamp((last_msc + 1) / 1000)
             else:
                 start = datetime.now() - timedelta(days=days_back)
 
@@ -68,7 +72,7 @@ class TickRepository:
 
                     last_msc = int(ticks[-1]["time_msc"])
 
-                    start = datetime.fromtimestamp(last_msc / 1000)
+                    start = datetime.fromtimestamp((last_msc + 1) / 1000)
 
                     if len(ticks) < self.BATCH_SIZE:
                         break
@@ -106,23 +110,24 @@ class TickRepository:
 
         cursor.executemany(
             """
-            INSERT OR IGNORE INTO ticks
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO ticks(
+                symbol,time,time_msc,bid,ask,last,volume,flags
+            )
+            VALUES (?,?,?,?,?,?,?,?)
+            ON CONFLICT(symbol,time) DO NOTHING
             """,
             data,
         )
 
-        inserted = cursor.rowcount
+        inserted = len(data)
 
         self.insert_counter += inserted
 
-        # checkpoint periódico
         if self.insert_counter >= 200000:
 
             wal_checkpoint(self.conn)
             self.insert_counter = 0
 
-        # backup diário
         today = datetime.now().date()
 
         if self.last_backup_day != today:
@@ -136,13 +141,34 @@ class TickRepository:
     # CONSULTAS
     # ==========================================================
 
+    def get_last_ticks(self, symbol, limit=5000):
+
+        cursor = self.conn.cursor()
+
+        cursor.execute(
+            """
+            SELECT time_msc,bid,ask,last,volume,flags
+            FROM ticks
+            WHERE symbol = ?
+            ORDER BY time_msc DESC
+            LIMIT ?
+            """,
+            (symbol, limit),
+        )
+
+        rows = cursor.fetchall()
+
+        rows.reverse()
+
+        return rows
+
     def get_ticks_between(self, symbol, start_msc, end_msc):
 
         cursor = self.conn.cursor()
 
         cursor.execute(
             """
-            SELECT time_msc, bid, ask, last, volume, flags
+            SELECT time_msc,bid,ask,last,volume,flags
             FROM ticks
             WHERE symbol = ?
             AND time_msc BETWEEN ? AND ?

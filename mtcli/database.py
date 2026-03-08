@@ -1,3 +1,15 @@
+"""
+Core de acesso ao banco SQLite do mtcli.
+
+Responsável por:
+
+- Criar conexão SQLite
+- Aplicar otimizações de performance
+- Ativar WAL
+- Gerenciar migrations
+- Backup e manutenção do banco
+"""
+
 import sqlite3
 from pathlib import Path
 from datetime import datetime
@@ -7,6 +19,23 @@ BACKUP_DIR = Path.home() / ".mtcli" / "backups"
 
 
 def get_connection():
+    """
+    Cria ou retorna uma conexão SQLite otimizada para ingestão
+    contínua de ticks de mercado.
+
+    Configurações aplicadas:
+
+    - WAL (Write Ahead Logging)
+    - synchronous=NORMAL
+    - temp_store em memória
+    - mmap para leitura rápida
+    - cache expandido
+
+    Returns
+    -------
+    sqlite3.Connection
+        Conexão ativa com o banco SQLite.
+    """
 
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     BACKUP_DIR.mkdir(parents=True, exist_ok=True)
@@ -16,8 +45,9 @@ def get_connection():
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA temp_store=MEMORY")
-    conn.execute("PRAGMA mmap_size=30000000000")
+    conn.execute("PRAGMA mmap_size=268435456")
     conn.execute("PRAGMA cache_size=-200000")
+    conn.execute("PRAGMA journal_size_limit=67108864")
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS schema_migrations(
@@ -37,8 +67,12 @@ def get_connection():
 
 def wal_checkpoint(conn):
     """
-    Reduz tamanho do WAL e mantém banco saudável.
+    Executa checkpoint do WAL.
+
+    Move os dados do arquivo `.wal` para o banco principal
+    e reduz seu tamanho.
     """
+
     conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
 
 
@@ -48,7 +82,10 @@ def wal_checkpoint(conn):
 
 def backup_database(conn):
     """
-    Backup diário seguro do banco SQLite.
+    Realiza backup diário seguro do banco SQLite.
+
+    O backup utiliza a API nativa do SQLite,
+    permitindo cópia consistente mesmo com o banco em uso.
     """
 
     now = datetime.now().strftime("%Y%m%d")

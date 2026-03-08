@@ -26,7 +26,7 @@ class TickStreamer:
 
     def start(self):
         """
-        Inicia captura contínua.
+        Inicia captura contínua de ticks.
         """
 
         self.running = True
@@ -36,7 +36,7 @@ class TickStreamer:
             last_msc = self.repo._get_last_tick_msc(self.symbol)
 
             if last_msc:
-                start = last_msc
+                start = last_msc + 1
             else:
                 start = int(time.time() * 1000)
 
@@ -51,7 +51,7 @@ class TickStreamer:
 
                 if ticks is None or len(ticks) == 0:
 
-                    time.sleep(0.05)
+                    time.sleep(0.1)
                     continue
 
                 self.repo.conn.execute("BEGIN")
@@ -68,7 +68,7 @@ class TickStreamer:
 
                     self.repo.conn.rollback()
 
-                start = int(ticks[-1]["time_msc"])
+                start = int(ticks[-1]["time_msc"]) + 1
 
     def stop(self):
 
