@@ -2,17 +2,15 @@ import importlib
 from pathlib import Path
 
 
-MIGRATIONS = [
-    "mtcli.migrations.001_initial_schema",
-    "mtcli.migrations.002_ticks_time_msc",
-]
+MIGRATIONS_DIR = Path(__file__).parent
+PACKAGE = "mtcli.migrations"
 
 
 def get_current_version(conn):
 
-    cursor = conn.execute("""
-        SELECT MAX(version) FROM schema_migrations
-    """)
+    cursor = conn.execute(
+        "SELECT MAX(version) FROM schema_migrations"
+    )
 
     row = cursor.fetchone()
 
@@ -30,6 +28,26 @@ def mark_version(conn, version):
     )
 
     conn.commit()
+
+
+def discover_migrations():
+
+    migrations = []
+
+    for file in MIGRATIONS_DIR.glob("*.py"):
+
+        if file.name in ("__init__.py", "runner.py"):
+            continue
+
+        version = int(file.name.split("_")[0])
+
+        module_name = file.stem
+
+        migrations.append((version, module_name))
+
+    migrations.sort(key=lambda x: x[0])
+
+    return migrations
 
 
 def legacy_database_detected(conn):
@@ -66,17 +84,21 @@ def run_migrations(conn):
 
     current = get_current_version(conn)
 
-    for i, module_path in enumerate(MIGRATIONS, start=1):
+    migrations = discover_migrations()
 
-        if i <= current:
+    for version, module_name in migrations:
+
+        if version <= current:
             continue
+
+        module_path = f"{PACKAGE}.{module_name}"
 
         module = importlib.import_module(module_path)
 
-        print(f"Applying migration {i}")
+        print(f"Applying migration {version}: {module_name}")
 
         module.upgrade(conn)
 
-        mark_version(conn, i)
+        mark_version(conn, version)
 
     print("Migrations concluídas.")

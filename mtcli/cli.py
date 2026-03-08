@@ -12,6 +12,8 @@ from mtcli.logger import setup_logger
 
 from .commands.bars import bars
 from .commands.doctor import doctor
+from .commands.migrate import migrate
+
 
 logger = setup_logger(__name__)
 
@@ -35,6 +37,7 @@ def mt():
 mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
 mt.add_command(doctor, name="dr")
+mt.add_command(migrate)
 
 
 # ---------------------------------------------------------
