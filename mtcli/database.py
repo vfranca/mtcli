@@ -13,8 +13,9 @@ Responsável por:
 import sqlite3
 from pathlib import Path
 from datetime import datetime
+from .conf import DB_NAME
 
-DB_PATH = Path.home() / ".mtcli" / "marketdata.db"
+DB_PATH = Path.home() / ".mtcli" / DB_NAME
 BACKUP_DIR = Path.home() / ".mtcli" / "backups"
 
 

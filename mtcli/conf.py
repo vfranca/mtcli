@@ -307,3 +307,9 @@ DATA_SOURCE = conf.get_data_source()
 # ---------------------------------------------------------
 
 _INITIAL_CSV_PATH = conf.get_csv_path()
+
+# ---------------------------------------------------------
+# nome do banco de dados de marketdata
+# ---------------------------------------------------------
+
+DB_NAME = conf.get("db_name", default="marketdata.db")
