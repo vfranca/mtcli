@@ -399,14 +399,14 @@ min-versions = ["babel (==2.9.0)", "click (==7.0)", "colorama (==0.4) ; platform
 
 [[package]]
 name = "mkdocs-get-deps"
-version = "0.2.0"
-description = "MkDocs extension that lists all dependencies according to a mkdocs.yml file"
+version = "0.2.1"
+description = "An extra command for MkDocs that infers required PyPI packages from `plugins` in mkdocs.yml"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["docs"]
 files = [
-    {file = "mkdocs_get_deps-0.2.0-py3-none-any.whl", hash = "sha256:2bf11d0b133e77a0dd036abeeb06dec8775e46efa526dc70667d8863eefc6134"},
-    {file = "mkdocs_get_deps-0.2.0.tar.gz", hash = "sha256:162b3d129c7fad9b19abfdcb9c1458a651628e4b1dea628ac68790fb3061c60c"},
+    {file = "mkdocs_get_deps-0.2.1-py3-none-any.whl", hash = "sha256:07d6076298715dfcb8232e7dec083d09015b4e65482ce7f6743cb07cd1da847e"},
+    {file = "mkdocs_get_deps-0.2.1.tar.gz", hash = "sha256:177f9629f71716a8250b417f41b0a2d2145a9fd986d84d0d723b2e3406ce3741"},
 ]
 
 [package.dependencies]

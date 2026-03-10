@@ -1,33 +1,11 @@
 """
 TickEngine - motor de captura contínua de ticks.
 
-Responsável por coletar ticks diretamente do MetaTrader 5
-e persistir os dados no banco SQLite do mtcli.
+Responsável por:
 
-Características:
-
-- captura multi-símbolo
-- ingestão contínua de dados
-- proteção contra perda de ticks via overlap
-- drenagem completa do buffer do MT5
-- gravação otimizada em SQLite (WAL)
-
-Fluxo de dados:
-
-    MetaTrader 5
-        ↓
-    TickEngine
-        ↓
-    TickRepository
-        ↓
-    SQLite (WAL)
-
-O engine mantém um cursor por símbolo baseado em
-`time_msc` (timestamp em milissegundos), garantindo
-que nenhum tick seja perdido.
-
-Para evitar lacunas causadas por latência, um pequeno
-overlap é aplicado ao consultar novos ticks.
+- sincronizar histórico inicial
+- capturar ticks em tempo real
+- persistir ticks via TickRepository
 """
 
 import time
@@ -41,22 +19,12 @@ from .tick_repository import TickRepository
 
 
 class TickEngine:
-    """
-    Motor de captura de ticks multi-símbolo.
-    """
 
     POLL_INTERVAL = 0.2
     BATCH_SIZE = 1000
     OVERLAP_MS = 5
 
     def __init__(self, symbols):
-        """
-        Inicializa o engine.
-
-        Args:
-            symbols (list[str]):
-                Lista de símbolos a serem monitorados.
-        """
 
         self.symbols = symbols
 
@@ -69,9 +37,6 @@ class TickEngine:
         self.thread = None
 
     def start(self):
-        """
-        Inicia o engine em uma thread dedicada.
-        """
 
         if self.running:
             return
@@ -87,9 +52,6 @@ class TickEngine:
         self.thread.start()
 
     def stop(self):
-        """
-        Encerra o engine de captura de ticks.
-        """
 
         self.running = False
 
@@ -97,9 +59,6 @@ class TickEngine:
             self.thread.join()
 
     def _run(self):
-        """
-        Loop principal de captura.
-        """
 
         with mt5_conexao():
 
@@ -108,6 +67,9 @@ class TickEngine:
             for symbol in self.symbols:
 
                 repo = self.repositories[symbol]
+
+                # sincroniza histórico
+                repo.sync(symbol)
 
                 last_msc = repo._get_last_tick_msc(symbol)
 
@@ -119,26 +81,11 @@ class TickEngine:
             while self.running:
 
                 for symbol in self.symbols:
-
                     self._drain_symbol(symbol, last_positions)
 
                 time.sleep(self.POLL_INTERVAL)
 
     def _drain_symbol(self, symbol, last_positions):
-        """
-        Consome todos os ticks disponíveis para um símbolo.
-
-        Esse método garante que picos de mercado não causem
-        perda de ticks, drenando completamente o buffer
-        retornado pela API do MetaTrader.
-
-        Args:
-            symbol (str):
-                Símbolo a ser processado.
-
-            last_positions (dict):
-                Cursor de posição por símbolo.
-        """
 
         repo = self.repositories[symbol]
 

@@ -3,12 +3,13 @@ TickRepository.
 
 Responsável por:
 
-- Persistir ticks no SQLite
-- Sincronizar histórico inicial
-- Consultas rápidas para engines
+- persistência de ticks
+- sincronização histórica
+- consultas rápidas
 """
 
 import MetaTrader5 as mt5
+
 from datetime import datetime, timedelta
 
 from ..database import get_connection, backup_database
@@ -18,7 +19,7 @@ from mtcli.mt5_context import mt5_conexao
 
 class TickRepository:
 
-    BATCH_SIZE = 200000
+    RANGE_WINDOW_MINUTES = 10
 
     def __init__(self):
 
@@ -28,64 +29,64 @@ class TickRepository:
         self.last_backup_day = None
 
     # ==========================================================
-    # SINCRONIZAÇÃO HISTÓRICA
+    # SYNC HISTÓRICO
     # ==========================================================
 
     def sync(self, symbol: str, days_back: int = 1):
 
         total_inserted = 0
 
+        end = datetime.now()
+
+        last_msc = self._get_last_tick_msc(symbol)
+
+        if last_msc:
+            start = datetime.fromtimestamp((last_msc + 1) / 1000)
+        else:
+            start = end - timedelta(days=days_back)
+
+        window = timedelta(minutes=self.RANGE_WINDOW_MINUTES)
+
         with mt5_conexao():
 
-            last_msc = self._get_last_tick_msc(symbol)
+            while start < end:
 
-            if last_msc:
-                start = datetime.fromtimestamp((last_msc + 1) / 1000)
-            else:
-                start = datetime.now() - timedelta(days=days_back)
+                chunk_end = min(start + window, end)
 
-            self.conn.execute("BEGIN")
+                ticks = mt5.copy_ticks_range(
+                    symbol,
+                    start,
+                    chunk_end,
+                    mt5.COPY_TICKS_ALL
+                )
 
-            try:
+                if ticks is not None and len(ticks) > 0:
 
-                while True:
+                    self.conn.execute("BEGIN")
 
-                    ticks = mt5.copy_ticks_from(
-                        symbol,
-                        start,
-                        self.BATCH_SIZE,
-                        mt5.COPY_TICKS_ALL,
-                    )
+                    try:
 
-                    if ticks is None or len(ticks) == 0:
-                        break
+                        inserted = self._insert_ticks(symbol, ticks)
 
-                    inserted = self._insert_ticks(symbol, ticks)
+                        total_inserted += inserted
 
-                    total_inserted += inserted
+                        self.cache.add_many(ticks)
 
-                    self.cache.add_many(ticks)
+                        self.conn.commit()
 
-                    last_msc = int(ticks[-1]["time_msc"])
+                    except Exception:
 
-                    start = datetime.fromtimestamp((last_msc + 1) / 1000)
+                        self.conn.rollback()
+                        raise
 
-                    if len(ticks) < self.BATCH_SIZE:
-                        break
-
-                self.conn.commit()
-
-            except Exception:
-
-                self.conn.rollback()
-                raise
+                start = chunk_end
 
         self._daily_backup()
 
         return total_inserted
 
     # ==========================================================
-    # INSERÇÃO
+    # INSERT
     # ==========================================================
 
     def _insert_ticks(self, symbol, ticks):
@@ -112,7 +113,7 @@ class TickRepository:
                 symbol,time,time_msc,bid,ask,last,volume,flags
             )
             VALUES (?,?,?,?,?,?,?,?)
-            ON CONFLICT(symbol,time) DO NOTHING
+            ON CONFLICT(symbol,time_msc) DO NOTHING
             """,
             data,
         )
@@ -162,7 +163,7 @@ class TickRepository:
         return cursor.fetchall()
 
     # ==========================================================
-    # UTILITÁRIOS
+    # UTIL
     # ==========================================================
 
     def _get_last_tick_msc(self, symbol):
@@ -178,9 +179,9 @@ class TickRepository:
             (symbol,),
         )
 
-        result = cursor.fetchone()
+        row = cursor.fetchone()
 
-        return result[0] if result and result[0] else None
+        return row[0] if row and row[0] else None
 
     def _daily_backup(self):
 
