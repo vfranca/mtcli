@@ -1,63 +1,74 @@
 """
 CLI principal do mtcli.
+
+Responsável por:
+
+- inicializar o ambiente do CLI
+- carregar plugins
+- iniciar captura automática de ticks (opcional)
+
+A captura automática é ativada se a variável de ambiente
+MTCLI_SYMBOL estiver definida.
+
+Exemplo:
+
+    MTCLI_SYMBOL=WIN$N mt bars
+
+Nesse caso o mtcli inicia um TickEngine em background
+para manter o histórico de ticks atualizado.
 """
 
 import os
-import threading
 import click
 
 from mtcli.plugin_loader import load_plugins
 from mtcli.logger import setup_logger
-from mtcli.marketdata.tick_streamer import TickStreamer
+from mtcli.marketdata.tick_engine import TickEngine
 
 from .commands.bars import bars
 from .commands.doctor import doctor
 from .commands.migrate import migrate
+from .commands.ticks import ticks
 
 
 logger = setup_logger(__name__)
 
-_tick_streamer = None
+_tick_engine = None
 
 
 def start_tick_capture():
     """
     Inicia captura contínua de ticks em background.
 
-    O símbolo deve ser definido via variável:
+    Se a variável de ambiente MTCLI_SYMBOL estiver definida,
+    o mtcli iniciará automaticamente um TickEngine para
+    coletar ticks continuamente.
 
-        MTCLI_SYMBOL=WINJ26
+    Isso permite manter um histórico próprio de ticks
+    independente do histórico do broker.
     """
 
-    global _tick_streamer
+    global _tick_engine
 
-    if _tick_streamer:
+    if _tick_engine:
         return
 
     symbol = os.getenv("MTCLI_SYMBOL")
 
     if not symbol:
-        logger.info("Captura de ticks desativada (MTCLI_SYMBOL não definido).")
+        logger.info("Captura automática de ticks desativada (MTCLI_SYMBOL não definido).")
         return
 
     logger.info("Iniciando captura contínua de ticks para %s", symbol)
 
     try:
 
-        _tick_streamer = TickStreamer(symbol)
-
-        thread = threading.Thread(
-            target=_tick_streamer.start,
-            daemon=True,
-            name="mtcli-tick-streamer",
-        )
-
-        thread.start()
+        _tick_engine = TickEngine([symbol])
+        _tick_engine.start()
 
         logger.info("Captura de ticks iniciada em background.")
 
     except Exception:
-
         logger.exception("Falha ao iniciar captura de ticks")
 
 
@@ -79,6 +90,7 @@ mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
 mt.add_command(doctor, name="dr")
 mt.add_command(migrate)
+mt.add_command(ticks)
 
 loaded_plugins = load_plugins(mt)
 
@@ -88,7 +100,7 @@ logger.info("Plugins carregados: %s", loaded_plugins)
 @mt.command(name="plugins")
 def list_plugins():
     """
-    Lista os plugins carregados.
+    Lista os plugins carregados no mtcli.
     """
 
     if not loaded_plugins:

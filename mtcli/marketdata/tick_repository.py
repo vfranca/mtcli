@@ -5,13 +5,13 @@ Responsável por:
 
 - Persistir ticks no SQLite
 - Sincronizar histórico inicial
-- Consultas rápidas para engines (Renko etc)
+- Consultas rápidas para engines
 """
 
 import MetaTrader5 as mt5
 from datetime import datetime, timedelta
 
-from ..database import get_connection, wal_checkpoint, backup_database
+from ..database import get_connection, backup_database
 from .tick_cache import TickCache
 from mtcli.mt5_context import mt5_conexao
 
@@ -25,7 +25,6 @@ class TickRepository:
         self.conn = get_connection()
         self.cache = TickCache()
 
-        self.insert_counter = 0
         self.last_backup_day = None
 
     # ==========================================================
@@ -33,9 +32,6 @@ class TickRepository:
     # ==========================================================
 
     def sync(self, symbol: str, days_back: int = 1):
-        """
-        Sincroniza histórico de ticks a partir do broker.
-        """
 
         total_inserted = 0
 
@@ -84,6 +80,8 @@ class TickRepository:
                 self.conn.rollback()
                 raise
 
+        self._daily_backup()
+
         return total_inserted
 
     # ==========================================================
@@ -119,23 +117,7 @@ class TickRepository:
             data,
         )
 
-        inserted = len(data)
-
-        self.insert_counter += inserted
-
-        if self.insert_counter >= 200000:
-
-            wal_checkpoint(self.conn)
-            self.insert_counter = 0
-
-        today = datetime.now().date()
-
-        if self.last_backup_day != today:
-
-            backup_database(self.conn)
-            self.last_backup_day = today
-
-        return inserted
+        return len(data)
 
     # ==========================================================
     # CONSULTAS
@@ -199,3 +181,12 @@ class TickRepository:
         result = cursor.fetchone()
 
         return result[0] if result and result[0] else None
+
+    def _daily_backup(self):
+
+        today = datetime.now().date()
+
+        if self.last_backup_day != today:
+
+            backup_database(self.conn)
+            self.last_backup_day = today

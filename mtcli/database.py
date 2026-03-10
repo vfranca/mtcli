@@ -15,28 +15,23 @@ from pathlib import Path
 from datetime import datetime
 from .conf import DB_NAME
 
+
 DB_PATH = Path.home() / ".mtcli" / DB_NAME
 BACKUP_DIR = Path.home() / ".mtcli" / "backups"
+
+_connection = None
 
 
 def get_connection():
     """
-    Cria ou retorna uma conexão SQLite otimizada para ingestão
-    contínua de ticks de mercado.
-
-    Configurações aplicadas:
-
-    - WAL (Write Ahead Logging)
-    - synchronous=NORMAL
-    - temp_store em memória
-    - mmap para leitura rápida
-    - cache expandido
-
-    Returns
-    -------
-    sqlite3.Connection
-        Conexão ativa com o banco SQLite.
+    Retorna conexão singleton SQLite otimizada para ingestão
+    contínua de ticks.
     """
+
+    global _connection
+
+    if _connection:
+        return _connection
 
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     BACKUP_DIR.mkdir(parents=True, exist_ok=True)
@@ -50,6 +45,9 @@ def get_connection():
     conn.execute("PRAGMA cache_size=-200000")
     conn.execute("PRAGMA journal_size_limit=67108864")
 
+    # checkpoint automático
+    conn.execute("PRAGMA wal_autocheckpoint=1000")
+
     conn.execute("""
     CREATE TABLE IF NOT EXISTS schema_migrations(
         version INTEGER PRIMARY KEY,
@@ -59,22 +57,9 @@ def get_connection():
 
     conn.commit()
 
+    _connection = conn
+
     return conn
-
-
-# ==========================================================
-# CHECKPOINT
-# ==========================================================
-
-def wal_checkpoint(conn):
-    """
-    Executa checkpoint do WAL.
-
-    Move os dados do arquivo `.wal` para o banco principal
-    e reduz seu tamanho.
-    """
-
-    conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
 
 
 # ==========================================================
@@ -84,9 +69,6 @@ def wal_checkpoint(conn):
 def backup_database(conn):
     """
     Realiza backup diário seguro do banco SQLite.
-
-    O backup utiliza a API nativa do SQLite,
-    permitindo cópia consistente mesmo com o banco em uso.
     """
 
     now = datetime.now().strftime("%Y%m%d")
