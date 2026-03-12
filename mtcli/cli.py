@@ -27,7 +27,6 @@ from mtcli.marketdata.tick_engine import TickEngine
 
 from .commands.bars import bars
 from .commands.doctor import doctor
-from .commands.migrate import migrate
 from .commands.ticks import ticks
 
 
@@ -89,7 +88,6 @@ def mt(ctx):
 mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
 mt.add_command(doctor, name="dr")
-mt.add_command(migrate)
 mt.add_command(ticks)
 
 loaded_plugins = load_plugins(mt)
