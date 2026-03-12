@@ -1,4 +1,27 @@
+"""
+Migration 003
+
+Otimiza a tabela `ticks` convertendo-a para `WITHOUT ROWID`.
+
+Tabelas SQLite com chave primária composta podem ter melhor
+performance e menor uso de disco utilizando `WITHOUT ROWID`.
+
+Para aplicar esta otimização é necessário reconstruir a tabela.
+"""
+
+
 def upgrade(conn):
+    """
+    Reconstrói a tabela `ticks` utilizando `WITHOUT ROWID`.
+
+    Processo executado:
+
+    1. Cria nova tabela otimizada
+    2. Copia os dados da tabela antiga
+    3. Remove tabela antiga
+    4. Renomeia nova tabela
+    5. Recria índices necessários
+    """
 
     cursor = conn.execute("""
         SELECT sql

@@ -1,4 +1,26 @@
+"""
+Migration 004
+
+Reconstrói a tabela `ticks` utilizando `time_msc` como parte
+da chave primária.
+
+Motivação:
+
+- `time` possui resolução em segundos
+- `time_msc` possui resolução em milissegundos
+- múltiplos ticks podem ocorrer dentro do mesmo segundo
+
+Nova chave primária:
+
+    PRIMARY KEY(symbol, time_msc)
+"""
+
+
 def upgrade(conn):
+    """
+    Reconstrói a tabela `ticks` alterando a chave primária
+    para `(symbol, time_msc)`.
+    """
 
     cursor = conn.execute("""
         SELECT sql
