@@ -1,3 +1,30 @@
+"""
+Migration Runner do mtcli.
+
+Este módulo é responsável por:
+
+1. Descobrir migrations disponíveis no diretório `mtcli/migrations`
+2. Determinar a versão atual do schema no banco
+3. Executar migrations pendentes em ordem
+4. Registrar migrations aplicadas na tabela `schema_migrations`
+
+As migrations devem seguir o padrão:
+
+    NNN_nome_da_migration.py
+
+Exemplo:
+
+    001_initial_schema.py
+    002_ticks_time_msc.py
+    003_optimize_ticks_without_rowid.py
+
+Cada migration deve expor uma função:
+
+    def upgrade(conn)
+
+que recebe uma conexão SQLite ativa.
+"""
+
 import importlib
 from pathlib import Path
 
@@ -7,6 +34,23 @@ PACKAGE = "mtcli.migrations"
 
 
 def get_current_version(conn):
+    """
+    Retorna a versão atual do schema registrada no banco.
+
+    A versão corresponde ao maior número presente na
+    tabela `schema_migrations`.
+
+    Parameters
+    ----------
+    conn : sqlite3.Connection
+        Conexão ativa com o banco SQLite.
+
+    Returns
+    -------
+    int
+        Versão atual do schema. Retorna 0 se nenhuma migration
+        tiver sido aplicada.
+    """
 
     cursor = conn.execute(
         "SELECT MAX(version) FROM schema_migrations"
@@ -18,6 +62,19 @@ def get_current_version(conn):
 
 
 def mark_version(conn, version):
+    """
+    Registra uma migration como aplicada.
+
+    Insere um registro na tabela `schema_migrations`
+    contendo a versão aplicada e o timestamp.
+
+    Parameters
+    ----------
+    conn : sqlite3.Connection
+        Conexão com o banco.
+    version : int
+        Número da migration aplicada.
+    """
 
     conn.execute(
         """
@@ -31,6 +88,26 @@ def mark_version(conn, version):
 
 
 def discover_migrations():
+    """
+    Descobre automaticamente as migrations disponíveis.
+
+    A função varre o diretório `mtcli/migrations` e retorna
+    todas as migrations encontradas ordenadas pela versão.
+
+    Returns
+    -------
+    list[tuple[int, str]]
+        Lista de tuplas contendo:
+
+        (version, module_name)
+
+        Exemplo:
+        [
+            (1, "001_initial_schema"),
+            (2, "002_ticks_time_msc"),
+            (3, "003_optimize_ticks_without_rowid")
+        ]
+    """
 
     migrations = []
 
@@ -51,6 +128,24 @@ def discover_migrations():
 
 
 def legacy_database_detected(conn):
+    """
+    Detecta se o banco já possui schema anterior às migrations.
+
+    Alguns usuários podem ter bancos antigos criados antes
+    da introdução do sistema de migrations.
+
+    Neste caso detectamos a presença da tabela `ticks`
+    como indício de banco legado.
+
+    Parameters
+    ----------
+    conn : sqlite3.Connection
+
+    Returns
+    -------
+    bool
+        True se um schema legado for detectado.
+    """
 
     cursor = conn.execute("""
         SELECT name
@@ -63,9 +158,17 @@ def legacy_database_detected(conn):
 
 
 def bootstrap_legacy(conn):
-
     """
-    Marca migration 1 como aplicada se banco já tinha schema.
+    Inicializa o controle de migrations para bancos legados.
+
+    Se um banco antigo já possui a tabela `ticks`, assumimos
+    que a migration inicial (001) já foi aplicada manualmente.
+
+    Nesse caso registramos a versão 1 na tabela
+    `schema_migrations`.
+
+    Isso evita que a migration inicial tente recriar
+    tabelas existentes.
     """
 
     if legacy_database_detected(conn):
@@ -79,6 +182,22 @@ def bootstrap_legacy(conn):
 
 
 def run_migrations(conn):
+    """
+    Executa todas as migrations pendentes.
+
+    Fluxo de execução:
+
+    1. Verifica se o banco é legado
+    2. Determina versão atual do schema
+    3. Descobre migrations disponíveis
+    4. Executa migrations ainda não aplicadas
+    5. Registra cada migration aplicada
+
+    Parameters
+    ----------
+    conn : sqlite3.Connection
+        Conexão ativa com o banco SQLite.
+    """
 
     bootstrap_legacy(conn)
 
