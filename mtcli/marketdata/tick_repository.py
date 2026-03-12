@@ -6,6 +6,9 @@ Responsável por:
 - persistência de ticks
 - sincronização histórica
 - consultas rápidas
+
+Implementa compressão de preços:
+preço_real = preço_armazenado / 100
 """
 
 import MetaTrader5 as mt5
@@ -20,6 +23,7 @@ from mtcli.mt5_context import mt5_conexao
 class TickRepository:
 
     RANGE_WINDOW_MINUTES = 10
+    PRICE_SCALE = 100
 
     def __init__(self):
 
@@ -93,15 +97,16 @@ class TickRepository:
 
         cursor = self.conn.cursor()
 
+        scale = self.PRICE_SCALE
+
         data = [
             (
                 symbol,
-                int(t["time"]),
                 int(t["time_msc"]),
-                float(t["bid"]),
-                float(t["ask"]),
-                float(t["last"]),
-                float(t["volume"]),
+                int(t["bid"] * scale),
+                int(t["ask"] * scale),
+                int(t["last"] * scale),
+                int(t["volume"]),
                 int(t["flags"]),
             )
             for t in ticks
@@ -110,9 +115,15 @@ class TickRepository:
         cursor.executemany(
             """
             INSERT INTO ticks(
-                symbol,time,time_msc,bid,ask,last,volume,flags
+                symbol,
+                time_msc,
+                bid,
+                ask,
+                last,
+                volume,
+                flags
             )
-            VALUES (?,?,?,?,?,?,?,?)
+            VALUES (?,?,?,?,?,?,?)
             ON CONFLICT(symbol,time_msc) DO NOTHING
             """,
             data,
@@ -141,9 +152,24 @@ class TickRepository:
 
         rows = cursor.fetchall()
 
+        if not rows:
+            return []
+
         rows.reverse()
 
-        return rows
+        scale = self.PRICE_SCALE
+
+        return [
+            (
+                r[0],
+                r[1] / scale,
+                r[2] / scale,
+                r[3] / scale,
+                r[4],
+                r[5],
+            )
+            for r in rows
+        ]
 
     def get_ticks_between(self, symbol, start_msc, end_msc):
 
@@ -160,7 +186,24 @@ class TickRepository:
             (symbol, start_msc, end_msc),
         )
 
-        return cursor.fetchall()
+        rows = cursor.fetchall()
+
+        if not rows:
+            return []
+
+        scale = self.PRICE_SCALE
+
+        return [
+            (
+                r[0],
+                r[1] / scale,
+                r[2] / scale,
+                r[3] / scale,
+                r[4],
+                r[5],
+            )
+            for r in rows
+        ]
 
     # ==========================================================
     # UTIL

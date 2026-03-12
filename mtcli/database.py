@@ -44,6 +44,7 @@ def get_connection():
     conn.execute("PRAGMA mmap_size=268435456")
     conn.execute("PRAGMA cache_size=-200000")
     conn.execute("PRAGMA journal_size_limit=67108864")
+    conn.execute("PRAGMA read_uncommitted = TRUE")
 
     # checkpoint automático
     conn.execute("PRAGMA wal_autocheckpoint=1000")
