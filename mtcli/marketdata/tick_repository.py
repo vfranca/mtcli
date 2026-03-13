@@ -45,7 +45,7 @@ class TickRepository:
         last_msc = self._get_last_tick_msc(symbol)
 
         if last_msc:
-            start = datetime.fromtimestamp((last_msc + 1) / 1000)
+            start = datetime.fromtimestamp((last_msc + 1) * 0.001)
         else:
             start = end - timedelta(days=days_back)
 
@@ -99,7 +99,7 @@ class TickRepository:
 
         scale = self.PRICE_SCALE
 
-        data = [
+        data = (
             (
                 symbol,
                 int(t["time_msc"]),
@@ -110,7 +110,7 @@ class TickRepository:
                 int(t["flags"]),
             )
             for t in ticks
-        ]
+        )
 
         cursor.executemany(
             """

@@ -20,9 +20,9 @@ from .tick_repository import TickRepository
 
 class TickEngine:
 
-    POLL_INTERVAL = 0.2
+    POLL_INTERVAL = 0.05
     BATCH_SIZE = 1000
-    OVERLAP_MS = 5
+    OVERLAP_MS = 20
 
     def __init__(self, symbols):
 
@@ -68,7 +68,6 @@ class TickEngine:
 
                 repo = self.repositories[symbol]
 
-                # sincroniza histórico
                 repo.sync(symbol)
 
                 last_msc = repo._get_last_tick_msc(symbol)
@@ -92,7 +91,7 @@ class TickEngine:
         last_msc = last_positions[symbol]
 
         start_dt = datetime.fromtimestamp(
-            (last_msc - self.OVERLAP_MS) / 1000
+            (last_msc - self.OVERLAP_MS) * 0.001
         )
 
         while True:
@@ -127,7 +126,7 @@ class TickEngine:
             last_positions[symbol] = last_msc + 1
 
             start_dt = datetime.fromtimestamp(
-                (last_msc - self.OVERLAP_MS) / 1000
+                (last_msc - self.OVERLAP_MS) * 0.001
             )
 
             if len(ticks) < self.BATCH_SIZE:
