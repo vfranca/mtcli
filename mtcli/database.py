@@ -41,7 +41,7 @@ def get_connection():
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA temp_store=MEMORY")
-    conn.execute("PRAGMA mmap_size=268435456")
+    conn.execute("PRAGMA mmap_size=30000000000")
     conn.execute("PRAGMA cache_size=-200000")
     conn.execute("PRAGMA journal_size_limit=67108864")
     conn.execute("PRAGMA read_uncommitted = TRUE")

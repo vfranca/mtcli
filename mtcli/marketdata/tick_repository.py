@@ -114,7 +114,7 @@ class TickRepository:
 
         cursor.executemany(
             """
-            INSERT INTO ticks(
+            INSERT OR IGNORE INTO ticks(
                 symbol,
                 time_msc,
                 bid,
@@ -124,12 +124,11 @@ class TickRepository:
                 flags
             )
             VALUES (?,?,?,?,?,?,?)
-            ON CONFLICT(symbol,time_msc) DO NOTHING
             """,
             data,
         )
 
-        return len(data)
+        return cursor.rowcount
 
     # ==========================================================
     # CONSULTAS
