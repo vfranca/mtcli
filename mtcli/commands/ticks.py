@@ -19,19 +19,24 @@ from mtcli.services.tick_service import ensure_tick_engine
 @click.command()
 @click.argument("symbols", nargs=-1)
 def ticks(symbols):
+    """
+    Inicia captura contínua de ticks.
+    """
 
     if not symbols:
         click.echo("Informe ao menos um símbolo.")
         return
 
-    engine = ensure_tick_engine(symbols)
+    # atualmente o engine suporta apenas 1 símbolo
+    symbol = symbols[0]
 
-    click.echo("Captura de ticks iniciada.")
+    engine = ensure_tick_engine(symbol)
+
+    click.echo(f"Captura de ticks iniciada para {symbol}")
 
     try:
-
-        while True:
-            time.sleep(1)
+        # inicia engine
+        engine.start()
 
     except KeyboardInterrupt:
 

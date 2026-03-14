@@ -18,21 +18,19 @@ import MetaTrader5 as mt5
 
 from datetime import datetime, timedelta
 
+from mtcli.logger import setup_logger
 from ..database import get_connection, backup_database
 from .tick_cache import TickCache
 from mtcli.mt5_context import mt5_conexao
 
+logger = setup_logger(__name__)
+
 
 class TickRepository:
-
-    # -----------------------------------------------------
-    # CONFIGURAÇÕES
-    # -----------------------------------------------------
 
     RANGE_WINDOW_MINUTES = 10
     PRICE_SCALE = 100
 
-    # retenção opcional
     TICK_RETENTION_DAYS = 30
 
     def __init__(self):
@@ -44,17 +42,15 @@ class TickRepository:
         self.last_backup_day = None
         self.last_purge_day = None
 
+        logger.debug("TickRepository inicializado")
+
     # =====================================================
     # SYNC HISTÓRICO
     # =====================================================
 
     def sync(self, symbol: str, days_back: int = 1):
-        """
-        Sincroniza histórico inicial de ticks.
 
-        Busca dados históricos no MT5 e grava
-        no banco em janelas de tempo.
-        """
+        logger.info("Iniciando sync histórico de ticks (%s)", symbol)
 
         total_inserted = 0
 
@@ -64,8 +60,10 @@ class TickRepository:
 
         if last_msc:
             start = datetime.fromtimestamp((last_msc + 1) * 0.001)
+            logger.debug("Continuando sync a partir de %s", start)
         else:
             start = end - timedelta(days=days_back)
+            logger.debug("Sync inicial iniciando em %s", start)
 
         window = timedelta(minutes=self.RANGE_WINDOW_MINUTES)
 
@@ -96,9 +94,18 @@ class TickRepository:
 
                         self.conn.commit()
 
+                        logger.debug(
+                            "Chunk sync: %d ticks inseridos (%s)",
+                            inserted,
+                            symbol
+                        )
+
                     except Exception:
 
                         self.conn.rollback()
+
+                        logger.exception("Erro durante sync de ticks")
+
                         raise
 
                 start = chunk_end
@@ -106,18 +113,29 @@ class TickRepository:
         self._daily_backup()
         self._daily_purge()
 
+        logger.info(
+            "Sync histórico concluído (%s) — %d ticks inseridos",
+            symbol,
+            total_inserted
+        )
+
         return total_inserted
 
     # =====================================================
     # INSERT
     # =====================================================
 
-    def _insert_ticks(self, symbol, ticks):
-        """
-        Insere ticks no banco.
+    def insert_ticks(self, symbol, ticks):
 
-        Utiliza INSERT OR IGNORE para evitar duplicações.
-        """
+        if ticks is None or len(ticks) == 0:
+            log.debug("Nenhum tick recebido para inserção (%s)", symbol)
+            return
+
+        logger.debug(
+            "TickRepository inserindo %d ticks (%s)",
+            len(ticks),
+            symbol
+        )
 
         scale = self.PRICE_SCALE
 
@@ -150,16 +168,29 @@ class TickRepository:
             data,
         )
 
-        return cursor.rowcount
+        self.conn.commit()
+
+        inserted = cursor.rowcount
+
+        logger.debug(
+            "SQLite insert result: %d rows (%s)",
+            inserted,
+            symbol
+        )
+
+        return inserted
 
     # =====================================================
     # CONSULTAS
     # =====================================================
 
     def get_last_ticks(self, symbol, limit=5000):
-        """
-        Retorna últimos ticks de um símbolo.
-        """
+
+        logger.debug(
+            "Consulta últimos %d ticks (%s)",
+            limit,
+            symbol
+        )
 
         rows = self.conn.execute(
             """
@@ -191,12 +222,14 @@ class TickRepository:
             for r in rows
         ]
 
-    # -----------------------------------------------------
-
     def get_ticks_between(self, symbol, start_msc, end_msc):
-        """
-        Retorna ticks entre dois timestamps.
-        """
+
+        logger.debug(
+            "Consulta ticks entre %s e %s (%s)",
+            start_msc,
+            end_msc,
+            symbol
+        )
 
         rows = self.conn.execute(
             """
@@ -231,9 +264,6 @@ class TickRepository:
     # =====================================================
 
     def _get_last_tick_msc(self, symbol):
-        """
-        Retorna timestamp do último tick armazenado.
-        """
 
         row = self.conn.execute(
             """
@@ -244,7 +274,11 @@ class TickRepository:
             (symbol,),
         ).fetchone()
 
-        return row[0] if row and row[0] else None
+        last = row[0] if row and row[0] else None
+
+        logger.debug("Último tick armazenado (%s): %s", symbol, last)
+
+        return last
 
     # =====================================================
     # BACKUP AUTOMÁTICO
@@ -256,6 +290,8 @@ class TickRepository:
 
         if self.last_backup_day != today:
 
+            logger.info("Executando backup automático do banco")
+
             backup_database(self.conn)
 
             self.last_backup_day = today
@@ -265,10 +301,6 @@ class TickRepository:
     # =====================================================
 
     def _daily_purge(self):
-        """
-        Remove ticks antigos para evitar crescimento
-        infinito do banco.
-        """
 
         if self.TICK_RETENTION_DAYS <= 0:
             return
@@ -282,6 +314,8 @@ class TickRepository:
             (datetime.now() - timedelta(days=self.TICK_RETENTION_DAYS)).timestamp()
             * 1000
         )
+
+        logger.info("Executando purge de ticks antigos")
 
         self.conn.execute(
             """

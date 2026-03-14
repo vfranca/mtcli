@@ -23,11 +23,12 @@ import click
 
 from mtcli.plugin_loader import load_plugins
 from mtcli.logger import setup_logger
-from mtcli.marketdata.tick_engine import TickEngine
+from mtcli.services.tick_service import ensure_tick_engine
 
 from .commands.bars import bars
 from .commands.doctor import doctor
 from .commands.ticks import ticks
+from .commands.backfill import backfill
 
 
 logger = setup_logger(__name__)
@@ -55,15 +56,17 @@ def start_tick_capture():
     symbol = os.getenv("MTCLI_SYMBOL")
 
     if not symbol:
-        logger.info("Captura automática de ticks desativada (MTCLI_SYMBOL não definido).")
+        logger.info(
+            "Captura automática de ticks desativada (MTCLI_SYMBOL não definido)."
+        )
         return
 
     logger.info("Iniciando captura contínua de ticks para %s", symbol)
 
     try:
 
-        _tick_engine = TickEngine([symbol])
-        _tick_engine.start()
+        # CORREÇÃO PRINCIPAL
+        _tick_engine = ensure_tick_engine([symbol])
 
         logger.info("Captura de ticks iniciada em background.")
 
@@ -89,6 +92,7 @@ mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
 mt.add_command(doctor, name="dr")
 mt.add_command(ticks)
+mt.add_command(backfill, name="fill")
 
 loaded_plugins = load_plugins(mt)
 

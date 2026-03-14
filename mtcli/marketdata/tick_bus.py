@@ -1,37 +1,45 @@
 """
 TickBus
 
-Sistema simples de pub/sub para distribuição
-de ticks em memória.
-
-Todos os componentes podem se registrar
-para receber eventos de ticks.
+Event Bus simples para distribuição de ticks.
 """
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class TickBus:
+    """
+    Implementa um Event Bus simples para ticks.
+    """
 
     def __init__(self):
-
         self.subscribers = []
 
-    # -----------------------------------------------------
+    # ---------------------------------------------------------
 
     def subscribe(self, handler):
+        """
+        Registra um subscriber para receber ticks.
+        """
 
-        if handler not in self.subscribers:
-            self.subscribers.append(handler)
+        self.subscribers.append(handler)
 
-    # -----------------------------------------------------
+        name = getattr(handler, "__qualname__", handler.__class__.__name__)
 
-    def unsubscribe(self, handler):
+        logger.debug("Subscriber registrado: %s", name)
 
-        if handler in self.subscribers:
-            self.subscribers.remove(handler)
+    # ---------------------------------------------------------
 
-    # -----------------------------------------------------
+    def publish(self, tick):
+        """
+        Publica um tick para todos os subscribers.
+        """
 
-    def publish(self, symbol, ticks):
+        for handler in self.subscribers:
+            try:
+                handler(tick)
 
-        for handler in list(self.subscribers):
-            handler(symbol, ticks)
+            except Exception:
+                logger.exception("Erro em subscriber")
