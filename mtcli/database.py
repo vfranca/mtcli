@@ -3,17 +3,18 @@ Core de acesso ao banco SQLite do mtcli.
 
 Responsável por:
 
-- Criar conexão SQLite
-- Aplicar otimizações de performance
-- Ativar WAL
-- Gerenciar migrations
-- Backup e manutenção do banco
+- criar conexão SQLite
+- aplicar otimizações
+- executar migrations automaticamente
+- backup automático
 """
 
 import sqlite3
 from pathlib import Path
 from datetime import datetime
+
 from .conf import DB_NAME
+from .migrations.runner import run_migrations
 
 
 DB_PATH = Path.home() / ".mtcli" / DB_NAME
@@ -24,8 +25,7 @@ _connection = None
 
 def get_connection():
     """
-    Retorna conexão singleton SQLite otimizada para ingestão
-    contínua de ticks.
+    Retorna conexão singleton SQLite.
     """
 
     global _connection
@@ -38,25 +38,18 @@ def get_connection():
 
     conn = sqlite3.connect(DB_PATH, check_same_thread=False)
 
+    # otimizações
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA temp_store=MEMORY")
     conn.execute("PRAGMA mmap_size=30000000000")
     conn.execute("PRAGMA cache_size=-200000")
     conn.execute("PRAGMA journal_size_limit=67108864")
-    conn.execute("PRAGMA read_uncommitted = TRUE")
+    conn.execute("PRAGMA wal_autocheckpoint=5000")
+    conn.execute("PRAGMA foreign_keys=ON")
 
-    # checkpoint automático
-    conn.execute("PRAGMA wal_autocheckpoint=1000")
-
-    conn.execute("""
-    CREATE TABLE IF NOT EXISTS schema_migrations(
-        version INTEGER PRIMARY KEY,
-        applied_at TEXT NOT NULL
-    )
-    """)
-
-    conn.commit()
+    # executa migrations automaticamente
+    run_migrations(conn)
 
     _connection = conn
 
@@ -68,9 +61,6 @@ def get_connection():
 # ==========================================================
 
 def backup_database(conn):
-    """
-    Realiza backup diário seguro do banco SQLite.
-    """
 
     now = datetime.now().strftime("%Y%m%d")
 

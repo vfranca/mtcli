@@ -1,14 +1,12 @@
 """
-TickWriter.
+TickWriter
 
 Thread dedicada para escrita de ticks no SQLite.
-Recebe ticks via Queue e grava em batches grandes
-para maximizar performance.
+Recebe ticks via TickBus e grava em batches grandes.
 """
 
 import threading
 from queue import Queue, Empty
-from time import sleep
 
 
 class TickWriter:
@@ -23,6 +21,8 @@ class TickWriter:
 
         self.running = False
         self.thread = None
+
+    # -----------------------------------------------------
 
     def start(self):
 
@@ -39,6 +39,8 @@ class TickWriter:
 
         self.thread.start()
 
+    # -----------------------------------------------------
+
     def stop(self):
 
         self.running = False
@@ -46,9 +48,13 @@ class TickWriter:
         if self.thread:
             self.thread.join()
 
+    # -----------------------------------------------------
+
     def push(self, symbol, ticks):
 
         self.queue.put((symbol, ticks))
+
+    # -----------------------------------------------------
 
     def _run(self):
 
@@ -63,13 +69,14 @@ class TickWriter:
                 buffers.setdefault(symbol, []).extend(ticks)
 
                 if len(buffers[symbol]) >= self.MAX_BATCH:
-
                     self._flush(symbol, buffers)
 
             except Empty:
 
                 for symbol in list(buffers.keys()):
                     self._flush(symbol, buffers)
+
+    # -----------------------------------------------------
 
     def _flush(self, symbol, buffers):
 
