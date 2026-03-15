@@ -4,10 +4,9 @@ TickWriter
 Subscriber do TickBus responsável por persistir ticks no banco.
 """
 
-import logging
+from mtcli.logger import setup_logger
 
-
-logger = logging.getLogger(__name__)
+logger = setup_logger(__name__)
 
 
 class TickWriter:
@@ -15,24 +14,31 @@ class TickWriter:
     Recebe ticks do TickBus e grava no banco via TickRepository.
     """
 
-    def __init__(self, repository):
-        """
-        Parameters
-        ----------
-        repository : TickRepository
-            Repositório de persistência de ticks.
-        """
+    def __init__(self, symbol, repository):
+
+        self.symbol = symbol
         self.repository = repository
 
     # ---------------------------------------------------------
 
-    def __call__(self, tick):
+    def __call__(self, ticks):
         """
-        Método chamado pelo TickBus ao publicar um tick.
+        Chamado pelo TickBus ao publicar ticks.
         """
 
         try:
-            self.repository.insert_tick(tick)
 
-        except Exception as e:
-            logger.exception("Erro ao gravar tick: %s", e)
+            inserted = self.repository.insert_ticks(
+                self.symbol,
+                ticks
+            )
+
+            logger.debug(
+                "TickWriter inseriu %s ticks (%s)",
+                inserted,
+                self.symbol
+            )
+
+        except Exception:
+
+            logger.exception("Erro ao gravar ticks")

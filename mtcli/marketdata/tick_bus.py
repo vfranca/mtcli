@@ -4,9 +4,9 @@ TickBus
 Event Bus simples para distribuição de ticks.
 """
 
-import logging
+from mtcli.logger import setup_logger
 
-logger = logging.getLogger(__name__)
+logger = setup_logger(__name__)
 
 
 class TickBus:
@@ -34,12 +34,28 @@ class TickBus:
 
     def publish(self, tick):
         """
-        Publica um tick para todos os subscribers.
+        Publica um único tick para todos os subscribers.
         """
 
         for handler in self.subscribers:
             try:
                 handler(tick)
+
+            except Exception:
+                logger.exception("Erro em subscriber")
+
+    # ---------------------------------------------------------
+
+    def publish_many(self, ticks):
+        """
+        Publica um lote de ticks para todos os subscribers.
+
+        Usado principalmente por mecanismos de backfill.
+        """
+
+        for handler in self.subscribers:
+            try:
+                handler(ticks)
 
             except Exception:
                 logger.exception("Erro em subscriber")

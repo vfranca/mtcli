@@ -129,7 +129,7 @@ class TickRepository:
 
         if ticks is None or len(ticks) == 0:
             log.debug("Nenhum tick recebido para inserção (%s)", symbol)
-            return
+            return 0
 
         logger.debug(
             "TickRepository inserindo %d ticks (%s)",

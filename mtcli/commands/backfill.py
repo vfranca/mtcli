@@ -8,19 +8,21 @@ Fluxo:
 
 BackfillEngine
       ↓
+TickBus
+      ↓
+TickWriter
+      ↓
 TickRepository
       ↓
 SQLite
-
-Opcionalmente os ticks também podem ser publicados no TickBus
-para que plugins consumam o fluxo histórico.
 """
 
 import click
 
-from mtcli.marketdata.backfill_engine import BackfillEngine
+from mtcli.marketdata.backfill import BackfillEngine
 from mtcli.marketdata.tick_bus import TickBus
 from mtcli.marketdata.tick_repository import TickRepository
+from mtcli.marketdata.tick_writer import TickWriter
 
 
 @click.command()
@@ -55,14 +57,14 @@ def backfill(symbol: str, days: int):
         mt fill WINJ26 --days 30
     """
 
-    # Event bus (permite que plugins consumam os ticks históricos)
     bus = TickBus()
 
-    # Repositório de persistência
     repo = TickRepository()
 
-    # Engine de backfill
+    writer = TickWriter(symbol, repo)
+
+    bus.subscribe(writer)
+
     engine = BackfillEngine(symbol, bus, repo)
 
-    # Executa o carregamento histórico
     engine.run(days)
