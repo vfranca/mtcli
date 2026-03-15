@@ -26,6 +26,11 @@ Cada migration deve implementar:
 import importlib
 from pathlib import Path
 
+from ..logger import setup_logger
+
+
+log = setup_logger(__name__)
+
 
 MIGRATIONS_DIR = Path(__file__).parent
 PACKAGE = "mtcli.migrations"
@@ -42,6 +47,8 @@ def ensure_migrations_table(conn):
     Esta tabela armazena quais migrations já foram
     aplicadas no banco.
     """
+
+    log.debug("Garantindo existência da tabela schema_migrations.")
 
     conn.execute("""
     CREATE TABLE IF NOT EXISTS schema_migrations(
@@ -74,13 +81,19 @@ def get_current_version(conn):
 
     row = cursor.fetchone()
 
-    return row[0] if row and row[0] else 0
+    version = row[0] if row and row[0] else 0
+
+    log.debug("Versão atual do schema: %s", version)
+
+    return version
 
 
 def mark_version(conn, version):
     """
     Marca uma migration como aplicada.
     """
+
+    log.debug("Registrando migration aplicada: version=%s", version)
 
     conn.execute(
         """
@@ -112,6 +125,8 @@ def discover_migrations():
     list[(int,str)]
     """
 
+    log.debug("Descobrindo migrations em %s", MIGRATIONS_DIR)
+
     migrations = []
 
     for file in MIGRATIONS_DIR.glob("*.py"):
@@ -123,6 +138,7 @@ def discover_migrations():
 
         # ignora arquivos inválidos
         if not prefix.isdigit():
+            log.debug("Arquivo ignorado (prefixo inválido): %s", file.name)
             continue
 
         version = int(prefix)
@@ -132,6 +148,8 @@ def discover_migrations():
         migrations.append((version, module_name))
 
     migrations.sort(key=lambda x: x[0])
+
+    log.debug("Migrations descobertas: %s", migrations)
 
     validate_migrations(migrations)
 
@@ -151,14 +169,21 @@ def validate_migrations(migrations):
     versions = [v for v, _ in migrations]
 
     if len(versions) != len(set(versions)):
+
+        log.error("Versões duplicadas detectadas nas migrations.")
+
         raise RuntimeError("Duplicate migration versions detected.")
 
     if not versions:
+        log.debug("Nenhuma migration encontrada.")
         return
 
     expected = list(range(min(versions), max(versions) + 1))
 
     if versions != expected:
+
+        log.error("Gap detectado na sequência de migrations: %s", versions)
+
         raise RuntimeError(
             f"Migration sequence gap detected: {versions}"
         )
@@ -173,6 +198,8 @@ def legacy_database_detected(conn):
     Detecta bancos antigos sem controle de migrations.
     """
 
+    log.debug("Verificando se banco é legado.")
+
     cursor = conn.execute("""
         SELECT name
         FROM sqlite_master
@@ -180,7 +207,12 @@ def legacy_database_detected(conn):
         AND name='ticks'
     """)
 
-    return cursor.fetchone() is not None
+    detected = cursor.fetchone() is not None
+
+    if detected:
+        log.info("Banco legado detectado (tabela ticks presente).")
+
+    return detected
 
 
 def bootstrap_legacy(conn):
@@ -189,6 +221,8 @@ def bootstrap_legacy(conn):
     """
 
     if legacy_database_detected(conn):
+
+        log.info("Inicializando controle de migrations para banco legado.")
 
         conn.execute("""
             INSERT OR IGNORE INTO schema_migrations(version, applied_at)
@@ -214,6 +248,8 @@ def run_migrations(conn):
     4. Executa migrations pendentes
     """
 
+    log.debug("Iniciando verificação de migrations.")
+
     ensure_migrations_table(conn)
 
     bootstrap_legacy(conn)
@@ -222,24 +258,44 @@ def run_migrations(conn):
 
     migrations = discover_migrations()
 
-    for version, module_name in migrations:
+    pending = [m for m in migrations if m[0] > current]
 
-        if version <= current:
-            continue
+    if not pending:
+
+        log.debug("Nenhuma migration pendente.")
+
+        return
+
+    log.info("Executando %s migration(s) pendente(s).", len(pending))
+
+    for version, module_name in pending:
 
         module_path = f"{PACKAGE}.{module_name}"
+
+        log.info("Aplicando migration %s (%s)", version, module_name)
 
         module = importlib.import_module(module_path)
 
         if not hasattr(module, "upgrade"):
+
+            log.error("Migration %s não define upgrade()", module_name)
+
             raise RuntimeError(
                 f"Migration {module_name} does not define upgrade()"
             )
 
-        print(f"Applying migration {version}: {module_name}")
+        try:
 
-        module.upgrade(conn)
+            module.upgrade(conn)
 
-        mark_version(conn, version)
+            mark_version(conn, version)
 
-    print("Migrations concluídas.")
+            log.info("Migration %s aplicada com sucesso.", version)
+
+        except Exception:
+
+            log.exception("Falha ao aplicar migration %s", version)
+
+            raise
+
+    log.info("Migrations concluídas com sucesso.")
