@@ -1,45 +1,68 @@
+"""
+Comando CLI: backfill
+
+Responsável por carregar histórico de ticks do MetaTrader5
+para o banco SQLite do mtcli utilizando o BackfillEngine.
+
+Fluxo:
+
+BackfillEngine
+      ↓
+TickRepository
+      ↓
+SQLite
+
+Opcionalmente os ticks também podem ser publicados no TickBus
+para que plugins consumam o fluxo histórico.
+"""
+
 import click
-import datetime
-import MetaTrader5 as mt5
 
+from mtcli.marketdata.backfill_engine import BackfillEngine
+from mtcli.marketdata.tick_bus import TickBus
 from mtcli.marketdata.tick_repository import TickRepository
-from mtcli.logger import setup_logger
-
-log = setup_logger(__name__)
 
 
 @click.command()
 @click.argument("symbol")
-@click.option("--days", default=5, help="Número de dias de histórico")
-def backfill(symbol, days):
+@click.option(
+    "--days",
+    default=5,
+    show_default=True,
+    help="Número de dias de histórico a carregar caso não exista histórico local.",
+)
+def backfill(symbol: str, days: int):
     """
-    Carrega ticks históricos do MT5 para o banco.
+    Executa backfill histórico de ticks.
+
+    Este comando baixa ticks históricos diretamente do MetaTrader5
+    e os grava no banco local SQLite do mtcli.
+
+    O processo é incremental:
+
+    - se já existirem ticks no banco, o backfill continua do último tick
+    - caso contrário, carrega o número de dias definido em --days
+
+    Examples
+    --------
+
+    Carregar 5 dias:
+
+        mt fill WINJ26
+
+    Carregar 30 dias:
+
+        mt fill WINJ26 --days 30
     """
 
-    log.info("Backfill iniciado para %s (%s dias)", symbol, days)
+    # Event bus (permite que plugins consumam os ticks históricos)
+    bus = TickBus()
 
-    if not mt5.initialize():
-        log.error("Falha ao inicializar MT5")
-        return
-
-    mt5.symbol_select(symbol, True)
-
-    to_date = datetime.datetime.utcnow()
-    from_date = to_date - datetime.timedelta(days=days)
-
-    ticks = mt5.copy_ticks_range(
-        symbol,
-        from_date,
-        to_date,
-        mt5.COPY_TICKS_ALL
-    )
-
-    if ticks is None or len(ticks) == 0:
-        log.warning("Nenhum tick retornado")
-        return
-
+    # Repositório de persistência
     repo = TickRepository()
 
-    repo.insert_ticks(symbol, ticks)
+    # Engine de backfill
+    engine = BackfillEngine(symbol, bus, repo)
 
-    log.info("Backfill concluído: %s ticks", len(ticks))
+    # Executa o carregamento histórico
+    engine.run(days)
