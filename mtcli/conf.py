@@ -313,3 +313,19 @@ _INITIAL_CSV_PATH = conf.get_csv_path()
 # ---------------------------------------------------------
 
 DB_NAME = conf.get("db_name", default="marketdata.db")
+
+# ---------------------------------------------------------
+# gestão de  múltiplos processos
+# ---------------------------------------------------------
+
+RUN_DIR = os.path.join(
+    os.getenv("APPDATA", os.path.expanduser("~")),
+    "mtcli",
+    "run"
+)
+
+os.makedirs(RUN_DIR, exist_ok=True)
+
+PID_FILE = os.path.join(RUN_DIR, "risco.pid")
+STOP_FILE = os.path.join(RUN_DIR, "risco.stop")
+HEARTBEAT_FILE = os.path.join(RUN_DIR, "risco.heartbeat")

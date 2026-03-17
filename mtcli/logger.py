@@ -7,31 +7,44 @@ o ecossistema de plugins do mtcli para configurar logging consistente.
 Características principais
 --------------------------
 
-✔ Arquivo de log rotativo em:
-  %APPDATA%/mtcli/logs/mtcli.log
+* Arquivo de log rotativo em:
+  %APPDATA%/mtcli/logs/
 
-✔ Rotação automática:
+* Rotação automática:
   - tamanho máximo: 2 MB
   - até 3 arquivos de backup
 
-✔ Proteção contra duplicação de handlers quando plugins
+* Proteção contra duplicação de handlers quando plugins
   inicializam o logger múltiplas vezes.
 
-✔ Encoding UTF-8 garantido (evita problemas de acentuação
+* Encoding UTF-8 garantido (evita problemas de acentuação
   no Windows).
 
-✔ Compatível com pytest (caplog).
+* Compatível com pytest (caplog).
+
+* Suporte opcional a logs por processo (multi-process safe)
+
+Variáveis de ambiente
+---------------------
+
+MTCLI_LOG_PER_PROCESS=1
+    cria arquivos separados por PID
+    exemplo: mtcli-1234.log
+
+MTCLI_LOG_NAME=risco
+    define nome base do arquivo de log
 
 Observação
 ----------
 
 Os logs **não são exibidos no console**.
-Toda saída é direcionada exclusivamente para o arquivo de log.
+Toda saída é direcionada exclusivamente para arquivo.
 """
 
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from pathlib import Path
 
 
 # ==========================================================
@@ -40,11 +53,37 @@ import os
 
 base_dir = os.getenv("APPDATA", os.path.expanduser("~"))
 
-LOG_DIR = os.path.join(base_dir, "mtcli", "logs")
+LOG_DIR = Path(base_dir) / "mtcli" / "logs"
 
-os.makedirs(LOG_DIR, exist_ok=True)
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
-LOG_FILE = os.path.join(LOG_DIR, "mtcli.log")
+
+# ==========================================================
+# RESOLUÇÃO DO NOME DO LOG
+# ==========================================================
+
+def _resolve_log_file() -> Path:
+    """
+    Resolve dinamicamente o caminho do arquivo de log.
+
+    Mantém compatibilidade com versões anteriores
+    mas permite novos modos via variáveis de ambiente.
+    """
+
+    log_name = os.getenv("MTCLI_LOG_NAME", "mtcli")
+
+    per_process = os.getenv("MTCLI_LOG_PER_PROCESS")
+
+    if per_process:
+        pid = os.getpid()
+        filename = f"{log_name}-{pid}.log"
+    else:
+        filename = f"{log_name}.log"
+
+    return LOG_DIR / filename
+
+
+LOG_FILE = _resolve_log_file()
 
 
 # ==========================================================
@@ -82,34 +121,45 @@ def setup_logger(name: str = "mtcli") -> logging.Logger:
     )
 
     # ======================================================
-    # REMOVE STREAM HANDLERS (garante silêncio no console)
+    # REMOVE STREAM HANDLERS (silencia console)
     # ======================================================
 
     for handler in list(logger.handlers):
-        if isinstance(handler, logging.StreamHandler) and not isinstance(handler, RotatingFileHandler):
+
+        if isinstance(handler, logging.StreamHandler) and not isinstance(
+            handler, RotatingFileHandler
+        ):
             logger.removeHandler(handler)
+
+    # ======================================================
+    # EVITA DUPLICAÇÃO DE FILE HANDLER
+    # ======================================================
+
+    for handler in logger.handlers:
+
+        if isinstance(handler, RotatingFileHandler):
+
+            try:
+                if Path(handler.baseFilename) == LOG_FILE:
+                    return logger
+            except Exception:
+                pass
 
     # ======================================================
     # FILE HANDLER ROTATIVO
     # ======================================================
 
-    file_handler_exists = any(
-        isinstance(h, RotatingFileHandler) for h in logger.handlers
+    file_handler = RotatingFileHandler(
+        LOG_FILE,
+        maxBytes=2_000_000,
+        backupCount=3,
+        encoding="utf-8",
+        delay=True,
     )
 
-    if not file_handler_exists:
+    file_handler.setFormatter(formatter)
 
-        file_handler = RotatingFileHandler(
-            LOG_FILE,
-            maxBytes=2_000_000,
-            backupCount=3,
-            encoding="utf-8",
-            delay=True,
-        )
-
-        file_handler.setFormatter(formatter)
-
-        logger.addHandler(file_handler)
+    logger.addHandler(file_handler)
 
     # ======================================================
     # PROPAGATION
@@ -124,13 +174,5 @@ def setup_logger(name: str = "mtcli") -> logging.Logger:
 # ==========================================================
 # LOGGER PADRÃO DO MTCLI
 # ==========================================================
-
-"""
-Logger padrão utilizado por módulos internos do mtcli.
-
-Plugins geralmente criam seu próprio logger usando:
-
-    setup_logger(__name__)
-"""
 
 log = setup_logger()
