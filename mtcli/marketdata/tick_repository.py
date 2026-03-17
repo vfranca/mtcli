@@ -19,7 +19,7 @@ import MetaTrader5 as mt5
 from datetime import datetime, timedelta
 
 from mtcli.logger import setup_logger
-from ..database import get_connection, backup_database
+from mtcli.database import get_connection, backup_database
 from .tick_cache import TickCache
 from mtcli.mt5_context import mt5_conexao
 
@@ -128,7 +128,7 @@ class TickRepository:
     def insert_ticks(self, symbol, ticks):
 
         if ticks is None or len(ticks) == 0:
-            log.debug("Nenhum tick recebido para inserção (%s)", symbol)
+            logger.debug("Nenhum tick recebido para inserção (%s)", symbol)
             return 0
 
         logger.debug(

@@ -1,26 +1,9 @@
 """
 CLI principal do mtcli.
-
-Responsável por:
-
-- inicializar o ambiente do CLI
-- carregar plugins
-- iniciar captura automática de ticks (opcional)
-
-A captura automática é ativada se a variável de ambiente
-MTCLI_SYMBOL estiver definida.
-
-Exemplo:
-
-    MTCLI_SYMBOL=WIN$N mt bars
-
-Nesse caso o mtcli inicia um TickEngine em background
-para manter o histórico de ticks atualizado.
 """
 
 import os
 import click
-
 from mtcli.plugin_loader import load_plugins
 from mtcli.logger import setup_logger
 from mtcli.services.tick_service import ensure_tick_engine
@@ -30,43 +13,42 @@ from .commands.doctor import doctor
 from .commands.ticks import ticks
 from .commands.backfill import backfill
 
-
 logger = setup_logger(__name__)
 
-_tick_engine = None
+_tick_engines = []
 
 
 def start_tick_capture():
     """
-    Inicia captura contínua de ticks em background.
-
-    Se a variável de ambiente MTCLI_SYMBOL estiver definida,
-    o mtcli iniciará automaticamente um TickEngine para
-    coletar ticks continuamente.
-
-    Isso permite manter um histórico próprio de ticks
-    independente do histórico do broker.
+    Inicia captura contínua de ticks em background se MTCLI_SYMBOL estiver definido.
     """
 
-    global _tick_engine
+    global _tick_engines
 
-    if _tick_engine:
+    if _tick_engines:
         return
 
-    symbol = os.getenv("MTCLI_SYMBOL")
+    symbols = os.getenv("MTCLI_SYMBOL")
 
-    if not symbol:
+    if not symbols:
         logger.info(
             "Captura automática de ticks desativada (MTCLI_SYMBOL não definido)."
         )
         return
 
-    logger.info("Iniciando captura contínua de ticks para %s", symbol)
+    if isinstance(symbols, str):
+        symbols = [symbols]
+
+    logger.info("Iniciando captura contínua de ticks para %s", symbols)
 
     try:
-
-        # CORREÇÃO PRINCIPAL
-        _tick_engine = ensure_tick_engine([symbol])
+        for symbol in symbols:
+            engine = ensure_tick_engine(symbol)
+            _tick_engines.append(engine)
+            # pode rodar em thread se quiser background
+            import threading
+            t = threading.Thread(target=engine.start, daemon=True)
+            t.start()
 
         logger.info("Captura de ticks iniciada em background.")
 
@@ -95,7 +77,6 @@ mt.add_command(ticks)
 mt.add_command(backfill, name="fill")
 
 loaded_plugins = load_plugins(mt)
-
 logger.info("Plugins carregados: %s", loaded_plugins)
 
 
@@ -110,7 +91,6 @@ def list_plugins():
         return
 
     click.echo("Plugins carregados:\n")
-
     for name in loaded_plugins:
         click.echo(f"  {name}")
 

@@ -1,26 +1,7 @@
 """
 BackfillEngine
 
-Carrega ticks históricos do MetaTrader5 de forma determinística
-utilizando paginação por janelas de tempo.
-
-Vantagens sobre copy_ticks_from():
-
-• evita duplicação
-• evita buracos de ticks
-• não entra em loop
-• desempenho previsível
-• seguro para reexecução (idempotente)
-
-Arquitetura:
-
-MT5
- ↓
-BackfillEngine
- ↓
-TickBus
- ↓
-Subscribers (TickWriter, plugins, etc)
+Carrega ticks históricos do MetaTrader5.
 """
 
 import datetime
@@ -33,18 +14,14 @@ logger = setup_logger(__name__)
 
 
 class BackfillEngine:
-    """
-    Engine responsável pelo carregamento histórico de ticks.
-    """
 
     WINDOW_MINUTES = 10
 
     def __init__(self, symbol, tick_bus, repository):
 
         self.symbol = symbol
-        self.tick_bus = tick_bus
+        self.raw_tick_bus = tick_bus
         self.repository = repository
-
         self.last_time_msc = None
 
     # ---------------------------------------------------------
@@ -116,10 +93,6 @@ class BackfillEngine:
                     start = chunk_end
                     continue
 
-                # ---------------------------------------------
-                # filtro extra de segurança
-                # ---------------------------------------------
-
                 if self.last_time_msc:
 
                     mask = ticks["time_msc"] > self.last_time_msc
@@ -130,19 +103,16 @@ class BackfillEngine:
                         start = chunk_end
                         continue
 
-                # ---------------------------------------------
-                # publica ticks
-                # ---------------------------------------------
+                self.raw_tick_bus.publish_many(ticks)
 
-                self.tick_bus.publish_many(ticks)
-
-                last_msc = int(ticks["time_msc"][-1])
+                last_msc = int(ticks[-1]["time_msc"])
 
                 if last_msc == self.last_time_msc:
 
                     logger.warning(
                         "Proteção de loop ativada — encerrando backfill"
                     )
+
                     break
 
                 self.last_time_msc = last_msc

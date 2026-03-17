@@ -1,28 +1,37 @@
 """
 Comando CLI: backfill
 
-Responsável por carregar histórico de ticks do MetaTrader5
-para o banco SQLite do mtcli utilizando o BackfillEngine.
+Carrega histórico de ticks do MetaTrader5
+para o banco SQLite do mtcli utilizando o BackfillEngine
+com filtro de trade ticks.
 
 Fluxo:
 
 BackfillEngine
-      ↓
-TickBus
-      ↓
-TickWriter
-      ↓
+      ->
+raw_tick_bus
+      ->
+TradeTickFilter
+      ->
+trade_tick_bus
+      ->
+TickWriter / plugins
+      ->
 TickRepository
-      ↓
+      ->
 SQLite
 """
 
 import click
 
-from mtcli.marketdata.backfill import BackfillEngine
+from mtcli.logger import setup_logger
 from mtcli.marketdata.tick_bus import TickBus
 from mtcli.marketdata.tick_repository import TickRepository
 from mtcli.marketdata.tick_writer import TickWriter
+from mtcli.marketdata.trade_tick_filter import TradeTickFilter
+from mtcli.marketdata.backfill_engine import BackfillEngine
+
+logger = setup_logger(__name__)
 
 
 @click.command()
@@ -31,40 +40,31 @@ from mtcli.marketdata.tick_writer import TickWriter
     "--days",
     default=5,
     show_default=True,
-    help="Número de dias de histórico a carregar caso não exista histórico local.",
 )
 def backfill(symbol: str, days: int):
-    """
-    Executa backfill histórico de ticks.
 
-    Este comando baixa ticks históricos diretamente do MetaTrader5
-    e os grava no banco local SQLite do mtcli.
-
-    O processo é incremental:
-
-    - se já existirem ticks no banco, o backfill continua do último tick
-    - caso contrário, carrega o número de dias definido em --days
-
-    Examples
-    --------
-
-    Carregar 5 dias:
-
-        mt fill WINJ26
-
-    Carregar 30 dias:
-
-        mt fill WINJ26 --days 30
-    """
-
-    bus = TickBus()
+    raw_tick_bus = TickBus()
+    trade_tick_bus = TickBus()
 
     repo = TickRepository()
 
+    raw_tick_bus.subscribe(
+        TradeTickFilter(trade_tick_bus)
+    )
+
     writer = TickWriter(symbol, repo)
 
-    bus.subscribe(writer)
+    trade_tick_bus.subscribe(writer)
 
-    engine = BackfillEngine(symbol, bus, repo)
+    engine = BackfillEngine(
+        symbol,
+        raw_tick_bus,
+        repo,
+    )
 
     engine.run(days)
+
+    logger.info(
+        "Backfill concluído (%s) — trade ticks gravados",
+        symbol,
+    )
