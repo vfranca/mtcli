@@ -34,6 +34,7 @@ classifiers = [
 dependencies = [
     "click (>=8.2.1,<9.0.0)",
     "metatrader5 (>=5.0.5260,<6.0.0)",
+    "tzdata (>=2025.3,<2026.0)",
 ]
 
 [project.urls]
