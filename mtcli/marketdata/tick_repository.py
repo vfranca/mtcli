@@ -16,12 +16,13 @@ preço_real = preço_armazenado / PRICE_SCALE
 
 import MetaTrader5 as mt5
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from mtcli.logger import setup_logger
 from mtcli.database import get_connection, backup_database
 from .tick_cache import TickCache
 from mtcli.mt5_context import mt5_conexao
+from mtcli.utils.time import now_utc
 
 logger = setup_logger(__name__)
 
@@ -54,12 +55,15 @@ class TickRepository:
 
         total_inserted = 0
 
-        end = datetime.now()
+        end = now_utc()
 
         last_msc = self._get_last_tick_msc(symbol)
 
         if last_msc:
-            start = datetime.fromtimestamp((last_msc + 1) * 0.001)
+            start = datetime.fromtimestamp(
+                (last_msc + 1) * 0.001,
+                tz=timezone.utc
+            )
             logger.debug("Continuando sync a partir de %s", start)
         else:
             start = end - timedelta(days=days_back)
@@ -286,7 +290,7 @@ class TickRepository:
 
     def _daily_backup(self):
 
-        today = datetime.now().date()
+        today = now_utc().date()
 
         if self.last_backup_day != today:
 
@@ -305,14 +309,13 @@ class TickRepository:
         if self.TICK_RETENTION_DAYS <= 0:
             return
 
-        today = datetime.now().date()
+        today = now_utc().date()
 
         if self.last_purge_day == today:
             return
 
         cutoff = int(
-            (datetime.now() - timedelta(days=self.TICK_RETENTION_DAYS)).timestamp()
-            * 1000
+            (now_utc() - timedelta(days=self.TICK_RETENTION_DAYS)).timestamp() * 1000
         )
 
         logger.info("Executando purge de ticks antigos")

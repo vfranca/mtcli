@@ -6,10 +6,12 @@ e publica no raw TickBus.
 """
 
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import MetaTrader5 as mt5
 
 from mtcli.logger import setup_logger
+from mtcli.utils.time import now_utc
+
 
 logger = setup_logger(__name__)
 
@@ -26,8 +28,8 @@ class TickEngine:
 
     def _initial_sync(self):
         """Busca ticks recentes para evitar gaps na inicialização."""
-        start = datetime.now() - timedelta(minutes=5)
-        end = datetime.now()
+        start = now_utc() - timedelta(minutes=5)
+        end = now_utc()
 
         logger.info("TickEngine initial sync (%s)", self.symbol)
         ticks = mt5.copy_ticks_range(self.symbol, start, end, mt5.COPY_TICKS_ALL)
@@ -49,9 +51,12 @@ class TickEngine:
         while self.running:
             try:
                 if self.last_time_msc is None:
-                    from_time = datetime.now() - timedelta(seconds=10)
+                    from_time = now_utc() - timedelta(seconds=10)
                 else:
-                    from_time = datetime.fromtimestamp((self.last_time_msc + 1) / 1000)
+                    from_time = datetime.fromtimestamp(
+                            (self.last_time_msc + 1) / 1000,
+                            tz=timezone.utc
+                    )
 
                 ticks = mt5.copy_ticks_from(self.symbol, from_time, 1000, mt5.COPY_TICKS_ALL)
 
