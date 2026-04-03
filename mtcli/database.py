@@ -75,6 +75,7 @@ def get_connection():
     conn.execute("PRAGMA journal_size_limit=67108864")
     conn.execute("PRAGMA wal_autocheckpoint=5000")
     conn.execute("PRAGMA foreign_keys=ON")
+    conn.execute("PRAGMA busy_timeout=5000")  # 🔥 novo
 
     log.debug("PRAGMAs aplicadas com sucesso.")
 
