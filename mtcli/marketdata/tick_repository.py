@@ -18,11 +18,11 @@ import MetaTrader5 as mt5
 
 from datetime import datetime, timedelta, timezone
 
-from mtcli.logger import setup_logger
-from mtcli.database import get_connection, backup_database
+from ..logger import setup_logger
+from ..database import get_connection, backup_database
 from .tick_cache import TickCache
-from mtcli.mt5_context import mt5_conexao
-from mtcli.utils.time import now_utc
+from ..mt5_context import mt5_conexao
+from ..utils.time import now_utc
 
 logger = setup_logger(__name__)
 
@@ -132,7 +132,6 @@ class TickRepository:
     def insert_ticks(self, symbol, ticks):
 
         if ticks is None or len(ticks) == 0:
-            logger.debug("Nenhum tick recebido para inserção (%s)", symbol)
             return 0
 
         logger.debug(
@@ -147,9 +146,9 @@ class TickRepository:
             (
                 symbol,
                 int(t["time_msc"]),
-                int(t["bid"] * scale),
-                int(t["ask"] * scale),
-                int(t["last"] * scale),
+                int(round(t["bid"] * scale)),
+                int(round(t["ask"] * scale)),
+                int(round(t["last"] * scale)),
                 int(t["volume"]),
                 int(t["flags"]),
             )
@@ -159,30 +158,14 @@ class TickRepository:
         cursor = self.conn.executemany(
             """
             INSERT OR IGNORE INTO ticks(
-                symbol,
-                time_msc,
-                bid,
-                ask,
-                last,
-                volume,
-                flags
+                symbol,time_msc,bid,ask,last,volume,flags
             )
             VALUES (?,?,?,?,?,?,?)
             """,
             data,
         )
 
-        self.conn.commit()
-
-        inserted = cursor.rowcount
-
-        logger.debug(
-            "SQLite insert result: %d rows (%s)",
-            inserted,
-            symbol
-        )
-
-        return inserted
+        return cursor.rowcount
 
     # =====================================================
     # CONSULTAS
