@@ -1,25 +1,28 @@
 """
 Comando CLI: backfill
 
-Carrega histórico de ticks do MetaTrader5
-para o banco SQLite do mtcli utilizando o BackfillEngine
-com filtro de trade ticks.
+Responsável por carregar ticks históricos do MetaTrader5
+para o banco SQLite utilizando um pipeline event-driven.
 
 Fluxo:
 
 BackfillEngine
-      ->
-raw_tick_bus
-      ->
-TradeTickFilter
-      ->
-trade_tick_bus
-      ->
-TickWriter / plugins
-      ->
-TickRepository
-      ->
-SQLite
+    -> Raw TickBus (assíncrono)
+    -> TradeTickFilter
+    -> Trade TickBus (assíncrono)
+    -> TickWriter (batch + fila + thread)
+    -> TickRepository
+    -> SQLite
+
+IMPORTANTE:
+
+Diferente do modelo síncrono, este pipeline é assíncrono.
+Por isso, ao final do backfill é necessário aguardar o
+esvaziamento das filas e flush final do writer para garantir
+consistência dos dados.
+
+Uso:
+    mt backfill WIN$N --days 5
 """
 
 import click
@@ -36,12 +39,18 @@ logger = setup_logger(__name__)
 
 @click.command()
 @click.argument("symbol")
-@click.option(
-    "--days",
-    default=5,
-    show_default=True,
-)
+@click.option("--days", default=5, show_default=True)
 def backfill(symbol: str, days: int):
+    """
+    Executa backfill de ticks para um símbolo.
+
+    Parameters
+    ----------
+    symbol : str
+        Ativo a ser carregado (ex: WIN$N)
+    days : int
+        Quantidade de dias retroativos
+    """
 
     raw_tick_bus = TickBus()
     trade_tick_bus = TickBus()
@@ -64,7 +73,14 @@ def backfill(symbol: str, days: int):
 
     engine.run(days)
 
+    # 🔥 CRÍTICO: garantir consistência
+    logger.info("Aguardando flush final do pipeline...")
+
+    writer.flush()
+    writer.stop()
+    writer.join()
+
     logger.info(
-        "Backfill concluído (%s) — trade ticks gravados",
+        "Backfill concluído (%s) — dados persistidos com sucesso",
         symbol,
     )

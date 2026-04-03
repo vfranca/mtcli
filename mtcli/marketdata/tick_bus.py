@@ -1,41 +1,50 @@
 """
 TickBus
 
-Event Bus simples para distribuição de ticks.
+Event bus assíncrono baseado em fila.
+
+Responsável por desacoplar produção e consumo de ticks.
 """
 
-from mtcli.logger import setup_logger
+from queue import Queue, Full
+import threading
+
+from ..logger import setup_logger
 
 logger = setup_logger(__name__)
 
 
 class TickBus:
-    """
-    Event bus simples para distribuição de ticks.
-    """
 
-    def __init__(self):
+    def __init__(self, maxsize=10000):
 
         self.subscribers = []
+        self.queue = Queue(maxsize=maxsize)
 
-    # ---------------------------------------------------------
+        self.worker = threading.Thread(
+            target=self._loop,
+            daemon=True
+        )
+        self.worker.start()
 
     def subscribe(self, handler):
-
+        """Registra subscriber."""
         self.subscribers.append(handler)
 
-        name = getattr(handler, "__qualname__", handler.__class__.__name__)
-
-        logger.debug("Subscriber registrado: %s", name)
-
-    # ---------------------------------------------------------
-
     def publish_many(self, ticks):
+        """Publica ticks na fila."""
+        try:
+            self.queue.put_nowait(ticks)
+        except Full:
+            logger.warning("TickBus cheio")
 
-        for handler in self.subscribers:
+    def _loop(self):
+        """Loop de dispatch."""
+        while True:
+            ticks = self.queue.get()
 
-            try:
-                handler(ticks)
-
-            except Exception:
-                logger.exception("Erro em subscriber")
+            for handler in self.subscribers:
+                try:
+                    handler(ticks)
+                except Exception:
+                    logger.exception("Erro subscriber")

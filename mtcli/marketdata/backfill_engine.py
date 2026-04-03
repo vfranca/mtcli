@@ -1,7 +1,24 @@
 """
 BackfillEngine
 
-Carrega ticks históricos do MetaTrader5.
+Responsável por carregar ticks históricos do MetaTrader5
+em modo batch (janela temporal) e publicá-los no pipeline
+event-driven.
+
+Características:
+
+- Processamento incremental (retoma do último tick)
+- Janela deslizante (WINDOW_MINUTES)
+- Proteção contra loops
+- Publicação desacoplada via TickBus
+
+IMPORTANTE:
+
+Este engine NÃO garante persistência direta.
+Ele apenas publica eventos.
+
+A responsabilidade de gravação é dos subscribers
+(ex: TickWriter).
 """
 
 import datetime
@@ -14,6 +31,18 @@ logger = setup_logger(__name__)
 
 
 class BackfillEngine:
+    """
+    Engine de backfill de ticks históricos.
+
+    Parameters
+    ----------
+    symbol : str
+        Símbolo a ser carregado
+    tick_bus : TickBus
+        Event bus onde os ticks serão publicados
+    repository : TickRepository
+        Repositório usado para controle incremental
+    """
 
     WINDOW_MINUTES = 10
 
@@ -27,6 +56,14 @@ class BackfillEngine:
     # ---------------------------------------------------------
 
     def _get_last_stored(self):
+        """
+        Recupera o último tick persistido no banco.
+
+        Returns
+        -------
+        int | None
+            Timestamp em milissegundos do último tick
+        """
 
         last = self.repository._get_last_tick_msc(self.symbol)
 
@@ -41,9 +78,17 @@ class BackfillEngine:
     # ---------------------------------------------------------
 
     def run(self, days=5):
+        """
+        Executa o backfill histórico.
+
+        Parameters
+        ----------
+        days : int
+            Quantidade de dias retroativos
+        """
 
         logger.info(
-            "Backfill iniciado (%s) — até %s dias de histórico",
+            "Backfill iniciado (%s) — até %s dias",
             self.symbol,
             days,
         )
@@ -57,15 +102,12 @@ class BackfillEngine:
             last = self._get_last_stored()
 
             if last:
-
                 self.last_time_msc = last
 
                 start = datetime.datetime.fromtimestamp(
                     (last + 1) / 1000
                 )
-
             else:
-
                 start = now - datetime.timedelta(days=days)
 
             end = now
@@ -89,7 +131,6 @@ class BackfillEngine:
                 )
 
                 if ticks is None or len(ticks) == 0:
-
                     start = chunk_end
                     continue
 
@@ -99,7 +140,6 @@ class BackfillEngine:
                     ticks = ticks[mask]
 
                     if len(ticks) == 0:
-
                         start = chunk_end
                         continue
 
@@ -110,9 +150,8 @@ class BackfillEngine:
                 if last_msc == self.last_time_msc:
 
                     logger.warning(
-                        "Proteção de loop ativada — encerrando backfill"
+                        "Proteção de loop ativada — encerrando"
                     )
-
                     break
 
                 self.last_time_msc = last_msc
@@ -122,7 +161,7 @@ class BackfillEngine:
                 if total_loaded % 1_000_000 < len(ticks):
 
                     logger.info(
-                        "Backfill progresso (%s): %s ticks",
+                        "Backfill (%s): %s ticks",
                         self.symbol,
                         f"{total_loaded:,}",
                     )
@@ -130,7 +169,7 @@ class BackfillEngine:
                 start = chunk_end
 
         logger.info(
-            "Backfill concluído (%s) — %s ticks processados",
+            "Backfill finalizado (%s) — %s ticks publicados",
             self.symbol,
             f"{total_loaded:,}",
         )
