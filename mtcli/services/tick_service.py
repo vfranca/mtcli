@@ -1,56 +1,55 @@
 """
 Tick Service
 
-Inicializa pipeline completo de ticks.
+Responsável por montar e gerenciar a pipeline completa de ticks
+para cada símbolo.
+
+Garante:
+
+- Instância única por símbolo
+- Encadeamento correto dos componentes
 """
 
-from mtcli.logger import setup_logger
-from mtcli.marketdata.tick_engine import TickEngine
-from mtcli.marketdata.tick_bus import TickBus
-from mtcli.marketdata.tick_writer import TickWriter
-from mtcli.marketdata.tick_repository import TickRepository
-from mtcli.marketdata.trade_tick_filter import TradeTickFilter
-
-logger = setup_logger(__name__)
+from ..marketdata.tick_engine import TickEngine
+from ..marketdata.tick_bus import TickBus
+from ..marketdata.tick_writer import TickWriter
+from ..marketdata.tick_repository import TickRepository
+from ..marketdata.trade_tick_filter import TradeTickFilter
 
 _engine_instances = {}
 
 
-def ensure_tick_engine(symbol: str) -> TickEngine:
+def ensure_tick_engine(symbol):
+    """
+    Retorna (ou cria) um TickEngine para o símbolo.
 
-    global _engine_instances
+    Parameters
+    ----------
+    symbol : str
+
+    Returns
+    -------
+    TickEngine
+    """
 
     if symbol in _engine_instances:
-
-        logger.debug("TickEngine para %s já inicializado", symbol)
-
         return _engine_instances[symbol]
 
-    logger.info("Inicializando TickEngine para %s", symbol)
+    repo = TickRepository()
 
-    repository = TickRepository()
+    raw_bus = TickBus()
+    trade_bus = TickBus()
 
-    raw_tick_bus = TickBus()
-    trade_tick_bus = TickBus()
+    raw_bus.subscribe(TradeTickFilter(trade_bus))
 
-    raw_tick_bus.subscribe(
-        TradeTickFilter(trade_tick_bus)
-    )
+    writer = TickWriter(symbol, repo)
+    trade_bus.subscribe(writer)
 
-    writer = TickWriter(symbol, repository)
+    engine = TickEngine(symbol, raw_bus)
 
-    trade_tick_bus.subscribe(writer)
-
-    engine = TickEngine(
-        symbol=symbol,
-        tick_bus=raw_tick_bus,
-    )
+    # 🔥 vínculo para shutdown
+    engine.writer = writer
 
     _engine_instances[symbol] = engine
-
-    logger.info(
-        "TickEngine inicializado com TradeTickFilter para %s",
-        symbol,
-    )
 
     return engine
