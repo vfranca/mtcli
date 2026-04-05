@@ -72,7 +72,6 @@ def mt(ctx):
 
 mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
-mt.add_command(doctor, name="dr")
 mt.add_command(ticks)
 mt.add_command(backfill, name="fill")
 
