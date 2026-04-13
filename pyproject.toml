@@ -34,6 +34,7 @@ classifiers = [
 dependencies = [
     "click (>=8.2.1,<9.0.0)",
     "metatrader5 (>=5.0.5260,<6.0.0)",
+    "tzdata (>=2025.3,<2026.0)",
 ]
 
 [project.urls]
@@ -45,6 +46,7 @@ issues = "https://github.com/vfranca/mtcli/issues"
 [project.scripts]
 mtcli = "mtcli.cli:mt"
 mt = "mtcli.cli:mt"
+mtdev = "mtcli.cli_dev:cli"
 
 [project.entry-points."mtcli.plugins"]
 internals = "mtcli.plugin:register"

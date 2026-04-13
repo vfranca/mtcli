@@ -1,14 +1,11 @@
 """
 CLI principal do mtcli.
-
-Este módulo define o grupo principal `mt`
-e inicializa o carregamento de plugins.
 """
 
+import os
 import click
-
-from mtcli.plugin_loader import load_plugins
-from mtcli.logger import setup_logger
+from .plugin_loader import load_plugins
+from .logger import setup_logger
 
 from .commands.bars import bars
 from .commands.doctor import doctor
@@ -16,44 +13,29 @@ from .commands.doctor import doctor
 logger = setup_logger(__name__)
 
 
-@click.group(context_settings={"max_content_width": 120})
+@click.group(context_settings={"max_content_width": 120}, invoke_without_command=True)
 @click.version_option(package_name="mtcli")
-def mt():
+@click.pass_context
+def mt(ctx):
     """
     CLI principal do mtcli.
-
-    Exibe gráficos e informações de mercado
-    em formato textual compatível com leitores de tela.
     """
-    pass
 
+    if ctx.invoked_subcommand is None:
+        click.echo(ctx.get_help())
 
-# ---------------------------------------------------------
-# Comandos internos
-# ---------------------------------------------------------
 
 mt.add_command(doctor, name="doctor")
 mt.add_command(bars, name="bars")
-mt.add_command(doctor, name="dr")
-
-
-# ---------------------------------------------------------
-# Carregamento de plugins
-# ---------------------------------------------------------
 
 loaded_plugins = load_plugins(mt)
-
 logger.info("Plugins carregados: %s", loaded_plugins)
 
-
-# ---------------------------------------------------------
-# Comando utilitário: listar plugins
-# ---------------------------------------------------------
 
 @mt.command(name="plugins")
 def list_plugins():
     """
-    Lista os plugins atualmente carregados no mtcli.
+    Lista os plugins carregados no mtcli.
     """
 
     if not loaded_plugins:
@@ -61,14 +43,9 @@ def list_plugins():
         return
 
     click.echo("Plugins carregados:\n")
-
     for name in loaded_plugins:
         click.echo(f"  {name}")
 
-
-# ---------------------------------------------------------
-# Entry point
-# ---------------------------------------------------------
 
 if __name__ == "__main__":
     mt()

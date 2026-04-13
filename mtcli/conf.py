@@ -306,3 +306,48 @@ DATA_SOURCE = conf.get_data_source()
 # ---------------------------------------------------------
 
 _INITIAL_CSV_PATH = conf.get_csv_path()
+
+# ---------------------------------------------------------
+# Gestão de processos (daemon / serviços mtcli)
+# ---------------------------------------------------------
+#
+# Define caminhos para arquivos de controle utilizados por
+# processos em background (ex: ticks, risco, etc.).
+#
+# Conceitos:
+#
+# PID FILE
+#     Armazena o PID do processo ativo.
+#     Usado para garantir instância única e controle externo.
+#
+# STOP FILE
+#     Arquivo sentinela para sinalizar encerramento gracioso.
+#     O processo monitora sua existência periodicamente.
+#
+# HEARTBEAT FILE
+#     Atualizado continuamente pelo processo.
+#     Permite verificar se o serviço está vivo ou travado.
+#
+# Diretório base:
+#     %APPDATA%/mtcli/run (Windows)
+#     ~/.mtcli/run        (fallback)
+#
+# Cada serviço define seus próprios arquivos (ex: ticks, risco).
+#
+# Exemplo:
+#     ticks.pid
+#     ticks.stop
+#     ticks.heartbeat
+#
+
+RUN_DIR = os.path.join(
+    os.getenv("APPDATA", os.path.expanduser("~")),
+    "mtcli",
+    "run"
+)
+
+os.makedirs(RUN_DIR, exist_ok=True)
+
+PID_FILE = os.path.join(RUN_DIR, "risco.pid")
+STOP_FILE = os.path.join(RUN_DIR, "risco.stop")
+HEARTBEAT_FILE = os.path.join(RUN_DIR, "risco.heartbeat")
