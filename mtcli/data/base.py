@@ -1,9 +1,20 @@
-"""Módulo da classe base para coleta de dados."""
+"""
+Módulo da classe base para coleta de dados.
+"""
+
+from typing import List
 
 
 class DataSourceBase:
-    """Interface base para fontes de dados."""
+    """
+    Interface base para fontes de dados.
 
-    def get_data(self, symbol, period, count=100):
-        """Retorna dados em uma lista de listas."""
+    Todas as implementações devem retornar:
+
+        List[
+            [timestamp, open, high, low, close, tick_volume, real_volume]
+        ]
+    """
+
+    def get_data(self, symbol: str, period: str, count: int = 100) -> List[list]:
         raise NotImplementedError("O método get_data deve ser implementado.")
