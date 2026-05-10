@@ -1,3 +1,11 @@
+"""
+DTO de dados de mercado (Rate).
+
+Responsável por:
+- padronizar entrada de diferentes fontes (MT5, CSV, replay)
+- converter dados brutos em estrutura tipada
+"""
+
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any

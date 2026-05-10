@@ -1,4 +1,4 @@
-from mtcli.views.base import BaseView
+from .base_view import BaseView
 
 
 class RateView(BaseView):

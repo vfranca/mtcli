@@ -1,19 +1,25 @@
-from mtcli.views.min import MinView
-from mtcli.views.full import FullView
-from mtcli.views.range import RangeView
-from mtcli.views.rate import RateView
-from mtcli.views.volume import VolumeView
+"""
+Factory de views para renderização de barras.
+
+Permite desacoplar controller da implementação concreta de visualização.
+"""
+
+from .full_view import FullView
+from .hl_view import HlView
+from .range_view import RangeView
+from .rate_view import RateView
+from .volume_view import VolumeView
 
 
 class ViewFactory:
     """Factory de views para o comando bars."""
 
     MAP = {
-        "min": MinView,
         "full": FullView,
+        "hl": HlView,
         "range": RangeView,
         "volume": VolumeView,
-        "rate": RateView,
+        "ohlc": RateView,
     }
 
     @classmethod
