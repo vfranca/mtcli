@@ -2,9 +2,9 @@
 
 import click
 
-from mtcli.models.rates_model import RatesModel
+from mtcli.models_legado.rates_model import RatesModel
 
-from .conf import TIMEFRAMES
+# from .conf import TIMEFRAMES
 from .models import model_average_volume
 
 

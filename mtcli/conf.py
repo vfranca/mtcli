@@ -79,7 +79,8 @@ config = conf.config
 DATA_SOURCE_NAME = conf.get("dados", default="mt5").lower()
 
 SYMBOL = conf.get("symbol", default="WIN$N")
-DIGITOS = conf.get("digitos", cast=int, default=2)
+DIGITOS = conf.get("digits", cast=int, default=0)
+DIGITS = conf.get("digits", cast=int, default=0)
 PERIOD = conf.get("period", default="D1")
 TIMEFRAME = conf.get("period", default="M5")
 BARS = conf.get("count", cast=int, default=999)

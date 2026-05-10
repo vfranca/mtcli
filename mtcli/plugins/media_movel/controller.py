@@ -1,5 +1,5 @@
 from mtcli.logger import setup_logger
-from mtcli.models.rates_model import RatesModel
+from mtcli.models_legado.rates_model import RatesModel
 
 from .model import MediaMovelModel
 

@@ -1,7 +1,7 @@
 """Módulo da classe model para range médio."""
 
 from mtcli.conf import DIGITOS
-from mtcli.models.bar_model import BarModel
+from mtcli.models_legado.bar_model import BarModel
 
 
 class AverageRangeModel:
