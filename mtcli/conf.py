@@ -79,34 +79,34 @@ config = conf.config
 DATA_SOURCE_NAME = conf.get("dados", default="mt5").lower()
 
 SYMBOL = conf.get("symbol", default="WIN$N")
-DIGITOS = conf.get("digits", cast=int, default=0)
 DIGITS = conf.get("digits", cast=int, default=0)
-PERIOD = conf.get("period", default="D1")
-TIMEFRAME = conf.get("period", default="M5")
-BARS = conf.get("count", cast=int, default=999)
-VIEW = conf.get("view", default="ch")
+TIMEFRAME = conf.get("timeframe", default="M5")
+MAX_BARS = conf.get("max_bars", cast=int, default=20)
+VIEW = conf.get("view", default="hl")
 VOLUME_TYPE = conf.get("volume", default="tick")
 DATE = conf.get("date", default="")
-
-DOJI = conf.get("lateral", default="doji")
-BULL = conf.get("bull", default="verde")
-BEAR = conf.get("bear", default="vermelho")
-
-BULLBREAKOUT = conf.get("bullbreakout", default="c")
-BEARBREAKOUT = conf.get("bearbreakout", default="v")
 
 PERCENTUAL_BREAKOUT = conf.get("percentual_breakout", cast=int, default=50)
 PERCENTUAL_DOJI = conf.get("percentual_doji", cast=int, default=10)
 
-UPBAR = conf.get("upbar", default="asc")
-DOWNBAR = conf.get("downbar", default="desc")
-INSIDEBAR = conf.get("insidebar", default="ib")
-OUTSIDEBAR = conf.get("outsidebar", default="ob")
-
-TOPTAIL = conf.get("toptail", default="top")
-BOTTOMTAIL = conf.get("bottomtail", default="bottom")
-
 _INITIAL_CSV_PATH = conf.get_csv_path()
+
+# ----------------------------
+# LABELS
+# ----------------------------
+
+DOJI = conf.get("lateral", default="doji")
+UP = conf.get("up", default="verde")
+DOWN = conf.get("down", default="vermelho")
+
+ASCENDING = conf.get("ascending", default="asc")
+DESCENDING = conf.get("descending", default="desc")
+INTERNAL = conf.get("internal", default="int")
+EXTERNAL = conf.get("external", default="ext")
+UNKNOW = conf.get("unknow", default="unk")
+
+UPPER_WICK = conf.get("upper_wick", default="upper")
+LOWER_WICK = conf.get("lower_wick", default="lower")
 
 # ----------------------------
 # PROCESSOS

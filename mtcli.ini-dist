@@ -1,18 +1,20 @@
 [DEFAULT]
-digitos = 2
-lateral = doji
-alta = verde
-baixa = vermelho
-rompimento_alta = c
-rompimento_baixa = v
-percentual_rompimento = 50
+dados = mt5
+symbol = WINM26
+digits = 0
+timeframe = m5
+max_bars = 20
+view = full
+volume_type = real
+percentual_breakout = 50
 percentual_doji = 10
-up_bar = asc
-down_bar = desc
-inside_bar = ib
-outside_bar = ob
-sombra_superior = top
-sombra_inferior = bottom
-dados = csv
 mt5_pasta = C:\Users\Administrador\cli\mtcli\tests\fixtures\Files
 
+up = verde
+down = vermelho
+dogi = dogi
+ascending = asc
+descending = desc
+internal = int
+external = ext
+unknow = unk

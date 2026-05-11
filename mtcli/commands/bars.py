@@ -17,7 +17,7 @@ from ..conf import (
     DATA_SOURCE_NAME,
     SYMBOL,
     TIMEFRAME,
-    BARS,
+    MAX_BARS,
     VIEW,
     VOLUME_TYPE,
 )
@@ -27,7 +27,7 @@ from ..data.factory import create_data_source
 @click.command()
 @click.option("--symbol", "-s", default=SYMBOL, show_default=True, help="Código do ativo (ex: WINM26)")
 @click.option("--timeframe", "-t", "period", default=TIMEFRAME, show_default=True, help="Timeframe (ex: M1, M5, D1)")
-@click.option("--bars", "-b", "count", default=BARS, show_default=True, help="Quantidade de barras")
+@click.option("--max-bars", "-mb", "count", default=MAX_BARS, show_default=True, help="Quantidade de barras")
 @click.option("--view", "-v", default=VIEW, show_default=True, help="Formato da view (hl_view, full_view, etc)")
 @click.option("--date", "-d", default=None, show_default=True, help="Filtrar pregão (YYYY-MM-DD)")
 @click.option("--numerator", "-n", is_flag=True, show_default=True, help="Numerar barras")
