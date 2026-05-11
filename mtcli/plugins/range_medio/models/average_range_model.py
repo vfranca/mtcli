@@ -1,6 +1,6 @@
 """Módulo da classe model para range médio."""
 
-from mtcli.conf import DIGITOS
+from ..conf import DIGITOS
 from mtcli.models_legado.bar_model import BarModel
 
 
