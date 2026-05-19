@@ -73,7 +73,7 @@ env = [
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = "^1.6.1"
-pymdown-extensions = "^10.16.1"
+pymdown-extensions = "^10.21.3"
 
 
 [tool.poetry.group.dev.dependencies]
