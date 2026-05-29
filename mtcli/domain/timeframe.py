@@ -21,8 +21,11 @@ class Timeframe(Enum):
     M3 = ("m3", mt5.TIMEFRAME_M3)
     M4 = ("m4", mt5.TIMEFRAME_M4)
     M5 = ("m5", mt5.TIMEFRAME_M5)
+    M6 = ("m6", mt5.TIMEFRAME_M6)
     M10 = ("m10", mt5.TIMEFRAME_M10)
+    M12 = ("m12", mt5.TIMEFRAME_M12)
     M15 = ("m15", mt5.TIMEFRAME_M15)
+    M20 = ("m20", mt5.TIMEFRAME_M20)
     M30 = ("m30", mt5.TIMEFRAME_M30)
 
     H1 = ("h1", mt5.TIMEFRAME_H1)
@@ -57,11 +60,23 @@ class Timeframe(Enum):
         # Aliases humanos
         aliases = {
             "1m": "m1",
+            "2m": "m2",
+            "3m": "m3",
+            "4m": "m4",
             "5m": "m5",
+            "6m": "m6",
+            "10m": "m10",
+            "12m": "m12",
             "15m": "m15",
+            "20m": "m20",
             "30m": "m30",
             "1h": "h1",
+            "2h": "h2",
+            "3h": "h3",
             "4h": "h4",
+            "6h": "h6",
+            "8h": "h8",
+            "12h": "h12",
             "1d": "d1",
             "1w": "w1",
             "1mo": "mn1",
