@@ -1,0 +1,39 @@
+# Hooks de qualidade do projeto mtcli.
+
+minimum_prek_version = "0.5.7"
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "ruff-check"
+name = "Ruff check"
+entry = "poetry run ruff check"
+language = "system"
+types = ["python"]
+
+[[repos.hooks]]
+id = "ruff-format"
+name = "Ruff format"
+entry = "poetry run ruff format --check"
+language = "system"
+types = ["python"]
+
+[[repos.hooks]]
+id = "pytest"
+name = "pytest"
+entry = "poetry run pytest"
+language = "system"
+always_run = true
+pass_filenames = false
+
+[[repos]]
+repo = "builtin"
+
+[[repos.hooks]]
+id = "no-commit-to-branch"
+name = "Bloqueia commits em main e master"
+args = [
+    "--branch", "main",
+    "--branch", "master",
+]
