@@ -90,8 +90,7 @@ class Timeframe(Enum):
                 return tf
 
         raise ValueError(
-            f"Timeframe inválido: {value}. "
-            f"Use: {', '.join(cls.valid_labels())}"
+            f"Timeframe inválido: {value}. Use: {', '.join(cls.valid_labels())}"
         )
 
     @classmethod

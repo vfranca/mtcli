@@ -70,22 +70,18 @@ def register_plugin(cli: click.Group, ep: EntryPoint) -> None:
     plugin = ep.load()
 
     if callable(plugin) and not isinstance(plugin, click.Command):
-
         plugin(cli)
 
         logger.info("Plugin registrado via register(): %s", ep.name)
 
     elif isinstance(plugin, click.Command):
-
         cli.add_command(plugin)
 
         logger.info("Plugin registrado como comando: %s", ep.name)
 
     else:
-
         raise TypeError(
-            f"Plugin '{ep.name}' inválido: "
-            "não é click.Command nem função register(cli)"
+            f"Plugin '{ep.name}' inválido: não é click.Command nem função register(cli)"
         )
 
 
@@ -98,20 +94,17 @@ def load_plugins(cli: click.Group) -> List[str]:
     seen = set()
 
     for ep in discover_plugins():
-
         if ep.name in seen:
             logger.warning("Plugin duplicado ignorado: %s", ep.name)
             continue
 
         try:
-
             register_plugin(cli, ep)
 
             seen.add(ep.name)
             loaded.append(ep.name)
 
         except Exception as exc:
-
             logger.exception(
                 "Falha ao carregar plugin '%s': %s",
                 ep.name,

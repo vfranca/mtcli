@@ -11,7 +11,9 @@ log = setup_logger()
 
 
 @contextmanager
-def mt5_conexao(login: int | None = None, password: str | None = None, server: str | None = None):
+def mt5_conexao(
+    login: int | None = None, password: str | None = None, server: str | None = None
+):
     """
     Context manager para conexão direta com o MetaTrader 5.
 

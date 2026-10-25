@@ -40,6 +40,7 @@ LOG_DIR.mkdir(parents=True, exist_ok=True)
 # RESOLUÇÃO DO ARQUIVO
 # ==========================================================
 
+
 def _resolve_log_file() -> Path:
     log_name = os.getenv("MTCLI_LOG_NAME", "mtcli")
     per_process = os.getenv("MTCLI_LOG_PER_PROCESS")
@@ -63,6 +64,7 @@ _MTCLI_LOGGER_CONFIGURED = False
 # ==========================================================
 # SETUP
 # ==========================================================
+
 
 def setup_logger(name: str = "mtcli") -> logging.Logger:
     """
@@ -89,7 +91,6 @@ def setup_logger(name: str = "mtcli") -> logging.Logger:
     # ------------------------------------------------------
 
     if not _MTCLI_LOGGER_CONFIGURED:
-
         root.setLevel(logging.DEBUG)
 
         formatter = logging.Formatter(

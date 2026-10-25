@@ -30,13 +30,9 @@ def conf_cmd(section):
         return
 
     for opt in options:
-
         value = conf.get(opt.name, section=opt.section, default=opt.default)
 
-        click.echo(
-            f"{opt.section}.{opt.name} = {value} "
-            f"(default={opt.default})"
-        )
+        click.echo(f"{opt.section}.{opt.name} = {value} (default={opt.default})")
 
         if opt.description:
             click.echo(f"  {opt.description}")

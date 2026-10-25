@@ -95,7 +95,6 @@ class Config:
         value = os.getenv(env_key) or os.getenv(key.upper())
 
         if value is None:
-
             if self.config.has_option(section, key):
                 value = self.config.get(section, key)
 
@@ -106,9 +105,7 @@ class Config:
                 value = default
 
         if cast and value is not None:
-
             try:
-
                 if cast is bool:
                     value = str(value).lower() in ("1", "true", "yes")
 
@@ -167,7 +164,6 @@ class Config:
             return os.path.normpath(path) + os.sep
 
         with mt5_conexao():
-
             info = mt5.terminal_info()
 
             if info is None:
@@ -241,9 +237,7 @@ _HOURS = [12, 8, 6, 4, 3, 2, 1]
 _MINUTES = [30, 20, 15, 12, 10, 6, 5, 4, 3, 2, 1]
 
 TIMEFRAMES = (
-    ["mn1", "w1", "d1"]
-    + [f"h{i}" for i in _HOURS]
-    + [f"m{i}" for i in _MINUTES]
+    ["mn1", "w1", "d1"] + [f"h{i}" for i in _HOURS] + [f"m{i}" for i in _MINUTES]
 )
 
 # ---------------------------------------------------------
@@ -341,11 +335,7 @@ _INITIAL_CSV_PATH = conf.get_csv_path()
 #     ticks.heartbeat
 #
 
-RUN_DIR = os.path.join(
-    os.getenv("APPDATA", os.path.expanduser("~")),
-    "mtcli",
-    "run"
-)
+RUN_DIR = os.path.join(os.getenv("APPDATA", os.path.expanduser("~")), "mtcli", "run")
 
 os.makedirs(RUN_DIR, exist_ok=True)
 

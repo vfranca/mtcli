@@ -80,13 +80,11 @@ def doctor():
     # ---------------------------------------------------------
 
     try:
-
         mtcli_version = version("mtcli")
 
         click.echo(f"{status(True)} mtcli: {mtcli_version}")
 
     except PackageNotFoundError:
-
         click.echo(f"{status(False)} mtcli não encontrado")
 
         logger.error("Pacote mtcli não encontrado no ambiente.")
@@ -102,13 +100,11 @@ def doctor():
     # ---------------------------------------------------------
 
     try:
-
         path = conf.get_csv_path()
 
         click.echo(f"{status(True)} CSV path: {path}")
 
     except Exception as exc:
-
         click.echo(f"{status(False)} CSV path inválido")
 
         logger.exception("Erro ao obter CSV path: %s", exc)
@@ -118,21 +114,16 @@ def doctor():
     # ---------------------------------------------------------
 
     try:
-
         with mt5_conexao():
-
             info = mt5.terminal_info()
 
             if info:
-
                 click.echo(f"{status(True)} MetaTrader5 conectado")
 
             else:
-
                 click.echo(f"{status(False)} MetaTrader5 não respondeu")
 
     except Exception as exc:
-
         click.echo(f"{status(False)} Falha na conexão MT5")
 
         logger.exception("Erro ao conectar MT5: %s", exc)
@@ -144,11 +135,9 @@ def doctor():
     click.echo("\nPlugins:")
 
     try:
-
         entry_points = list(discover_plugins())
 
         if not entry_points:
-
             click.echo("   Nenhum plugin encontrado.")
             return
 
@@ -156,11 +145,9 @@ def doctor():
         fail_count = 0
 
         for ep in entry_points:
-
             plugin_name = ep.name
 
             try:
-
                 ep.load()
 
                 click.echo(f"   OK  {plugin_name}")
@@ -168,7 +155,6 @@ def doctor():
                 ok_count += 1
 
             except Exception as exc:
-
                 click.echo(f"   ERRO {plugin_name}")
 
                 click.echo(f"       {exc}")
@@ -181,12 +167,9 @@ def doctor():
 
                 fail_count += 1
 
-        click.echo(
-            f"\nResumo: {ok_count} plugins OK | {fail_count} com erro"
-        )
+        click.echo(f"\nResumo: {ok_count} plugins OK | {fail_count} com erro")
 
     except Exception as exc:
-
         click.echo(f"{status(False)} Falha ao descobrir plugins")
 
         logger.exception("Erro ao descobrir plugins: %s", exc)

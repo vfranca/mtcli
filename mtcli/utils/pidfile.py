@@ -4,14 +4,11 @@ import signal
 
 
 class PidFile:
-
     def __init__(self, path: str):
         self.path = path
 
     def create(self):
-
         if os.path.exists(self.path):
-
             with open(self.path) as f:
                 pid = int(f.read().strip())
 
@@ -27,7 +24,6 @@ class PidFile:
             os.remove(self.path)
 
     def _pid_running(self, pid: int):
-
         try:
             os.kill(pid, 0)
             return True

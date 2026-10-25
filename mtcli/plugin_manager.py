@@ -9,7 +9,6 @@ class PluginManager:
     """
 
     def __init__(self):
-
         self.commands = []
         self.data_sources = {}
         self.chart_types = {}

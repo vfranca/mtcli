@@ -6,6 +6,7 @@ from mtcli.plugins import media_movel
 from mtcli.plugins import range_medio
 from mtcli.plugins import volume_medio
 
+
 def register(cli):
     """
     Registra todos os plugins internos no CLI principal.
